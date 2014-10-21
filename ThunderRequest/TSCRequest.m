@@ -30,14 +30,12 @@
 
 - (void)start
 {
-//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     _request = [self PC_request];
     
     _connection = [[NSURLConnection alloc] initWithRequest:_request delegate:self startImmediately:NO];
     [_connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     [_connection start];
     
-    NSLog(@"\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@",_request.URL, _request.HTTPMethod, _request.allHTTPHeaderFields, [[NSString alloc] initWithData:_request.HTTPBody encoding:NSUTF8StringEncoding    ]);
 }
 
 - (void)cancel
