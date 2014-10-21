@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ A TSCRequestResponse object is used for definining authentication credentials to be used for all requests on a TSCRequestController
+ */
 @interface TSCRequestCredential : NSObject
 
 /**
