@@ -149,13 +149,18 @@ typedef void (^TSCRequestCompletionHandler)(TSCRequestResponse *response, NSErro
 
 /**
  @abstract Provides a string representation of the `TSCRequestHTTPMethod` type.
+ @param HTTPMethod The `TSCRequestHTTPMethod` to convert to a string
  */
 - (NSString *)PC_HTTPMethodDescription:(TSCRequestHTTPMethod)HTTPMethod;
 
 @end
 
+/** A class extension to provide MD5 functionality on NSString */
 @interface NSString (MD5)
 
+/**
+ @abstract The MD5String representation of an NSString
+ */
 - (NSString *)MD5String;
 
 @end
