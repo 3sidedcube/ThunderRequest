@@ -49,7 +49,16 @@
 /// @name Initialization
 ///---------------------------------------------------------------------------------------
 
+/**
+ Initializes the request controller.
+ @param baseURL The `NSURL` to initialise the controller with. This URL will be used as the base for all requests.
+ */
 - (id)initWithBaseURL:(NSURL *)baseURL;
+
+/**
+ Initializes the request controller.
+ @param baseAddress The `NSString` to initialise the controller with. This will be converted to a NSURL and be used as the base for all requests.
+ */
 - (id)initWithBaseAddress:(NSString *)baseAddress;
 
 ///---------------------------------------------------------------------------------------
