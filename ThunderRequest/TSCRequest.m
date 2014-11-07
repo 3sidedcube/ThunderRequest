@@ -35,7 +35,6 @@
     _connection = [[NSURLConnection alloc] initWithRequest:_request delegate:self startImmediately:NO];
     [_connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     [_connection start];
-    
 }
 
 - (void)cancel
@@ -157,7 +156,6 @@
             
             [postBody appendData:[NSData dataWithData:(NSData *)object]];
             [postBody appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            
         }
     }
     
@@ -266,7 +264,6 @@
         
         NSString *paramFormatKey = [absoluteAddress substringWithRange:match.range];
         [paramKeys addObject:paramFormatKey];
-        
     }
     
     for (NSString *paramFormatKey in paramKeys) {
@@ -294,10 +291,6 @@
     self.response = [[TSCRequestResponse alloc] initWithResponse:URLResponse data:nil];
     self.response.status = httpResponse.statusCode;
     
-//    if (self.response.status == 204) {
-//        [self connectionDidFinishLoading:_connection];
-//    }
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestDidReceiveResponse" object:self];
 }
 
@@ -306,6 +299,7 @@
 	if (!_recievedData) {
 		_recievedData = [[NSMutableData alloc] initWithCapacity:2048];
 	}
+    
 	[_recievedData appendData:data];
 }
 
@@ -322,15 +316,12 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     self.completion(nil, error);
     self.isFinished = YES;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
-//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    
     if ([challenge previousFailureCount] == 0) {
         [[challenge sender] useCredential:self.requestCredential.credential forAuthenticationChallenge:challenge];
     }
