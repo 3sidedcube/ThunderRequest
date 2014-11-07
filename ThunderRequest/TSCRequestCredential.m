@@ -12,9 +12,7 @@
 
 - (id)initWithUsername:(NSString *)username password:(NSString *)password
 {
-    self = [super init];
-    
-    if (self) {
+    if (self = [super init]) {
         self.username = username;
         self.password = password;
         self.credential = [NSURLCredential credentialWithUser:self.username password:self.password persistence:NSURLCredentialPersistenceNone];
@@ -25,9 +23,7 @@
 
 - (id)initWithAuthorizationToken:(NSString *)authorizationToken
 {
-    self = [super init];
-    
-    if (self) {
+    if (self = [super init]) {
         self.authorizationToken = authorizationToken;
     }
     
@@ -43,12 +39,14 @@
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
-    if((self = [super init])) {
+    
+    if ((self = [super init])) {
         self.username = [decoder decodeObjectForKey:@"username"];
         self.password = [decoder decodeObjectForKey:@"password"];
         self.authorizationToken = [decoder decodeObjectForKey:@"authtoken"];
         self.credential = [decoder decodeObjectForKey:@"credential"];
     }
+    
     return self;
 }
 
