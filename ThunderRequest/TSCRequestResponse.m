@@ -12,9 +12,7 @@
 
 - (id)initWithResponse:(NSHTTPURLResponse *)response data:(NSData *)data
 {
-    self = [super init];
-    
-    if (self) {
+    if (self = [super init]) {
         self.data = data;
         self.HTTPResponse = response;
     }
