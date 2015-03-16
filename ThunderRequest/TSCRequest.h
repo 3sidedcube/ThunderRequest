@@ -1,4 +1,4 @@
-//
+,//
 //  PCRequest.h
 //  Demo
 //
@@ -31,7 +31,11 @@ typedef NS_ENUM(NSInteger, TSCRequestContentType) {
     /** Used to encode the request body into JSON */
     TSCRequestContentTypeJSON = 2,
     /** Used to encode the request body multipart form data */
-    TSCRequestContentTypeMultipartFormData = 3
+    TSCRequestContentTypeMultipartFormData = 3,
+    /** Used to encode the request body to a .PNG file */
+    TSCRequestContentTypeImagePNG = 4,
+    /** Used to encode the request body to a .JPEG file */
+    TSCRequestContentTypeImageJPEG = 5
 };
 
 typedef void (^TSCRequestCompletionHandler)(TSCRequestResponse *response, NSError *error);
@@ -56,7 +60,7 @@ typedef void (^TSCRequestCompletionHandler)(TSCRequestResponse *response, NSErro
  @abstract The path to be appended to the `baseURL`.
  @discussion This should exclude the first "/" as this is appended automatically. E.g. "users/list.php"
  */
-@property (nonatomic, strong) NSString *path;
+@property (nonatomic, copy) NSString *path;
 
 /**
  @abstract The dictionary to be used to replace keys in the `path` component.
