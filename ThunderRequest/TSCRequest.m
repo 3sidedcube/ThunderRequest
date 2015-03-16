@@ -8,6 +8,7 @@
 
 #import "TSCRequest.h"
 #import <CommonCrypto/CommonDigest.h>
+@import UIKit;
 
 @interface TSCRequest()
 {
@@ -35,6 +36,10 @@
     _connection = [[NSURLConnection alloc] initWithRequest:_request delegate:self startImmediately:NO];
     [_connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     [_connection start];
+    
+#if DEBUG
+    NSLog(@"\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@",_request.URL, _request.HTTPMethod, _request.allHTTPHeaderFields, [[NSString alloc] initWithData:_request.HTTPBody encoding:NSUTF8StringEncoding    ]);
+#endif
 }
 
 - (void)cancel
@@ -48,7 +53,7 @@
     
     [request setHTTPMethod:[self PC_HTTPMethodDescription:self.HTTPMethod]];
     [request setHTTPBody:[self PC_HTTPBodyWithDictionary:self.bodyParams encodeType:self.contentType]];
-
+    
     for (NSString *key in [self.requestHeaders allKeys]) {
         [request setValue:self.requestHeaders[key] forHTTPHeaderField:key];
     }
@@ -100,8 +105,11 @@
             
             return @"application/json";
         case TSCRequestContentTypeMultipartFormData:
-            
             return [NSString stringWithFormat:@"multipart/form-data; boundary=%@", [self PC_multipartFormDataBoundaryWithDictionary:self.bodyParams]];
+        case TSCRequestContentTypeImageJPEG:
+            return @"image/jpeg";
+        case TSCRequestContentTypeImagePNG:
+            return @"image/png";
         default:
             
             return @"";
@@ -123,7 +131,51 @@
         return [self PC_multipartFormDataWithDictionary:dictionary];
     }
     
+    if (encodeType == TSCRequestContentTypeImagePNG) {
+        return [self PC_pngDataWithDictionary:dictionary];
+    }
+    
+    if (encodeType == TSCRequestContentTypeImageJPEG) {
+        return [self PC_jpgDataWithDictionary:dictionary];
+    }
+    
     return nil;
+}
+
+- (NSData *)PC_pngDataWithDictionary:(NSDictionary *)dictionary
+{
+    __block NSData *data;
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        
+        if ([obj isKindOfClass:[NSData class]]) {
+            
+            data = obj;
+            *stop = true;
+        } else if ([obj isKindOfClass:[UIImage class]]) {
+            
+            data = UIImagePNGRepresentation(obj);
+            *stop = true;
+        }
+    }];
+    return data;
+}
+
+- (NSData *)PC_jpgDataWithDictionary:(NSDictionary *)dictionary
+{
+    __block NSData *data;
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        
+        if ([obj isKindOfClass:[NSData class]]) {
+            
+            data = obj;
+            *stop = true;
+        } else if ([obj isKindOfClass:[UIImage class]]) {
+            
+            data = UIImageJPEGRepresentation(obj, 2.0);
+            *stop = true;
+        }
+    }];
+    return data;
 }
 
 - (NSData *)PC_jsonDataWithDictionary:(NSDictionary *)dictionary
@@ -156,6 +208,7 @@
             
             [postBody appendData:[NSData dataWithData:(NSData *)object]];
             [postBody appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+            
         }
     }
     
@@ -244,7 +297,7 @@
         
         NSString *replacementValue = [self PC_stringValueWithObject:[self.URLParamDictionary objectForKey:paramKey]];
         NSString *paramFormatKey = [NSString stringWithFormat:@"(:%@)", paramKey];
-    
+        
         [absoluteAddress replaceOccurrencesOfString:paramFormatKey withString:replacementValue options:NSCaseInsensitiveSearch range:NSMakeRange(0, absoluteAddress.length)];
     }
     
@@ -259,19 +312,20 @@
     NSArray *matches = [regularExpression matchesInString:absoluteAddress options:0 range:NSMakeRange(0, absoluteAddress.length)];
     
     NSMutableArray *paramKeys = [NSMutableArray array];
-
+    
     for (NSTextCheckingResult *match in matches) {
         
         NSString *paramFormatKey = [absoluteAddress substringWithRange:match.range];
         [paramKeys addObject:paramFormatKey];
+        
     }
     
     for (NSString *paramFormatKey in paramKeys) {
         
         NSString *valueKey = [[paramFormatKey stringByReplacingOccurrencesOfString:@"(:" withString:@""] stringByReplacingOccurrencesOfString:@")" withString:@""];
-    
+        
         NSString *replacementValue = [self PC_stringValueWithObject:[object valueForKey:valueKey]];
-                
+        
         [absoluteAddress replaceOccurrencesOfString:paramFormatKey withString:replacementValue options:NSCaseInsensitiveSearch range:NSMakeRange(0, absoluteAddress.length)];
     }
     
@@ -284,7 +338,7 @@
 {
     if ([response respondsToSelector:@selector(statusCode)]) {
         URLResponse = (NSHTTPURLResponse *)response;
-	}
+    }
     
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
     
@@ -296,11 +350,10 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-	if (!_recievedData) {
-		_recievedData = [[NSMutableData alloc] initWithCapacity:2048];
-	}
-    
-	[_recievedData appendData:data];
+    if (!_recievedData) {
+        _recievedData = [[NSMutableData alloc] initWithCapacity:2048];
+    }
+    [_recievedData appendData:data];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
@@ -312,6 +365,8 @@
     if (self.response.status < 200 || self.response.status >= 299) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestServerError" object:self];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestDidFinish" object:self];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
@@ -321,7 +376,7 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-{
+{    
     if ([challenge previousFailureCount] == 0) {
         [[challenge sender] useCredential:self.requestCredential.credential forAuthenticationChallenge:challenge];
     }
