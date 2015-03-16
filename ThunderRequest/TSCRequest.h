@@ -38,6 +38,9 @@ typedef NS_ENUM(NSInteger, TSCRequestContentType) {
     TSCRequestContentTypeImageJPEG = 5
 };
 
+/**
+ A block to be used when a `TSCRequest` completes
+ */
 typedef void (^TSCRequestCompletionHandler)(TSCRequestResponse *response, NSError *error);
 
 /**
