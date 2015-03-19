@@ -87,7 +87,7 @@ typedef NS_ENUM(NSInteger, TSCResponseStatus) {
 /**
  @abstract An `NSString` representation of the data returned from the server
  */
-@property (nonatomic, weak) NSString *string;
+@property (nonatomic, copy) NSString *string;
 
 /**
  @abstract An `NSObject` representation of the data returned from the server

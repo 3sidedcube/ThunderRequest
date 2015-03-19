@@ -16,17 +16,17 @@
 /**
  @abstract The username to be sent by `TSCRequestController` for authentication requests
  */
-@property (nonatomic, strong) NSString *username;
+@property (nonatomic, copy) NSString *username;
 
 /**
  @abstract The password to be sent by `TSCRequestController` for authentication requests
  */
-@property (nonatomic, strong) NSString *password;
+@property (nonatomic, copy) NSString *password;
 
 /**
  @abstract The authorisation token to be sent by `TSCRequestController` for authentication requests
  */
-@property (nonatomic, strong) NSString *authorizationToken;
+@property (nonatomic, copy) NSString *authorizationToken;
 
 /**
  @abstract The credential created using the `username`, `password` and/or `authorizationToken` credentials

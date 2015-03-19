@@ -21,13 +21,16 @@
 
 - (id)initWithBaseURL:(NSURL *)baseURL
 {
-    if (self = [super init]) {
+    self = [super init];
+    
+    if (self) {
         
         self.sharedBaseURL = baseURL;
         self.sharedContentType = TSCRequestContentTypeJSON;
         self.sharedRequestHeaders = [NSMutableDictionary dictionary];
-        
+                
         _requestQueue = [[NSOperationQueue alloc] init];
+        
     }
     
     return self;

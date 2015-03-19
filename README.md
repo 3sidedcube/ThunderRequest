@@ -10,7 +10,8 @@ Setting up your app to use Thunder Request is a simple and quick process. For no
 + Add ThunderRequest.framework to your Embedded Binaries.
 + Wherever you want to use ThunderTable use `@import ThunderRequest` or `import ThunderRequest` if you're using swift.
 
-#Code Examples
+#Code level documentation
+Documentation is available for the entire library in AppleDoc format. This is available in the framework itself or in the [Hosted Version](http://3sidedcube.github.io/iOS-ThunderRequest/)
 
 #License
 See [LICENSE.md](LICENSE.md)
