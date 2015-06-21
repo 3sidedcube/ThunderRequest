@@ -8,6 +8,7 @@
 
 import UIKit
 import XCTest
+import ThunderRequest
 
 class ThunderRequestTests: XCTestCase {
     
@@ -21,16 +22,13 @@ class ThunderRequestTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
-        }
+    func testCreateControllerWithURL() {
+        
+        let requestBaseURL = NSURL(string: "https://www.google.com")
+        
+        let requestController = TSCRequestController(baseURL: requestBaseURL!)
+        
+        XCTAssertNotNil(requestController, "A request Controller failed to be initialised with a URL")
     }
     
 }
