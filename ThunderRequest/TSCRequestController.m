@@ -7,31 +7,49 @@
 
 @interface TSCRequestController () <NSURLSessionDownloadDelegate, NSURLSessionTaskDelegate>
 
-/// The operation queue that contains all requests added to a default session
+/**
+ @abstract The operation queue that contains all requests added to a default session
+ */
 @property (nonatomic, strong) NSOperationQueue *defaultRequestQueue;
 
-/// The operation queue that contains all requests added to a background session
+/**
+ @abstract The operation queue that contains all requests added to a background session
+ */
 @property (nonatomic, strong) NSOperationQueue *backgroundRequestQueue;
 
-/// The operation queue that contains all requests added to a ephemeral session
+/**
+ @abstract The operation queue that contains all requests added to a ephemeral session
+ */
 @property (nonatomic, strong) NSOperationQueue *ephemeralRequestQueue;
 
-/// Uses persistent disk-based cache and stores credentials in the user's keychain
+/**
+ @abstract Uses persistent disk-based cache and stores credentials in the user's keychain
+ */
 @property (nonatomic, strong) NSURLSession *defaultSession;
 
-/// Does not store any data on the disk; all caches, credential stores, and so on are kept in the RAM and tied to the session. Thus, when invalidated, they are purged automatically.
+/**
+ @abstract Does not store any data on the disk; all caches, credential stores, and so on are kept in the RAM and tied to the session. Thus, when invalidated, they are purged automatically.
+ */
 @property (nonatomic, strong) NSURLSession *backgroundSession;
 
-/// Similar to a default session, except that a seperate process handles all data transfers. Background sessions have some additional limitations.
+/**
+ @abstract Similar to a default session, except that a seperate process handles all data transfers. Background sessions have some additional limitations.
+ */
 @property (nonatomic, strong) NSURLSession *ephemeralSession;
 
-/// Defines whether or not verbose logging of requests and responses is enabled. Defined by setting "TSCThunderRequestVerboseLogging" boolean in info plsit
+/**
+ @abstract Defines whether or not verbose logging of requests and responses is enabled. Defined by setting "TSCThunderRequestVerboseLogging" boolean in info plsit
+ */
 @property (nonatomic) BOOL verboseLogging;
 
-/// Defines whether or not verbose logging should include the full response body or a truncated version
+/**
+ @abstract Defines whether or not verbose logging should include the full response body or a truncated version
+ */
 @property (nonatomic) BOOL truncatesVerboseResponse;
 
-/// A dictionary of completion handlers to be called when file downloads are complete
+/**
+ @abstract A dictionary of completion handlers to be called when file downloads are complete
+ */
 @property (nonatomic, strong) NSMutableDictionary *completionHandlerDictionary;
 
 @end
