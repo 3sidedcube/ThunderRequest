@@ -11,6 +11,7 @@
 #import "TSCRequestDefines.h"
 
 @class TSCRequestResponse;
+@class TSCRequestCredential;
 
 /**
  A `TSCRequestController` object lets you asynchronously load the contents of a URL with a block returned upon completion.
@@ -41,6 +42,11 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress);
  @abstract The shared request headers for all requests routed through the controller
  */
 @property (nonatomic, strong, nonnull) NSMutableDictionary *sharedRequestHeaders;
+
+/**
+ @abstract The shared request credentials to be used for authorization with any authentication challenge
+ */
+@property (nonatomic, strong, nullable) TSCRequestCredential *sharedRequestCredential;
 
 ///---------------------------------------------------------------------------------------
 /// @name Initialization
