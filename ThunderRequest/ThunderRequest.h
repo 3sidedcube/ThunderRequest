@@ -19,11 +19,11 @@ FOUNDATION_EXPORT const unsigned char ThunderRequestVersionString[];
 #import <ThunderRequest/TSCRequest.h>
 #import <ThunderRequest/TSCRequestCredential.h>
 #import <ThunderRequest/TSCRequestResponse.h>
-#import "TSCRequestDefines.h"
-#import "TSCRequestController.h"
-#import "TSCRequest.h"
-#import "TSCRequestResponse.h"
-#import "UIAlertController+TSCErrorRecoveryAttempter.h"
-#import "TSCErrorRecoveryAttempter.h"
+#import <ThunderRequest/TSCRequestDefines.h>
+#import <ThunderRequest/TSCRequestController.h>
+#import <ThunderRequest/TSCRequest.h>
+#import <ThunderRequest/TSCRequestResponse.h>
+#import <ThunderRequest/UIAlertController+TSCErrorRecoveryAttempter.h>
+#import <ThunderRequest/TSCErrorRecoveryAttempter.h>
 
 
