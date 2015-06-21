@@ -1,16 +1,8 @@
-//
-//  PCRequestCredential.m
-//  Demo
-//
-//  Created by Phillip Caudell on 12/06/2013.
-//  Copyright (c) 2013 Phillip Caudell. All rights reserved.
-//
-
 #import "TSCRequestCredential.h"
 
 @implementation TSCRequestCredential
 
-- (id)initWithUsername:(NSString *)username password:(NSString *)password
+- (instancetype)initWithUsername:(NSString *)username password:(NSString *)password
 {
     self = [super init];
     
@@ -24,7 +16,7 @@
     return self;
 }
 
-- (id)initWithAuthorizationToken:(NSString *)authorizationToken
+- (instancetype)initWithAuthorizationToken:(NSString *)authorizationToken
 {
     self = [super init];
     

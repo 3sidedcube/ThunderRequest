@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49B77E0E1B36A7BF001475CE /* TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49B77E0F1B36A7BF001475CE /* TSCErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E071B36A7BF001475CE /* TSCErrorRecoveryAttempter.m */; };
+		49B77E101B36A7BF001475CE /* TSCErrorRecoveryOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49B77E111B36A7BF001475CE /* TSCErrorRecoveryOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E091B36A7BF001475CE /* TSCErrorRecoveryOption.m */; };
+		49B77E121B36A7BF001475CE /* TSCRequestDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49B77E141B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0C1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49B77E151B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E0D1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m */; };
 		C2E5089219C835A300350F00 /* ThunderRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089119C835A300350F00 /* ThunderRequestTests.swift */; };
 		C2E508A419C835D900350F00 /* ThunderRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089B19C835D900350F00 /* ThunderRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2E508A519C835D900350F00 /* TSCRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089C19C835D900350F00 /* TSCRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -20,6 +27,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCErrorRecoveryAttempter.h; sourceTree = "<group>"; };
+		49B77E071B36A7BF001475CE /* TSCErrorRecoveryAttempter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCErrorRecoveryAttempter.m; sourceTree = "<group>"; };
+		49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCErrorRecoveryOption.h; sourceTree = "<group>"; };
+		49B77E091B36A7BF001475CE /* TSCErrorRecoveryOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCErrorRecoveryOption.m; sourceTree = "<group>"; };
+		49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCRequestDefines.h; sourceTree = "<group>"; };
+		49B77E0C1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+TSCErrorRecoveryAttempter.h"; sourceTree = "<group>"; };
+		49B77E0D1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+TSCErrorRecoveryAttempter.m"; sourceTree = "<group>"; };
 		C2E5088219C835A300350F00 /* ThunderRequest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2E5088619C835A300350F00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2E5088D19C835A300350F00 /* ThunderRequestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThunderRequestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +98,13 @@
 				C2E508A119C835D900350F00 /* TSCRequestCredential.m */,
 				C2E508A219C835D900350F00 /* TSCRequestResponse.h */,
 				C2E508A319C835D900350F00 /* TSCRequestResponse.m */,
+				49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */,
+				49B77E071B36A7BF001475CE /* TSCErrorRecoveryAttempter.m */,
+				49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */,
+				49B77E091B36A7BF001475CE /* TSCErrorRecoveryOption.m */,
+				49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */,
+				49B77E0C1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h */,
+				49B77E0D1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m */,
 				C2E5088519C835A300350F00 /* Supporting Files */,
 			);
 			path = ThunderRequest;
@@ -123,6 +144,10 @@
 			files = (
 				C2E508AB19C835D900350F00 /* TSCRequestResponse.h in Headers */,
 				C2E508A419C835D900350F00 /* ThunderRequest.h in Headers */,
+				49B77E141B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h in Headers */,
+				49B77E101B36A7BF001475CE /* TSCErrorRecoveryOption.h in Headers */,
+				49B77E121B36A7BF001475CE /* TSCRequestDefines.h in Headers */,
+				49B77E0E1B36A7BF001475CE /* TSCErrorRecoveryAttempter.h in Headers */,
 				C2E508A719C835D900350F00 /* TSCRequestController.h in Headers */,
 				C2E508A919C835D900350F00 /* TSCRequestCredential.h in Headers */,
 				C2E508A519C835D900350F00 /* TSCRequest.h in Headers */,
@@ -173,7 +198,8 @@
 		C2E5087919C835A300350F00 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = threesidedcube;
 				TargetAttributes = {
 					C2E5088119C835A300350F00 = {
@@ -225,9 +251,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2E508AA19C835D900350F00 /* TSCRequestCredential.m in Sources */,
+				49B77E151B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m in Sources */,
 				C2E508AC19C835D900350F00 /* TSCRequestResponse.m in Sources */,
 				C2E508A819C835D900350F00 /* TSCRequestController.m in Sources */,
+				49B77E0F1B36A7BF001475CE /* TSCErrorRecoveryAttempter.m in Sources */,
 				C2E508A619C835D900350F00 /* TSCRequest.m in Sources */,
+				49B77E111B36A7BF001475CE /* TSCErrorRecoveryOption.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +292,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -340,6 +370,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.threesidedcube.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -357,6 +388,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.threesidedcube.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -375,6 +407,7 @@
 				);
 				INFOPLIST_FILE = ThunderRequestTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.threesidedcube.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -388,6 +421,7 @@
 				);
 				INFOPLIST_FILE = ThunderRequestTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.threesidedcube.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

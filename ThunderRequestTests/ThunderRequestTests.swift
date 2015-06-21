@@ -8,6 +8,7 @@
 
 import UIKit
 import XCTest
+import ThunderRequest
 
 class ThunderRequestTests: XCTestCase {
     
@@ -21,16 +22,38 @@ class ThunderRequestTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+    func testCreateControllerWithURL() {
+        
+        let requestBaseURL = NSURL(string: "https://www.google.com")
+        
+        let requestController = TSCRequestController(baseURL: requestBaseURL!)
+        
+        XCTAssertNotNil(requestController, "A request Controller failed to be initialised with a URL")
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
+    func testGetRequest() {
+        
+        let requestBaseURL = NSURL(string: "https://www.google.com")
+        
+        let requestController = TSCRequestController(baseURL: requestBaseURL!)
+        
+        let finishExpectation = expectationWithDescription("Get completed")
+        
+        requestController.get("search") { (response, error) -> Void in
+            
+            XCTAssertNil(error, "Request controller returned error for GET request")
+            XCTAssertNotNil(response, "Request Controller did not return a resposne object")
+            
+            finishExpectation.fulfill()
+            
         }
+        
+        waitForExpectationsWithTimeout(35) { (error) -> Void in
+            
+            XCTAssertNil(error, "The GET request timed out")
+            
+        }
+        
     }
     
 }

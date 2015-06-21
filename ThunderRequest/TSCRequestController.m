@@ -1,179 +1,340 @@
-//
-//  PCRequestController.m
-//  Demo
-//
-//  Created by Phillip Caudell on 12/06/2013.
-//  Copyright (c) 2013 Phillip Caudell. All rights reserved.
-//
-
 #import "TSCRequestController.h"
+#import "TSCRequest.h"
+#import "TSCRequestResponse.h"
+#import "TSCErrorRecoveryAttempter.h"
+#import "TSCErrorRecoveryOption.h"
+#import "TSCRequestCredential.h"
 
-@interface TSCRequestController()
-{
-    NSOperationQueue *_requestQueue;
-}
+@interface TSCRequestController () <NSURLSessionDownloadDelegate, NSURLSessionTaskDelegate>
 
-- (TSCRequest *)PC_baseRequest;
+/// The operation queue that contains all requests added to a default session
+@property (nonatomic, strong) NSOperationQueue *defaultRequestQueue;
+
+/// The operation queue that contains all requests added to a background session
+@property (nonatomic, strong) NSOperationQueue *backgroundRequestQueue;
+
+/// The operation queue that contains all requests added to a ephemeral session
+@property (nonatomic, strong) NSOperationQueue *ephemeralRequestQueue;
+
+/// Uses persistent disk-based cache and stores credentials in the user's keychain
+@property (nonatomic, strong) NSURLSession *defaultSession;
+
+/// Does not store any data on the disk; all caches, credential stores, and so on are kept in the RAM and tied to the session. Thus, when invalidated, they are purged automatically.
+@property (nonatomic, strong) NSURLSession *backgroundSession;
+
+/// Similar to a default session, except that a seperate process handles all data transfers. Background sessions have some additional limitations.
+@property (nonatomic, strong) NSURLSession *ephemeralSession;
+
+/// Defines whether or not verbose logging of requests and responses is enabled. Defined by setting "TSCThunderRequestVerboseLogging" boolean in info plsit
+@property (nonatomic) BOOL verboseLogging;
+
+/// Defines whether or not verbose logging should include the full response body or a truncated version
+@property (nonatomic) BOOL truncatesVerboseResponse;
+
+/// A dictionary of completion handlers to be called when file downloads are complete
+@property (nonatomic, strong) NSMutableDictionary *completionHandlerDictionary;
 
 @end
 
 @implementation TSCRequestController
 
-- (id)initWithBaseURL:(NSURL *)baseURL
+- (instancetype)init
 {
     self = [super init];
-    
     if (self) {
         
-        self.sharedBaseURL = baseURL;
-        self.sharedContentType = TSCRequestContentTypeJSON;
+        self.verboseLogging = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestVerboseLogging"] boolValue];
+        self.truncatesVerboseResponse = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestTruncatesVerboseResponse"] boolValue];
+        
+        self.defaultRequestQueue = [NSOperationQueue new];
+        self.backgroundRequestQueue = [NSOperationQueue new];
+        self.ephemeralRequestQueue = [NSOperationQueue new];
+        
+        NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+        NSURLSessionConfiguration *backgroundConfigObject = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"com.threesidedcube.requestkit"];
+        NSURLSessionConfiguration *ephemeralConfigObject = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+        
+        self.defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:self.defaultRequestQueue];
+        self.backgroundSession = [NSURLSession sessionWithConfiguration:backgroundConfigObject delegate:self delegateQueue:self.backgroundRequestQueue];
+        self.ephemeralSession = [NSURLSession sessionWithConfiguration:ephemeralConfigObject delegate:nil delegateQueue:self.ephemeralRequestQueue];
+        
+        self.completionHandlerDictionary = [NSMutableDictionary dictionary];
         self.sharedRequestHeaders = [NSMutableDictionary dictionary];
-                
-        _requestQueue = [[NSOperationQueue alloc] init];
+
         
     }
-    
     return self;
 }
 
-- (id)initWithBaseAddress:(NSString *)baseAddress
+- (nonnull instancetype)initWithBaseURL:(nonnull NSURL *)baseURL
+{
+    self = [self init];
+    if (self) {
+        
+        self.sharedBaseURL = baseURL;
+        
+    }
+    return self;
+}
+
+- (nonnull instancetype)initWithBaseAddress:(nonnull NSString *)baseAddress
 {
     return [self initWithBaseURL:[NSURL URLWithString:baseAddress]];
 }
 
-- (TSCRequest *)PC_baseRequest
-{
-    TSCRequest *request = [[TSCRequest alloc] init];
-    request.baseURL = self.sharedBaseURL;
-    request.contentType = self.sharedContentType;
-    request.requestHeaders = self.sharedRequestHeaders;
-    request.requestCredential = self.sharedRequestCredential;
-    
-    return request;
-}
+#pragma mark - GET Requests
 
-- (void)get:(NSString *)path completion:(TSCRequestCompletionHandler)completion
+- (void)get:(nonnull NSString *)path completion:(nonnull TSCRequestCompletionHandler)completion
 {
     [self get:path withURLParamDictionary:nil completion:completion];
 }
 
-- (void)get:(NSString *)path withURLParamDictionary:(NSDictionary *)URLParamDictionary completion:(TSCRequestCompletionHandler)completion
+- (void)get:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion
 {
-    TSCRequest *request = [self PC_baseRequest];
-    request.HTTPMethod = TSCRequestHTTPMethodGET;
+    TSCRequest *request = [TSCRequest new];
+    request.baseURL = self.sharedBaseURL;
+    request.requestHTTPMethod = TSCRequestHTTPMethodGET;
     request.path = path;
-    request.URLParamDictionary = URLParamDictionary;
-    request.completion = completion;
-    request.isReady = YES;
-    [_requestQueue addOperation:request];
+    request.URLParameterDictionary = URLParamDictionary;
+
+    [self scheduleRequest:request completion:completion];
 }
 
-- (void)get:(NSString *)path withURLParamObject:(NSObject *)URLParamObject completion:(TSCRequestCompletionHandler)completion
-{
-    TSCRequest *request = [self PC_baseRequest];
-    request.HTTPMethod = TSCRequestHTTPMethodGET;
-    request.path = path;
-    request.URLParamObject = URLParamObject;
-    request.completion = completion;
-    request.isReady = YES;
-    [_requestQueue addOperation:request];
-}
+#pragma mark - POST Requests
 
-- (void)post:(NSString *)path bodyParams:(NSDictionary *)bodyParams completion:(TSCRequestCompletionHandler)completion
+- (void)post:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
 {
     [self post:path withURLParamDictionary:nil bodyParams:bodyParams completion:completion];
 }
 
-- (void)post:(NSString *)path withURLParamDictionary:(NSDictionary *)URLParamDictionary bodyParams:(NSDictionary *)bodyParams completion:(TSCRequestCompletionHandler)completion
+- (void)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
 {
-    TSCRequest *request = [self PC_baseRequest];
-    request.HTTPMethod = TSCRequestHTTPMethodPOST;
-    request.path = path;
-    request.URLParamDictionary = URLParamDictionary;
-    request.bodyParams = bodyParams;
-    request.completion = completion;
-    request.isReady = YES;
-    [_requestQueue addOperation:request];
+    [self post:path withURLParamDictionary:URLParamDictionary bodyParams:bodyParams contentType:TSCRequestContentTypeJSON completion:completion];
 }
 
-- (void)post:(NSString *)path withURLParamDictionary:(NSDictionary *)URLParamDictionary bodyParams:(NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(TSCRequestCompletionHandler)completion
+- (void)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion
 {
-    TSCRequest *request = [self PC_baseRequest];
-    request.HTTPMethod = TSCRequestHTTPMethodPOST;
+    TSCRequest *request = [TSCRequest new];
+    request.baseURL = self.sharedBaseURL;
     request.path = path;
-    request.URLParamDictionary = URLParamDictionary;
-    request.bodyParams = bodyParams;
-    request.completion = completion;
+    request.requestHTTPMethod = TSCRequestHTTPMethodPOST;
+    request.bodyParameters = bodyParams;
+    request.URLParameterDictionary = URLParamDictionary;
     request.contentType = contentType;
-    request.isReady = YES;
-    [_requestQueue addOperation:request];
+    
+    [self scheduleRequest:request completion:completion];
 }
 
-- (void)put:(NSString *)path bodyParams:(NSDictionary *)bodyParams completion:(TSCRequestCompletionHandler)completion
+#pragma mark - PUT Requests
+- (void)put:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
 {
     [self put:path withURLParamDictionary:nil bodyParams:bodyParams completion:completion];
 }
 
-- (void)put:(NSString *)path withURLParamDictionary:(NSDictionary *)URLParamDictionary bodyParams:(NSDictionary *)bodyParams completion:(TSCRequestCompletionHandler)completion
+- (void)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
 {
-    TSCRequest *request = [self PC_baseRequest];
-    request.HTTPMethod = TSCRequestHTTPMethodPUT;
-    request.path = path;
-    request.URLParamDictionary = URLParamDictionary;
-    request.bodyParams = bodyParams;
-    request.completion = completion;
-    request.isReady = YES;
-    [_requestQueue addOperation:request];
+    [self put:path withURLParamDictionary:URLParamDictionary bodyParams:bodyParams contentType:TSCRequestContentTypeJSON completion:completion];
 }
 
-- (void)put:(NSString *)path withURLParamObject:(NSDictionary *)URLParamObject bodyParams:(NSDictionary *)bodyParams completion:(TSCRequestCompletionHandler)completion
+- (void)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion
 {
-    TSCRequest *request = [self PC_baseRequest];
-    request.HTTPMethod = TSCRequestHTTPMethodPUT;
+    TSCRequest *request = [TSCRequest new];
+    request.baseURL = self.sharedBaseURL;
     request.path = path;
-    request.URLParamObject = URLParamObject;
-    request.bodyParams = bodyParams;
-    request.completion = completion;
-    request.isReady = YES;
-    [_requestQueue addOperation:request];
+    request.requestHTTPMethod = TSCRequestHTTPMethodPUT;
+    request.bodyParameters = bodyParams;
+    request.URLParameterDictionary = URLParamDictionary;
+    request.contentType = contentType;
+    
+    [self scheduleRequest:request completion:completion];
 }
 
-- (void)delete:(NSString *)path completion:(TSCRequestCompletionHandler)completion
+#pragma mark - DELETE Requests
+
+- (void)delete:(nonnull NSString *)path completion:(nonnull TSCRequestCompletionHandler)completion
 {
     [self delete:path withURLParamDictionary:nil completion:completion];
 }
 
-- (void)delete:(NSString *)path withURLParamDictionary:(NSDictionary *)URLParamDictionary completion:(TSCRequestCompletionHandler)completion
+- (void)delete:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion
 {
-    TSCRequest *request = [self PC_baseRequest];
-    request.HTTPMethod = TSCRequestHTTPMethodDELETE;
+    TSCRequest *request = [TSCRequest new];
+    request.baseURL = self.sharedBaseURL;
+    request.requestHTTPMethod = TSCRequestHTTPMethodDELETE;
     request.path = path;
-    request.URLParamDictionary = URLParamDictionary;
-    request.completion = completion;
-    request.isReady = YES;
-    [_requestQueue addOperation:request];
+    request.URLParameterDictionary = URLParamDictionary;
+    
+    [self scheduleRequest:request completion:completion];
 }
 
-- (void)delete:(NSString *)path withURLParamObject:(NSObject *)URLParamObject completion:(TSCRequestCompletionHandler)completion
+#pragma mark - HEAD Requests
+
+- (void)head:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion
 {
-    TSCRequest *request = [self PC_baseRequest];
-    request.HTTPMethod = TSCRequestHTTPMethodDELETE;
+    TSCRequest *request = [TSCRequest new];
+    request.baseURL = self.sharedBaseURL;
+    request.requestHTTPMethod = TSCRequestHTTPMethodHEAD;
     request.path = path;
-    request.URLParamObject = URLParamObject;
-    request.completion = completion;
-    request.isReady = YES;
-    [_requestQueue addOperation:request];
+    request.URLParameterDictionary = URLParamDictionary;
+    
+    [self scheduleRequest:request completion:completion];
 }
 
-- (void)head:(NSString *)path withURLParamDictionary:(NSDictionary *)URLParamDictionary completion:(TSCRequestCompletionHandler)completion
+#pragma mark - DOWNLOAD/UPLOAD Requests
+
+- (void)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestDownloadCompletionHandler)completion
 {
-    TSCRequest *request = [self PC_baseRequest];
-    request.HTTPMethod = TSCRequestHTTPMethodHEAD;
+    TSCRequest *request = [TSCRequest new];
+    request.baseURL = self.sharedBaseURL;
     request.path = path;
-    request.URLParamDictionary = URLParamDictionary;
-    request.completion = completion;
-    request.isReady = YES;
-    [_requestQueue addOperation:request];
+    request.requestHTTPMethod = TSCRequestHTTPMethodGET;
+    
+    [self scheduleDownloadRequest:request progress:progress completion:completion];
+}
+
+#pragma mark - Request scheduling
+
+- (void)scheduleDownloadRequest:(TSCRequest *)request progress:(TSCRequestProgressHandler)progress completion:(TSCRequestDownloadCompletionHandler)completion
+{
+    [request prepareForDispatch];
+    
+    // Should be using downloadtaskwithrequest but it has a bug which causes it to return nil.
+    NSURLSessionDownloadTask *task = [self.backgroundSession downloadTaskWithURL:request.URL];
+    
+    [self addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
+    
+    [task resume];
+}
+
+- (void)scheduleRequest:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion
+{
+    [request prepareForDispatch];
+    [[self.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        TSCRequestResponse *requestResponse = [[TSCRequestResponse alloc] initWithResponse:response data:data];
+
+        if (error) {
+            
+            TSCErrorRecoveryAttempter *recoveryAttempter = [TSCErrorRecoveryAttempter new];
+            
+            [recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Retry" type:TSCErrorRecoveryOptionTypeRetry handler:^(TSCErrorRecoveryOption *option) {
+                
+                [self scheduleRequest:request completion:completion];
+                
+            }]];
+            
+            [recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Cancel" type:TSCErrorRecoveryOptionTypeCancel handler:nil]];
+            
+            completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
+            
+        } else {
+            
+            completion(requestResponse, error);
+            
+        }
+        
+        
+        //Log
+        if (self.verboseLogging) {
+         
+            if (error) {
+                
+                NSLog(@"Request:%@", request);
+                NSLog(@"\n<ThunderRequest>\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: FAILURE \nError Description: %@",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], error.localizedDescription);
+                
+            } else {
+            
+                NSRange truncatedRange = {0, MIN(requestResponse.string.length, 25)};
+                truncatedRange = [requestResponse.string rangeOfComposedCharacterSequencesForRange:truncatedRange];
+                
+                NSLog(@"\n<ThunderRequest>\nURL:    %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: %li\nResponse Body: %@\n",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], (long)requestResponse.status, self.truncatesVerboseResponse ? [[requestResponse.string substringWithRange:truncatedRange] stringByAppendingString:@"..."] : requestResponse.string);
+                
+            }
+            
+        }
+        
+    }] resume];
+}
+
+#pragma mark - NSURLSession challenge handling
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler
+{
+    if (challenge.previousFailureCount == 0) {
+        completionHandler(NSURLSessionAuthChallengeUseCredential, self.sharedRequestCredential.credential);
+        return;
+    }
+    
+    completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+}
+
+#pragma mark - NSURLSessionDownloadDelegate
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
+{
+    CGFloat progress = (float)((float)totalBytesWritten /(float)totalBytesExpectedToWrite);
+    
+    [self callProgressHandlerForTaskIdentifier:downloadTask.taskIdentifier progress:progress];
+}
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location
+{
+    [self callCompletionHandlerForTaskIdentifier:downloadTask.taskIdentifier downloadedFileURL:location downloadError:nil];
+}
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
+{
+    [self callCompletionHandlerForTaskIdentifier:task.taskIdentifier downloadedFileURL:nil downloadError:error];
+}
+
+#pragma mark - NSURLSessionDownload completion handling
+
+- (void)addCompletionHandler:(TSCRequestDownloadCompletionHandler)handler progressHandler:(TSCRequestProgressHandler)progress forTaskIdentifier:(NSUInteger)identifier
+{
+    NSString *taskIdentifierString = [NSString stringWithFormat:@"%lu-completion", (unsigned long)identifier];
+    NSString *taskProgressIdentifierString = [NSString stringWithFormat:@"%lu-progress", (unsigned long)identifier];
+    
+    if ([self.completionHandlerDictionary objectForKey:taskIdentifierString]) {
+        NSLog(@"Error: Got multiple handlers for a single task identifier.  This should not happen.\n");
+    }
+    
+    [self.completionHandlerDictionary setObject:handler forKey:taskIdentifierString];
+    
+    if ([self.completionHandlerDictionary objectForKey:taskProgressIdentifierString]) {
+        NSLog(@"Error: Got multiple progress handlers for a single task identifier.  This should not happen.\n");
+    }
+    
+    [self.completionHandlerDictionary setObject:progress forKey:taskProgressIdentifierString];
+}
+
+- (void)callCompletionHandlerForTaskIdentifier:(NSUInteger)identifier downloadedFileURL:(NSURL *)fileURL downloadError:(NSError *)error
+{
+    NSString *taskIdentifierString = [NSString stringWithFormat:@"%lu-completion", (unsigned long)identifier];
+    NSString *taskProgressIdentifierString = [NSString stringWithFormat:@"%lu-progress", (unsigned long)identifier];
+
+    TSCRequestDownloadCompletionHandler handler = [self.completionHandlerDictionary objectForKey:taskIdentifierString];
+    
+    if (handler) {
+        
+        [self.completionHandlerDictionary removeObjectsForKeys:@[taskIdentifierString, taskProgressIdentifierString]];
+        
+        handler(fileURL, error);
+        
+    }
+}
+
+- (void)callProgressHandlerForTaskIdentifier:(NSUInteger)identifier progress:(CGFloat)progress
+{
+    NSString *taskProgressIdentifierString = [NSString stringWithFormat:@"%lu-progress", (unsigned long)identifier];
+    
+    TSCRequestProgressHandler handler = [self.completionHandlerDictionary objectForKey:taskProgressIdentifierString];
+    
+    if (handler) {
+        
+        handler(progress);
+        
+    }
+
 }
 
 @end
