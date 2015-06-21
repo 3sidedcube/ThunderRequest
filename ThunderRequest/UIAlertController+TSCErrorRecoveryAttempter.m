@@ -1,11 +1,3 @@
-//
-//  UIAlertController+TSCErrorRecoveryAttempter.m
-//  ThunderRequest
-//
-//  Created by Matthew Cheetham on 20/06/2015.
-//  Copyright (c) 2015 3 SIDED CUBE. All rights reserved.
-//
-
 #import "UIAlertController+TSCErrorRecoveryAttempter.h"
 #import "TSCErrorRecoveryOption.h"
 #import "TSCErrorRecoveryAttempter.h"

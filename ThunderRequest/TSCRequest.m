@@ -1,11 +1,3 @@
-//
-//  TSCRequest.m
-//  ThunderRequest
-//
-//  Created by Matthew Cheetham on 11/07/2014.
-//  Copyright (c) 2014 3 SIDED CUBE. All rights reserved.
-//
-
 #import "TSCRequest.h"
 #import <CommonCrypto/CommonDigest.h>
 

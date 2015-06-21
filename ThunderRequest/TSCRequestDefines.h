@@ -1,11 +1,3 @@
-//
-//  TSCRequestDefines.h
-//  ThunderRequest
-//
-//  Created by Matthew Cheetham on 17/06/2015.
-//  Copyright (c) 2015 3 SIDED CUBE. All rights reserved.
-//
-
 typedef NS_ENUM(NSInteger, TSCRequestHTTPMethod) {
     TSCRequestHTTPMethodGET = 0,
     TSCRequestHTTPMethodPOST = 1,

@@ -1,11 +1,3 @@
-//
-//  TSCErrorRecoveryAttempter.m
-//  ThunderRequest
-//
-//  Created by Matthew Cheetham on 19/06/2015.
-//  Copyright (c) 2015 3 SIDED CUBE. All rights reserved.
-//
-
 #import "TSCErrorRecoveryAttempter.h"
 #import "TSCErrorRecoveryOption.h"
 
