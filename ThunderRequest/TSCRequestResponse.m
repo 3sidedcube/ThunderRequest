@@ -1,86 +1,61 @@
 //
-//  PCRequestResponse.m
-//  Demo
+//  TSCRequestResponse.m
+//  ThunderRequest
 //
-//  Created by Phillip Caudell on 12/06/2013.
-//  Copyright (c) 2013 Phillip Caudell. All rights reserved.
+//  Created by Matthew Cheetham on 11/07/2014.
+//  Copyright (c) 2014 3 SIDED CUBE. All rights reserved.
 //
 
 #import "TSCRequestResponse.h"
 
 @implementation TSCRequestResponse
 
-- (id)initWithResponse:(NSHTTPURLResponse *)response data:(NSData *)data
+- (nullable instancetype)initWithResponse:(nullable NSURLResponse *)response data:(nullable NSData *)data
 {
     self = [super init];
     
     if (self) {
-        
         self.data = data;
-        self.HTTPResponse = response;
+        self.HTTPResponse = (NSHTTPURLResponse *)response;
     }
     
     return self;
 }
 
-- (TSCResponseStatus)status
+- (NSInteger)status
 {
     return [self.HTTPResponse statusCode];
 }
 
-- (NSObject *)object
+- (nullable NSObject *)object
 {
+    NSError *parseError;
+    id parseObject = [NSJSONSerialization JSONObjectWithData:self.data options:kNilOptions error:&parseError];
     
-#ifdef DEBUG
-    if (!_object && self.data) {
-        _object = [NSJSONSerialization JSONObjectWithData:self.data options:0 error:nil];
-    }
-    return _object;
-#endif
-    return [NSJSONSerialization JSONObjectWithData:self.data options:0 error:nil];
-}
-
-- (void)setData:(NSData *)data
-{
-    _data = data;
-    
-#ifdef DEBUG
-    if ([[self object] isKindOfClass:[NSArray class]]) {
-        self.array = (NSArray *)[self object];
-    } else if ([[self object] isKindOfClass:[NSDictionary class]]) {
-        self.dictionary = (NSDictionary *)[self object];
+    if (parseError) {
+        return nil;
+    } else {
+        return parseObject;
     }
     
-    self.string = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
-#endif
 }
 
-- (NSDictionary *)dictionary
+- (nullable NSArray *)array
 {
-#ifdef DEBUG
-    return _dictionary;
-#endif
-    return (NSDictionary *)[self object];
+    return (NSArray * )[self object];
 }
 
-- (NSArray *)array
+- (nullable NSDictionary *)dictionary
 {
-#ifdef DEBUG
-    return _array;
-#endif
-    return (NSArray *)[self object];
+    return (NSDictionary * )[self object];
 }
 
-- (NSString *)string
+- (nullable NSString *)string
 {
-    
-#ifdef DEBUG
-    return _string;
-#endif
     return [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
 }
 
-- (NSDictionary *)responseHeaders
+- (nullable NSDictionary *)responseHeaders
 {
     return self.HTTPResponse.allHeaderFields;
 }

@@ -1,85 +1,103 @@
 //
-//  PCRequest.m
-//  Demo
+//  TSCRequest.m
+//  ThunderRequest
 //
-//  Created by Phillip Caudell on 12/06/2013.
-//  Copyright (c) 2013 Phillip Caudell. All rights reserved.
+//  Created by Matthew Cheetham on 11/07/2014.
+//  Copyright (c) 2014 3 SIDED CUBE. All rights reserved.
 //
 
 #import "TSCRequest.h"
 #import <CommonCrypto/CommonDigest.h>
-@import UIKit;
-
-@interface TSCRequest()
-{
-    NSURLConnection *_connection;
-    NSMutableData *_recievedData;
-    NSHTTPURLResponse *URLResponse;
-}
-
-- (NSURL *)PC_absoluteURL;
-- (NSURLRequest *)PC_request;
-- (NSString *)PC_address:(NSString *)address withParamDictionary:(NSDictionary *)params;
-- (NSString *)PC_address:(NSString *)address withParamObject:(NSObject *)object;
-- (NSString *)PC_stringValueWithObject:(NSObject *)object;
-- (NSString *)PC_HTTPMethodDescription:(TSCRequestHTTPMethod)HTTPMethod;
-- (NSData *)PC_HTTPBodyWithDictionary:(NSDictionary *)dictionary encodeType:(TSCRequestContentType)encodeType;
-
-@end;
 
 @implementation TSCRequest
 
-- (void)start
+- (void)prepareForDispatch
 {
-    _request = [self PC_request];
+    if (!self.path) {
+        self.path = @"";
+    }
     
-    _connection = [[NSURLConnection alloc] initWithRequest:_request delegate:self startImmediately:NO];
-    [_connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-    [_connection start];
+    self.URL = [self.baseURL URLByAppendingPathComponent:self.path];
     
-#if DEBUG
-    NSLog(@"\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@",_request.URL, _request.HTTPMethod, _request.allHTTPHeaderFields, [[NSString alloc] initWithData:_request.HTTPBody encoding:NSUTF8StringEncoding    ]);
-#endif
-}
-
-- (void)cancel
-{
-    [_connection cancel];
-}
-
-- (NSURLRequest *)PC_request
-{
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[self PC_absoluteURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    if (self.URLParameterDictionary) {
+        self.URL = [self TSC_populatedAddressWithBaseAddress:self.URL.absoluteString paramDictionary:self.URLParameterDictionary];
+    }
     
-    [request setHTTPMethod:[self PC_HTTPMethodDescription:self.HTTPMethod]];
-    [request setHTTPBody:[self PC_HTTPBodyWithDictionary:self.bodyParams encodeType:self.contentType]];
-    
+    self.HTTPMethod = [self TSC_stringForHTTPMethod:self.requestHTTPMethod];
+    self.HTTPBody = [self HTTPBodyWithDictionary:self.bodyParameters];
+    [self setValue:[self TSC_contentTypeStringForContentType:self.contentType] forHTTPHeaderField:@"Content-Type"];
     for (NSString *key in [self.requestHeaders allKeys]) {
-        [request setValue:self.requestHeaders[key] forHTTPHeaderField:key];
+        [self setValue:self.requestHeaders[key] forHTTPHeaderField:key];
     }
-    
-    [request setValue:[self PC_contentTypeStringWithContentType:self.contentType] forHTTPHeaderField:@"Content-Type"];
-    
-    return request;
 }
 
-- (NSURL *)PC_absoluteURL
+
+#pragma mark - Body building
+
+- (nullable NSData *)HTTPBodyWithDictionary:(NSDictionary *)dictionary
 {
-    NSString *absoluteAddress = [self.baseURL.absoluteString stringByAppendingFormat:@"/%@", self.path];
-    
-    if (self.URLParamDictionary) {
-        absoluteAddress = [self PC_address:absoluteAddress withParamDictionary:self.URLParamDictionary];
+    if (dictionary) {
+        
+        NSError *encodingError;
+        NSData *encodedBody = [NSJSONSerialization dataWithJSONObject:dictionary options:kNilOptions error:&encodingError];
+        
+        if (encodingError) {
+            
+            return nil;
+            
+        }
+        
+        return encodedBody;
+        
     }
     
-    if (self.URLParamObject) {
+    return nil;
+}
+
+#pragma mark - URL placeholder substitution
+
+- (nonnull NSURL *)TSC_populatedAddressWithBaseAddress:(nonnull NSString *)address paramDictionary:(nullable NSDictionary *)parameters
+{
+    NSMutableString *absoluteAddress = [NSMutableString stringWithString:address];
+    
+    for (NSString *parameterKey in self.URLParameterDictionary.allKeys) {
         
-        absoluteAddress = [self PC_address:absoluteAddress withParamObject:self.URLParamObject];
+        NSString *replacementValue = [self TSC_stringValueForObject:self.URLParameterDictionary[parameterKey]];
+        NSString *paramFormatKey = [NSString stringWithFormat:@"(:%@)", parameterKey];
+        
+        [absoluteAddress replaceOccurrencesOfString:paramFormatKey withString:replacementValue options:NSCaseInsensitiveSearch range:NSMakeRange(0, absoluteAddress.length)];
     }
     
     return [NSURL URLWithString:absoluteAddress];
 }
 
-- (NSString *)PC_HTTPMethodDescription:(TSCRequestHTTPMethod)HTTPMethod
+- (nullable NSString *)TSC_stringValueForObject:(nonnull NSObject *)object
+{
+    NSString *string = nil;
+    
+    if ([object isKindOfClass:[NSString class]]) {
+        
+        string = (NSString *)object;
+        return string;
+        
+    }
+    
+    if ([object isKindOfClass:[NSNumber class]]) {
+        
+        NSNumber *number = (NSNumber *)object;
+        
+        string = [number stringValue];
+        return string;
+
+    }
+    
+    return nil;
+    
+}
+
+#pragma mark - ENUM conversion
+
+- (nullable NSString *)TSC_stringForHTTPMethod:(TSCRequestHTTPMethod)HTTPMethod
 {
     switch (HTTPMethod) {
         case TSCRequestHTTPMethodGET:
@@ -98,102 +116,45 @@
     }
 }
 
-- (NSString *)PC_contentTypeStringWithContentType:(TSCRequestContentType)contentType
+- (nonnull NSString *)TSC_contentTypeStringForContentType:(TSCRequestContentType)contentType
 {
     switch (contentType) {
         case TSCRequestContentTypeJSON:
-            
             return @"application/json";
         case TSCRequestContentTypeMultipartFormData:
-            return [NSString stringWithFormat:@"multipart/form-data; boundary=%@", [self PC_multipartFormDataBoundaryWithDictionary:self.bodyParams]];
+            return [NSString stringWithFormat:@"multipart/form-data; boundary=%@", [self TSC_multipartFormDataBoundaryWithDictionary:self.bodyParameters]];
         case TSCRequestContentTypeImageJPEG:
             return @"image/jpeg";
         case TSCRequestContentTypeImagePNG:
             return @"image/png";
-        default:
             
-            return @"";
+        default:
+            return @"application/json";
             break;
     }
 }
 
-- (NSData *)PC_HTTPBodyWithDictionary:(NSDictionary *)dictionary encodeType:(TSCRequestContentType)encodeType
+#pragma mark - Multipart form data
+
+- (nonnull NSString *)TSC_multipartFormDataBoundaryWithDictionary:(nonnull NSDictionary *)dictionary
 {
-    if (!self.bodyParams) {
-        return nil;
-    }
+    NSString *boundaryHash = [[dictionary description] MD5String];
+    NSString *boundary = [NSString stringWithFormat:@"----TSCRequestController%@", boundaryHash];
     
-    if (encodeType == TSCRequestContentTypeJSON) {
-        return [self PC_jsonDataWithDictionary:dictionary];
-    }
-    
-    if (encodeType == TSCRequestContentTypeMultipartFormData) {
-        return [self PC_multipartFormDataWithDictionary:dictionary];
-    }
-    
-    if (encodeType == TSCRequestContentTypeImagePNG) {
-        return [self PC_pngDataWithDictionary:dictionary];
-    }
-    
-    if (encodeType == TSCRequestContentTypeImageJPEG) {
-        return [self PC_jpgDataWithDictionary:dictionary];
-    }
-    
-    return nil;
+    return boundary;
 }
 
-- (NSData *)PC_pngDataWithDictionary:(NSDictionary *)dictionary
+- (nonnull NSData *)TSC_multipartFormDataWithDictionary:(nonnull NSDictionary *)dictionary
 {
-    __block NSData *data;
-    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        
-        if ([obj isKindOfClass:[NSData class]]) {
-            
-            data = obj;
-            *stop = true;
-        } else if ([obj isKindOfClass:[UIImage class]]) {
-            
-            data = UIImagePNGRepresentation(obj);
-            *stop = true;
-        }
-    }];
-    return data;
-}
-
-- (NSData *)PC_jpgDataWithDictionary:(NSDictionary *)dictionary
-{
-    __block NSData *data;
-    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        
-        if ([obj isKindOfClass:[NSData class]]) {
-            
-            data = obj;
-            *stop = true;
-        } else if ([obj isKindOfClass:[UIImage class]]) {
-            
-            data = UIImageJPEGRepresentation(obj, 2.0);
-            *stop = true;
-        }
-    }];
-    return data;
-}
-
-- (NSData *)PC_jsonDataWithDictionary:(NSDictionary *)dictionary
-{
-    return [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:nil];
-}
-
-- (NSData *)PC_multipartFormDataWithDictionary:(NSDictionary *)dictionary
-{
-    NSMutableData *postBody = [[NSMutableData alloc] init];
+    NSMutableData *postBody = [NSMutableData new];
     
-    NSString *boundary = [self PC_multipartFormDataBoundaryWithDictionary:dictionary];
+    NSString *boundary = [self TSC_multipartFormDataBoundaryWithDictionary:dictionary];
     
     NSArray *paramKeys = [dictionary allKeys];
     
     for (NSString *key in paramKeys) {
         
-        NSObject *object = [dictionary objectForKey:key];
+        NSObject *object = dictionary[key];
         
         if ([object isKindOfClass:[NSString class]]) {
             [postBody appendData:[[NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-   ; name=\"%@\"\r\n\r\n%@\r\n", boundary, key, (NSString *)object] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -201,8 +162,8 @@
         
         if ([object isKindOfClass:[NSData class]]) {
             
-            NSString *contentType = [self PC_contentTypeForImageData:(NSData *)object];
-            NSString *fileExtension = [self PC_fileExtensionForContentType:contentType];
+            NSString *contentType = [self TSC_contentTypeForImageData:(NSData *)object];
+            NSString *fileExtension = [self TSC_fileExtensionForContentType:contentType];
             [postBody appendData:[[NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"%@\"; filename=\"filename.%@\"\r\n", boundary, key, fileExtension] dataUsingEncoding:NSUTF8StringEncoding]];
             [postBody appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", contentType] dataUsingEncoding:NSUTF8StringEncoding]];
             
@@ -217,33 +178,25 @@
     return postBody;
 }
 
-- (NSString *)PC_multipartFormDataBoundaryWithDictionary:(NSDictionary *)dictionary
-{
-    NSString *boundaryHash = [[dictionary description] MD5String];
-    NSString *boundary = [NSString stringWithFormat:@"----PCRequestKit%@", boundaryHash];
-    
-    return boundary;
-}
-
-- (NSString *)PC_contentTypeForImageData:(NSData *)data
+- (nullable NSString *)TSC_contentTypeForImageData:(nonnull NSData *)data
 {
     uint8_t c;
     [data getBytes:&c length:1];
     
     switch (c) {
         case 0xFF:
-            
             return @"image/jpeg";
+            
         case 0x89:
-            
             return @"image/png";
-        case 0x47:
             
+        case 0x47:
             return @"image/gif";
+            
         case 0x49:
         case 0x4D:
-            
             return @"image/tiff";
+            
         case 0x00:
             return @"video/quicktime";
             
@@ -254,7 +207,7 @@
     return nil;
 }
 
-- (NSString *)PC_fileExtensionForContentType:(NSString *)contentType
+- (nonnull NSString *)TSC_fileExtensionForContentType:(nonnull NSString *)contentType
 {
     if([contentType isEqualToString:@"image/jpeg"]){
         return @"jpg";
@@ -275,130 +228,24 @@
         return @"txt";
     }
     
-    return @".jpg";
+    return @"jpg";
 }
-
-- (NSString *)PC_stringValueWithObject:(NSObject *)object
-{
-    NSString *string = (NSString *)object;
-    
-    if ([object isKindOfClass:[NSNumber class]]) {
-        string = [(NSNumber *)object stringValue];
-    }
-    
-    return string;
-}
-
-- (NSString *)PC_address:(NSString *)address withParamDictionary:(NSDictionary *)params
-{
-    NSMutableString *absoluteAddress = [NSMutableString stringWithString:address];
-    
-    for (NSString *paramKey in self.URLParamDictionary.allKeys) {
-        
-        NSString *replacementValue = [self PC_stringValueWithObject:[self.URLParamDictionary objectForKey:paramKey]];
-        NSString *paramFormatKey = [NSString stringWithFormat:@"(:%@)", paramKey];
-        
-        [absoluteAddress replaceOccurrencesOfString:paramFormatKey withString:replacementValue options:NSCaseInsensitiveSearch range:NSMakeRange(0, absoluteAddress.length)];
-    }
-    
-    return absoluteAddress;
-}
-
-- (NSString *)PC_address:(NSString *)address withParamObject:(NSObject *)object
-{
-    NSMutableString *absoluteAddress = [NSMutableString stringWithString:address];
-    
-    NSRegularExpression *regularExpression = [NSRegularExpression regularExpressionWithPattern:@"\\(\\:.*\\)" options:NSRegularExpressionCaseInsensitive error:nil];
-    NSArray *matches = [regularExpression matchesInString:absoluteAddress options:0 range:NSMakeRange(0, absoluteAddress.length)];
-    
-    NSMutableArray *paramKeys = [NSMutableArray array];
-    
-    for (NSTextCheckingResult *match in matches) {
-        
-        NSString *paramFormatKey = [absoluteAddress substringWithRange:match.range];
-        [paramKeys addObject:paramFormatKey];
-        
-    }
-    
-    for (NSString *paramFormatKey in paramKeys) {
-        
-        NSString *valueKey = [[paramFormatKey stringByReplacingOccurrencesOfString:@"(:" withString:@""] stringByReplacingOccurrencesOfString:@")" withString:@""];
-        
-        NSString *replacementValue = [self PC_stringValueWithObject:[object valueForKey:valueKey]];
-        
-        [absoluteAddress replaceOccurrencesOfString:paramFormatKey withString:replacementValue options:NSCaseInsensitiveSearch range:NSMakeRange(0, absoluteAddress.length)];
-    }
-    
-    return absoluteAddress;
-}
-
-#pragma mark NSURLConnection Delegate
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    if ([response respondsToSelector:@selector(statusCode)]) {
-        URLResponse = (NSHTTPURLResponse *)response;
-    }
-    
-    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-    
-    self.response = [[TSCRequestResponse alloc] initWithResponse:URLResponse data:nil];
-    self.response.status = httpResponse.statusCode;
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestDidReceiveResponse" object:self];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    if (!_recievedData) {
-        _recievedData = [[NSMutableData alloc] initWithCapacity:2048];
-    }
-    [_recievedData appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    self.response.data = _recievedData;
-    self.completion(self.response, nil);
-    self.isFinished = YES;
-    
-    if (self.response.status < 200 || self.response.status >= 299) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestServerError" object:self];
-    }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestDidFinish" object:self];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    self.completion(nil, error);
-    self.isFinished = YES;
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-{    
-    if ([challenge previousFailureCount] == 0) {
-        [[challenge sender] useCredential:self.requestCredential.credential forAuthenticationChallenge:challenge];
-    }
-}
-
 @end
 
 @implementation NSString (MD5)
 
-- (NSString *)MD5String
+- (nonnull NSString *)MD5String
 {
-    const char *cstr = [self UTF8String];
-    unsigned char result[16];
-    CC_MD5(cstr, (CC_LONG)strlen(cstr), result);
+    const char *ptr = [self UTF8String];
+    unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
     
-    return [NSString stringWithFormat:
-            @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
-            result[0], result[1], result[2], result[3],
-            result[4], result[5], result[6], result[7],
-            result[8], result[9], result[10], result[11],
-            result[12], result[13], result[14], result[15]
-            ];
+    CC_MD5(ptr, (unsigned int)strlen(ptr), md5Buffer);
+    
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x",md5Buffer[i]];
+    
+    return output;
 }
 
 @end
