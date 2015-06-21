@@ -31,4 +31,29 @@ class ThunderRequestTests: XCTestCase {
         XCTAssertNotNil(requestController, "A request Controller failed to be initialised with a URL")
     }
     
+    func testGetRequest() {
+        
+        let requestBaseURL = NSURL(string: "https://www.google.com")
+        
+        let requestController = TSCRequestController(baseURL: requestBaseURL!)
+        
+        let finishExpectation = expectationWithDescription("Get completed")
+        
+        requestController.get("search") { (response, error) -> Void in
+            
+            XCTAssertNil(error, "Request controller returned error for GET request")
+            XCTAssertNotNil(response, "Request Controller did not return a resposne object")
+            
+            finishExpectation.fulfill()
+            
+        }
+        
+        waitForExpectationsWithTimeout(35) { (error) -> Void in
+            
+            XCTAssertNil(error, "The GET request timed out")
+            
+        }
+        
+    }
+    
 }
