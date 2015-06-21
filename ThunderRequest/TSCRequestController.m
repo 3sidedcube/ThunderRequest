@@ -204,6 +204,8 @@
 
 - (void)scheduleDownloadRequest:(TSCRequest *)request progress:(TSCRequestProgressHandler)progress completion:(TSCRequestDownloadCompletionHandler)completion
 {
+    [request prepareForDispatch];
+    
     // Should be using downloadtaskwithrequest but it has a bug which causes it to return nil.
     NSURLSessionDownloadTask *task = [self.backgroundSession downloadTaskWithURL:request.URL];
     
@@ -285,13 +287,7 @@
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location
 {
-    NSLog(@"Finished");
     [self callCompletionHandlerForTaskIdentifier:downloadTask.taskIdentifier downloadedFileURL:location downloadError:nil];
-}
-
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes
-{
-    NSLog(@"Resumed");
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
