@@ -1,11 +1,3 @@
-//
-//  PCRequestCredential.h
-//  Demo
-//
-//  Created by Phillip Caudell on 12/06/2013.
-//  Copyright (c) 2013 Phillip Caudell. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
 
 /**
@@ -43,12 +35,12 @@
  @param username The username to be sent by `TSCRequestController` for authentication requests.
  @param password The password to be sent by `TSCRequestController` for authentication requests
  */
-- (id)initWithUsername:(NSString *)username password:(NSString *)password;
+- (instancetype)initWithUsername:(NSString *)username password:(NSString *)password;
 
 /**
  Initializes the credentials object.
  @param authorizationToken The authorizationToken to be sent by `TSCRequestController` for authentication requests.
  */
-- (id)initWithAuthorizationToken:(NSString *)authorizationToken;
+- (instancetype)initWithAuthorizationToken:(NSString *)authorizationToken;
 
 @end
