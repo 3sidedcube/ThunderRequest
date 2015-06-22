@@ -6,9 +6,25 @@
 
 + (void)presentError:(nonnull NSError *)error inViewController:(nonnull UIViewController *)viewController
 {
-    TSCErrorRecoveryAttempter *recoveryAttempter = [TSCErrorRecoveryAttempter new];
-    UIAlertController *alertController = [UIAlertController alertControllerWithError:[recoveryAttempter recoverableErrorWithError:error]];
-    [viewController presentViewController:alertController animated:YES completion:nil];
+    UIAlertController *alertController;
+    if (!error.recoveryAttempter) {
+        
+        TSCErrorRecoveryAttempter *recoveryAttempter = [TSCErrorRecoveryAttempter new];
+        alertController = [UIAlertController alertControllerWithError:[recoveryAttempter recoverableErrorWithError:error]];
+        
+    } else {
+        
+        alertController = [UIAlertController alertControllerWithError:error];
+        
+    }
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+    
+        [viewController presentViewController:alertController animated:YES completion:nil];
+
+    }];
+    
+
 }
 
 + (nonnull instancetype)alertControllerWithError:(nonnull NSError *)error
