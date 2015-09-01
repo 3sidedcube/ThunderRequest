@@ -9,7 +9,7 @@
         self.path = @"";
     }
     
-    self.URL = [self.baseURL URLByAppendingPathComponent:self.path];
+    self.URL = [NSURL URLWithString:self.path relativeToURL:self.baseURL];
     
     if (self.URLParameterDictionary) {
         self.URL = [self TSC_populatedAddressWithBaseAddress:self.URL.absoluteString paramDictionary:self.URLParameterDictionary];
