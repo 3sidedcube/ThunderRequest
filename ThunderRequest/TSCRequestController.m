@@ -119,6 +119,7 @@
     request.requestHTTPMethod = TSCRequestHTTPMethodGET;
     request.path = path;
     request.URLParameterDictionary = URLParamDictionary;
+    request.requestHeaders = self.sharedRequestHeaders;
 
     [self scheduleRequest:request completion:completion];
 }
@@ -144,7 +145,8 @@
     request.bodyParameters = bodyParams;
     request.URLParameterDictionary = URLParamDictionary;
     request.contentType = contentType;
-    
+    request.requestHeaders = self.sharedRequestHeaders;
+
     [self scheduleRequest:request completion:completion];
 }
 
@@ -168,7 +170,8 @@
     request.bodyParameters = bodyParams;
     request.URLParameterDictionary = URLParamDictionary;
     request.contentType = contentType;
-    
+    request.requestHeaders = self.sharedRequestHeaders;
+
     [self scheduleRequest:request completion:completion];
 }
 
@@ -186,7 +189,8 @@
     request.requestHTTPMethod = TSCRequestHTTPMethodDELETE;
     request.path = path;
     request.URLParameterDictionary = URLParamDictionary;
-    
+    request.requestHeaders = self.sharedRequestHeaders;
+
     [self scheduleRequest:request completion:completion];
 }
 
@@ -199,7 +203,8 @@
     request.requestHTTPMethod = TSCRequestHTTPMethodHEAD;
     request.path = path;
     request.URLParameterDictionary = URLParamDictionary;
-    
+    request.requestHeaders = self.sharedRequestHeaders;
+
     [self scheduleRequest:request completion:completion];
 }
 
@@ -211,7 +216,8 @@
     request.baseURL = self.sharedBaseURL;
     request.path = path;
     request.requestHTTPMethod = TSCRequestHTTPMethodGET;
-    
+    request.requestHeaders = self.sharedRequestHeaders;
+
     [self scheduleDownloadRequest:request progress:progress completion:completion];
 }
 
