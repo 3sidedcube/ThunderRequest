@@ -89,7 +89,12 @@
     self = [self init];
     if (self) {
         
-        self.sharedBaseURL = baseURL;
+        if ([baseURL.absoluteString hasSuffix:@"/"]) {
+            self.sharedBaseURL = baseURL;
+        } else {
+            
+            self.sharedBaseURL = [NSURL URLWithString:[baseURL.absoluteString stringByAppendingString:@"/"]];
+        }
         
     }
     return self;
