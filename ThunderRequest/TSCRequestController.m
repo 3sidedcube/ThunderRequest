@@ -248,11 +248,17 @@
             
             [recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Cancel" type:TSCErrorRecoveryOptionTypeCancel handler:nil]];
             
-            completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
+            }];
             
         } else {
             
-            completion(requestResponse, error);
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+
+                completion(requestResponse, error);
+                
+            }];
             
         }
         
