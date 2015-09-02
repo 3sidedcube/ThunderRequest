@@ -89,7 +89,12 @@
     self = [self init];
     if (self) {
         
-        self.sharedBaseURL = baseURL;
+        if ([baseURL.absoluteString hasSuffix:@"/"]) {
+            self.sharedBaseURL = baseURL;
+        } else {
+            
+            self.sharedBaseURL = [NSURL URLWithString:[baseURL.absoluteString stringByAppendingString:@"/"]];
+        }
         
     }
     return self;
@@ -114,6 +119,7 @@
     request.requestHTTPMethod = TSCRequestHTTPMethodGET;
     request.path = path;
     request.URLParameterDictionary = URLParamDictionary;
+    request.requestHeaders = self.sharedRequestHeaders;
 
     [self scheduleRequest:request completion:completion];
 }
@@ -139,7 +145,8 @@
     request.bodyParameters = bodyParams;
     request.URLParameterDictionary = URLParamDictionary;
     request.contentType = contentType;
-    
+    request.requestHeaders = self.sharedRequestHeaders;
+
     [self scheduleRequest:request completion:completion];
 }
 
@@ -163,7 +170,8 @@
     request.bodyParameters = bodyParams;
     request.URLParameterDictionary = URLParamDictionary;
     request.contentType = contentType;
-    
+    request.requestHeaders = self.sharedRequestHeaders;
+
     [self scheduleRequest:request completion:completion];
 }
 
@@ -181,7 +189,8 @@
     request.requestHTTPMethod = TSCRequestHTTPMethodDELETE;
     request.path = path;
     request.URLParameterDictionary = URLParamDictionary;
-    
+    request.requestHeaders = self.sharedRequestHeaders;
+
     [self scheduleRequest:request completion:completion];
 }
 
@@ -194,7 +203,8 @@
     request.requestHTTPMethod = TSCRequestHTTPMethodHEAD;
     request.path = path;
     request.URLParameterDictionary = URLParamDictionary;
-    
+    request.requestHeaders = self.sharedRequestHeaders;
+
     [self scheduleRequest:request completion:completion];
 }
 
@@ -206,7 +216,8 @@
     request.baseURL = self.sharedBaseURL;
     request.path = path;
     request.requestHTTPMethod = TSCRequestHTTPMethodGET;
-    
+    request.requestHeaders = self.sharedRequestHeaders;
+
     [self scheduleDownloadRequest:request progress:progress completion:completion];
 }
 
@@ -230,8 +241,19 @@
     [[self.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         TSCRequestResponse *requestResponse = [[TSCRequestResponse alloc] initWithResponse:response data:data];
+        //Notify of response
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestDidReceiveResponse" object:requestResponse];
+        
+        //Notify of errors
+        if ([self statusCodeIsConsideredHTTPError:requestResponse.status]) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestServerError" object:self];
+            
+        }
+        
+        
 
-        if (error) {
+        if (error || [self statusCodeIsConsideredHTTPError:requestResponse.status]) {
             
             TSCErrorRecoveryAttempter *recoveryAttempter = [TSCErrorRecoveryAttempter new];
             
@@ -243,11 +265,26 @@
             
             [recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Cancel" type:TSCErrorRecoveryOptionTypeCancel handler:nil]];
             
-            completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                
+                if (error) {
+                    completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
+                } else {
+                    
+                    NSError *httpError = [NSError errorWithDomain:TSCRequestErrorDomain code:requestResponse.status userInfo:@{NSLocalizedDescriptionKey: [NSHTTPURLResponse localizedStringForStatusCode:requestResponse.status]}];
+
+                    completion(requestResponse, [recoveryAttempter recoverableErrorWithError:httpError]);
+
+                }
+            }];
             
         } else {
             
-            completion(requestResponse, error);
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+
+                completion(requestResponse, error);
+                
+            }];
             
         }
         
@@ -301,7 +338,7 @@
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
-{
+{    
     [self callCompletionHandlerForTaskIdentifier:task.taskIdentifier downloadedFileURL:nil downloadError:error];
 }
 
@@ -353,6 +390,18 @@
         
     }
 
+}
+
+#pragma mark - Error handling
+
+- (BOOL)statusCodeIsConsideredHTTPError:(NSInteger)statusCode
+{
+    if (statusCode >= 400 && statusCode < 600) {
+        
+        return true;
+    }
+    
+    return false;
 }
 
 @end
