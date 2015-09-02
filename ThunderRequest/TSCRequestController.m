@@ -89,7 +89,12 @@
     self = [self init];
     if (self) {
         
-        self.sharedBaseURL = baseURL;
+        if ([baseURL.absoluteString hasSuffix:@"/"]) {
+            self.sharedBaseURL = baseURL;
+        } else {
+            
+            self.sharedBaseURL = [NSURL URLWithString:[baseURL.absoluteString stringByAppendingString:@"/"]];
+        }
         
     }
     return self;
@@ -114,6 +119,7 @@
     request.requestHTTPMethod = TSCRequestHTTPMethodGET;
     request.path = path;
     request.URLParameterDictionary = URLParamDictionary;
+    request.requestHeaders = self.sharedRequestHeaders;
 
     [self scheduleRequest:request completion:completion];
 }
@@ -139,7 +145,8 @@
     request.bodyParameters = bodyParams;
     request.URLParameterDictionary = URLParamDictionary;
     request.contentType = contentType;
-    
+    request.requestHeaders = self.sharedRequestHeaders;
+
     [self scheduleRequest:request completion:completion];
 }
 
@@ -163,7 +170,8 @@
     request.bodyParameters = bodyParams;
     request.URLParameterDictionary = URLParamDictionary;
     request.contentType = contentType;
-    
+    request.requestHeaders = self.sharedRequestHeaders;
+
     [self scheduleRequest:request completion:completion];
 }
 
@@ -181,7 +189,8 @@
     request.requestHTTPMethod = TSCRequestHTTPMethodDELETE;
     request.path = path;
     request.URLParameterDictionary = URLParamDictionary;
-    
+    request.requestHeaders = self.sharedRequestHeaders;
+
     [self scheduleRequest:request completion:completion];
 }
 
@@ -194,7 +203,8 @@
     request.requestHTTPMethod = TSCRequestHTTPMethodHEAD;
     request.path = path;
     request.URLParameterDictionary = URLParamDictionary;
-    
+    request.requestHeaders = self.sharedRequestHeaders;
+
     [self scheduleRequest:request completion:completion];
 }
 
@@ -206,7 +216,8 @@
     request.baseURL = self.sharedBaseURL;
     request.path = path;
     request.requestHTTPMethod = TSCRequestHTTPMethodGET;
-    
+    request.requestHeaders = self.sharedRequestHeaders;
+
     [self scheduleDownloadRequest:request progress:progress completion:completion];
 }
 
@@ -243,11 +254,17 @@
             
             [recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Cancel" type:TSCErrorRecoveryOptionTypeCancel handler:nil]];
             
-            completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
+            }];
             
         } else {
             
-            completion(requestResponse, error);
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+
+                completion(requestResponse, error);
+                
+            }];
             
         }
         
