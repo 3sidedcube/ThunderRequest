@@ -9,3 +9,5 @@
 @import Foundation;
 
 NSString *const TSCRequestErrorDomain = @"com.threesidedcube.ThunderRequest";
+NSString *const TSCRequestServerError = @"TSCRequestServerError";
+NSString *const TSCRequestDidReceiveResponse = @"TSCRequestDidReceiveResponse";

@@ -241,6 +241,17 @@
     [[self.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         TSCRequestResponse *requestResponse = [[TSCRequestResponse alloc] initWithResponse:response data:data];
+        //Notify of response
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestDidReceiveResponse" object:requestResponse];
+        
+        //Notify of errors
+        if ([self statusCodeIsConsideredHTTPError:requestResponse.status]) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestServerError" object:self];
+            
+        }
+        
+        
 
         if (error || [self statusCodeIsConsideredHTTPError:requestResponse.status]) {
             
@@ -327,7 +338,7 @@
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
-{
+{    
     [self callCompletionHandlerForTaskIdentifier:task.taskIdentifier downloadedFileURL:nil downloadError:error];
 }
 
