@@ -91,7 +91,6 @@
 		C2E5088419C835A300350F00 /* ThunderRequest */ = {
 			isa = PBXGroup;
 			children = (
-				49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */,
 				C2E5089B19C835D900350F00 /* ThunderRequest.h */,
 				C2E5089C19C835D900350F00 /* TSCRequest.h */,
 				C2E5089D19C835D900350F00 /* TSCRequest.m */,
@@ -106,6 +105,7 @@
 				49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */,
 				49B77E091B36A7BF001475CE /* TSCErrorRecoveryOption.m */,
 				49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */,
+				49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */,
 				49B77E0C1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h */,
 				49B77E0D1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m */,
 				C2E5088519C835A300350F00 /* Supporting Files */,
