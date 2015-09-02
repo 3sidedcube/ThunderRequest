@@ -242,7 +242,7 @@
         
         TSCRequestResponse *requestResponse = [[TSCRequestResponse alloc] initWithResponse:response data:data];
 
-        if (error) {
+        if (error || [self statusCodeIsConsideredHTTPError:requestResponse.status]) {
             
             TSCErrorRecoveryAttempter *recoveryAttempter = [TSCErrorRecoveryAttempter new];
             
@@ -255,7 +255,16 @@
             [recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Cancel" type:TSCErrorRecoveryOptionTypeCancel handler:nil]];
             
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
+                
+                if (error) {
+                    completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
+                } else {
+                    
+                    NSError *httpError = [NSError errorWithDomain:TSCRequestErrorDomain code:requestResponse.status userInfo:@{NSLocalizedDescriptionKey: [NSHTTPURLResponse localizedStringForStatusCode:requestResponse.status]}];
+
+                    completion(requestResponse, [recoveryAttempter recoverableErrorWithError:httpError]);
+
+                }
             }];
             
         } else {
@@ -370,6 +379,18 @@
         
     }
 
+}
+
+#pragma mark - Error handling
+
+- (BOOL)statusCodeIsConsideredHTTPError:(NSInteger)statusCode
+{
+    if (statusCode >= 400 && statusCode < 600) {
+        
+        return true;
+    }
+    
+    return false;
 }
 
 @end

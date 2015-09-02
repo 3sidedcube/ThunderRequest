@@ -56,4 +56,30 @@ class ThunderRequestTests: XCTestCase {
         
     }
     
+    func testRequest404() {
+        
+        let requestBaseURL = NSURL(string: "https://httpbin.org/")
+        
+        let requestController = TSCRequestController(baseURL: requestBaseURL!)
+        
+        let finishExpectation = expectationWithDescription("404 Request Succeeded")
+        
+        requestController.get("status/404", completion: { (response, error) -> Void in
+
+            XCTAssertNotNil(error, "Request controller did not return an error object")
+            XCTAssertNotNil(response, "Request controller did not return a response object")
+            XCTAssertEqual(response!.status, 404, "Request controller did not return 404")
+            
+            finishExpectation.fulfill()
+            
+        })
+        
+        waitForExpectationsWithTimeout(35, handler: { (error) -> Void in
+            
+            XCTAssertNil(error, "The 404 request timed out")
+            
+        })
+        
+    }
+    
 }

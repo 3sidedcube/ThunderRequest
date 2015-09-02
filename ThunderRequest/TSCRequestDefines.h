@@ -1,3 +1,5 @@
+extern NSString *const TSCRequestErrorDomain;
+
 typedef NS_ENUM(NSInteger, TSCRequestHTTPMethod) {
     TSCRequestHTTPMethodGET = 0,
     TSCRequestHTTPMethodPOST = 1,
