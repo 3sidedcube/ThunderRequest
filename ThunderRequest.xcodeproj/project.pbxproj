@@ -14,6 +14,7 @@
 		49B77E121B36A7BF001475CE /* TSCRequestDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49B77E141B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0C1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49B77E151B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E0D1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m */; };
+		49F7B2E51B96F53100DDB587 /* TSCRequestDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */; };
 		C2E5089219C835A300350F00 /* ThunderRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089119C835A300350F00 /* ThunderRequestTests.swift */; };
 		C2E508A419C835D900350F00 /* ThunderRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089B19C835D900350F00 /* ThunderRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2E508A519C835D900350F00 /* TSCRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089C19C835D900350F00 /* TSCRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -34,6 +35,7 @@
 		49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCRequestDefines.h; sourceTree = "<group>"; };
 		49B77E0C1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+TSCErrorRecoveryAttempter.h"; sourceTree = "<group>"; };
 		49B77E0D1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+TSCErrorRecoveryAttempter.m"; sourceTree = "<group>"; };
+		49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCRequestDefines.m; sourceTree = "<group>"; };
 		C2E5088219C835A300350F00 /* ThunderRequest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2E5088619C835A300350F00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2E5088D19C835A300350F00 /* ThunderRequestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThunderRequestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +91,7 @@
 		C2E5088419C835A300350F00 /* ThunderRequest */ = {
 			isa = PBXGroup;
 			children = (
+				49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */,
 				C2E5089B19C835D900350F00 /* ThunderRequest.h */,
 				C2E5089C19C835D900350F00 /* TSCRequest.h */,
 				C2E5089D19C835D900350F00 /* TSCRequest.m */,
@@ -257,6 +260,7 @@
 				49B77E0F1B36A7BF001475CE /* TSCErrorRecoveryAttempter.m in Sources */,
 				C2E508A619C835D900350F00 /* TSCRequest.m in Sources */,
 				49B77E111B36A7BF001475CE /* TSCErrorRecoveryOption.m in Sources */,
+				49F7B2E51B96F53100DDB587 /* TSCRequestDefines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

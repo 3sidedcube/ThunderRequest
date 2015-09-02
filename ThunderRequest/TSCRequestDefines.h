@@ -1,3 +1,7 @@
+extern NSString *const TSCRequestErrorDomain;
+extern NSString *const TSCRequestServerError;
+extern NSString *const TSCRequestDidReceiveResponse;
+
 typedef NS_ENUM(NSInteger, TSCRequestHTTPMethod) {
     TSCRequestHTTPMethodGET = 0,
     TSCRequestHTTPMethodPOST = 1,
@@ -25,11 +29,22 @@ typedef NS_ENUM(NSInteger, TSCErrorRecoveryOptionType) {
 };
 
 typedef NS_ENUM(NSInteger, TSCResponseStatus) {
+    TSCResponseStatusContinue = 100,
+    TSCResponseStatusSwitchingProtocols = 101,
     TSCResponseStatusOK = 200,
     TSCResponseStatusCreated = 201,
     TSCResponseStatusAccepted = 202,
     TSCResponseStatusNonAuthoritativeInformation = 203,
     TSCResponseStatusNoContent = 204,
+    TSCResponseStatusResetContent = 205,
+    TSCResponseStatusPartialContent = 206,
+    TSCResponseStatusMultipleChoices = 300,
+    TSCResponseStatusMovedPermanently = 301,
+    TSCResponseStatusFound = 302,
+    TSCResponseStatusSeeOther = 303,
+    TSCResponseStatusNotModified = 304,
+    TSCResponseStatusUseProxy = 305,
+    TSCResponseStatusTemporaryRedirect = 307,
     TSCResponseStatusBadRequest = 400,
     TSCResponseStatusUnauthorized = 401,
     TSCResponseStatusPaymentRequired = 402,
@@ -37,8 +52,21 @@ typedef NS_ENUM(NSInteger, TSCResponseStatus) {
     TSCResponseStatusNotFound = 404,
     TSCResponseStatusMethodNotAllowed = 405,
     TSCResponseStatusNotAcceptable = 406,
+    TSCResponseStatusProxyAuthenticationRequired = 407,
+    TSCResponseStatusRequestTimeout = 408,
+    TSCResponseStatusConflict = 409,
+    TSCResponseStatusGone = 410,
+    TSCResponseStatusLengthRequired = 411,
+    TSCResponseStatusPreconditionFailed = 412,
+    TSCResponseStatusRequestEntityTooLarge = 413,
+    TSCResponseStatusRequestURITooLong = 414,
+    TSCResponseStatusUnsupportedMediaType = 415,
+    TSCResponseStatusRangeNotSatisfiable = 416,
+    TSCResponseStatusExpectationFailed = 417,
     TSCResponseStatusInternalServerError = 500,
     TSCResponseStatusNotImplemented = 501,
     TSCResponseStatusBadGateway = 502,
     TSCResponseStatusServiceUnavailable = 503,
+    TSCResponseStatusGatewayTimeout = 504,
+    TSCResponseStatusHTTPVersionNotSupported = 505
 };
