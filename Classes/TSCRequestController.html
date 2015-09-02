@@ -56,13 +56,29 @@
 	
 	<optgroup label="Properties">
 		
-		<option value="//api/name/sharedBaseURL">sharedBaseURL</option>
+		<option value="//api/name/backgroundRequestQueue">backgroundRequestQueue</option>
 		
-		<option value="//api/name/sharedContentType">sharedContentType</option>
+		<option value="//api/name/backgroundSession">backgroundSession</option>
+		
+		<option value="//api/name/completionHandlerDictionary">completionHandlerDictionary</option>
+		
+		<option value="//api/name/defaultRequestQueue">defaultRequestQueue</option>
+		
+		<option value="//api/name/defaultSession">defaultSession</option>
+		
+		<option value="//api/name/ephemeralRequestQueue">ephemeralRequestQueue</option>
+		
+		<option value="//api/name/ephemeralSession">ephemeralSession</option>
+		
+		<option value="//api/name/sharedBaseURL">sharedBaseURL</option>
 		
 		<option value="//api/name/sharedRequestCredential">sharedRequestCredential</option>
 		
 		<option value="//api/name/sharedRequestHeaders">sharedRequestHeaders</option>
+		
+		<option value="//api/name/truncatesVerboseResponse">truncatesVerboseResponse</option>
+		
+		<option value="//api/name/verboseLogging">verboseLogging</option>
 		
 	</optgroup>
 	
@@ -75,6 +91,8 @@
 		<option value="//api/name/delete:completion:">- delete:completion:</option>
 		
 		<option value="//api/name/delete:withURLParamDictionary:completion:">- delete:withURLParamDictionary:completion:</option>
+		
+		<option value="//api/name/downloadFileWithPath:progress:completion:">- downloadFileWithPath:progress:completion:</option>
 		
 		<option value="//api/name/get:completion:">- get:completion:</option>
 		
@@ -95,6 +113,8 @@
 		<option value="//api/name/put:bodyParams:completion:">- put:bodyParams:completion:</option>
 		
 		<option value="//api/name/put:withURLParamDictionary:bodyParams:completion:">- put:withURLParamDictionary:bodyParams:completion:</option>
+		
+		<option value="//api/name/put:withURLParamDictionary:bodyParams:contentType:completion:">- put:withURLParamDictionary:bodyParams:contentType:completion:</option>
 		
 	</optgroup>
 	
@@ -174,7 +194,7 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSURL *sharedBaseURL</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, nonnull) NSURL *sharedBaseURL</code></div>
 
 		    
 			
@@ -220,48 +240,7 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSMutableDictionary *sharedRequestHeaders</code></div>
-
-		    
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">TSCRequestController.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/sharedContentType" title="sharedContentType"></a>
-	<h3 class="method-title"><code><a href="#//api/name/sharedContentType">&nbsp;&nbsp;sharedContentType</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>The shared content type for all requests routed through the controller</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) TSCRequestContentType sharedContentType</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, nonnull) NSMutableDictionary *sharedRequestHeaders</code></div>
 
 		    
 			
@@ -297,12 +276,12 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 			
 			<div class="method-subsection brief-description">
-				<p>The shared request credentials for all requests routed through the controller</p>
+				<p>The shared request credentials to be used for authorization with any authentication challenge</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) TSCRequestCredential *sharedRequestCredential</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, nullable) TSCRequestCredential *sharedRequestCredential</code></div>
 
 		    
 			
@@ -351,7 +330,7 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (id)initWithBaseURL:(NSURL *)<em>baseURL</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (nonnull instancetype)initWithBaseURL:(nonnull NSURL *)<em>baseURL</em></code></div>
 
 		    
 			
@@ -409,7 +388,7 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (id)initWithBaseAddress:(NSString *)<em>baseAddress</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (nonnull instancetype)initWithBaseAddress:(nonnull NSString *)<em>baseAddress</em></code></div>
 
 		    
 			
@@ -475,7 +454,7 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)get:(NSString *)<em>path</em> completion:(TSCRequestCompletionHandler)<em>completion</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)get:(nonnull NSString *)<em>path</em> completion:(nonnull TSCRequestCompletionHandler)<em>completion</em></code></div>
 
 		    
 			
@@ -538,7 +517,7 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)get:(NSString *)<em>path</em> withURLParamDictionary:(NSDictionary *)<em>URLParamDictionary</em> completion:(TSCRequestCompletionHandler)<em>completion</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)get:(nonnull NSString *)<em>path</em> withURLParamDictionary:(nullable NSDictionary *)<em>URLParamDictionary</em> completion:(nonnull TSCRequestCompletionHandler)<em>completion</em></code></div>
 
 		    
 			
@@ -614,7 +593,7 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)post:(NSString *)<em>path</em> bodyParams:(NSDictionary *)<em>bodyParams</em> completion:(TSCRequestCompletionHandler)<em>completion</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)post:(nonnull NSString *)<em>path</em> bodyParams:(nullable NSDictionary *)<em>bodyParams</em> completion:(nonnull TSCRequestCompletionHandler)<em>completion</em></code></div>
 
 		    
 			
@@ -682,7 +661,7 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)post:(NSString *)<em>path</em> withURLParamDictionary:(NSDictionary *)<em>URLParamDictionary</em> bodyParams:(NSDictionary *)<em>bodyParams</em> completion:(TSCRequestCompletionHandler)<em>completion</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)post:(nonnull NSString *)<em>path</em> withURLParamDictionary:(nullable NSDictionary *)<em>URLParamDictionary</em> bodyParams:(nullable NSDictionary *)<em>bodyParams</em> completion:(nonnull TSCRequestCompletionHandler)<em>completion</em></code></div>
 
 		    
 			
@@ -755,7 +734,7 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)post:(NSString *)<em>path</em> withURLParamDictionary:(NSDictionary *)<em>URLParamDictionary</em> bodyParams:(NSDictionary *)<em>bodyParams</em> contentType:(TSCRequestContentType)<em>contentType</em> completion:(TSCRequestCompletionHandler)<em>completion</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)post:(nonnull NSString *)<em>path</em> withURLParamDictionary:(nullable NSDictionary *)<em>URLParamDictionary</em> bodyParams:(nullable NSDictionary *)<em>bodyParams</em> contentType:(TSCRequestContentType)<em>contentType</em> completion:(nonnull TSCRequestCompletionHandler)<em>completion</em></code></div>
 
 		    
 			
@@ -841,7 +820,7 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)put:(NSString *)<em>path</em> bodyParams:(NSDictionary *)<em>bodyParams</em> completion:(TSCRequestCompletionHandler)<em>completion</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)put:(nonnull NSString *)<em>path</em> bodyParams:(nullable NSDictionary *)<em>bodyParams</em> completion:(nonnull TSCRequestCompletionHandler)<em>completion</em></code></div>
 
 		    
 			
@@ -909,7 +888,7 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)put:(NSString *)<em>path</em> withURLParamDictionary:(NSDictionary *)<em>URLParamDictionary</em> bodyParams:(NSDictionary *)<em>bodyParams</em> completion:(TSCRequestCompletionHandler)<em>completion</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)put:(nonnull NSString *)<em>path</em> withURLParamDictionary:(nullable NSDictionary *)<em>URLParamDictionary</em> bodyParams:(nullable NSDictionary *)<em>bodyParams</em> completion:(nonnull TSCRequestCompletionHandler)<em>completion</em></code></div>
 
 		    
 			
@@ -965,6 +944,84 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 		</div>
 	</div>
+</div><div class="section-method">
+	<a name="//api/name/put:withURLParamDictionary:bodyParams:contentType:completion:" title="put:withURLParamDictionary:bodyParams:contentType:completion:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/put:withURLParamDictionary:bodyParams:contentType:completion:">&ndash;&nbsp;put:withURLParamDictionary:bodyParams:contentType:completion:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Performs a PUT request on the base URL using the supplied paramater dictionary to build the URL, and bodyParams dictionary as the POST body.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)put:(nonnull NSString *)<em>path</em> withURLParamDictionary:(nullable NSDictionary *)<em>URLParamDictionary</em> bodyParams:(nullable NSDictionary *)<em>bodyParams</em> contentType:(TSCRequestContentType)<em>contentType</em> completion:(nonnull TSCRequestCompletionHandler)<em>completion</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>path</code></th>
+						<td><p>The path to be appended to the base URL.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>URLParamDictionary</code></th>
+						<td><p>Dictionary used to build the URL.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>bodyParams</code></th>
+						<td><p>The dictionary used in the PUT body.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>contentType</code></th>
+						<td><p>The type of <a href="../Constants/TSCRequestContentType.html"><code>TSCRequestContentType</code></a> to be used when encoding the request body</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>completion</code></th>
+						<td><p>The completion block that will be fired once the request has completed.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Performs a PUT request on the base URL using the supplied paramater dictionary to build the URL, and bodyParams dictionary as the POST body.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCRequestController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
 </div>
 						</div>
 						
@@ -985,12 +1042,12 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Performs a DELETE request on the base URL using the supplied paramater dictionary to build the URL.</p>
+				<p>Performs a DELETE request on the base URL.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)delete:(NSString *)<em>path</em> completion:(TSCRequestCompletionHandler)<em>completion</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)delete:(nonnull NSString *)<em>path</em> completion:(nonnull TSCRequestCompletionHandler)<em>completion</em></code></div>
 
 		    
 			
@@ -1019,7 +1076,7 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Performs a DELETE request on the base URL using the supplied paramater dictionary to build the URL.</p>
+				<p>Performs a DELETE request on the base URL.</p>
 			</div>
 			
 
@@ -1053,7 +1110,7 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)delete:(NSString *)<em>path</em> withURLParamDictionary:(NSDictionary *)<em>URLParamDictionary</em> completion:(TSCRequestCompletionHandler)<em>completion</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)delete:(nonnull NSString *)<em>path</em> withURLParamDictionary:(nullable NSDictionary *)<em>URLParamDictionary</em> completion:(nonnull TSCRequestCompletionHandler)<em>completion</em></code></div>
 
 		    
 			
@@ -1129,7 +1186,7 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)head:(NSString *)<em>path</em> withURLParamDictionary:(NSDictionary *)<em>URLParamDictionary</em> completion:(TSCRequestCompletionHandler)<em>completion</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)head:(nonnull NSString *)<em>path</em> withURLParamDictionary:(nullable NSDictionary *)<em>URLParamDictionary</em> completion:(nonnull TSCRequestCompletionHandler)<em>completion</em></code></div>
 
 		    
 			
@@ -1183,6 +1240,459 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 </div>
 						</div>
 						
+
+						<a title="Download requests" name="task_Download requests"></a>
+						<h2 class="task-title">Download requests</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/downloadFileWithPath:progress:completion:" title="downloadFileWithPath:progress:completion:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/downloadFileWithPath:progress:completion:">&ndash;&nbsp;downloadFileWithPath:progress:completion:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Performs a file download task using the base url and given path component.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)downloadFileWithPath:(nonnull NSString *)<em>path</em> progress:(nullable TSCRequestProgressHandler)<em>progress</em> completion:(nonnull TSCRequestDownloadCompletionHandler)<em>completion</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>path</code></th>
+						<td><p>The path to be appended to the base URL</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>progress</code></th>
+						<td><p>The block to be called with progress information during the download</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>completion</code></th>
+						<td><p>The completion bloc kthat will be fired once the request has completed</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Performs a file download task using the base url and given path component.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCRequestController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Extension Methods" name="task_Extension Methods"></a>
+						<h2 class="task-title">Extension Methods</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/defaultRequestQueue" title="defaultRequestQueue"></a>
+	<h3 class="method-title"><code><a href="#//api/name/defaultRequestQueue">&nbsp;&nbsp;defaultRequestQueue</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The operation queue that contains all requests added to a default session</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSOperationQueue *defaultRequestQueue</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCRequestController.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/backgroundRequestQueue" title="backgroundRequestQueue"></a>
+	<h3 class="method-title"><code><a href="#//api/name/backgroundRequestQueue">&nbsp;&nbsp;backgroundRequestQueue</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The operation queue that contains all requests added to a background session</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSOperationQueue *backgroundRequestQueue</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCRequestController.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/ephemeralRequestQueue" title="ephemeralRequestQueue"></a>
+	<h3 class="method-title"><code><a href="#//api/name/ephemeralRequestQueue">&nbsp;&nbsp;ephemeralRequestQueue</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The operation queue that contains all requests added to a ephemeral session</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSOperationQueue *ephemeralRequestQueue</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCRequestController.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/defaultSession" title="defaultSession"></a>
+	<h3 class="method-title"><code><a href="#//api/name/defaultSession">&nbsp;&nbsp;defaultSession</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Uses persistent disk-based cache and stores credentials in the user&rsquo;s keychain</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSURLSession *defaultSession</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCRequestController.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/backgroundSession" title="backgroundSession"></a>
+	<h3 class="method-title"><code><a href="#//api/name/backgroundSession">&nbsp;&nbsp;backgroundSession</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Does not store any data on the disk; all caches, credential stores, and so on are kept in the RAM and tied to the session. Thus, when invalidated, they are purged automatically.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSURLSession *backgroundSession</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCRequestController.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/ephemeralSession" title="ephemeralSession"></a>
+	<h3 class="method-title"><code><a href="#//api/name/ephemeralSession">&nbsp;&nbsp;ephemeralSession</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Similar to a default session, except that a seperate process handles all data transfers. Background sessions have some additional limitations.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSURLSession *ephemeralSession</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCRequestController.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/verboseLogging" title="verboseLogging"></a>
+	<h3 class="method-title"><code><a href="#//api/name/verboseLogging">&nbsp;&nbsp;verboseLogging</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Defines whether or not verbose logging of requests and responses is enabled. Defined by setting &ldquo;TSCThunderRequestVerboseLogging&rdquo; boolean in info plsit</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic) BOOL verboseLogging</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCRequestController.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/truncatesVerboseResponse" title="truncatesVerboseResponse"></a>
+	<h3 class="method-title"><code><a href="#//api/name/truncatesVerboseResponse">&nbsp;&nbsp;truncatesVerboseResponse</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Defines whether or not verbose logging should include the full response body or a truncated version</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic) BOOL truncatesVerboseResponse</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCRequestController.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/completionHandlerDictionary" title="completionHandlerDictionary"></a>
+	<h3 class="method-title"><code><a href="#//api/name/completionHandlerDictionary">&nbsp;&nbsp;completionHandlerDictionary</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>A dictionary of completion handlers to be called when file downloads are complete</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSMutableDictionary *completionHandlerDictionary</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCRequestController.m</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
 					</div>
 					
 					
@@ -1193,7 +1703,7 @@ Generally one <code>TSCRequestController</code> should be initialised and shared
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 3 SIDED CUBE DESIGN LTD. All rights reserved. Updated: 2015-03-16</p>
+						<p class="copyright">Copyright &copy; 2015 3 SIDED CUBE DESIGN LTD. All rights reserved. Updated: 2015-09-02</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>

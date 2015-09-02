@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>TSCRequestContentType Constants Reference</title>
+	<title>TSCErrorRecoveryOptionType Constants Reference</title>
 
 	<link rel="stylesheet" href="../css/style.css">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
@@ -59,7 +59,7 @@
 		<div id="overview_contents" class="container">
 			<div id="content">
 				<main role="main">
-					<h1 class="title">TSCRequestContentType Constants Reference</h1>
+					<h1 class="title">TSCErrorRecoveryOptionType Constants Reference</h1>
 
 					
 					<div class="section section-specification"><table cellspacing="0"><tbody>
@@ -75,23 +75,25 @@
 					
 
                     
-                    <h3 class="subsubtitle method-title">TSCRequestContentType</h3>
+                    <h3 class="subsubtitle method-title">TSCErrorRecoveryOptionType</h3>
                     
+					
+					<div class="section section-overview">
+                        <p>The styles available for a <a href="../Classes/TSCErrorRecoveryOption.html"><code>TSCErrorRecoveryOption</code></a></p>
+					</div>
+					
+					
                     <div class="section">
                         <!-- display enum values -->
                         
                         <h4 class="method-subtitle">Definition</h4>
-                        <code>typedef NS_ENUM(NSInteger, TSCRequestContentType ) {<br>
+                        <code>typedef NS_ENUM(NSInteger, TSCErrorRecoveryOptionType ) {<br>
                             
-                            &nbsp;&nbsp; <a href="">TSCRequestContentTypeJSON</a> = 0,<br>
+                            &nbsp;&nbsp; <a href="">TSCErrorRecoveryOptionTypeCustom</a> = 0,<br>
                             
-                            &nbsp;&nbsp; <a href="">TSCRequestContentTypeFormURLEncoded</a> = 1,<br>
+                            &nbsp;&nbsp; <a href="">TSCErrorRecoveryOptionTypeRetry</a> = 1,<br>
                             
-                            &nbsp;&nbsp; <a href="">TSCRequestContentTypeMultipartFormData</a> = 2,<br>
-                            
-                            &nbsp;&nbsp; <a href="">TSCRequestContentTypeImagePNG</a> = 3,<br>
-                            
-                            &nbsp;&nbsp; <a href="">TSCRequestContentTypeImageJPEG</a> = 4,<br>
+                            &nbsp;&nbsp; <a href="">TSCErrorRecoveryOptionTypeCancel</a> = 2,<br>
                             
                             };</code>
                     
@@ -101,8 +103,15 @@
                         <h4 class="method-subtitle">Constants</h4>
                         <dl class="termdef">
                             
-                            <dt><a name="" title="TSCRequestContentTypeJSON"></a><code>TSCRequestContentTypeJSON</code></dt>
+                            <dt><a name="" title="TSCErrorRecoveryOptionTypeCustom"></a><code>TSCErrorRecoveryOptionTypeCustom</code></dt>
 <dd>
+
+
+<p>A custom option for recovering from an error</p>
+
+
+
+
 
     
 	<p>
@@ -111,8 +120,15 @@
 	
 </dd>
                             
-                            <dt><a name="" title="TSCRequestContentTypeFormURLEncoded"></a><code>TSCRequestContentTypeFormURLEncoded</code></dt>
+                            <dt><a name="" title="TSCErrorRecoveryOptionTypeRetry"></a><code>TSCErrorRecoveryOptionTypeRetry</code></dt>
 <dd>
+
+
+<p>An option to display a retry button and repeat the request where possible</p>
+
+
+
+
 
     
 	<p>
@@ -121,28 +137,15 @@
 	
 </dd>
                             
-                            <dt><a name="" title="TSCRequestContentTypeMultipartFormData"></a><code>TSCRequestContentTypeMultipartFormData</code></dt>
+                            <dt><a name="" title="TSCErrorRecoveryOptionTypeCancel"></a><code>TSCErrorRecoveryOptionTypeCancel</code></dt>
 <dd>
 
-    
-	<p>
-		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
-	</p>
-	
-</dd>
-                            
-                            <dt><a name="" title="TSCRequestContentTypeImagePNG"></a><code>TSCRequestContentTypeImagePNG</code></dt>
-<dd>
 
-    
-	<p>
-		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
-	</p>
-	
-</dd>
-                            
-                            <dt><a name="" title="TSCRequestContentTypeImageJPEG"></a><code>TSCRequestContentTypeImageJPEG</code></dt>
-<dd>
+<p>The &lsquo;cancel&rsquo; option that dismisses the recovery</p>
+
+
+
+
 
     
 	<p>
@@ -155,6 +158,17 @@
                     </div>
                     
 
+                    
+                    
+
+                    
+
+                    
+                    <div class="method-subsection declared-in-section">
+                        <h4 class="method-subtitle">Declared In</h4>
+                        <p><code class="declared-in-ref">TSCRequestDefines.h</code></p>
+                    </div>
+                    
                     
                     
 				</main>

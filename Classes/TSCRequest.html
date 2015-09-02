@@ -56,39 +56,19 @@
 	
 	<optgroup label="Properties">
 		
-		<option value="//api/name/HTTPMethod">HTTPMethod</option>
-		
-		<option value="//api/name/URLParamDictionary">URLParamDictionary</option>
-		
-		<option value="//api/name/URLParamObject">URLParamObject</option>
+		<option value="//api/name/URLParameterDictionary">URLParameterDictionary</option>
 		
 		<option value="//api/name/baseURL">baseURL</option>
 		
-		<option value="//api/name/bodyParams">bodyParams</option>
-		
-		<option value="//api/name/completion">completion</option>
+		<option value="//api/name/bodyParameters">bodyParameters</option>
 		
 		<option value="//api/name/contentType">contentType</option>
 		
-		<option value="//api/name/isCanceled">isCanceled</option>
-		
-		<option value="//api/name/isConcurrent">isConcurrent</option>
-		
-		<option value="//api/name/isExecuting">isExecuting</option>
-		
-		<option value="//api/name/isFinished">isFinished</option>
-		
-		<option value="//api/name/isReady">isReady</option>
-		
 		<option value="//api/name/path">path</option>
 		
-		<option value="//api/name/request">request</option>
-		
-		<option value="//api/name/requestCredential">requestCredential</option>
+		<option value="//api/name/requestHTTPMethod">requestHTTPMethod</option>
 		
 		<option value="//api/name/requestHeaders">requestHeaders</option>
-		
-		<option value="//api/name/response">response</option>
 		
 	</optgroup>
 	
@@ -98,11 +78,7 @@
 	
 	<optgroup label="Instance Methods">
 		
-		<option value="//api/name/PC_HTTPMethodDescription:">- PC_HTTPMethodDescription:</option>
-		
-		<option value="//api/name/cancel">- cancel</option>
-		
-		<option value="//api/name/start">- start</option>
+		<option value="//api/name/prepareForDispatch">- prepareForDispatch</option>
 		
 	</optgroup>
 	
@@ -125,7 +101,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<th>Inherits from</th>
-	<td>NSOperation</td>
+	<td>NSMutableURLRequest</td>
 </tr><tr>
 	<th>Declared in</th>
 	<td>TSCRequest.h<br />TSCRequest.m</td>
@@ -138,11 +114,11 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>A <code>TSCRequest</code> object represents a URL load <a href="#//api/name/request">request</a> to be made be a <a href="../Classes/TSCRequestController.html"><code>TSCRequestController</code></a>.</p>
+						<p>A <code>TSCRequest</code> object represents a URL load request to be made be a <a href="../Classes/TSCRequestController.html"><code>TSCRequestController</code></a>.</p>
 
 <p>Generally <code>TSCRequest</code> objects are created automatically by <a href="../Classes/TSCRequestController.html"><code>TSCRequestController</code></a> although you may wish to manually construct and use a <code>TSCRequest</code> object.</p>
 
-<p>Requests are a subclass of <code>NSOperation</code> and can be added to an <code>NSOperationQueue</code>. <a href="../Classes/TSCRequestController.html"><code>TSCRequestController</code></a> handles this automatically.</p>
+<p>Requests are a subclass of <code>NSMutableURLRequest</code></p>
 					</div>
 					
 					
@@ -169,12 +145,12 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>The Base URL for the <a href="#//api/name/request">request</a></p>
+				<p>The Base URL for the request</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSURL *baseURL</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, nonnull) NSURL *baseURL</code></div>
 
 		    
 			
@@ -220,7 +196,7 @@
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSString *path</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, nonnull) NSString *path</code></div>
 
 		    
 			
@@ -250,8 +226,8 @@
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/URLParamDictionary" title="URLParamDictionary"></a>
-	<h3 class="method-title"><code><a href="#//api/name/URLParamDictionary">&nbsp;&nbsp;URLParamDictionary</a></code>
+	<a name="//api/name/requestHTTPMethod" title="requestHTTPMethod"></a>
+	<h3 class="method-title"><code><a href="#//api/name/requestHTTPMethod">&nbsp;&nbsp;requestHTTPMethod</a></code>
 </h3>
 
 	<div class="method-info">
@@ -261,187 +237,12 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>The dictionary to be used to replace keys in the <a href="#//api/name/path"><code>path</code></a> component.</p>
+				<p>The HTTP method for the request (E.g. POST, GET&hellip;)</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSDictionary *URLParamDictionary</code></div>
-
-		    
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection discussion-section">
-				<h4 class="method-subtitle">Discussion</h4>
-				<p>For example a URL <a href="#//api/name/path">path</a> could be constructed as &ldquo;api/(:version)/users&rdquo;. The &ldquo;(:version)&rdquo; part of the <a href="#//api/name/path">path</a> will be replaced by the value for the &ldquo;version&rdquo; key in this dictionary</p>
-			</div>
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">TSCRequest.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/URLParamObject" title="URLParamObject"></a>
-	<h3 class="method-title"><code><a href="#//api/name/URLParamObject">&nbsp;&nbsp;URLParamObject</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>The object to be used to replace keys in the <a href="#//api/name/path"><code>path</code></a> component.</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSObject *URLParamObject</code></div>
-
-		    
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection discussion-section">
-				<h4 class="method-subtitle">Discussion</h4>
-				<p>For example a URL <a href="#//api/name/path">path</a> could be constructed as &ldquo;api/(:version)/users&rdquo;. The &ldquo;(:version)&rdquo; part of the <a href="#//api/name/path">path</a> will be replaced by the value for the &ldquo;version&rdquo; key in this object</p>
-			</div>
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">TSCRequest.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/bodyParams" title="bodyParams"></a>
-	<h3 class="method-title"><code><a href="#//api/name/bodyParams">&nbsp;&nbsp;bodyParams</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>A dictionary to be used as the body of the <a href="#//api/name/request">request</a></p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSDictionary *bodyParams</code></div>
-
-		    
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">TSCRequest.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/requestHeaders" title="requestHeaders"></a>
-	<h3 class="method-title"><code><a href="#//api/name/requestHeaders">&nbsp;&nbsp;requestHeaders</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>A dictionary to be used as the headers for the <a href="#//api/name/request">request</a>
-@dicussion This may be used to add keys such as &ldquo;Authorization&rdquo; or custom header fields.</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSDictionary *requestHeaders</code></div>
-
-		    
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">TSCRequest.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/HTTPMethod" title="HTTPMethod"></a>
-	<h3 class="method-title"><code><a href="#//api/name/HTTPMethod">&nbsp;&nbsp;HTTPMethod</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>The HTTP method for the <a href="#//api/name/request">request</a> (E.g. POST, GET&hellip;)</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) TSCRequestHTTPMethod HTTPMethod</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) TSCRequestHTTPMethod requestHTTPMethod</code></div>
 
 		    
 			
@@ -477,7 +278,7 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>The content type header for the <a href="#//api/name/request">request</a>, such as &ldquo;application/JSON&rdquo;</p>
+				<p>The content type header for the request, such as &ldquo;application/JSON&rdquo;</p>
 			</div>
 			
 		    
@@ -507,8 +308,8 @@
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/completion" title="completion"></a>
-	<h3 class="method-title"><code><a href="#//api/name/completion">&nbsp;&nbsp;completion</a></code>
+	<a name="//api/name/bodyParameters" title="bodyParameters"></a>
+	<h3 class="method-title"><code><a href="#//api/name/bodyParameters">&nbsp;&nbsp;bodyParameters</a></code>
 </h3>
 
 	<div class="method-info">
@@ -518,12 +319,12 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>The completion handler that is fired once the <a href="#//api/name/request">request</a> has finished. This is fired for both successful and failed requests</p>
+				<p>A dictionary to be used as the body of the request</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) TSCRequestCompletionHandler completion</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, nullable) NSDictionary *bodyParameters</code></div>
 
 		    
 			
@@ -548,8 +349,8 @@
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/requestCredential" title="requestCredential"></a>
-	<h3 class="method-title"><code><a href="#//api/name/requestCredential">&nbsp;&nbsp;requestCredential</a></code>
+	<a name="//api/name/requestHeaders" title="requestHeaders"></a>
+	<h3 class="method-title"><code><a href="#//api/name/requestHeaders">&nbsp;&nbsp;requestHeaders</a></code>
 </h3>
 
 	<div class="method-info">
@@ -559,12 +360,13 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>A <a href="#//api/name/request">request</a> object that is used to authenticate against any endpoints that require basic authentication</p>
+				<p>A dictionary to be used as the headers for the request
+@dicussion This may be used to add keys such as &ldquo;Authorization&rdquo; or custom header fields.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) TSCRequestCredential *requestCredential</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, nullable) NSDictionary *requestHeaders</code></div>
 
 		    
 			
@@ -589,8 +391,8 @@
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/response" title="response"></a>
-	<h3 class="method-title"><code><a href="#//api/name/response">&nbsp;&nbsp;response</a></code>
+	<a name="//api/name/URLParameterDictionary" title="URLParameterDictionary"></a>
+	<h3 class="method-title"><code><a href="#//api/name/URLParameterDictionary">&nbsp;&nbsp;URLParameterDictionary</a></code>
 </h3>
 
 	<div class="method-info">
@@ -600,12 +402,12 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>The response object to be returned in the <a href="#//api/name/completion">completion</a> block. This is created automatically</p>
+				<p>The dictionary to be used to replace keys in the <a href="#//api/name/path"><code>path</code></a> component.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) TSCRequestResponse *response</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, nullable) NSDictionary *URLParameterDictionary</code></div>
 
 		    
 			
@@ -617,7 +419,7 @@
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>The response object has a number of convenience methods for returning arrays, dictionaries and string values of the standard NSData response</p>
+				<p>For example a URL <a href="#//api/name/path">path</a> could be constructed as &ldquo;api/(:version)/users&rdquo;. The &ldquo;(:version)&rdquo; part of the <a href="#//api/name/path">path</a> will be replaced by the value for the &ldquo;version&rdquo; key in this dictionary</p>
 			</div>
 			
 
@@ -635,8 +437,8 @@
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/request" title="request"></a>
-	<h3 class="method-title"><code><a href="#//api/name/request">&nbsp;&nbsp;request</a></code>
+	<a name="//api/name/prepareForDispatch" title="prepareForDispatch"></a>
+	<h3 class="method-title"><code><a href="#//api/name/prepareForDispatch">&ndash;&nbsp;prepareForDispatch</a></code>
 </h3>
 
 	<div class="method-info">
@@ -646,53 +448,12 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>The NSURLRequest generated by the TSCRequest</p>
+				<p>Configures the request with the set parameters and makes it ready for queuing</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSURLRequest *request</code></div>
-
-		    
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">TSCRequest.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/isFinished" title="isFinished"></a>
-	<h3 class="method-title"><code><a href="#//api/name/isFinished">&nbsp;&nbsp;isFinished</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>A bool indicating whether or not the <a href="#//api/name/request">request</a> has completed</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL isFinished</code></div>
+			<div class="method-subsection method-declaration"><code>- (void)prepareForDispatch</code></div>
 
 		    
 			
@@ -702,304 +463,10 @@
 			
 
 			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">TSCRequest.h</code></p>
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Configures the request with the set parameters and makes it ready for queuing</p>
 			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/isCanceled" title="isCanceled"></a>
-	<h3 class="method-title"><code><a href="#//api/name/isCanceled">&nbsp;&nbsp;isCanceled</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>A bool indicating whether or not the <a href="#//api/name/request">request</a> has been cancelled</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL isCanceled</code></div>
-
-		    
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">TSCRequest.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/isReady" title="isReady"></a>
-	<h3 class="method-title"><code><a href="#//api/name/isReady">&nbsp;&nbsp;isReady</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>A bool indicating whether or not the <a href="#//api/name/request">request</a> is ready to be added to an <code>NSOperationQueue</code></p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL isReady</code></div>
-
-		    
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">TSCRequest.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/isExecuting" title="isExecuting"></a>
-	<h3 class="method-title"><code><a href="#//api/name/isExecuting">&nbsp;&nbsp;isExecuting</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>A bool indicating whether or not the <a href="#//api/name/request">request</a> is currently executing</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL isExecuting</code></div>
-
-		    
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">TSCRequest.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/isConcurrent" title="isConcurrent"></a>
-	<h3 class="method-title"><code><a href="#//api/name/isConcurrent">&nbsp;&nbsp;isConcurrent</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>A bool indicating whether or not the <a href="#//api/name/request">request</a> is to be executed concurrently with other requests</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL isConcurrent</code></div>
-
-		    
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">TSCRequest.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/start" title="start"></a>
-	<h3 class="method-title"><code><a href="#//api/name/start">&ndash;&nbsp;start</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>Begins the execution of the <a href="#//api/name/request">request</a> operation</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>- (void)start</code></div>
-
-		    
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">TSCRequest.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/cancel" title="cancel"></a>
-	<h3 class="method-title"><code><a href="#//api/name/cancel">&ndash;&nbsp;cancel</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>Cancels the execution of the <a href="#//api/name/request">request</a> operation</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>- (void)cancel</code></div>
-
-		    
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">TSCRequest.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/PC_HTTPMethodDescription:" title="PC_HTTPMethodDescription:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/PC_HTTPMethodDescription:">&ndash;&nbsp;PC_HTTPMethodDescription:</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>Provides a string representation of the <a href="../Constants/TSCRequestHTTPMethod.html"><code>TSCRequestHTTPMethod</code></a> type.</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>- (NSString *)PC_HTTPMethodDescription:(TSCRequestHTTPMethod)<em>HTTPMethod</em></code></div>
-
-		    
-			
-			<div class="method-subsection arguments-section parameters">
-				<h4 class="method-subtitle parameter-title">Parameters</h4>
-				<table class="argument-def parameter-def">
-				
-					<tr>
-						<th scope="row" class="argument-name"><code>HTTPMethod</code></th>
-						<td><p>The <a href="../Constants/TSCRequestHTTPMethod.html"><code>TSCRequestHTTPMethod</code></a> to convert to a string</p></td>
-					</tr>
-				
-				</table>
-			</div>
-			
-
-			
-
-			
-
 			
 
 			
@@ -1028,7 +495,7 @@
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 3 SIDED CUBE DESIGN LTD. All rights reserved. Updated: 2015-03-16</p>
+						<p class="copyright">Copyright &copy; 2015 3 SIDED CUBE DESIGN LTD. All rights reserved. Updated: 2015-09-02</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>

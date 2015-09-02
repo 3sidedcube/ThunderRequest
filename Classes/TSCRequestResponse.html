@@ -68,8 +68,6 @@
 		
 		<option value="//api/name/responseHeaders">responseHeaders</option>
 		
-		<option value="//api/name/responseStatus">responseStatus</option>
-		
 		<option value="//api/name/status">status</option>
 		
 		<option value="//api/name/string">string</option>
@@ -118,7 +116,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>A TSCRequestResponse <a href="#//api/name/object">object</a> encapsulated various properties to describe the response the server after executing a <a href="../Classes/TSCRequest.html"><code>TSCRequest</code></a>.</p>
+						<p>A more useful representation of a NSURLResponse <a href="#//api/name/object">object</a>. This <a href="#//api/name/object">object</a> contains useful properties to help access response <a href="#//api/name/data">data</a> from a <a href="#//api/name/data">data</a> request quickly</p>
 					</div>
 					
 					
@@ -130,7 +128,7 @@
 						
 
 						
-						<h2 class="task-title">Other Methods</h2>
+						
 
 						<div class="task-list">
 							<div class="section-method">
@@ -145,53 +143,12 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>HTTP Headers returned by the remote server in response to the request</p>
+				<p>A <a href="#//api/name/dictionary">dictionary</a> representation of the headers the server responded with</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSDictionary *responseHeaders</code></div>
-
-		    
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">TSCRequestResponse.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/responseStatus" title="responseStatus"></a>
-	<h3 class="method-title"><code><a href="#//api/name/responseStatus">&nbsp;&nbsp;responseStatus</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>The integer value of the HTTP <a href="#//api/name/status">status</a> code returned by the remote server</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSInteger responseStatus</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, nullable) NSDictionary *responseHeaders</code></div>
 
 		    
 			
@@ -227,12 +184,12 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>The NSData value of the information returned from the request</p>
+				<p>Raw NSData returned from the server</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSData *data</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, nullable) NSData *data</code></div>
 
 		    
 			
@@ -268,12 +225,12 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>The <code>NSHTTPURLResponse</code> <a href="#//api/name/object">object</a> returned by the <code>NSURLRequest</code></p>
+				<p>The NSHTTPURLResponse <a href="#//api/name/object">object</a> returned from the request. Contains information such as HTTP response code</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSHTTPURLResponse *HTTPResponse</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, nullable) NSHTTPURLResponse *HTTPResponse</code></div>
 
 		    
 			
@@ -309,12 +266,12 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>The <a href="../Constants/TSCResponseStatus.html"><code>TSCResponseStatus</code></a> code returned by the remote server</p>
+				<p>A HTTP response code</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) TSCResponseStatus status</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSInteger status</code></div>
 
 		    
 			
@@ -350,12 +307,12 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>An <code>NSArray</code> representation of the <a href="#//api/name/data">data</a> returned from the server</p>
+				<p>An array representation of the response <a href="#//api/name/data">data</a></p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, weak) NSArray *array</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, weak, nullable) NSArray *array</code></div>
 
 		    
 			
@@ -391,12 +348,12 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>An <code>NSDictionary</code> representation of the <a href="#//api/name/data">data</a> returned from the server</p>
+				<p>An dictionary representation of the response <a href="#//api/name/data">data</a></p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, weak) NSDictionary *dictionary</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, weak, nullable) NSDictionary *dictionary</code></div>
 
 		    
 			
@@ -432,12 +389,12 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>An <code>NSString</code> representation of the <a href="#//api/name/data">data</a> returned from the server</p>
+				<p>An string representation of the response <a href="#//api/name/data">data</a></p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSString *string</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, weak, nullable) NSString *string</code></div>
 
 		    
 			
@@ -473,12 +430,12 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>An <code>NSObject</code> representation of the <a href="#//api/name/data">data</a> returned from the server</p>
+				<p>An object representation of the response <a href="#//api/name/data">data</a>. Parsed from JSON.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, weak) NSObject *object</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, weak, nullable) NSObject *object</code></div>
 
 		    
 			
@@ -502,15 +459,7 @@
 			
 		</div>
 	</div>
-</div>
-						</div>
-						
-
-						<a title="Initialization" name="task_Initialization"></a>
-						<h2 class="task-title">Initialization</h2>
-
-						<div class="task-list">
-							<div class="section-method">
+</div><div class="section-method">
 	<a name="//api/name/initWithResponse:data:" title="initWithResponse:data:"></a>
 	<h3 class="method-title"><code><a href="#//api/name/initWithResponse:data:">&ndash;&nbsp;initWithResponse:data:</a></code>
 </h3>
@@ -522,31 +471,14 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Initializes the response <a href="#//api/name/object">object</a>. Generally you will not need to call this initializer manually</p>
+				<p>Initialises a new response <a href="#//api/name/object">object</a> using the response given by NSURLSession</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (id)initWithResponse:(NSHTTPURLResponse *)<em>response</em> data:(NSData *)<em>data</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (nullable instancetype)initWithResponse:(nullable NSURLResponse *)<em>response</em> data:(nullable NSData *)<em>data</em></code></div>
 
 		    
-			
-			<div class="method-subsection arguments-section parameters">
-				<h4 class="method-subtitle parameter-title">Parameters</h4>
-				<table class="argument-def parameter-def">
-				
-					<tr>
-						<th scope="row" class="argument-name"><code>response</code></th>
-						<td><p>The <code>NSHTTPURLResponse</code> returned by the <code>NSURLRequest</code></p></td>
-					</tr>
-				
-					<tr>
-						<th scope="row" class="argument-name"><code>data</code></th>
-						<td><p>The <a href="#//api/name/data">data</a> returned by the <code>NSURLRequest</code></p></td>
-					</tr>
-				
-				</table>
-			</div>
 			
 
 			
@@ -556,7 +488,7 @@
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Initializes the response <a href="#//api/name/object">object</a>. Generally you will not need to call this initializer manually</p>
+				<p>Initialises a new response <a href="#//api/name/object">object</a> using the response given by NSURLSession</p>
 			</div>
 			
 
@@ -586,7 +518,7 @@
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 3 SIDED CUBE DESIGN LTD. All rights reserved. Updated: 2015-03-16</p>
+						<p class="copyright">Copyright &copy; 2015 3 SIDED CUBE DESIGN LTD. All rights reserved. Updated: 2015-09-02</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>

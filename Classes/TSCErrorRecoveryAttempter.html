@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>TSCErrorRecoveryAttempter Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1333)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container" class="hide-in-xcode">
+			
+			<h1 id="library-title">
+				<a href="../index.html">ThunderRequest </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">3 SIDED CUBE DESIGN LTD.</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+	<optgroup label="Properties">
+		
+		<option value="//api/name/failureReason">failureReason</option>
+		
+		<option value="//api/name/recoveryOptions">recoveryOptions</option>
+		
+		<option value="//api/name/recoverySuggestion">recoverySuggestion</option>
+		
+	</optgroup>
+	
+
+	
+	<optgroup label="Class Methods">
+		
+		<option value="//api/name/errorDescriptionStringForDomain:code:">+ errorDescriptionStringForDomain:code:</option>
+		
+		<option value="//api/name/errorRecoveryStringForDomain:code:">+ errorRecoveryStringForDomain:code:</option>
+		
+		<option value="//api/name/registerOverrideDescription:forDomain:code:">+ registerOverrideDescription:forDomain:code:</option>
+		
+		<option value="//api/name/registerOverrideDescription:recoverySuggestion:forDomain:code:">+ registerOverrideDescription:recoverySuggestion:forDomain:code:</option>
+		
+	</optgroup>
+	
+
+	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/addOption:">- addOption:</option>
+		
+		<option value="//api/name/recoverableErrorWithError:">- recoverableErrorWithError:</option>
+		
+		<option value="//api/name/recoveryMessageBodyWithError:">- recoveryMessageBodyWithError:</option>
+		
+	</optgroup>
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">TSCErrorRecoveryAttempter Class Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td>NSObject</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>TSCErrorRecoveryAttempter.h<br />TSCErrorRecoveryAttempter.m</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>An error recovery attempter is an object that conforms to the informal NSErrorRecoveryAttempting informal protocol. This attempter can be assigned to an error to help provide a way for the user to recover from an error</p>
+					</div>
+					
+					
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						
+						
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/recoveryOptions" title="recoveryOptions"></a>
+	<h3 class="method-title"><code><a href="#//api/name/recoveryOptions">&nbsp;&nbsp;recoveryOptions</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>An array of TSCErrorRecoveryOptions that the user can choose from to recover from an error</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, nullable) NSMutableArray *recoveryOptions</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCErrorRecoveryAttempter.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/failureReason" title="failureReason"></a>
+	<h3 class="method-title"><code><a href="#//api/name/failureReason">&nbsp;&nbsp;failureReason</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The reason the failure occured. Optional</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, nullable) NSString *failureReason</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCErrorRecoveryAttempter.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/recoverySuggestion" title="recoverySuggestion"></a>
+	<h3 class="method-title"><code><a href="#//api/name/recoverySuggestion">&nbsp;&nbsp;recoverySuggestion</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The suggested method of recovery. Optional</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, nullable) NSString *recoverySuggestion</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCErrorRecoveryAttempter.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/recoverableErrorWithError:" title="recoverableErrorWithError:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/recoverableErrorWithError:">&ndash;&nbsp;recoverableErrorWithError:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Should be called to generate an NSError with the error recovery attempter attatched. All other proprties should be set before calling this method</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (nonnull NSError *)recoverableErrorWithError:(nonnull NSError *)<em>error</em></code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCErrorRecoveryAttempter.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/recoveryMessageBodyWithError:" title="recoveryMessageBodyWithError:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/recoveryMessageBodyWithError:">&ndash;&nbsp;recoveryMessageBodyWithError:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns a summarised message body to display to the user combining failure reasons and suggested recovery options if supplied</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (nonnull NSString *)recoveryMessageBodyWithError:(nonnull NSError *)<em>error</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>error</code></th>
+						<td><p>The NSError to attach to</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCErrorRecoveryAttempter.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/addOption:" title="addOption:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/addOption:">&ndash;&nbsp;addOption:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Adds an option to the list of ways a user can recover from the error</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)addOption:(nonnull TSCErrorRecoveryOption *)<em>option</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>option</code></th>
+						<td><p>A recovery option object</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCErrorRecoveryAttempter.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/registerOverrideDescription:forDomain:code:" title="registerOverrideDescription:forDomain:code:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/registerOverrideDescription:forDomain:code:">+&nbsp;registerOverrideDescription:forDomain:code:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Registers an override for a system error message. For example, CLGeocoder has very poor standard error mesaging. Registering an error through this method will ensure that this error message is used instead of the system one</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (void)registerOverrideDescription:(nullable NSString *)<em>errorDescription</em> forDomain:(nonnull NSString *)<em>domain</em> code:(NSInteger)<em>errorCode</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>domain</code></th>
+						<td><p>The domain of the error. Use constants where possible</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>code</code></th>
+						<td><p>The error code to override. Use constants where possible</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>errorDescrion</code></th>
+						<td><p>The description that you want to display to the user instead of the system one</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Registers an override for a system error message. For example, CLGeocoder has very poor standard error mesaging. Registering an error through this method will ensure that this error message is used instead of the system one</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCErrorRecoveryAttempter.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/registerOverrideDescription:recoverySuggestion:forDomain:code:" title="registerOverrideDescription:recoverySuggestion:forDomain:code:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/registerOverrideDescription:recoverySuggestion:forDomain:code:">+&nbsp;registerOverrideDescription:recoverySuggestion:forDomain:code:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Registers an override for a system error message. For example, CLGeocoder has very poor standard error mesaging. Registering an error through this method will ensure that this error message is used instead of the system one</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (void)registerOverrideDescription:(nullable NSString *)<em>errorDescription</em> recoverySuggestion:(nullable NSString *)<em>recoverySuggestion</em> forDomain:(nonnull NSString *)<em>domain</em> code:(NSInteger)<em>errorCode</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>recoverySuggestion</code></th>
+						<td><p>Advice to the user on how to recover from the error</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>domain</code></th>
+						<td><p>The domain of the error. Use constants where possible</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>code</code></th>
+						<td><p>The error code to override. Use constants where possible</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>errorDescrion</code></th>
+						<td><p>The description that you want to display to the user instead of the system one</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Registers an override for a system error message. For example, CLGeocoder has very poor standard error mesaging. Registering an error through this method will ensure that this error message is used instead of the system one</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCErrorRecoveryAttempter.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/errorDescriptionStringForDomain:code:" title="errorDescriptionStringForDomain:code:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/errorDescriptionStringForDomain:code:">+&nbsp;errorDescriptionStringForDomain:code:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Retrieves an override for an error key if there is one, and ignores it if not</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (nullable NSString *)errorDescriptionStringForDomain:(nonnull NSString *)<em>domain</em> code:(NSInteger)<em>errorCode</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>domain</code></th>
+						<td><p>The domain of the error. Use constants where possible</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>code</code></th>
+						<td><p>The error code to override. Use constants where possible</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Retrieves an override for an error key if there is one, and ignores it if not</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCErrorRecoveryAttempter.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/errorRecoveryStringForDomain:code:" title="errorRecoveryStringForDomain:code:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/errorRecoveryStringForDomain:code:">+&nbsp;errorRecoveryStringForDomain:code:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Retrieves an override for an error key if there is one, and ignores it if not</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (nullable NSString *)errorRecoveryStringForDomain:(nonnull NSString *)<em>domain</em> code:(NSInteger)<em>errorCode</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>domain</code></th>
+						<td><p>The domain of the error. Use constants where possible</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>code</code></th>
+						<td><p>The error code to override. Use constants where possible</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Retrieves an override for an error key if there is one, and ignores it if not</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TSCErrorRecoveryAttempter.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2015 3 SIDED CUBE DESIGN LTD. All rights reserved. Updated: 2015-09-02</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>

@@ -65,7 +65,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<th>Declared in</th>
-	<td>TSCRequestResponse.h</td>
+	<td>TSCRequestDefines.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -77,17 +77,15 @@
                     
                     <h3 class="subsubtitle method-title">TSCResponseStatus</h3>
                     
-					
-					<div class="section section-overview">
-                        <p>A list of HTTP response codes returned in <a href="../Classes/TSCRequestResponse.html"><code>TSCRequestResponse</code></a></p>
-					</div>
-					
-					
                     <div class="section">
                         <!-- display enum values -->
                         
                         <h4 class="method-subtitle">Definition</h4>
                         <code>typedef NS_ENUM(NSInteger, TSCResponseStatus ) {<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusContinue</a> = 100,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusSwitchingProtocols</a> = 101,<br>
                             
                             &nbsp;&nbsp; <a href="">TSCResponseStatusOK</a> = 200,<br>
                             
@@ -98,6 +96,24 @@
                             &nbsp;&nbsp; <a href="">TSCResponseStatusNonAuthoritativeInformation</a> = 203,<br>
                             
                             &nbsp;&nbsp; <a href="">TSCResponseStatusNoContent</a> = 204,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusResetContent</a> = 205,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusPartialContent</a> = 206,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusMultipleChoices</a> = 300,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusMovedPermanently</a> = 301,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusFound</a> = 302,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusSeeOther</a> = 303,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusNotModified</a> = 304,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusUseProxy</a> = 305,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusTemporaryRedirect</a> = 307,<br>
                             
                             &nbsp;&nbsp; <a href="">TSCResponseStatusBadRequest</a> = 400,<br>
                             
@@ -113,6 +129,28 @@
                             
                             &nbsp;&nbsp; <a href="">TSCResponseStatusNotAcceptable</a> = 406,<br>
                             
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusProxyAuthenticationRequired</a> = 407,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusRequestTimeout</a> = 408,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusConflict</a> = 409,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusGone</a> = 410,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusLengthRequired</a> = 411,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusPreconditionFailed</a> = 412,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusRequestEntityTooLarge</a> = 413,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusRequestURITooLong</a> = 414,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusUnsupportedMediaType</a> = 415,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusRangeNotSatisfiable</a> = 416,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusExpectationFailed</a> = 417,<br>
+                            
                             &nbsp;&nbsp; <a href="">TSCResponseStatusInternalServerError</a> = 500,<br>
                             
                             &nbsp;&nbsp; <a href="">TSCResponseStatusNotImplemented</a> = 501,<br>
@@ -120,6 +158,10 @@
                             &nbsp;&nbsp; <a href="">TSCResponseStatusBadGateway</a> = 502,<br>
                             
                             &nbsp;&nbsp; <a href="">TSCResponseStatusServiceUnavailable</a> = 503,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusGatewayTimeout</a> = 504,<br>
+                            
+                            &nbsp;&nbsp; <a href="">TSCResponseStatusHTTPVersionNotSupported</a> = 505,<br>
                             
                             };</code>
                     
@@ -129,19 +171,32 @@
                         <h4 class="method-subtitle">Constants</h4>
                         <dl class="termdef">
                             
-                            <dt><a name="" title="TSCResponseStatusOK"></a><code>TSCResponseStatusOK</code></dt>
+                            <dt><a name="" title="TSCResponseStatusContinue"></a><code>TSCResponseStatusContinue</code></dt>
 <dd>
-
-
-<p>The request was successful</p>
-
-
-
-
 
     
 	<p>
-		Declared In <code class="declared-in-ref">TSCRequestResponse.h</code>.
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusSwitchingProtocols"></a><code>TSCResponseStatusSwitchingProtocols</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusOK"></a><code>TSCResponseStatusOK</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
 	</p>
 	
 </dd>
@@ -149,16 +204,9 @@
                             <dt><a name="" title="TSCResponseStatusCreated"></a><code>TSCResponseStatusCreated</code></dt>
 <dd>
 
-
-<p>The request has been fulfilled and resulted in a new resource being created</p>
-
-
-
-
-
     
 	<p>
-		Declared In <code class="declared-in-ref">TSCRequestResponse.h</code>.
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
 	</p>
 	
 </dd>
@@ -166,16 +214,9 @@
                             <dt><a name="" title="TSCResponseStatusAccepted"></a><code>TSCResponseStatusAccepted</code></dt>
 <dd>
 
-
-<p>The request has been accepted for processing, but the processing has not been completed.</p>
-
-
-
-
-
     
 	<p>
-		Declared In <code class="declared-in-ref">TSCRequestResponse.h</code>.
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
 	</p>
 	
 </dd>
@@ -183,16 +224,9 @@
                             <dt><a name="" title="TSCResponseStatusNonAuthoritativeInformation"></a><code>TSCResponseStatusNonAuthoritativeInformation</code></dt>
 <dd>
 
-
-<p>The server successfully processed the request, but is returning information that may be from another source</p>
-
-
-
-
-
     
 	<p>
-		Declared In <code class="declared-in-ref">TSCRequestResponse.h</code>.
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
 	</p>
 	
 </dd>
@@ -200,16 +234,99 @@
                             <dt><a name="" title="TSCResponseStatusNoContent"></a><code>TSCResponseStatusNoContent</code></dt>
 <dd>
 
-
-<p>The server successfully processed the request, but is not returning any content. Usually used as a response to a successful delete request</p>
-
-
-
-
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusResetContent"></a><code>TSCResponseStatusResetContent</code></dt>
+<dd>
 
     
 	<p>
-		Declared In <code class="declared-in-ref">TSCRequestResponse.h</code>.
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusPartialContent"></a><code>TSCResponseStatusPartialContent</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusMultipleChoices"></a><code>TSCResponseStatusMultipleChoices</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusMovedPermanently"></a><code>TSCResponseStatusMovedPermanently</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusFound"></a><code>TSCResponseStatusFound</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusSeeOther"></a><code>TSCResponseStatusSeeOther</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusNotModified"></a><code>TSCResponseStatusNotModified</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusUseProxy"></a><code>TSCResponseStatusUseProxy</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusTemporaryRedirect"></a><code>TSCResponseStatusTemporaryRedirect</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
 	</p>
 	
 </dd>
@@ -217,16 +334,9 @@
                             <dt><a name="" title="TSCResponseStatusBadRequest"></a><code>TSCResponseStatusBadRequest</code></dt>
 <dd>
 
-
-<p>The request cannot be fulfilled due to bad syntax.</p>
-
-
-
-
-
     
 	<p>
-		Declared In <code class="declared-in-ref">TSCRequestResponse.h</code>.
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
 	</p>
 	
 </dd>
@@ -234,16 +344,9 @@
                             <dt><a name="" title="TSCResponseStatusUnauthorized"></a><code>TSCResponseStatusUnauthorized</code></dt>
 <dd>
 
-
-<p>Similar to <code>TSCResponseStatusForbiden</code>, but specifically for use when authentication is required and has failed or has not yet been provided</p>
-
-
-
-
-
     
 	<p>
-		Declared In <code class="declared-in-ref">TSCRequestResponse.h</code>.
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
 	</p>
 	
 </dd>
@@ -251,16 +354,9 @@
                             <dt><a name="" title="TSCResponseStatusPaymentRequired"></a><code>TSCResponseStatusPaymentRequired</code></dt>
 <dd>
 
-
-<p>Reserved for future use.</p>
-
-
-
-
-
     
 	<p>
-		Declared In <code class="declared-in-ref">TSCRequestResponse.h</code>.
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
 	</p>
 	
 </dd>
@@ -268,16 +364,9 @@
                             <dt><a name="" title="TSCResponseStatusForbidden"></a><code>TSCResponseStatusForbidden</code></dt>
 <dd>
 
-
-<p>The request was a valid request, but the server is refusing to respond to it. Unlike a <code>TSCResponseStatusUnauthorized</code>, authenticating will make no difference</p>
-
-
-
-
-
     
 	<p>
-		Declared In <code class="declared-in-ref">TSCRequestResponse.h</code>.
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
 	</p>
 	
 </dd>
@@ -285,16 +374,9 @@
                             <dt><a name="" title="TSCResponseStatusNotFound"></a><code>TSCResponseStatusNotFound</code></dt>
 <dd>
 
-
-<p>The requested resource could not be found but may be available again in the future</p>
-
-
-
-
-
     
 	<p>
-		Declared In <code class="declared-in-ref">TSCRequestResponse.h</code>.
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
 	</p>
 	
 </dd>
@@ -302,16 +384,9 @@
                             <dt><a name="" title="TSCResponseStatusMethodNotAllowed"></a><code>TSCResponseStatusMethodNotAllowed</code></dt>
 <dd>
 
-
-<p>A request was made of a resource using a request method not supported by that resource</p>
-
-
-
-
-
     
 	<p>
-		Declared In <code class="declared-in-ref">TSCRequestResponse.h</code>.
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
 	</p>
 	
 </dd>
@@ -319,16 +394,119 @@
                             <dt><a name="" title="TSCResponseStatusNotAcceptable"></a><code>TSCResponseStatusNotAcceptable</code></dt>
 <dd>
 
-
-<p>The requested resource is only capable of generating content not acceptable according to the Accept headers sent in the request.</p>
-
-
-
-
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusProxyAuthenticationRequired"></a><code>TSCResponseStatusProxyAuthenticationRequired</code></dt>
+<dd>
 
     
 	<p>
-		Declared In <code class="declared-in-ref">TSCRequestResponse.h</code>.
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusRequestTimeout"></a><code>TSCResponseStatusRequestTimeout</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusConflict"></a><code>TSCResponseStatusConflict</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusGone"></a><code>TSCResponseStatusGone</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusLengthRequired"></a><code>TSCResponseStatusLengthRequired</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusPreconditionFailed"></a><code>TSCResponseStatusPreconditionFailed</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusRequestEntityTooLarge"></a><code>TSCResponseStatusRequestEntityTooLarge</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusRequestURITooLong"></a><code>TSCResponseStatusRequestURITooLong</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusUnsupportedMediaType"></a><code>TSCResponseStatusUnsupportedMediaType</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusRangeNotSatisfiable"></a><code>TSCResponseStatusRangeNotSatisfiable</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusExpectationFailed"></a><code>TSCResponseStatusExpectationFailed</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
 	</p>
 	
 </dd>
@@ -336,16 +514,9 @@
                             <dt><a name="" title="TSCResponseStatusInternalServerError"></a><code>TSCResponseStatusInternalServerError</code></dt>
 <dd>
 
-
-<p>A generic error message, given when an unexpected condition was encountered and no more specific message is suitable.</p>
-
-
-
-
-
     
 	<p>
-		Declared In <code class="declared-in-ref">TSCRequestResponse.h</code>.
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
 	</p>
 	
 </dd>
@@ -353,16 +524,9 @@
                             <dt><a name="" title="TSCResponseStatusNotImplemented"></a><code>TSCResponseStatusNotImplemented</code></dt>
 <dd>
 
-
-<p>The server either does not recognize the request method, or it lacks the ability to fulfil the request.</p>
-
-
-
-
-
     
 	<p>
-		Declared In <code class="declared-in-ref">TSCRequestResponse.h</code>.
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
 	</p>
 	
 </dd>
@@ -370,16 +534,9 @@
                             <dt><a name="" title="TSCResponseStatusBadGateway"></a><code>TSCResponseStatusBadGateway</code></dt>
 <dd>
 
-
-<p>The server was acting as a gateway or proxy and received an invalid response from the upstream server.</p>
-
-
-
-
-
     
 	<p>
-		Declared In <code class="declared-in-ref">TSCRequestResponse.h</code>.
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
 	</p>
 	
 </dd>
@@ -387,16 +544,29 @@
                             <dt><a name="" title="TSCResponseStatusServiceUnavailable"></a><code>TSCResponseStatusServiceUnavailable</code></dt>
 <dd>
 
-
-<p>The server is currently unavailable (because it is overloaded or down for maintenance).</p>
-
-
-
-
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusGatewayTimeout"></a><code>TSCResponseStatusGatewayTimeout</code></dt>
+<dd>
 
     
 	<p>
-		Declared In <code class="declared-in-ref">TSCRequestResponse.h</code>.
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="TSCResponseStatusHTTPVersionNotSupported"></a><code>TSCResponseStatusHTTPVersionNotSupported</code></dt>
+<dd>
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">TSCRequestDefines.h</code>.
 	</p>
 	
 </dd>
@@ -407,23 +577,12 @@
 
                     
                     
-
-                    
-
-                    
-                    <div class="method-subsection declared-in-section">
-                        <h4 class="method-subtitle">Declared In</h4>
-                        <p><code class="declared-in-ref">TSCRequestResponse.h</code></p>
-                    </div>
-                    
-                    
-                    
 				</main>
 
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 3 SIDED CUBE DESIGN LTD. All rights reserved. Updated: 2015-03-16</p>
+						<p class="copyright">Copyright &copy; 2015 3 SIDED CUBE DESIGN LTD. All rights reserved. Updated: 2015-09-02</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
