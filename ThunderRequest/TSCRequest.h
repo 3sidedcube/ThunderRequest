@@ -1,97 +1,32 @@
-//
-//  PCRequest.h
-//  Demo
-//
-//  Created by Phillip Caudell on 12/06/2013.
-//  Copyright (c) 2013 Phillip Caudell. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
-#import "TSCRequestResponse.h"
-#import "TSCRequestCredential.h"
-
-/** A list of HTTP methods accepted by `TSCRequest` */
-typedef NS_ENUM(NSInteger, TSCRequestHTTPMethod) {
-    /** The GET method is used to retrieve data from the given URL */
-    TSCRequestHTTPMethodGET = 0,
-    /** The POST method is used to send data to the given URL */
-    TSCRequestHTTPMethodPOST = 1,
-    /** A PUT request is used to send data to the server, usually a modified version of existing data on the server */
-    TSCRequestHTTPMethodPUT = 2,
-    /** A DELETE request is used to request that the remote server delete the resource */
-    TSCRequestHTTPMethodDELETE = 3,
-    /** A GET request is identical to a GET request except that the server does not return as body */
-    TSCRequestHTTPMethodHEAD = 4
-};
-
-/** A list of content types accepted by `TSCRequest` */
-typedef NS_ENUM(NSInteger, TSCRequestContentType) {
-    /** Used to encode the request body as URL encoded form data */
-    TSCRequestContentTypeFormURLEncoded = 1,
-    /** Used to encode the request body into JSON */
-    TSCRequestContentTypeJSON = 2,
-    /** Used to encode the request body multipart form data */
-    TSCRequestContentTypeMultipartFormData = 3,
-    /** Used to encode the request body to a .PNG file */
-    TSCRequestContentTypeImagePNG = 4,
-    /** Used to encode the request body to a .JPEG file */
-    TSCRequestContentTypeImageJPEG = 5
-};
-
-/**
- A block to be used when a `TSCRequest` completes
- */
-typedef void (^TSCRequestCompletionHandler)(TSCRequestResponse *response, NSError *error);
+#import "TSCRequestDefines.h"
 
 /**
  A `TSCRequest` object represents a URL load request to be made be a `TSCRequestController`.
  
  Generally `TSCRequest` objects are created automatically by `TSCRequestController` although you may wish to manually construct and use a `TSCRequest` object.
  
- Requests are a subclass of `NSOperation` and can be added to an `NSOperationQueue`. `TSCRequestController` handles this automatically.
+ Requests are a subclass of `NSMutableURLRequest`
  
  */
-@interface TSCRequest : NSOperation
+@interface TSCRequest : NSMutableURLRequest
 
 /**
  @abstract The Base URL for the request
  @discussion E.g. "http://api.mywebsite.com"
  */
-@property (nonatomic, strong) NSURL *baseURL;
+@property (nonatomic, strong, nonnull) NSURL *baseURL;
 
 /**
  @abstract The path to be appended to the `baseURL`.
  @discussion This should exclude the first "/" as this is appended automatically. E.g. "users/list.php"
  */
-@property (nonatomic, copy) NSString *path;
-
-/**
- @abstract The dictionary to be used to replace keys in the `path` component.
- @discussion For example a URL path could be constructed as "api/(:version)/users". The "(:version)" part of the path will be replaced by the value for the "version" key in this dictionary
- */
-@property (nonatomic, strong) NSDictionary *URLParamDictionary;
-
-/**
- @abstract The object to be used to replace keys in the `path` component.
- @discussion For example a URL path could be constructed as "api/(:version)/users". The "(:version)" part of the path will be replaced by the value for the "version" key in this object
- */
-@property (nonatomic, strong) NSObject *URLParamObject;
-
-/**
- @abstract A dictionary to be used as the body of the request
- */
-@property (nonatomic, strong) NSDictionary *bodyParams;
-
-/**
- @abstract A dictionary to be used as the headers for the request
- @dicussion This may be used to add keys such as "Authorization" or custom header fields.
- */
-@property (nonatomic, strong) NSDictionary *requestHeaders;
+@property (nonatomic, strong, nonnull) NSString *path;
 
 /**
  @abstract The HTTP method for the request (E.g. POST, GET...)
  */
-@property (nonatomic, assign) TSCRequestHTTPMethod HTTPMethod;
+@property (nonatomic, assign) TSCRequestHTTPMethod requestHTTPMethod;
 
 /**
  @abstract The content type header for the request, such as "application/JSON"
@@ -99,75 +34,31 @@ typedef void (^TSCRequestCompletionHandler)(TSCRequestResponse *response, NSErro
 @property (nonatomic, assign) TSCRequestContentType contentType;
 
 /**
- @abstract The completion handler that is fired once the request has finished. This is fired for both successful and failed requests
+ @abstract A dictionary to be used as the body of the request
  */
-@property (nonatomic, strong) TSCRequestCompletionHandler completion;
+@property (nonatomic, strong, nullable) NSDictionary *bodyParameters;
 
 /**
- @abstract A request object that is used to authenticate against any endpoints that require basic authentication
+ @abstract A dictionary to be used as the headers for the request
+ @dicussion This may be used to add keys such as "Authorization" or custom header fields.
  */
-@property (nonatomic, strong) TSCRequestCredential *requestCredential;
+@property (nonatomic, strong, nullable) NSDictionary *requestHeaders;
 
 /**
- @abstract The response object to be returned in the completion block. This is created automatically
- @discussion The response object has a number of convenience methods for returning arrays, dictionaries and string values of the standard NSData response
+ @abstract The dictionary to be used to replace keys in the `path` component.
+ @discussion For example a URL path could be constructed as "api/(:version)/users". The "(:version)" part of the path will be replaced by the value for the "version" key in this dictionary
  */
-@property (nonatomic, strong) TSCRequestResponse *response;
+@property (nonatomic, strong, nullable) NSDictionary *URLParameterDictionary;
 
 /**
- @abstract The NSURLRequest generated by the TSCRequest
+ Configures the request with the set parameters and makes it ready for queuing 
  */
-@property (nonatomic, readonly) NSURLRequest *request;
-
-/**
- @abstract A bool indicating whether or not the request has completed
- */
-@property (nonatomic, assign) BOOL isFinished;
-
-/**
- @abstract A bool indicating whether or not the request has been cancelled
- */
-@property (nonatomic, assign) BOOL isCanceled;
-
-/**
- @abstract A bool indicating whether or not the request is ready to be added to an `NSOperationQueue`
- */
-@property (nonatomic, assign) BOOL isReady;
-
-/**
- @abstract A bool indicating whether or not the request is currently executing
- */
-@property (nonatomic, assign) BOOL isExecuting;
-
-/**
- @abstract A bool indicating whether or not the request is to be executed concurrently with other requests
- */
-@property (nonatomic, assign) BOOL isConcurrent;
-
-/**
- @abstract Begins the execution of the request operation
- */
-- (void)start;
-
-/**
- @abstract Cancels the execution of the request operation
- */
-- (void)cancel;
-
-/**
- @abstract Provides a string representation of the `TSCRequestHTTPMethod` type.
- @param HTTPMethod The `TSCRequestHTTPMethod` to convert to a string
- */
-- (NSString *)PC_HTTPMethodDescription:(TSCRequestHTTPMethod)HTTPMethod;
+- (void)prepareForDispatch;
 
 @end
 
-/** A class extension to provide MD5 functionality on NSString */
 @interface NSString (MD5)
 
-/**
- @abstract The MD5String representation of an NSString
- */
-- (NSString *)MD5String;
+- (nonnull NSString *)MD5String;
 
 @end
