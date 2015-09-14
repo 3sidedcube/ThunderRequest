@@ -43,4 +43,34 @@
  */
 - (instancetype)initWithAuthorizationToken:(NSString *)authorizationToken;
 
+///---------------------------------------------------------------------------------------
+/// @name Keychain Helpers
+///---------------------------------------------------------------------------------------
+
+/**
+ Stores the credential in the keychain under a certian identifier
+ @param credential The credentials object to store in the keychain
+ @param identifier The identifier to store the credential object under
+ */
++ (BOOL)storeCredential:(TSCRequestCredential *)credential withIdentifier:(NSString *)identifier;
+
+/**
+ Deletes an entry for a certain identifier from the keychain
+ @param identifier The identifier to delete the credential object for
+ */
++ (BOOL)deleteCredentialWithIdentifier:(NSString *)identifier;
+
+/**
+ Retrieves a credential object from the keychain for a certain identifier
+ @param identifier The identifier to retrieve the credential for
+ */
++ (TSCRequestCredential *)retrieveCredentialWithIdentifier:(NSString *)identifier;
+
+@end
+
+#pragma mark -
+#pragma mark - OAuth 2 Credentials
+
+@interface TSCRequestCredential ()
+
 @end
