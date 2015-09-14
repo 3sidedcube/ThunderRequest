@@ -4,6 +4,9 @@
 #import "TSCErrorRecoveryAttempter.h"
 #import "TSCErrorRecoveryOption.h"
 #import "TSCRequestCredential.h"
+#import "TSCOAuth2Credential.h"
+
+typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError);
 
 @interface TSCRequestController () <NSURLSessionDownloadDelegate, NSURLSessionTaskDelegate>
 
@@ -92,10 +95,10 @@
         if ([baseURL.absoluteString hasSuffix:@"/"]) {
             self.sharedBaseURL = baseURL;
         } else {
-            
             self.sharedBaseURL = [NSURL URLWithString:[baseURL.absoluteString stringByAppendingString:@"/"]];
         }
         
+        self.sharedRequestCredential = [TSCRequestCredential retrieveCredentialWithIdentifier:[NSString stringWithFormat:@"thundertable.com.threesidedcube-%@", self.sharedBaseURL]];
     }
     return self;
 }
@@ -223,92 +226,169 @@
 
 #pragma mark - Request scheduling
 
+// This method is used to check the OAuth2 status before starting a request
+- (void)checkOAuthStatusWithCompletion:(TSCOAuth2CheckCompletion)completion
+{
+    // If we have an OAuth2 delegate and our credential has expired we call the delegate to refresh it
+    if (self.OAuth2Delegate) {
+        
+        if (!self.sharedRequestCredential || ![self.sharedRequestCredential isKindOfClass:[TSCOAuth2Credential class]]) {
+            self.sharedRequestCredential = [TSCOAuth2Credential retrieveCredentialWithIdentifier:[self.OAuth2Delegate serviceIdentifier]];
+        }
+        
+        // If we got shared credentials and they are OAuth 2 credentials we can continue
+        if (self.sharedRequestCredential && [self.sharedRequestCredential isKindOfClass:[TSCOAuth2Credential class]]) {
+            
+            TSCOAuth2Credential *OAuth2Credential = (TSCOAuth2Credential *)self.sharedRequestCredential;
+            
+            // If our credentials have expired, let's ask our delegate to refresh them
+            if (OAuth2Credential.hasExpired) {
+                
+                __weak typeof(self) welf = self;
+                [self.OAuth2Delegate reAuthenticateCredential:OAuth2Credential withCompletion:^(TSCOAuth2Credential * _Nullable credential, NSError * _Nullable error, BOOL saveToKeychain) {
+                    
+                    // If we don't get an error we save the credentials to the keychain and then call the completion block
+                    if (!error) {
+                        
+                        if (saveToKeychain) {
+                            [TSCOAuth2Credential storeCredential:credential withIdentifier:[welf.OAuth2Delegate serviceIdentifier]];
+                        }
+                        welf.sharedRequestCredential = credential;
+                    }
+                    
+                    if (completion) {
+                        completion(error != nil, error);
+                    }
+                }];
+                
+                return;
+            } else {
+                
+                completion(true, nil);
+            }
+        } else {
+            completion(true, nil);
+        }
+    } else {
+        
+        if (completion) {
+            completion(true, nil);
+        }
+    }
+}
+
 - (void)scheduleDownloadRequest:(TSCRequest *)request progress:(TSCRequestProgressHandler)progress completion:(TSCRequestDownloadCompletionHandler)completion
 {
-    [request prepareForDispatch];
+    __weak typeof(self) welf = self;
     
-    // Should be using downloadtaskwithrequest but it has a bug which causes it to return nil.
-    NSURLSessionDownloadTask *task = [self.backgroundSession downloadTaskWithURL:request.URL];
-    
-    [self addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
-    
-    [task resume];
+    // Check OAuth status before making the request
+    [self checkOAuthStatusWithCompletion:^(BOOL authenticated, NSError *error) {
+       
+        if (error || !authenticated) {
+            
+            if (completion) {
+                completion(nil, error);
+            }
+            return;
+        }
+        
+        [request prepareForDispatch];
+        
+        // Should be using downloadtaskwithrequest but it has a bug which causes it to return nil.
+        NSURLSessionDownloadTask *task = [welf.backgroundSession downloadTaskWithURL:request.URL];
+        
+        [welf addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
+        
+        [task resume];
+    }];
 }
 
 - (void)scheduleRequest:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion
 {
-    [request prepareForDispatch];
-    [[self.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        TSCRequestResponse *requestResponse = [[TSCRequestResponse alloc] initWithResponse:response data:data];
-        //Notify of response
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestDidReceiveResponse" object:requestResponse];
-        
-        //Notify of errors
-        if ([self statusCodeIsConsideredHTTPError:requestResponse.status]) {
+    // Check OAuth status before making the request
+    __weak typeof(self) welf = self;
+    [self checkOAuthStatusWithCompletion:^(BOOL authenticated, NSError *error) {
+       
+        if (error || !authenticated) {
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestServerError" object:self];
-            
+            if (completion) {
+                completion(nil, error);
+            }
+            return;
         }
         
-        
-
-        if (error || [self statusCodeIsConsideredHTTPError:requestResponse.status]) {
+        [request prepareForDispatch];
+        [[welf.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             
-            TSCErrorRecoveryAttempter *recoveryAttempter = [TSCErrorRecoveryAttempter new];
+            TSCRequestResponse *requestResponse = [[TSCRequestResponse alloc] initWithResponse:response data:data];
+            //Notify of response
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestDidReceiveResponse" object:requestResponse];
             
-            [recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Retry" type:TSCErrorRecoveryOptionTypeRetry handler:^(TSCErrorRecoveryOption *option) {
+            //Notify of errors
+            if ([welf statusCodeIsConsideredHTTPError:requestResponse.status]) {
                 
-                [self scheduleRequest:request completion:completion];
-                
-            }]];
-            
-            [recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Cancel" type:TSCErrorRecoveryOptionTypeCancel handler:nil]];
-            
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                
-                if (error) {
-                    completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
-                } else {
-                    
-                    NSError *httpError = [NSError errorWithDomain:TSCRequestErrorDomain code:requestResponse.status userInfo:@{NSLocalizedDescriptionKey: [NSHTTPURLResponse localizedStringForStatusCode:requestResponse.status]}];
-
-                    completion(requestResponse, [recoveryAttempter recoverableErrorWithError:httpError]);
-
-                }
-            }];
-            
-        } else {
-            
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-
-                completion(requestResponse, error);
-                
-            }];
-            
-        }
-        
-        
-        //Log
-        if (self.verboseLogging) {
-         
-            if (error) {
-                
-                NSLog(@"Request:%@", request);
-                NSLog(@"\n<ThunderRequest>\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: FAILURE \nError Description: %@",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], error.localizedDescription);
-                
-            } else {
-            
-                NSRange truncatedRange = {0, MIN(requestResponse.string.length, 25)};
-                truncatedRange = [requestResponse.string rangeOfComposedCharacterSequencesForRange:truncatedRange];
-                
-                NSLog(@"\n<ThunderRequest>\nURL:    %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: %li\nResponse Body: %@\n",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], (long)requestResponse.status, self.truncatesVerboseResponse ? [[requestResponse.string substringWithRange:truncatedRange] stringByAppendingString:@"..."] : requestResponse.string);
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestServerError" object:self];
                 
             }
             
-        }
-        
-    }] resume];
+            if (error || [welf statusCodeIsConsideredHTTPError:requestResponse.status]) {
+                
+                TSCErrorRecoveryAttempter *recoveryAttempter = [TSCErrorRecoveryAttempter new];
+                
+                [recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Retry" type:TSCErrorRecoveryOptionTypeRetry handler:^(TSCErrorRecoveryOption *option) {
+                    
+                    [welf scheduleRequest:request completion:completion];
+                    
+                }]];
+                
+                [recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Cancel" type:TSCErrorRecoveryOptionTypeCancel handler:nil]];
+                
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    
+                    if (error) {
+                        completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
+                    } else {
+                        
+                        NSError *httpError = [NSError errorWithDomain:TSCRequestErrorDomain code:requestResponse.status userInfo:@{NSLocalizedDescriptionKey: [NSHTTPURLResponse localizedStringForStatusCode:requestResponse.status]}];
+                        
+                        completion(requestResponse, [recoveryAttempter recoverableErrorWithError:httpError]);
+                        
+                    }
+                }];
+                
+            } else {
+                
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    
+                    completion(requestResponse, error);
+                    
+                }];
+                
+            }
+            
+            
+            //Log
+            if (self.verboseLogging) {
+                
+                if (error) {
+                    
+                    NSLog(@"Request:%@", request);
+                    NSLog(@"\n<ThunderRequest>\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: FAILURE \nError Description: %@",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], error.localizedDescription);
+                    
+                } else {
+                    
+                    NSRange truncatedRange = {0, MIN(requestResponse.string.length, 25)};
+                    truncatedRange = [requestResponse.string rangeOfComposedCharacterSequencesForRange:truncatedRange];
+                    
+                    NSLog(@"\n<ThunderRequest>\nURL:    %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: %li\nResponse Body: %@\n",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], (long)requestResponse.status, self.truncatesVerboseResponse ? [[requestResponse.string substringWithRange:truncatedRange] stringByAppendingString:@"..."] : requestResponse.string);
+                    
+                }
+                
+            }
+            
+        }] resume];
+
+    }];
 }
 
 #pragma mark - NSURLSession challenge handling
@@ -402,6 +482,31 @@
     }
     
     return false;
+}
+
+#pragma mark - OAuth2 Flow
+
+- (void)setOAuth2Delegate:(id<TSCOAuth2Manager>)OAuth2Delegate
+{
+    _OAuth2Delegate = OAuth2Delegate;
+
+    if (!OAuth2Delegate) {
+        return;
+    }
+    
+    TSCOAuth2Credential *credential = (TSCOAuth2Credential *)[TSCOAuth2Credential retrieveCredentialWithIdentifier:[OAuth2Delegate serviceIdentifier]];
+    if (credential) {
+        self.sharedRequestCredential = credential;
+    }
+}
+
+- (void)setSharedRequestCredential:(TSCRequestCredential *)credential andSaveToKeychain:(BOOL)save
+{
+    _sharedRequestCredential = credential;
+    
+    if (save) {
+        [[credential class] storeCredential:credential withIdentifier: self.OAuth2Delegate ? [self.OAuth2Delegate serviceIdentifier] : [NSString stringWithFormat:@"thundertable.com.threesidedcube-%@", self.sharedBaseURL]];
+    }
 }
 
 @end

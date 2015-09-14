@@ -94,7 +94,7 @@ NSString * const kTSCAuthServiceName = @"TSCAuthCredential";
     return (status == errSecSuccess);
 }
 
-+ (TSCRequestCredential *)retrieveCredentialWithIdentifier:(NSString *)identifier
++ (instancetype)retrieveCredentialWithIdentifier:(NSString *)identifier
 {
     NSMutableDictionary *queryDictionary = [self keychainDictionaryWithIdentifier:identifier];
     

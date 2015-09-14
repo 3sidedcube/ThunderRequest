@@ -6,7 +6,7 @@
 //  Copyright © 2015 threesidedcube. All rights reserved.
 //
 
-#import <ThunderRequest/ThunderRequest.h>
+#import "TSCRequestCredential.h"
 
 @interface TSCOAuth2Credential : TSCRequestCredential
 

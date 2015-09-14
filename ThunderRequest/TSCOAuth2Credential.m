@@ -30,7 +30,6 @@
     [encoder encodeObject:self.authorizationToken forKey:@"TSCAuthToken"];
     [encoder encodeObject:self.refreshToken forKey:@"TSCRefreshToken"];
     [encoder encodeObject:self.expirationDate forKey:@"TSCExpirationDate"];
-    [encoder encodeObject:self.credential forKey:@"TSCCredential"];
     [encoder encodeObject:self.tokenType forKey:@"TSCTokenType"];
 }
 
@@ -41,7 +40,6 @@
         self.authorizationToken = [decoder decodeObjectForKey:@"TSCAuthToken"];
         self.refreshToken = [decoder decodeObjectForKey:@"TSCRefreshToken"];
         self.expirationDate = [decoder decodeObjectForKey:@"TSCExpirationDate"];
-        self.credential = [decoder decodeObjectForKey:@"TSCCredential"];
         self.tokenType = [decoder decodeObjectForKey:@"TSCTokenType"];
     }
     return self;

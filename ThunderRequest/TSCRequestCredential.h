@@ -64,13 +64,6 @@
  Retrieves a credential object from the keychain for a certain identifier
  @param identifier The identifier to retrieve the credential for
  */
-+ (TSCRequestCredential *)retrieveCredentialWithIdentifier:(NSString *)identifier;
-
-@end
-
-#pragma mark -
-#pragma mark - OAuth 2 Credentials
-
-@interface TSCRequestCredential ()
++ (instancetype)retrieveCredentialWithIdentifier:(NSString *)identifier;
 
 @end
