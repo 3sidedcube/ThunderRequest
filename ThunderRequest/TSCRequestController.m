@@ -69,7 +69,7 @@
         self.ephemeralRequestQueue = [NSOperationQueue new];
         
         NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
-        NSURLSessionConfiguration *backgroundConfigObject = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"com.threesidedcube.requestkit"];
+        NSURLSessionConfiguration *backgroundConfigObject = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:[[NSUUID UUID] UUIDString]];
         NSURLSessionConfiguration *ephemeralConfigObject = [NSURLSessionConfiguration ephemeralSessionConfiguration];
         
         self.defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:self.defaultRequestQueue];
@@ -210,7 +210,7 @@
 
 #pragma mark - DOWNLOAD/UPLOAD Requests
 
-- (void)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestDownloadCompletionHandler)completion
+- (void)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
     TSCRequest *request = [TSCRequest new];
     request.baseURL = self.sharedBaseURL;
@@ -221,14 +221,52 @@
     [self scheduleDownloadRequest:request progress:progress completion:completion];
 }
 
+- (void)uploadFileFromPath:(nonnull NSString *)filePath toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+{
+    TSCRequest *request = [TSCRequest new];
+    request.baseURL = self.sharedBaseURL;
+    request.path = path;
+    request.requestHTTPMethod = TSCRequestHTTPMethodPOST;
+    request.requestHeaders = self.sharedRequestHeaders;
+    
+    [self scheduleUploadRequest:request filePath:filePath progress:progress completion:completion];
+}
+
+- (void)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+{
+    TSCRequest *request = [TSCRequest new];
+    request.baseURL = self.sharedBaseURL;
+    request.path = path;
+    request.requestHTTPMethod = TSCRequestHTTPMethodPOST;
+    request.requestHeaders = self.sharedRequestHeaders;
+    
+    NSString *cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+
+    NSString *filePathString = [cachesDirectory stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
+    [fileData writeToFile:filePathString atomically:YES];
+    
+    [self scheduleUploadRequest:request filePath:filePathString progress:progress completion:completion];
+}
+
 #pragma mark - Request scheduling
 
-- (void)scheduleDownloadRequest:(TSCRequest *)request progress:(TSCRequestProgressHandler)progress completion:(TSCRequestDownloadCompletionHandler)completion
+- (void)scheduleDownloadRequest:(TSCRequest *)request progress:(TSCRequestProgressHandler)progress completion:(TSCRequestTransferCompletionHandler)completion
 {
     [request prepareForDispatch];
     
     // Should be using downloadtaskwithrequest but it has a bug which causes it to return nil.
     NSURLSessionDownloadTask *task = [self.backgroundSession downloadTaskWithURL:request.URL];
+    
+    [self addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
+    
+    [task resume];
+}
+
+- (void)scheduleUploadRequest:(nonnull TSCRequest *)request filePath:(NSString *)filePath progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+{
+    [request prepareForDispatch];
+    
+    NSURLSessionUploadTask *task = [self.defaultSession uploadTaskWithRequest:request fromFile:[NSURL fileURLWithPath:filePath]];
     
     [self addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
     
@@ -251,8 +289,6 @@
             
         }
         
-        
-
         if (error || [self statusCodeIsConsideredHTTPError:requestResponse.status]) {
             
             TSCErrorRecoveryAttempter *recoveryAttempter = [TSCErrorRecoveryAttempter new];
@@ -338,13 +374,22 @@
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
-{    
+{
     [self callCompletionHandlerForTaskIdentifier:task.taskIdentifier downloadedFileURL:nil downloadError:error];
+}
+
+#pragma mark - NSURLSessionUploadDelegate
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didSendBodyData:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend
+{
+    CGFloat progress = (float)((float)totalBytesSent /(float)totalBytesExpectedToSend);
+    
+    [self callProgressHandlerForTaskIdentifier:task.taskIdentifier progress:progress];
 }
 
 #pragma mark - NSURLSessionDownload completion handling
 
-- (void)addCompletionHandler:(TSCRequestDownloadCompletionHandler)handler progressHandler:(TSCRequestProgressHandler)progress forTaskIdentifier:(NSUInteger)identifier
+- (void)addCompletionHandler:(TSCRequestTransferCompletionHandler)handler progressHandler:(TSCRequestProgressHandler)progress forTaskIdentifier:(NSUInteger)identifier
 {
     NSString *taskIdentifierString = [NSString stringWithFormat:@"%lu-completion", (unsigned long)identifier];
     NSString *taskProgressIdentifierString = [NSString stringWithFormat:@"%lu-progress", (unsigned long)identifier];
@@ -367,7 +412,7 @@
     NSString *taskIdentifierString = [NSString stringWithFormat:@"%lu-completion", (unsigned long)identifier];
     NSString *taskProgressIdentifierString = [NSString stringWithFormat:@"%lu-progress", (unsigned long)identifier];
 
-    TSCRequestDownloadCompletionHandler handler = [self.completionHandlerDictionary objectForKey:taskIdentifierString];
+    TSCRequestTransferCompletionHandler handler = [self.completionHandlerDictionary objectForKey:taskIdentifierString];
     
     if (handler) {
         
@@ -402,6 +447,11 @@
     }
     
     return false;
+}
+
+- (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session
+{
+    NSLog(@"finihed events for bg session");
 }
 
 @end
