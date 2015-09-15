@@ -55,6 +55,11 @@
  */
 - (void)prepareForDispatch;
 
+/**
+ Returns a string compatible with NSURLRequest for the request type enum
+ */
+- (nullable NSString *)stringForHTTPMethod:(TSCRequestHTTPMethod)HTTPMethod;
+
 @end
 
 @interface NSString (MD5)

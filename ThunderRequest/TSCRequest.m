@@ -15,7 +15,7 @@
         self.URL = [self TSC_populatedAddressWithBaseAddress:self.URL.absoluteString paramDictionary:self.URLParameterDictionary];
     }
     
-    self.HTTPMethod = [self TSC_stringForHTTPMethod:self.requestHTTPMethod];
+    self.HTTPMethod = [self stringForHTTPMethod:self.requestHTTPMethod];
     self.HTTPBody = [self HTTPBodyWithDictionary:self.bodyParameters];
     [self setValue:[self TSC_contentTypeStringForContentType:self.contentType] forHTTPHeaderField:@"Content-Type"];
     for (NSString *key in [self.requestHeaders allKeys]) {
@@ -89,7 +89,7 @@
 
 #pragma mark - ENUM conversion
 
-- (nullable NSString *)TSC_stringForHTTPMethod:(TSCRequestHTTPMethod)HTTPMethod
+- (nullable NSString *)stringForHTTPMethod:(TSCRequestHTTPMethod)HTTPMethod
 {
     switch (HTTPMethod) {
         case TSCRequestHTTPMethodGET:

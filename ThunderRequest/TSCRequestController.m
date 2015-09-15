@@ -254,8 +254,7 @@
 {
     [request prepareForDispatch];
     
-    // Should be using downloadtaskwithrequest but it has a bug which causes it to return nil.
-    NSURLSessionDownloadTask *task = [self.backgroundSession downloadTaskWithURL:request.URL];
+    NSURLSessionDownloadTask *task = [self.backgroundSession downloadTaskWithRequest:[self backgroundableRequestObjectFromTSCRequest:request]];
     
     [self addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
     
@@ -266,7 +265,7 @@
 {
     [request prepareForDispatch];
     
-    NSURLSessionUploadTask *task = [self.defaultSession uploadTaskWithRequest:request fromFile:[NSURL fileURLWithPath:filePath]];
+    NSURLSessionUploadTask *task = [self.backgroundSession uploadTaskWithRequest:[self backgroundableRequestObjectFromTSCRequest:request] fromFile:[NSURL fileURLWithPath:filePath]];
     
     [self addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
     
@@ -452,6 +451,21 @@
 - (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session
 {
     NSLog(@"finihed events for bg session");
+}
+
+#pragma mark - Request conversion
+
+- (NSMutableURLRequest *)backgroundableRequestObjectFromTSCRequest:(TSCRequest *)tscRequest
+{
+    NSMutableURLRequest *backgroundableRequest = [NSMutableURLRequest new];
+    backgroundableRequest.URL = tscRequest.URL;
+    backgroundableRequest.HTTPMethod = [tscRequest stringForHTTPMethod:tscRequest.requestHTTPMethod];
+    
+    for (NSString *key in [tscRequest.requestHeaders allKeys]) {
+        [backgroundableRequest setValue:tscRequest.requestHeaders[key] forHTTPHeaderField:key];
+    }
+    
+    return backgroundableRequest;
 }
 
 @end
