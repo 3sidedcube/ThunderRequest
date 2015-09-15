@@ -213,7 +213,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 
 #pragma mark - DOWNLOAD/UPLOAD Requests
 
-- (void)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestDownloadCompletionHandler)completion
+- (void)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
     TSCRequest *request = [TSCRequest new];
     request.baseURL = self.sharedBaseURL;
@@ -222,6 +222,33 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     request.requestHeaders = self.sharedRequestHeaders;
 
     [self scheduleDownloadRequest:request progress:progress completion:completion];
+}
+
+- (void)uploadFileFromPath:(nonnull NSString *)filePath toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+{
+    TSCRequest *request = [TSCRequest new];
+    request.baseURL = self.sharedBaseURL;
+    request.path = path;
+    request.requestHTTPMethod = TSCRequestHTTPMethodPOST;
+    request.requestHeaders = self.sharedRequestHeaders;
+    
+    [self scheduleUploadRequest:request filePath:filePath progress:progress completion:completion];
+}
+
+- (void)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+{
+    TSCRequest *request = [TSCRequest new];
+    request.baseURL = self.sharedBaseURL;
+    request.path = path;
+    request.requestHTTPMethod = TSCRequestHTTPMethodPOST;
+    request.requestHeaders = self.sharedRequestHeaders;
+    
+    NSString *cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+
+    NSString *filePathString = [cachesDirectory stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
+    [fileData writeToFile:filePathString atomically:YES];
+    
+    [self scheduleUploadRequest:request filePath:filePathString progress:progress completion:completion];
 }
 
 #pragma mark - Request scheduling
@@ -277,7 +304,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     }
 }
 
-- (void)scheduleDownloadRequest:(TSCRequest *)request progress:(TSCRequestProgressHandler)progress completion:(TSCRequestDownloadCompletionHandler)completion
+- (void)scheduleDownloadRequest:(TSCRequest *)request progress:(TSCRequestProgressHandler)progress completion:(TSCRequestTransferCompletionHandler)completion
 {
     __weak typeof(self) welf = self;
     
@@ -295,12 +322,23 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
         [request prepareForDispatch];
         
         // Should be using downloadtaskwithrequest but it has a bug which causes it to return nil.
-        NSURLSessionDownloadTask *task = [welf.backgroundSession downloadTaskWithURL:request.URL];
+    	NSURLSessionDownloadTask *task = [self.backgroundSession downloadTaskWithRequest:[welf backgroundableRequestObjectFromTSCRequest:request]];
         
         [welf addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
         
         [task resume];
     }];
+}
+
+- (void)scheduleUploadRequest:(nonnull TSCRequest *)request filePath:(NSString *)filePath progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+{
+    [request prepareForDispatch];
+    
+    NSURLSessionUploadTask *task = [self.backgroundSession uploadTaskWithRequest:[self backgroundableRequestObjectFromTSCRequest:request] fromFile:[NSURL fileURLWithPath:filePath]];
+    
+    [self addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
+    
+    [task resume];
 }
 
 - (void)scheduleRequest:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion
@@ -418,13 +456,22 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
-{    
+{
     [self callCompletionHandlerForTaskIdentifier:task.taskIdentifier downloadedFileURL:nil downloadError:error];
+}
+
+#pragma mark - NSURLSessionUploadDelegate
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didSendBodyData:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend
+{
+    CGFloat progress = (float)((float)totalBytesSent /(float)totalBytesExpectedToSend);
+    
+    [self callProgressHandlerForTaskIdentifier:task.taskIdentifier progress:progress];
 }
 
 #pragma mark - NSURLSessionDownload completion handling
 
-- (void)addCompletionHandler:(TSCRequestDownloadCompletionHandler)handler progressHandler:(TSCRequestProgressHandler)progress forTaskIdentifier:(NSUInteger)identifier
+- (void)addCompletionHandler:(TSCRequestTransferCompletionHandler)handler progressHandler:(TSCRequestProgressHandler)progress forTaskIdentifier:(NSUInteger)identifier
 {
     NSString *taskIdentifierString = [NSString stringWithFormat:@"%lu-completion", (unsigned long)identifier];
     NSString *taskProgressIdentifierString = [NSString stringWithFormat:@"%lu-progress", (unsigned long)identifier];
@@ -447,7 +494,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     NSString *taskIdentifierString = [NSString stringWithFormat:@"%lu-completion", (unsigned long)identifier];
     NSString *taskProgressIdentifierString = [NSString stringWithFormat:@"%lu-progress", (unsigned long)identifier];
 
-    TSCRequestDownloadCompletionHandler handler = [self.completionHandlerDictionary objectForKey:taskIdentifierString];
+    TSCRequestTransferCompletionHandler handler = [self.completionHandlerDictionary objectForKey:taskIdentifierString];
     
     if (handler) {
         
@@ -507,6 +554,26 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     if (save) {
         [[credential class] storeCredential:credential withIdentifier: self.OAuth2Delegate ? [self.OAuth2Delegate serviceIdentifier] : [NSString stringWithFormat:@"thundertable.com.threesidedcube-%@", self.sharedBaseURL]];
     }
+}
+
+- (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session
+{
+    NSLog(@"finihed events for bg session");
+}
+
+#pragma mark - Request conversion
+
+- (NSMutableURLRequest *)backgroundableRequestObjectFromTSCRequest:(TSCRequest *)tscRequest
+{
+    NSMutableURLRequest *backgroundableRequest = [NSMutableURLRequest new];
+    backgroundableRequest.URL = tscRequest.URL;
+    backgroundableRequest.HTTPMethod = [tscRequest stringForHTTPMethod:tscRequest.requestHTTPMethod];
+    
+    for (NSString *key in [tscRequest.requestHeaders allKeys]) {
+        [backgroundableRequest setValue:tscRequest.requestHeaders[key] forHTTPHeaderField:key];
+    }
+    
+    return backgroundableRequest;
 }
 
 @end
