@@ -1,6 +1,7 @@
 @import Foundation;
 @import UIKit;
 #import "TSCRequestDefines.h"
+#import "TSCOAuth2Manager.h"
 
 @class TSCRequestResponse;
 @class TSCRequestCredential;
@@ -39,6 +40,19 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress);
  @abstract The shared request credentials to be used for authorization with any authentication challenge
  */
 @property (nonatomic, strong, nullable) TSCRequestCredential *sharedRequestCredential;
+
+/**
+ @abstract Sets the shared request credential and optionally saves it to the keychain
+ @param credential The request credential to set `sharedRequestCredential` to
+ @param saveToKeychain Whether or not to save the credential object to the user's keychain
+ @discussion If a `TSCOAuth2Credential` is stored to the keychain here, is will be pulled from the keychain each time the `OAuth2Delegate` is set on the request controller using the service identifier provided by the delegate object. If OAuth2Delegate is non-nil when this method is called it will be saved under the current delegates service identifier. Otherwise it will be saved under a string appended by `sharedBaseURL`.
+ */
+- (void)setSharedRequestCredential:(TSCRequestCredential * _Nullable)credential andSaveToKeychain:(BOOL)save;
+
+/**
+ @abstract The OAuth2 delegate which will respond to OAuth2 unauthenticated responses e.t.c.
+ */
+@property (nonatomic, assign, nullable) id <TSCOAuth2Manager> OAuth2Delegate;
 
 ///---------------------------------------------------------------------------------------
 /// @name Initialization
