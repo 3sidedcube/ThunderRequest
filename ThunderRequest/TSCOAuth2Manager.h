@@ -16,6 +16,7 @@ typedef void (^TSCOAuthAuthenticateCompletion)(TSCOAuth2Credential * __nullable 
  This method will be called if a request is made without a TSCOAuthCredential object having been saved to the keychain under -serviceIdentifier
  @param completion The completion block which should be called when the user has been authenticated
  */
+@optional
 - (void)authenticateWithCompletion:(nonnull TSCOAuthAuthenticateCompletion)completion;
 
 /**
@@ -23,6 +24,7 @@ typedef void (^TSCOAuthAuthenticateCompletion)(TSCOAuth2Credential * __nullable 
  @param credential The credential which should be used in the refresh process
  @param completion The completion block which should be called when the user's credential has been refreshed
  */
+@required
 - (void)reAuthenticateCredential:(nullable TSCOAuth2Credential *)credential withCompletion:(nonnull TSCOAuthAuthenticateCompletion)completion;
 
 /**
