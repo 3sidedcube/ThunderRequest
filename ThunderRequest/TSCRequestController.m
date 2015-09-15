@@ -266,7 +266,7 @@
 {
     [request prepareForDispatch];
     
-    NSURLSessionUploadTask *task = [self.defaultSession uploadTaskWithRequest:request fromFile:[NSURL fileURLWithPath:filePath]];
+    NSURLSessionUploadTask *task = [self.backgroundSession uploadTaskWithRequest:request fromFile:[NSURL fileURLWithPath:filePath]];
     
     [self addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
     
