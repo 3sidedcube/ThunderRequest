@@ -19,11 +19,13 @@ FOUNDATION_EXPORT const unsigned char ThunderRequestMacVersionString[];
 #import <ThunderRequestMac/TSCRequestController.h>
 #import <ThunderRequestMac/TSCRequest.h>
 #import <ThunderRequestMac/TSCRequestCredential.h>
-#import <ThunderRequestMacTSCRequestResponse.h>
+#import <ThunderRequestMac/TSCRequestResponse.h>
 #import <ThunderRequestMac/TSCRequestDefines.h>
 #import <ThunderRequestMac/TSCRequestController.h>
 #import <ThunderRequestMac/TSCRequest.h>
 #import <ThunderRequestMac/TSCRequestResponse.h>
 #import <ThunderRequestMac/TSCErrorRecoveryAttempter.h>
 #import <ThunderRequestMac/TSCErrorRecoveryOption.h>
+#import <ThunderRequestMac/NSDictionary+URLEncoding.h>
+
 

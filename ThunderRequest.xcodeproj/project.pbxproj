@@ -32,8 +32,8 @@
 		B1177EFC1BBAF23D00372D4D /* TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1177EFD1BBAF24100372D4D /* TSCErrorRecoveryOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1177EFE1BBAF24500372D4D /* TSCRequestDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B1177F0B1BBAF6AA00372D4D /* NSDictionary+URLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = B1177F091BBAF6AA00372D4D /* NSDictionary+URLEncoding.h */; };
-		B1177F0C1BBAF6AA00372D4D /* NSDictionary+URLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = B1177F091BBAF6AA00372D4D /* NSDictionary+URLEncoding.h */; };
+		B1177F0B1BBAF6AA00372D4D /* NSDictionary+URLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = B1177F091BBAF6AA00372D4D /* NSDictionary+URLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1177F0C1BBAF6AA00372D4D /* NSDictionary+URLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = B1177F091BBAF6AA00372D4D /* NSDictionary+URLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1177F0D1BBAF6AA00372D4D /* NSDictionary+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B1177F0A1BBAF6AA00372D4D /* NSDictionary+URLEncoding.m */; };
 		B1177F0E1BBAF6AA00372D4D /* NSDictionary+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B1177F0A1BBAF6AA00372D4D /* NSDictionary+URLEncoding.m */; };
 		C2E5089219C835A300350F00 /* ThunderRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089119C835A300350F00 /* ThunderRequestTests.swift */; };
@@ -729,6 +729,7 @@
 				B1177EEC1BBAF18E00372D4D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B1177EF01BBAF18E00372D4D /* Build configuration list for PBXNativeTarget "ThunderRequestMacTests" */ = {
 			isa = XCConfigurationList;
@@ -737,6 +738,7 @@
 				B1177EEE1BBAF18E00372D4D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C2E5087C19C835A300350F00 /* Build configuration list for PBXProject "ThunderRequest" */ = {
 			isa = XCConfigurationList;
