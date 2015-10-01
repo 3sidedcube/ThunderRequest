@@ -238,6 +238,9 @@
 - (void)scheduleRequest:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion
 {
     [request prepareForDispatch];
+    
+    NSOperationQueue *scheduleQueue = [NSOperationQueue currentQueue];
+    
     [[self.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         TSCRequestResponse *requestResponse = [[TSCRequestResponse alloc] initWithResponse:response data:data];
@@ -280,7 +283,7 @@
             
         } else {
             
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [scheduleQueue addOperationWithBlock:^{
 
                 completion(requestResponse, error);
                 
