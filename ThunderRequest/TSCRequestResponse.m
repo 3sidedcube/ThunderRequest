@@ -22,12 +22,15 @@
 - (nullable NSObject *)object
 {
     NSError *parseError;
-    id parseObject = [NSJSONSerialization JSONObjectWithData:self.data options:kNilOptions error:&parseError];
-    
-    if (!parseObject) {
-        parseObject = [NSPropertyListSerialization propertyListWithData:self.data options:NSPropertyListMutableContainersAndLeaves format:NULL error:&parseError];
-    }
+    id parseObject;
+    if (self.data) {
         
+         parseObject = [NSJSONSerialization JSONObjectWithData:self.data options:kNilOptions error:&parseError];
+        
+        if (!parseObject) {
+            parseObject = [NSPropertyListSerialization propertyListWithData:self.data options:NSPropertyListMutableContainersAndLeaves format:NULL error:&parseError];
+        }
+    }
 #ifdef DEBUG
     if (!_object) {
         _object = parseObject;
