@@ -22,7 +22,8 @@
 
 - (BOOL)hasExpired
 {
-    return [self.expirationDate compare:[NSDate date]] == NSOrderedAscending;
+    // Has expired if current date is later in time than the expiry date
+    return [[NSDate date] compare:self.expirationDate] == NSOrderedDescending;
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
