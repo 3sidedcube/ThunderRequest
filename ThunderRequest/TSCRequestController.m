@@ -55,6 +55,8 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
  */
 @property (nonatomic, strong) NSMutableDictionary *completionHandlerDictionary;
 
+@property (nonatomic, assign) BOOL reAuthenticatingOAuth2Token;
+
 @end
 
 @implementation TSCRequestController
@@ -257,7 +259,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 - (void)checkOAuthStatusWithCompletion:(TSCOAuth2CheckCompletion)completion
 {
     // If we have an OAuth2 delegate and our credential has expired we call the delegate to refresh it
-    if (self.OAuth2Delegate) {
+    if (self.OAuth2Delegate && !self.reAuthenticatingOAuth2Token) {
         
         if (!self.sharedRequestCredential || ![self.sharedRequestCredential isKindOfClass:[TSCOAuth2Credential class]]) {
             self.sharedRequestCredential = [TSCOAuth2Credential retrieveCredentialWithIdentifier:[self.OAuth2Delegate serviceIdentifier]];
@@ -272,8 +274,11 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
             if (OAuth2Credential.hasExpired) {
                 
                 __weak typeof(self) welf = self;
+                // Important so if the re-authenticating call uses this request controller we don't end up in an infinite loop! :P (My bad guys! (Simon))
+                self.reAuthenticatingOAuth2Token = true;
                 [self.OAuth2Delegate reAuthenticateCredential:OAuth2Credential withCompletion:^(TSCOAuth2Credential * _Nullable credential, NSError * _Nullable error, BOOL saveToKeychain) {
                     
+                    self.reAuthenticatingOAuth2Token = false;
                     // If we don't get an error we save the credentials to the keychain and then call the completion block
                     if (!error) {
                         
@@ -284,7 +289,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
                     }
                     
                     if (completion) {
-                        completion(error != nil, error);
+                        completion(error == nil, error);
                     }
                 }];
                 
