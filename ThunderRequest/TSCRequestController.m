@@ -276,7 +276,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
                 __weak typeof(self) welf = self;
                 // Important so if the re-authenticating call uses this request controller we don't end up in an infinite loop! :P (My bad guys! (Simon))
                 self.reAuthenticatingOAuth2Token = true;
-                [self.OAuth2Delegate reAuthenticateCredential:OAuth2Credential withCompletion:^(TSCOAuth2Credential * _Nullable credential, NSError * _Nullable error, BOOL saveToKeychain) {
+                [self.OAuth2Delegate reAuthenticateCredential:OAuth2Credential withCompletion:^(TSCOAuth2Credential * __nullable credential, NSError * __nullable error, BOOL saveToKeychain) {
                     
                     self.reAuthenticatingOAuth2Token = false;
                     // If we don't get an error we save the credentials to the keychain and then call the completion block

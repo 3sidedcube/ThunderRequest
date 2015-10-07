@@ -47,7 +47,7 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress);
  @param saveToKeychain Whether or not to save the credential object to the user's keychain
  @discussion If a `TSCOAuth2Credential` is stored to the keychain here, is will be pulled from the keychain each time the `OAuth2Delegate` is set on the request controller using the service identifier provided by the delegate object. If OAuth2Delegate is non-nil when this method is called it will be saved under the current delegates service identifier. Otherwise it will be saved under a string appended by `sharedBaseURL`.
  */
-- (void)setSharedRequestCredential:(TSCRequestCredential * _Nullable)credential andSaveToKeychain:(BOOL)save;
+- (void)setSharedRequestCredential:(TSCRequestCredential * __nullable)credential andSaveToKeychain:(BOOL)save;
 
 /**
  @abstract The OAuth2 delegate which will respond to OAuth2 unauthenticated responses e.t.c.
