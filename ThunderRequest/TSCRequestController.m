@@ -361,6 +361,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
         }
         
         [request prepareForDispatch];
+        
         [[welf.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             
             TSCRequestResponse *requestResponse = [[TSCRequestResponse alloc] initWithResponse:response data:data];
@@ -556,9 +557,20 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
     _sharedRequestCredential = credential;
     
+    if ([_sharedRequestCredential isKindOfClass:[TSCOAuth2Credential class]]) {
+        
+        TSCOAuth2Credential *OAuthCredential = (TSCOAuth2Credential *)_sharedRequestCredential;
+        self.sharedRequestHeaders[@"Authorization"] = [NSString stringWithFormat:@"%@ %@", OAuthCredential.tokenType, OAuthCredential.authorizationToken];
+    }
+    
     if (save) {
         [[credential class] storeCredential:credential withIdentifier: self.OAuth2Delegate ? [self.OAuth2Delegate serviceIdentifier] : [NSString stringWithFormat:@"thundertable.com.threesidedcube-%@", self.sharedBaseURL]];
     }
+}
+
+- (void)setSharedRequestCredential:(TSCRequestCredential *)sharedRequestCredential
+{
+    [self setSharedRequestCredential:sharedRequestCredential andSaveToKeychain:false];
 }
 
 - (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session

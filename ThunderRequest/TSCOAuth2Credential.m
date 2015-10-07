@@ -16,6 +16,18 @@
         
         self.refreshToken = refreshToken;
         self.expirationDate = expiryDate;
+        self.tokenType = @"Bearer";
+    }
+    return self;
+}
+
+- (instancetype)initWithAuthorizationToken:(NSString *)authorizationToken refreshToken:(NSString *)refreshToken expiryDate:(NSDate *)expiryDate tokenType:(NSString *)tokenType
+{
+    if (self = [super initWithAuthorizationToken:authorizationToken]) {
+        
+        self.refreshToken = refreshToken;
+        self.expirationDate = expiryDate;
+        self.tokenType = tokenType;
     }
     return self;
 }
@@ -42,6 +54,10 @@
         self.refreshToken = [decoder decodeObjectForKey:@"TSCRefreshToken"];
         self.expirationDate = [decoder decodeObjectForKey:@"TSCExpirationDate"];
         self.tokenType = [decoder decodeObjectForKey:@"TSCTokenType"];
+        
+        if (!self.tokenType) {
+            self.tokenType = @"Bearer";
+        }
     }
     return self;
 }
