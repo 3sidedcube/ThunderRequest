@@ -2,6 +2,12 @@ extern NSString *const TSCRequestErrorDomain;
 extern NSString *const TSCRequestServerError;
 extern NSString *const TSCRequestDidReceiveResponse;
 
+extern NSString *const TSCMultipartFormDataDataKey;
+extern NSString *const TSCMultipartFormDataFilenameKey;
+extern NSString *const TSCMultipartFormDataNameKey;
+extern NSString *const TSCMultipartFormDataShowDispositionKey;
+extern NSString *const TSCMultipartFormDataDispositionKey;
+
 typedef NS_ENUM(NSInteger, TSCRequestHTTPMethod) {
     TSCRequestHTTPMethodGET = 0,
     TSCRequestHTTPMethodPOST = 1,
@@ -15,7 +21,8 @@ typedef NS_ENUM(NSInteger, TSCRequestContentType) {
     TSCRequestContentTypeFormURLEncoded = 1,
     TSCRequestContentTypeMultipartFormData = 2,
     TSCRequestContentTypeImagePNG = 3,
-    TSCRequestContentTypeImageJPEG = 4
+    TSCRequestContentTypeImageJPEG = 4,
+    TSCRequestContentTypeXMLPlist = 5
 };
 
 /** The styles available for a `TSCErrorRecoveryOption` */

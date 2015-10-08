@@ -190,7 +190,7 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress);
 Performs a file download task using the base url and given path component.
 @param path The path to be appended to the base URL
 @param progress The block to be called with progress information during the download
-@param completion The completion bloc kthat will be fired once the request has completed
+@param completion The completion block that will be fired once the request has completed
 */
 - (void)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
 
@@ -204,17 +204,37 @@ Performs a file download task using the base url and given path component.
  @param imageData The NSData of an image to upload
  @param path The path to be appended to the base URL
  @param progress The block to be called with progress information during the download
- @param completion The completion bloc kthat will be fired once the request has completed
+ @param completion The completion block that will be fired once the request has completed
  */
 - (void)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
+
+/**
+ Performs a file upload task using the base url and given path component.
+ @param imageData The NSData of an image to upload
+ @param path The path to be appended to the base URL
+ @param contentType The content type of the upload
+ @param progress The block to be called with progress information during the download
+ @param completion The completion block that will be fired once the request has completed
+ */
+- (void)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
 
 /**
  Performs a file upload task using the base url and given path component.
  @param path The NSData of an image to upload
  @param path The path to be appended to the base URL
  @param progress The block to be called with progress information during the download
- @param completion The completion bloc kthat will be fired once the request has completed
+ @param completion The completion block that will be fired once the request has completed
  */
 - (void)uploadFileFromPath:(nonnull NSString *)filePath toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
+
+/**
+ Performs a file upload task using the base url and given path component.
+ @param bodyParams The NSDictionary of an object to upload
+ @param path The path to be appended to the base URL
+ @param contentType The content type of the upload
+ @param progress The block to be called with progress information during the download
+ @param completion The completion block that will be fired once the request has completed
+ */
+- (void)uploadBodyParams:(nullable NSDictionary *)bodyParams toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
 
 @end

@@ -244,6 +244,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     request.path = path;
     request.requestHTTPMethod = TSCRequestHTTPMethodPOST;
     request.requestHeaders = self.sharedRequestHeaders;
+    request.HTTPBody = fileData;
     
     NSString *cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
 
@@ -251,6 +252,37 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     [fileData writeToFile:filePathString atomically:YES];
     
     [self scheduleUploadRequest:request filePath:filePathString progress:progress completion:completion];
+}
+
+- (void)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+{
+    TSCRequest *request = [TSCRequest new];
+    request.baseURL = self.sharedBaseURL;
+    request.path = path;
+    request.requestHTTPMethod = TSCRequestHTTPMethodPOST;
+    request.requestHeaders = self.sharedRequestHeaders;
+    request.contentType = type;
+    request.HTTPBody = fileData;
+    
+    NSString *cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    
+    NSString *filePathString = [cachesDirectory stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
+    [fileData writeToFile:filePathString atomically:YES];
+    
+    [self scheduleUploadRequest:request filePath:filePathString progress:progress completion:completion];
+}
+
+- (void)uploadBodyParams:(nullable NSDictionary *)bodyParams toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+{
+    TSCRequest *request = [TSCRequest new];
+    request.baseURL = self.sharedBaseURL;
+    request.path = path;
+    request.requestHTTPMethod = TSCRequestHTTPMethodPOST;
+    request.requestHeaders = self.sharedRequestHeaders;
+    request.contentType = type;
+    request.bodyParameters = bodyParams;
+    
+    [self scheduleUploadRequest:request filePath:nil progress:progress completion:completion];
 }
 
 #pragma mark - Request scheduling
@@ -339,7 +371,13 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
     [request prepareForDispatch];
     
-    NSURLSessionUploadTask *task = [self.backgroundSession uploadTaskWithRequest:[self backgroundableRequestObjectFromTSCRequest:request] fromFile:[NSURL fileURLWithPath:filePath]];
+    NSURLSessionUploadTask *task;
+     
+    if (request.HTTPBody) {
+        task = [self.defaultSession uploadTaskWithRequest:[self backgroundableRequestObjectFromTSCRequest:request] fromData:request.HTTPBody];
+    } else {
+        task = [self.backgroundSession uploadTaskWithRequest:[self backgroundableRequestObjectFromTSCRequest:request] fromFile:[NSURL fileURLWithPath:filePath]];
+    }
     
     [self addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
     
@@ -585,6 +623,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     NSMutableURLRequest *backgroundableRequest = [NSMutableURLRequest new];
     backgroundableRequest.URL = tscRequest.URL;
     backgroundableRequest.HTTPMethod = [tscRequest stringForHTTPMethod:tscRequest.requestHTTPMethod];
+    backgroundableRequest.HTTPBody = tscRequest.HTTPBody;
     
     for (NSString *key in [tscRequest.requestHeaders allKeys]) {
         [backgroundableRequest setValue:tscRequest.requestHeaders[key] forHTTPHeaderField:key];

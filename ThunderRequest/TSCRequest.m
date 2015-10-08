@@ -1,5 +1,7 @@
 #import "TSCRequest.h"
+#import "NSDictionary+URLEncoding.h"
 #import <CommonCrypto/CommonDigest.h>
+@import UIKit;
 
 @implementation TSCRequest
 
@@ -18,6 +20,7 @@
     self.HTTPMethod = [self stringForHTTPMethod:self.requestHTTPMethod];
     self.HTTPBody = [self HTTPBodyWithDictionary:self.bodyParameters];
     [self setValue:[self TSC_contentTypeStringForContentType:self.contentType] forHTTPHeaderField:@"Content-Type"];
+    [self.requestHeaders setValue:[self TSC_contentTypeStringForContentType:self.contentType] forKey:@"Content-Type"];
     for (NSString *key in [self.requestHeaders allKeys]) {
         [self setValue:self.requestHeaders[key] forHTTPHeaderField:key];
     }
@@ -27,6 +30,87 @@
 #pragma mark - Body building
 
 - (nullable NSData *)HTTPBodyWithDictionary:(NSDictionary *)dictionary
+{
+    if (dictionary) {
+        
+        switch (self.contentType) {
+            case TSCRequestContentTypeJSON:
+                return [self TSC_JSONDataWithDictionary:dictionary];
+                break;
+            case TSCRequestContentTypeFormURLEncoded:
+                return [dictionary urlEncodedFormData];
+                break;
+            case TSCRequestContentTypeMultipartFormData:
+                return [self TSC_multipartFormDataWithDictionary:dictionary];
+                break;
+            case TSCRequestContentTypeXMLPlist:
+                return [self TSC_plistDataWithDictionary:dictionary];
+                break;
+            case TSCRequestContentTypeImageJPEG:
+                return [self TSC_jpgDataWithDictionary:dictionary];
+                break;
+            case TSCRequestContentTypeImagePNG:
+                return [self TSC_pngDataWithDictionary:dictionary];
+                break;
+            default:
+                break;
+        }
+    }
+    
+    return nil;
+}
+
+#pragma mark - PNG Encoding
+
+- (NSData *)TSC_pngDataWithDictionary:(NSDictionary *)dictionary
+{
+    __block NSData *data;
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        
+        if ([obj isKindOfClass:[NSData class]]) {
+            
+            data = obj;
+            *stop = true;
+        } else if ([obj isKindOfClass:[UIImage class]]) {
+            
+            data = UIImagePNGRepresentation(obj);
+            *stop = true;
+        }
+    }];
+    return data;
+}
+
+#pragma mark - JPEG Encoding
+
+- (nullable NSData *)TSC_jpgDataWithDictionary:(NSDictionary *)dictionary
+{
+    __block NSData *data;
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        
+        if ([obj isKindOfClass:[UIImage class]]) {
+            
+            data = obj;
+            *stop = true;
+        } else if ([obj isKindOfClass:[UIImage class]]) {
+            
+            data = UIImageJPEGRepresentation(obj, 2.0);
+            *stop = true;
+        }
+    }];
+    return data;
+}
+
+#pragma mark - XML Plist Encoding
+
+- (nullable NSData *)TSC_plistDataWithDictionary:(NSDictionary *)dictionary
+{
+    NSData *data = [NSPropertyListSerialization dataWithPropertyList:dictionary format:NSPropertyListXMLFormat_v1_0 options:0 error:nil];
+    return data;
+}
+
+#pragma mark - JSON Encoding
+
+- (nullable NSData *)TSC_JSONDataWithDictionary:(NSDictionary *)dictionary
 {
     if (dictionary) {
         
@@ -40,11 +124,11 @@
         }
         
         return encodedBody;
-        
     }
-    
     return nil;
 }
+
+
 
 #pragma mark - URL placeholder substitution
 
@@ -113,13 +197,22 @@
     switch (contentType) {
         case TSCRequestContentTypeJSON:
             return @"application/json";
+            break;
         case TSCRequestContentTypeMultipartFormData:
             return [NSString stringWithFormat:@"multipart/form-data; boundary=%@", [self TSC_multipartFormDataBoundaryWithDictionary:self.bodyParameters]];
+            break;
         case TSCRequestContentTypeImageJPEG:
             return @"image/jpeg";
+            break;
         case TSCRequestContentTypeImagePNG:
             return @"image/png";
-            
+            break;
+        case TSCRequestContentTypeFormURLEncoded:
+            return @"application/x-www-form-urlencoded";
+            break;
+        case TSCRequestContentTypeXMLPlist:
+            return @"text/x-xml-plist";
+            break;
         default:
             return @"application/json";
             break;
@@ -140,34 +233,102 @@
 {
     NSMutableData *postBody = [NSMutableData new];
     
-    NSString *boundary = [self TSC_multipartFormDataBoundaryWithDictionary:dictionary];
-    
     NSArray *paramKeys = [dictionary allKeys];
+    
+    NSString *boundary = [self TSC_multipartFormDataBoundaryWithDictionary:dictionary];
     
     for (NSString *key in paramKeys) {
         
         NSObject *object = dictionary[key];
+        [postBody appendData:[self TSC_multipartDataForElement:object key:key boundary:boundary]];
         
-        if ([object isKindOfClass:[NSString class]]) {
-            [postBody appendData:[[NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-   ; name=\"%@\"\r\n\r\n%@\r\n", boundary, key, (NSString *)object] dataUsingEncoding:NSUTF8StringEncoding]];
-        }
-        
-        if ([object isKindOfClass:[NSData class]]) {
-            
-            NSString *contentType = [self TSC_contentTypeForImageData:(NSData *)object];
-            NSString *fileExtension = [self TSC_fileExtensionForContentType:contentType];
-            [postBody appendData:[[NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"%@\"; filename=\"filename.%@\"\r\n", boundary, key, fileExtension] dataUsingEncoding:NSUTF8StringEncoding]];
-            [postBody appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", contentType] dataUsingEncoding:NSUTF8StringEncoding]];
-            
-            [postBody appendData:[NSData dataWithData:(NSData *)object]];
-            [postBody appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            
-        }
     }
     
-    [postBody appendData:[[NSString stringWithFormat:@"--%@", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    
     return postBody;
+}
+
+- (NSData *)TSC_dataForObject:(NSObject *)object
+{
+    if ([object isKindOfClass:[NSData class]]) {
+        return (NSData *)object;
+    }
+    
+    if ([object isKindOfClass:[UIImage class]]) {
+        return UIImageJPEGRepresentation((UIImage *)object, 1.0);
+    }
+    
+    return nil;
+}
+
+- (NSData *)TSC_multipartDataForElement:(NSObject *)object key:(NSString *)key boundary:(NSString *)boundary
+{
+    if ([object isKindOfClass:[NSString class]]) {
+        return [[NSString stringWithFormat:@"%@\r\nContent-Disposition: form-   ; name=\"%@\"\r\n%@\r\n", boundary, key, (NSString *)object] dataUsingEncoding:NSUTF8StringEncoding];
+    }
+    
+    NSObject *addObject = object;
+    if ([self TSC_dataForObject:object]) {
+        addObject = [self TSC_dataForObject:object];
+    }
+    
+    if ([addObject isKindOfClass:[NSData class]]) {
+        
+        NSMutableData *data = [NSMutableData new];
+        
+        NSString *contentType = [self TSC_contentTypeForImageData:(NSData *)object];
+        NSString *fileExtension = [self TSC_fileExtensionForContentType:contentType];
+        [data appendData:[[NSString stringWithFormat:@"%@\r\nContent-Disposition: form-data; name=\"%@\"; filename=\"filename.%@\"\r\n", boundary, key, fileExtension] dataUsingEncoding:NSUTF8StringEncoding]];
+        [data appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n", contentType] dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [data appendData:[NSData dataWithData:(NSData *)object]];
+        [data appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        [data appendData:[boundary dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        return data;
+    }
+    
+    if ([addObject isKindOfClass:[NSDictionary class]]) {
+        
+        NSDictionary *dictionary = (NSDictionary *)object;
+        
+        if (dictionary[TSCMultipartFormDataDataKey] && [self TSC_dataForObject:dictionary[TSCMultipartFormDataDataKey]]) {
+            
+            NSData *data = [self TSC_dataForObject:dictionary[TSCMultipartFormDataDataKey]];
+            NSMutableData *returnData = [NSMutableData new];
+            
+            BOOL showDisposition = false;
+            
+            NSString *contentType = [self TSC_contentTypeForImageData:data];
+            
+            if (dictionary[TSCMultipartFormDataShowDispositionKey] && [dictionary[TSCMultipartFormDataShowDispositionKey] isKindOfClass:[NSNumber class]]) {
+                showDisposition = [dictionary[TSCMultipartFormDataShowDispositionKey] boolValue];
+            }
+            
+            if (showDisposition) {
+                
+                NSString *dispositionString = [NSString stringWithFormat:@"%@\r\nContent-Disposition: %@;", boundary, dictionary[TSCMultipartFormDataDispositionKey] ? : @"form-data"];
+                
+                dispositionString = [dispositionString stringByAppendingFormat:@" name=\"%@\";",dictionary[TSCMultipartFormDataNameKey] ? : key];
+                
+                dispositionString = [dispositionString stringByAppendingFormat:@" filename=\"%@.%@\"\r\n", dictionary[TSCMultipartFormDataFilenameKey] ? : key, contentType];
+                
+                [returnData appendData:[dispositionString dataUsingEncoding:NSUTF8StringEncoding]];
+            } else {
+                
+                [returnData appendData:[[NSString stringWithFormat:@"%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+            }
+            
+            [returnData appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n", contentType] dataUsingEncoding:NSUTF8StringEncoding]];
+            
+            [returnData appendData:data];
+            [returnData appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+            [returnData appendData:[[NSString stringWithFormat:@"%@",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+            
+            return returnData;
+        }
+    }
+
+    return nil;
 }
 
 - (nullable NSString *)TSC_contentTypeForImageData:(nonnull NSData *)data
