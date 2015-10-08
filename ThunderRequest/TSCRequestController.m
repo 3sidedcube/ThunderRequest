@@ -369,19 +369,32 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 
 - (void)scheduleUploadRequest:(nonnull TSCRequest *)request filePath:(NSString *)filePath progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
-    [request prepareForDispatch];
+    __weak typeof(self) welf = self;
     
-    NSURLSessionUploadTask *task;
-     
-    if (request.HTTPBody) {
-        task = [self.defaultSession uploadTaskWithRequest:[self backgroundableRequestObjectFromTSCRequest:request] fromData:request.HTTPBody];
-    } else {
-        task = [self.backgroundSession uploadTaskWithRequest:[self backgroundableRequestObjectFromTSCRequest:request] fromFile:[NSURL fileURLWithPath:filePath]];
-    }
-    
-    [self addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
-    
-    [task resume];
+    [self checkOAuthStatusWithCompletion:^(BOOL authenticated, NSError *error) {
+        
+        if (error || !authenticated) {
+            
+            if (completion) {
+                completion(nil, error);
+            }
+            return;
+        }
+        
+        [request prepareForDispatch];
+        
+        NSURLSessionUploadTask *task;
+        
+        if (request.HTTPBody) {
+            task = [welf.defaultSession uploadTaskWithRequest:[welf backgroundableRequestObjectFromTSCRequest:request] fromData:request.HTTPBody];
+        } else {
+            task = [welf.backgroundSession uploadTaskWithRequest:[welf backgroundableRequestObjectFromTSCRequest:request] fromFile:[NSURL fileURLWithPath:filePath]];
+        }
+        
+        [welf addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
+        
+        [task resume];
+    }];
 }
 
 - (void)scheduleRequest:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion

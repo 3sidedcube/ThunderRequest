@@ -262,6 +262,8 @@
 
 - (NSData *)TSC_multipartDataForElement:(NSObject *)object key:(NSString *)key boundary:(NSString *)boundary
 {
+    boundary = [NSString stringWithFormat:@"--%@",boundary];
+    
     if ([object isKindOfClass:[NSString class]]) {
         return [[NSString stringWithFormat:@"%@\r\nContent-Disposition: form-   ; name=\"%@\"\r\n%@\r\n", boundary, key, (NSString *)object] dataUsingEncoding:NSUTF8StringEncoding];
     }
@@ -279,6 +281,8 @@
         NSString *fileExtension = [self TSC_fileExtensionForContentType:contentType];
         [data appendData:[[NSString stringWithFormat:@"%@\r\nContent-Disposition: form-data; name=\"%@\"; filename=\"filename.%@\"\r\n", boundary, key, fileExtension] dataUsingEncoding:NSUTF8StringEncoding]];
         [data appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n", contentType] dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [data appendData:[[NSString stringWithFormat:@"Content-Transfer-Encoding: binary\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
         
         [data appendData:[NSData dataWithData:(NSData *)object]];
         [data appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
@@ -308,6 +312,8 @@
             [returnData appendData:[dispositionString dataUsingEncoding:NSUTF8StringEncoding]];
             
             [returnData appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n", contentType] dataUsingEncoding:NSUTF8StringEncoding]];
+            
+            [returnData appendData:[[NSString stringWithFormat:@"Content-Transfer-Encoding: binary\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
             
             [returnData appendData:data];
             [returnData appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
