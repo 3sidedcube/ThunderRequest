@@ -5,7 +5,6 @@ extern NSString *const TSCRequestDidReceiveResponse;
 extern NSString *const TSCMultipartFormDataDataKey;
 extern NSString *const TSCMultipartFormDataFilenameKey;
 extern NSString *const TSCMultipartFormDataNameKey;
-extern NSString *const TSCMultipartFormDataShowDispositionKey;
 extern NSString *const TSCMultipartFormDataDispositionKey;
 
 typedef NS_ENUM(NSInteger, TSCRequestHTTPMethod) {

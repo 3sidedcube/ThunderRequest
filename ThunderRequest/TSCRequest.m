@@ -295,28 +295,17 @@
             
             NSData *data = [self TSC_dataForObject:dictionary[TSCMultipartFormDataDataKey]];
             NSMutableData *returnData = [NSMutableData new];
-            
-            BOOL showDisposition = false;
-            
+                        
             NSString *contentType = [self TSC_contentTypeForImageData:data];
+            NSString *fileExtension = [self TSC_fileExtensionForContentType:contentType];
             
-            if (dictionary[TSCMultipartFormDataShowDispositionKey] && [dictionary[TSCMultipartFormDataShowDispositionKey] isKindOfClass:[NSNumber class]]) {
-                showDisposition = [dictionary[TSCMultipartFormDataShowDispositionKey] boolValue];
-            }
+            NSString *dispositionString = [NSString stringWithFormat:@"%@\r\nContent-Disposition: %@;", boundary, dictionary[TSCMultipartFormDataDispositionKey] ? : @"form-data"];
             
-            if (showDisposition) {
-                
-                NSString *dispositionString = [NSString stringWithFormat:@"%@\r\nContent-Disposition: %@;", boundary, dictionary[TSCMultipartFormDataDispositionKey] ? : @"form-data"];
-                
-                dispositionString = [dispositionString stringByAppendingFormat:@" name=\"%@\";",dictionary[TSCMultipartFormDataNameKey] ? : key];
-                
-                dispositionString = [dispositionString stringByAppendingFormat:@" filename=\"%@.%@\"\r\n", dictionary[TSCMultipartFormDataFilenameKey] ? : key, contentType];
-                
-                [returnData appendData:[dispositionString dataUsingEncoding:NSUTF8StringEncoding]];
-            } else {
-                
-                [returnData appendData:[[NSString stringWithFormat:@"%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-            }
+            dispositionString = [dispositionString stringByAppendingFormat:@" name=\"%@\";",dictionary[TSCMultipartFormDataNameKey] ? : key];
+            
+            dispositionString = [dispositionString stringByAppendingFormat:@" filename=\"%@.%@\"\r\n", dictionary[TSCMultipartFormDataFilenameKey] ? : key, fileExtension];
+            
+            [returnData appendData:[dispositionString dataUsingEncoding:NSUTF8StringEncoding]];
             
             [returnData appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n", contentType] dataUsingEncoding:NSUTF8StringEncoding]];
             

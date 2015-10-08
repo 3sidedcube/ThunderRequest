@@ -15,5 +15,4 @@ NSString *const TSCRequestDidReceiveResponse = @"TSCRequestDidReceiveResponse";
 NSString *const TSCMultipartFormDataDataKey = @"TSC_MPFD_DATA";
 NSString *const TSCMultipartFormDataFilenameKey = @"TSC_MPFD_FILENAME";
 NSString *const TSCMultipartFormDataNameKey = @"TSC_MPFD_NAME";
-NSString *const TSCMultipartFormDataShowDispositionKey = @"TSC_MPFD_SHOWDISPOSITION";
 NSString *const TSCMultipartFormDataDispositionKey = @"TSC_MPFD_DISPOSITION";
