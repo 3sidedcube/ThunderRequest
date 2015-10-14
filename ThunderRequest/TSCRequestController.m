@@ -504,7 +504,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
     CGFloat progress = (float)((float)totalBytesWritten /(float)totalBytesExpectedToWrite);
     
-    [self callProgressHandlerForTaskIdentifier:downloadTask.taskIdentifier progress:progress];
+    [self callProgressHandlerForTaskIdentifier:downloadTask.taskIdentifier progress:progress totalBytes:(NSInteger)totalBytesExpectedToWrite progressBytes:(NSInteger)totalBytesWritten];
 }
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location
@@ -522,8 +522,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didSendBodyData:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend
 {
     CGFloat progress = (float)((float)totalBytesSent /(float)totalBytesExpectedToSend);
-    
-    [self callProgressHandlerForTaskIdentifier:task.taskIdentifier progress:progress];
+    [self callProgressHandlerForTaskIdentifier:task.taskIdentifier progress:progress totalBytes:(NSInteger)totalBytesExpectedToSend progressBytes:(NSInteger)totalBytesSent];
 }
 
 #pragma mark - NSURLSessionDownload completion handling
@@ -562,7 +561,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     }
 }
 
-- (void)callProgressHandlerForTaskIdentifier:(NSUInteger)identifier progress:(CGFloat)progress
+- (void)callProgressHandlerForTaskIdentifier:(NSUInteger)identifier progress:(CGFloat)progress totalBytes:(NSInteger)total progressBytes:(NSInteger)bytes
 {
     NSString *taskProgressIdentifierString = [NSString stringWithFormat:@"%lu-progress", (unsigned long)identifier];
     
@@ -570,7 +569,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     
     if (handler) {
         
-        handler(progress);
+        handler(progress, total, bytes);
         
     }
 

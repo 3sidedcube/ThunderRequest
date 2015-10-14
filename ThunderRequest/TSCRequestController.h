@@ -23,7 +23,7 @@
 
 typedef void (^TSCRequestCompletionHandler)( TSCRequestResponse * __nullable response, NSError * __nullable error);
 typedef void (^TSCRequestTransferCompletionHandler)(NSURL * __nullable fileLocation, NSError * __nullable error);
-typedef void (^TSCRequestProgressHandler)(CGFloat progress);
+typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes, NSInteger bytesTransferred);
 
 /**
  @abstract The shared Base URL for all requests routed through the controller
