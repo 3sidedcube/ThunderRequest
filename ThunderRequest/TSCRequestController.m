@@ -6,7 +6,10 @@
 #import "TSCRequestCredential.h"
 #import "TSCOAuth2Credential.h"
 
-typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError);
+static NSString * const TSCQueuedRequestKey = @"TSC_REQUEST";
+static NSString * const TSCQueuedCompletionKey = @"TSC_REQUEST_COMPLETION";
+
+typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError, BOOL needsQueueing);
 
 @interface TSCRequestController () <NSURLSessionDownloadDelegate, NSURLSessionTaskDelegate>
 
@@ -55,7 +58,15 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
  */
 @property (nonatomic, strong) NSMutableDictionary *completionHandlerDictionary;
 
-@property (nonatomic, assign) BOOL reAuthenticatingOAuth2Token;
+/**
+ @abstract Whether we are currently re-authenticating or not
+ */
+@property (nonatomic, assign) BOOL reAuthenticating;
+
+/**
+ @abstract An array of TSCRequest objects which are waiting for re-authentication to complete
+ */
+@property (nonatomic, strong) NSMutableArray *authQueuedRequests;
 
 @end
 
@@ -84,7 +95,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
         self.completionHandlerDictionary = [NSMutableDictionary dictionary];
         self.sharedRequestHeaders = [NSMutableDictionary dictionary];
 
-        
+        self.authQueuedRequests = [NSMutableArray new];
     }
     return self;
 }
@@ -112,12 +123,12 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 
 #pragma mark - GET Requests
 
-- (void)get:(nonnull NSString *)path completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)get:(nonnull NSString *)path completion:(nonnull TSCRequestCompletionHandler)completion
 {
-    [self get:path withURLParamDictionary:nil completion:completion];
+    return [self get:path withURLParamDictionary:nil completion:completion];
 }
 
-- (void)get:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)get:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion
 {
     TSCRequest *request = [TSCRequest new];
     request.baseURL = self.sharedBaseURL;
@@ -127,21 +138,22 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     request.requestHeaders = self.sharedRequestHeaders;
 
     [self scheduleRequest:request completion:completion];
+    return request;
 }
 
 #pragma mark - POST Requests
 
-- (void)post:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)post:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
 {
-    [self post:path withURLParamDictionary:nil bodyParams:bodyParams completion:completion];
+    return [self post:path withURLParamDictionary:nil bodyParams:bodyParams completion:completion];
 }
 
-- (void)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
 {
-    [self post:path withURLParamDictionary:URLParamDictionary bodyParams:bodyParams contentType:TSCRequestContentTypeJSON completion:completion];
+    return [self post:path withURLParamDictionary:URLParamDictionary bodyParams:bodyParams contentType:TSCRequestContentTypeJSON completion:completion];
 }
 
-- (void)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion
 {
     TSCRequest *request = [TSCRequest new];
     request.baseURL = self.sharedBaseURL;
@@ -153,20 +165,21 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     request.requestHeaders = self.sharedRequestHeaders;
 
     [self scheduleRequest:request completion:completion];
+    return request;
 }
 
 #pragma mark - PUT Requests
-- (void)put:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)put:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
 {
-    [self put:path withURLParamDictionary:nil bodyParams:bodyParams completion:completion];
+    return [self put:path withURLParamDictionary:nil bodyParams:bodyParams completion:completion];
 }
 
-- (void)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
 {
-    [self put:path withURLParamDictionary:URLParamDictionary bodyParams:bodyParams contentType:TSCRequestContentTypeJSON completion:completion];
+    return [self put:path withURLParamDictionary:URLParamDictionary bodyParams:bodyParams contentType:TSCRequestContentTypeJSON completion:completion];
 }
 
-- (void)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion
 {
     TSCRequest *request = [TSCRequest new];
     request.baseURL = self.sharedBaseURL;
@@ -178,16 +191,17 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     request.requestHeaders = self.sharedRequestHeaders;
 
     [self scheduleRequest:request completion:completion];
+    return request;
 }
 
 #pragma mark - DELETE Requests
 
-- (void)delete:(nonnull NSString *)path completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)delete:(nonnull NSString *)path completion:(nonnull TSCRequestCompletionHandler)completion
 {
-    [self delete:path withURLParamDictionary:nil completion:completion];
+    return [self delete:path withURLParamDictionary:nil completion:completion];
 }
 
-- (void)delete:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)delete:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion
 {
     TSCRequest *request = [TSCRequest new];
     request.baseURL = self.sharedBaseURL;
@@ -197,11 +211,12 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     request.requestHeaders = self.sharedRequestHeaders;
 
     [self scheduleRequest:request completion:completion];
+    return request;
 }
 
 #pragma mark - HEAD Requests
 
-- (void)head:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)head:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion
 {
     TSCRequest *request = [TSCRequest new];
     request.baseURL = self.sharedBaseURL;
@@ -211,6 +226,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     request.requestHeaders = self.sharedRequestHeaders;
 
     [self scheduleRequest:request completion:completion];
+    return request;
 }
 
 #pragma mark - DOWNLOAD/UPLOAD Requests
@@ -288,10 +304,10 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 #pragma mark - Request scheduling
 
 // This method is used to check the OAuth2 status before starting a request
-- (void)checkOAuthStatusWithCompletion:(TSCOAuth2CheckCompletion)completion
+- (void)checkOAuthStatusWithRequest:(TSCRequest *)request completion:(TSCOAuth2CheckCompletion)completion
 {
-    // If we have an OAuth2 delegate and our credential has expired we call the delegate to refresh it
-    if (self.OAuth2Delegate && !self.reAuthenticatingOAuth2Token) {
+    // If we have an OAuth2 delegate and the request isn't the request to refresh our token
+    if (self.OAuth2Delegate) {
         
         if (!self.sharedRequestCredential || ![self.sharedRequestCredential isKindOfClass:[TSCOAuth2Credential class]]) {
             self.sharedRequestCredential = [TSCOAuth2Credential retrieveCredentialWithIdentifier:[self.OAuth2Delegate serviceIdentifier]];
@@ -302,15 +318,16 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
             
             TSCOAuth2Credential *OAuth2Credential = (TSCOAuth2Credential *)self.sharedRequestCredential;
             
-            // If our credentials have expired, let's ask our delegate to refresh them
-            if (OAuth2Credential.hasExpired) {
+            // If our credentials have expired, and we don't already have a re-authentication request let's ask our delegate to refresh them
+            if (OAuth2Credential.hasExpired && !self.reAuthenticating) {
                 
                 __weak typeof(self) welf = self;
+                
                 // Important so if the re-authenticating call uses this request controller we don't end up in an infinite loop! :P (My bad guys! (Simon))
-                self.reAuthenticatingOAuth2Token = true;
+                self.reAuthenticating = true;
+                
                 [self.OAuth2Delegate reAuthenticateCredential:OAuth2Credential withCompletion:^(TSCOAuth2Credential * __nullable credential, NSError * __nullable error, BOOL saveToKeychain) {
                     
-                    self.reAuthenticatingOAuth2Token = false;
                     // If we don't get an error we save the credentials to the keychain and then call the completion block
                     if (!error) {
                         
@@ -320,23 +337,36 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
                         welf.sharedRequestCredential = credential;
                     }
                     
+                    // Call back to the initial OAuth check
                     if (completion) {
-                        completion(error == nil, error);
+                        completion(error == nil, error, false);
                     }
+                    
+                    // Re-schedule any requests that were queued whilst we were refreshing the OAuth token
+                    for (NSDictionary *request in welf.authQueuedRequests) {
+                        [welf scheduleRequest:request[TSCQueuedRequestKey] completion:request[TSCQueuedCompletionKey]];
+                    }
+                    
+                    welf.authQueuedRequests = [NSMutableArray new];
+                    welf.reAuthenticating = false;
+                    
                 }];
                 
-                return;
+            } else if (self.reAuthenticating) { // The OAuth2 token has expired, but this is not the request which will refresh it, this can optionally be queued by the user
+                
+                completion(false, nil, true);
+                
             } else {
                 
-                completion(true, nil);
+                completion(true, nil, false);
             }
         } else {
-            completion(true, nil);
+            completion(true, nil, false);
         }
     } else {
         
         if (completion) {
-            completion(true, nil);
+            completion(true, nil, false);
         }
     }
 }
@@ -346,7 +376,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     __weak typeof(self) welf = self;
     
     // Check OAuth status before making the request
-    [self checkOAuthStatusWithCompletion:^(BOOL authenticated, NSError *error) {
+    [self checkOAuthStatusWithRequest:request completion:^(BOOL authenticated, NSError *error, BOOL needsQueueing) {
        
         if (error || !authenticated) {
             
@@ -371,7 +401,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
     __weak typeof(self) welf = self;
     
-    [self checkOAuthStatusWithCompletion:^(BOOL authenticated, NSError *error) {
+    [self checkOAuthStatusWithRequest:request completion:^(BOOL authenticated, NSError *error, BOOL needsQueueing) {
         
         if (error || !authenticated) {
             
@@ -401,14 +431,19 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
     // Check OAuth status before making the request
     __weak typeof(self) welf = self;
-    [self checkOAuthStatusWithCompletion:^(BOOL authenticated, NSError *error) {
+    [self checkOAuthStatusWithRequest:request completion:^(BOOL authenticated, NSError *error, BOOL needsQueueing) {
        
-        if (error || !authenticated) {
+        if (error && !authenticated && !needsQueueing) {
             
             if (completion) {
                 completion(nil, error);
             }
             return;
+            
+        } else if (needsQueueing) {
+            
+            // If we're not authenticated but didn't get an error then our request came inbetween calling re-authentication and getting
+            [self.authQueuedRequests addObject:@{TSCQueuedRequestKey:request,TSCQueuedCompletionKey:completion ? : ^( TSCRequestResponse *response, NSError *error){}}];
         }
         
         [request prepareForDispatch];
@@ -592,7 +627,11 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 - (void)setOAuth2Delegate:(id<TSCOAuth2Manager>)OAuth2Delegate
 {
     _OAuth2Delegate = OAuth2Delegate;
-
+    
+    if (!OAuth2Delegate) {
+        self.OAuth2RequestController = nil;
+    }
+    
     if (!OAuth2Delegate) {
         return;
     }
@@ -601,6 +640,15 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     if (credential) {
         self.sharedRequestCredential = credential;
     }
+}
+
+- (TSCRequestController *)OAuth2RequestController
+{
+    if (!_OAuth2RequestController) {
+        _OAuth2RequestController = [[TSCRequestController alloc] initWithBaseURL:self.sharedBaseURL];
+    }
+    
+    return _OAuth2RequestController;
 }
 
 - (void)setSharedRequestCredential:(TSCRequestCredential *)credential andSaveToKeychain:(BOOL)save

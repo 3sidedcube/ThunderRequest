@@ -32,6 +32,11 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
 @property (nonatomic, strong, nonnull) NSURL *sharedBaseURL;
 
 /**
+ @abstract The request controller for making OAuth2 re-authentication requests on
+ */
+@property (nonatomic, strong, nullable) TSCRequestController *OAuth2RequestController;
+
+/**
  @abstract The shared request headers for all requests routed through the controller
  */
 @property (nonatomic, strong, nonnull) NSMutableDictionary *sharedRequestHeaders;
@@ -78,16 +83,18 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  Performs a GET request on the base URL.
  @param path The path to be appended to the base URL.
  @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
  */
-- (void)get:(nonnull NSString *)path completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)get:(nonnull NSString *)path completion:(nonnull TSCRequestCompletionHandler)completion;
 
 /**
  Performs a GET request on the base URL using the supplied paramater dictionary to build the URL.
  @param path The path to be appended to the base URL.
  @param URLParamDictionary Dictionary used to build the URL.
  @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
  */
-- (void)get:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)get:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion;
 
 ///---------------------------------------------------------------------------------------
 /// @name POST requests
@@ -98,8 +105,9 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  @param path The path to be appended to the base URL.
  @param bodyParams The dictionary used in the POST body.
  @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
  */
-- (void)post:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)post:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
 
 /**
  Performs a POST request on the base URL using the supplied paramater dictionary to build the URL, and bodyParams dictionary as the POST body.
@@ -107,8 +115,9 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  @param URLParamDictionary Dictionary used to build the URL.
  @param bodyParams The dictionary used in the POST body.
  @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
  */
-- (void)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
 
 /**
  Performs a POST request on the base URL using the supplied paramater dictionary to build the URL, and bodyParams dictionary as the POST body.
@@ -117,8 +126,9 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  @param bodyParams The dictionary used in the POST body.
  @param contentType The type of `TSCRequestContentType` to be used when encoding the request body
  @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
  */
-- (void)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion;
 
 ///---------------------------------------------------------------------------------------
 /// @name PUT requests
@@ -129,8 +139,9 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  @param path The path to be appended to the base URL.
  @param bodyParams The dictionary used in the PUT body.
  @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
  */
-- (void)put:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)put:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
 
 /**
  Performs a PUT request on the base URL using the supplied paramater dictionary to build the URL, and bodyParams dictionary as the PUT body.
@@ -138,8 +149,9 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  @param URLParamDictionary Dictionary used to build the URL.
  @param bodyParams The dictionary used in the PUT body.
  @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
  */
-- (void)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
 
 /**
  Performs a PUT request on the base URL using the supplied paramater dictionary to build the URL, and bodyParams dictionary as the POST body.
@@ -148,8 +160,9 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  @param bodyParams The dictionary used in the PUT body.
  @param contentType The type of `TSCRequestContentType` to be used when encoding the request body
  @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
  */
-- (void)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion;
 
 ///---------------------------------------------------------------------------------------
 /// @name DELETE requests
@@ -159,16 +172,18 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  Performs a DELETE request on the base URL.
  @param path The path to be appended to the base URL.
  @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
  */
-- (void)delete:(nonnull NSString *)path completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)delete:(nonnull NSString *)path completion:(nonnull TSCRequestCompletionHandler)completion;
 
 /**
  Performs a DELETE request on the base URL using the supplied paramater dictionary to build the URL.
  @param path The path to be appended to the base URL.
  @param URLParamDictionary Dictionary used to build the URL.
  @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
  */
-- (void)delete:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)delete:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion;
 
 ///---------------------------------------------------------------------------------------
 /// @name HEAD requests
@@ -179,8 +194,9 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  @param path The path to be appended to the base URL.
  @param URLParamDictionary Dictionary used to build the URL.
  @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
  */
-- (void)head:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)head:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion;
 
 ///---------------------------------------------------------------------------------------
 /// @name Download requests
