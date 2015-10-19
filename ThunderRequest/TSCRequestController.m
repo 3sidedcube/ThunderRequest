@@ -343,7 +343,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
                     }
                     
                     // Re-schedule any requests that were queued whilst we were refreshing the OAuth token
-                    for (NSDictionary *request in welf.authQueuedRequests) {
+                    for (NSDictionary *request in welf.authQueuedRequests.copy) {
                         [welf scheduleRequest:request[TSCQueuedRequestKey] completion:request[TSCQueuedCompletionKey]];
                     }
                     
