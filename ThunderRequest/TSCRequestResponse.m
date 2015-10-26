@@ -22,14 +22,20 @@
 - (nullable NSObject *)object
 {
     NSError *parseError;
-    id parseObject = [NSJSONSerialization JSONObjectWithData:self.data options:kNilOptions error:&parseError];
     
-    if (parseError) {
-        return nil;
+    if (self.data) {
+        
+        id parseObject = [NSJSONSerialization JSONObjectWithData:self.data options:kNilOptions error:&parseError];
+        
+        if (parseError) {
+            return nil;
+        } else {
+            return parseObject;
+        }
+        
     } else {
-        return parseObject;
+        return nil;
     }
-    
 }
 
 - (nullable NSArray *)array
