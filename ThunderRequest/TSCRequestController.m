@@ -4,6 +4,7 @@
 #import "TSCErrorRecoveryAttempter.h"
 #import "TSCErrorRecoveryOption.h"
 #import "TSCRequestCredential.h"
+#import "NSThread+Blocks.h"
 
 @interface TSCRequestController () <NSURLSessionDownloadDelegate, NSURLSessionTaskDelegate>
 
@@ -239,8 +240,8 @@
 {
     [request prepareForDispatch];
     
-    NSOperationQueue *scheduleQueue = [NSOperationQueue currentQueue];
-    
+    NSThread *scheduleThread = [NSThread currentThread];
+        
     [[self.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         TSCRequestResponse *requestResponse = [[TSCRequestResponse alloc] initWithResponse:response data:data];
@@ -268,22 +269,21 @@
             
             [recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Cancel" type:TSCErrorRecoveryOptionTypeCancel handler:nil]];
             
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [scheduleThread performBlock:^{
                 
                 if (error) {
                     completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
                 } else {
                     
                     NSError *httpError = [NSError errorWithDomain:TSCRequestErrorDomain code:requestResponse.status userInfo:@{NSLocalizedDescriptionKey: [NSHTTPURLResponse localizedStringForStatusCode:requestResponse.status]}];
-
                     completion(requestResponse, [recoveryAttempter recoverableErrorWithError:httpError]);
-
+                    
                 }
             }];
             
         } else {
             
-            [scheduleQueue addOperationWithBlock:^{
+            [scheduleThread performBlock:^{
 
                 completion(requestResponse, error);
                 
