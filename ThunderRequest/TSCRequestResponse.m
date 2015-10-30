@@ -50,6 +50,9 @@
 
 - (nullable NSString *)string
 {
+    if (!self.data) {
+        return nil;
+    }
     return [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
 }
 

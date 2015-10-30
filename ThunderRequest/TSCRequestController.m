@@ -302,11 +302,12 @@
                 
             } else {
             
-                NSRange truncatedRange = {0, MIN(requestResponse.string.length, 25)};
-                truncatedRange = [requestResponse.string rangeOfComposedCharacterSequencesForRange:truncatedRange];
-                
-                NSLog(@"\n<ThunderRequest>\nURL:    %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: %li\nResponse Body: %@\n",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], (long)requestResponse.status, self.truncatesVerboseResponse ? [[requestResponse.string substringWithRange:truncatedRange] stringByAppendingString:@"..."] : requestResponse.string);
-                
+                [scheduleThread performBlock:^{
+                    NSRange truncatedRange = {0, MIN(requestResponse.string.length, 25)};
+                    truncatedRange = [requestResponse.string rangeOfComposedCharacterSequencesForRange:truncatedRange];
+                    
+                    NSLog(@"\n<ThunderRequest>\nURL:    %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: %li\nResponse Body: %@\n",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], (long)requestResponse.status, self.truncatesVerboseResponse ? [[requestResponse.string substringWithRange:truncatedRange] stringByAppendingString:@"..."] : requestResponse.string);
+                }];
             }
             
         }
