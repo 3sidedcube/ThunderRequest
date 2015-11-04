@@ -1,5 +1,12 @@
 #import "TSCRequest.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "NSDictionary+URLEncoding.h"
+
+#if TARGET_OS_IPHONE
+@import UIKit;
+#else
+#import <AppKit/AppKit.h>
+#endif
 
 @implementation TSCRequest
 
@@ -30,6 +37,128 @@
 {
     if (dictionary) {
         
+        switch (self.contentType) {
+            case TSCRequestContentTypeJSON:
+                return [self TSC_JSONDataWithDictionary:dictionary];
+                break;
+            case TSCRequestContentTypeFormURLEncoded:
+                return [dictionary urlEncodedFormData];
+                break;
+            case TSCRequestContentTypeMultipartFormData:
+                return [self TSC_multipartFormDataWithDictionary:dictionary];
+                break;
+            case TSCRequestContentTypeXMLPlist:
+                return [self TSC_plistDataWithDictionary:dictionary];
+                break;
+            case TSCRequestContentTypeImageJPEG:
+                return [self TSC_jpgDataWithDictionary:dictionary];
+                break;
+            case TSCRequestContentTypeImagePNG:
+                return [self TSC_pngDataWithDictionary:dictionary];
+                break;
+            default:
+                break;
+        }
+    }
+    
+    return nil;
+}
+
+#pragma mark - PNG Encoding
+
+#if TARGET_OS_IPHONE
+- (NSData *)TSC_pngDataWithDictionary:(NSDictionary *)dictionary
+{
+    __block NSData *data;
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        
+        if ([obj isKindOfClass:[NSData class]]) {
+            
+            data = obj;
+            *stop = true;
+        } else if ([obj isKindOfClass:[UIImage class]]) {
+            
+            data = UIImagePNGRepresentation(obj);
+            *stop = true;
+        }
+    }];
+    return data;
+}
+#else
+- (NSData *)TSC_pngDataWithDictionary:(NSDictionary *)dictionary
+{
+    __block NSData *data;
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        
+        if ([obj isKindOfClass:[NSData class]]) {
+            
+            data = obj;
+            *stop = true;
+        } else if ([obj isKindOfClass:[NSImage class]]) {
+            
+//            data = UIImagePNGRepresentation(obj);
+            *stop = true;
+        }
+    }];
+    return data;
+}
+#endif
+
+#pragma mark - JPEG Encoding
+
+#if TARGET_OS_IPHONE
+- (nullable NSData *)TSC_jpgDataWithDictionary:(NSDictionary *)dictionary
+{
+    __block NSData *data;
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        
+        if ([obj isKindOfClass:[UIImage class]]) {
+            
+            data = obj;
+            *stop = true;
+        } else if ([obj isKindOfClass:[UIImage class]]) {
+            
+            data = UIImageJPEGRepresentation(obj, 2.0);
+            *stop = true;
+        }
+    }];
+    return data;
+}
+#else
+- (nullable NSData *)TSC_jpgDataWithDictionary:(NSDictionary *)dictionary
+{
+    __block NSData *data;
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        
+        if ([obj isKindOfClass:[NSData class]]) {
+            
+            data = obj;
+            *stop = true;
+        } else if ([obj isKindOfClass:[NSImage class]]) {
+            
+            NSBitmapImageRep *imageRep = [[obj representations] objectAtIndex:0];
+            data = [imageRep representationUsingType:NSJPEGFileType properties:nil];
+            *stop = true;
+        }
+    }];
+    return data;
+}
+#endif
+
+#pragma mark - XML Plist Encoding
+
+- (nullable NSData *)TSC_plistDataWithDictionary:(NSDictionary *)dictionary
+{
+    NSData *data = [NSPropertyListSerialization dataWithPropertyList:dictionary format:NSPropertyListXMLFormat_v1_0 options:0 error:nil];
+    return data;
+}
+
+#pragma mark - JSON Encoding
+
+- (nullable NSData *)TSC_JSONDataWithDictionary:(NSDictionary *)dictionary
+{
+    if (dictionary) {
+        
         NSError *encodingError;
         NSData *encodedBody = [NSJSONSerialization dataWithJSONObject:dictionary options:kNilOptions error:&encodingError];
         
@@ -40,9 +169,7 @@
         }
         
         return encodedBody;
-        
     }
-    
     return nil;
 }
 
@@ -119,7 +246,10 @@
             return @"image/jpeg";
         case TSCRequestContentTypeImagePNG:
             return @"image/png";
-            
+        case TSCRequestContentTypeFormURLEncoded:
+            return @"application/x-www-form-urlencoded";
+        case TSCRequestContentTypeXMLPlist:
+            return @"text/x-xml-plist";
         default:
             return @"application/json";
             break;
