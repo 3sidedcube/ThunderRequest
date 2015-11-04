@@ -45,6 +45,12 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress);
  */
 @property (nonatomic, strong, nullable) TSCRequestCredential *sharedRequestCredential;
 
+/**
+ @abstract Can be set to force the request controller to run synchronously
+ @discussion This should not be done with requests running on the main thread. It has been added to support requests in OSX Command Line Utilities, be warned. This could lead to issues.
+ */
+@property (nonatomic, assign) BOOL runSynchronously;
+
 ///---------------------------------------------------------------------------------------
 /// @name Initialization
 ///---------------------------------------------------------------------------------------
