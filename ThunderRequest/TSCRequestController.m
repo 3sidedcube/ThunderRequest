@@ -4,6 +4,7 @@
 #import "TSCErrorRecoveryAttempter.h"
 #import "TSCErrorRecoveryOption.h"
 #import "TSCRequestCredential.h"
+#import "NSURLSession+Synchronous.h"
 #import "NSThread+Blocks.h"
 
 @interface TSCRequestController () <NSURLSessionDownloadDelegate, NSURLSessionTaskDelegate>
@@ -228,91 +229,113 @@
 {
     [request prepareForDispatch];
     
-    // Should be using downloadtaskwithrequest but it has a bug which causes it to return nil.
-    NSURLSessionDownloadTask *task = [self.backgroundSession downloadTaskWithURL:request.URL];
-    
-    [self addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
-    
-    [task resume];
+    if (self.runSynchronously) {
+        
+        NSError *error = nil;
+        NSURL *url = [self.backgroundSession sendSynchronousDownloadTaskWithURL:request.URL returningResponse:nil error:&error];
+        
+        if (completion) {
+            completion(url, error);
+        }
+        
+    } else {
+        
+        // Should be using downloadtaskwithrequest but it has a bug which causes it to return nil.
+        NSURLSessionDownloadTask *task = [self.backgroundSession downloadTaskWithURL:request.URL];
+        [self addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
+        [task resume];
+        
+    }
 }
 
 - (void)scheduleRequest:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion
 {
     [request prepareForDispatch];
     
-    NSThread *scheduleThread = [NSThread currentThread];
+    if (self.runSynchronously) {
         
-    [[self.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSURLResponse *response = nil;
+        NSError *error = nil;
+        NSData *data = [self.defaultSession sendSynchronousDataTaskWithRequest:request returningResponse:&response error:&error];
+        [self TSC_fireRequestCompletionWithData:data response:response error:error request:request completion:completion onThread:[NSThread currentThread]];
         
-        TSCRequestResponse *requestResponse = [[TSCRequestResponse alloc] initWithResponse:response data:data];
-        //Notify of response
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestDidReceiveResponse" object:requestResponse];
+    } else {
         
-        //Notify of errors
-        if ([self statusCodeIsConsideredHTTPError:requestResponse.status]) {
+        [[self.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestServerError" object:self];
+            [self TSC_fireRequestCompletionWithData:data response:response error:error request:request completion:completion onThread:[NSThread currentThread]];
             
-        }
+        }] resume];
         
-        
+    }
+}
 
-        if (error || [self statusCodeIsConsideredHTTPError:requestResponse.status]) {
+- (void)TSC_fireRequestCompletionWithData:(NSData *)data response:(NSURLResponse *)response error:(NSError *)error request:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion onThread:(NSThread *)scheduleThread
+{
+    TSCRequestResponse *requestResponse = [[TSCRequestResponse alloc] initWithResponse:response data:data];
+    //Notify of response
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestDidReceiveResponse" object:requestResponse];
+    
+    //Notify of errors
+    if ([self statusCodeIsConsideredHTTPError:requestResponse.status]) {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestServerError" object:self];
+        
+    }
+    
+    if (error || [self statusCodeIsConsideredHTTPError:requestResponse.status]) {
+        
+        TSCErrorRecoveryAttempter *recoveryAttempter = [TSCErrorRecoveryAttempter new];
+        
+        [recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Retry" type:TSCErrorRecoveryOptionTypeRetry handler:^(TSCErrorRecoveryOption *option) {
             
-            TSCErrorRecoveryAttempter *recoveryAttempter = [TSCErrorRecoveryAttempter new];
+            [self scheduleRequest:request completion:completion];
             
-            [recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Retry" type:TSCErrorRecoveryOptionTypeRetry handler:^(TSCErrorRecoveryOption *option) {
+        }]];
+        
+        [recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Cancel" type:TSCErrorRecoveryOptionTypeCancel handler:nil]];
+        
+        [scheduleThread performBlock:^{
+            
+            if (error) {
+                completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
+            } else {
                 
-                [self scheduleRequest:request completion:completion];
+                NSError *httpError = [NSError errorWithDomain:TSCRequestErrorDomain code:requestResponse.status userInfo:@{NSLocalizedDescriptionKey: [NSHTTPURLResponse localizedStringForStatusCode:requestResponse.status]}];
+                completion(requestResponse, [recoveryAttempter recoverableErrorWithError:httpError]);
                 
-            }]];
+            }
+        }];
+        
+    } else {
+        
+        [scheduleThread performBlock:^{
+            completion(requestResponse, error);
+        }];
+        
+    }
+    
+    //Log
+    if (self.verboseLogging) {
+        
+        if (error) {
             
-            [recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Cancel" type:TSCErrorRecoveryOptionTypeCancel handler:nil]];
-            
-            [scheduleThread performBlock:^{
-                
-                if (error) {
-                    completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
-                } else {
-                    
-                    NSError *httpError = [NSError errorWithDomain:TSCRequestErrorDomain code:requestResponse.status userInfo:@{NSLocalizedDescriptionKey: [NSHTTPURLResponse localizedStringForStatusCode:requestResponse.status]}];
-                    completion(requestResponse, [recoveryAttempter recoverableErrorWithError:httpError]);
-                    
-                }
-            }];
+            NSLog(@"Request:%@", request);
+            NSLog(@"\n<ThunderRequest>\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: FAILURE \nError Description: %@",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], error.localizedDescription);
             
         } else {
             
             [scheduleThread performBlock:^{
-
-                completion(requestResponse, error);
                 
+                NSRange truncatedRange = {0, MIN(requestResponse.string.length, 25)};
+                truncatedRange = [requestResponse.string rangeOfComposedCharacterSequencesForRange:truncatedRange];
+                
+                NSLog(@"\n<ThunderRequest>\nURL:    %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: %li\nResponse Body: %@\n",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], (long)requestResponse.status, self.truncatesVerboseResponse ? [[requestResponse.string substringWithRange:truncatedRange] stringByAppendingString:@"..."] : requestResponse.string);
             }];
             
         }
         
-        
-        //Log
-        if (self.verboseLogging) {
-         
-            if (error) {
-                
-                NSLog(@"Request:%@", request);
-                NSLog(@"\n<ThunderRequest>\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: FAILURE \nError Description: %@",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], error.localizedDescription);
-                
-            } else {
-            
-                [scheduleThread performBlock:^{
-                    NSRange truncatedRange = {0, MIN(requestResponse.string.length, 25)};
-                    truncatedRange = [requestResponse.string rangeOfComposedCharacterSequencesForRange:truncatedRange];
-                    
-                    NSLog(@"\n<ThunderRequest>\nURL:    %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: %li\nResponse Body: %@\n",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], (long)requestResponse.status, self.truncatesVerboseResponse ? [[requestResponse.string substringWithRange:truncatedRange] stringByAppendingString:@"..."] : requestResponse.string);
-                }];
-            }
-            
-        }
-        
-    }] resume];
+    }
 }
 
 #pragma mark - NSURLSession challenge handling
