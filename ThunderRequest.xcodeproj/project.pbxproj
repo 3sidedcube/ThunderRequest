@@ -17,6 +17,27 @@
 		49F7B2E51B96F53100DDB587 /* TSCRequestDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */; };
 		B1AB78351BDA92CC00F50127 /* NSThread+Blocks.h in Headers */ = {isa = PBXBuildFile; fileRef = B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */; settings = {ASSET_TAGS = (); }; };
 		B1AB78361BDA92CC00F50127 /* NSThread+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */; settings = {ASSET_TAGS = (); }; };
+		B1177EDD1BBAF18E00372D4D /* ThunderRequestMac.h in Headers */ = {isa = PBXBuildFile; fileRef = B1177EDC1BBAF18E00372D4D /* ThunderRequestMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1177EE31BBAF18E00372D4D /* ThunderRequestMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */; };
+		B1177EEA1BBAF18E00372D4D /* ThunderRequestMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B1177EE91BBAF18E00372D4D /* ThunderRequestMacTests.m */; };
+		B1177EF11BBAF21F00372D4D /* TSCRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089D19C835D900350F00 /* TSCRequest.m */; };
+		B1177EF21BBAF21F00372D4D /* TSCRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089F19C835D900350F00 /* TSCRequestController.m */; };
+		B1177EF31BBAF21F00372D4D /* TSCRequestCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A119C835D900350F00 /* TSCRequestCredential.m */; };
+		B1177EF41BBAF21F00372D4D /* TSCRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A319C835D900350F00 /* TSCRequestResponse.m */; };
+		B1177EF51BBAF21F00372D4D /* TSCErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E071B36A7BF001475CE /* TSCErrorRecoveryAttempter.m */; };
+		B1177EF61BBAF21F00372D4D /* TSCErrorRecoveryOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E091B36A7BF001475CE /* TSCErrorRecoveryOption.m */; };
+		B1177EF71BBAF21F00372D4D /* TSCRequestDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */; };
+		B1177EF81BBAF22C00372D4D /* TSCRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089C19C835D900350F00 /* TSCRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1177EF91BBAF22F00372D4D /* TSCRequestController.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089E19C835D900350F00 /* TSCRequestController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1177EFA1BBAF23400372D4D /* TSCRequestCredential.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E508A019C835D900350F00 /* TSCRequestCredential.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1177EFB1BBAF23A00372D4D /* TSCRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E508A219C835D900350F00 /* TSCRequestResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1177EFC1BBAF23D00372D4D /* TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1177EFD1BBAF24100372D4D /* TSCErrorRecoveryOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1177EFE1BBAF24500372D4D /* TSCRequestDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1177F0B1BBAF6AA00372D4D /* NSDictionary+URLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = B1177F091BBAF6AA00372D4D /* NSDictionary+URLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1177F0C1BBAF6AA00372D4D /* NSDictionary+URLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = B1177F091BBAF6AA00372D4D /* NSDictionary+URLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1177F0D1BBAF6AA00372D4D /* NSDictionary+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B1177F0A1BBAF6AA00372D4D /* NSDictionary+URLEncoding.m */; };
+		B1177F0E1BBAF6AA00372D4D /* NSDictionary+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B1177F0A1BBAF6AA00372D4D /* NSDictionary+URLEncoding.m */; };
 		C2E5089219C835A300350F00 /* ThunderRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089119C835A300350F00 /* ThunderRequestTests.swift */; };
 		C2E508A419C835D900350F00 /* ThunderRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089B19C835D900350F00 /* ThunderRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2E508A519C835D900350F00 /* TSCRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089C19C835D900350F00 /* TSCRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -29,6 +50,16 @@
 		C2E508AC19C835D900350F00 /* TSCRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A319C835D900350F00 /* TSCRequestResponse.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		B1177EE41BBAF18E00372D4D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C2E5087919C835A300350F00 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B1177ED71BBAF18E00372D4D;
+			remoteInfo = ThunderRequestMac;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCErrorRecoveryAttempter.h; sourceTree = "<group>"; };
 		49B77E071B36A7BF001475CE /* TSCErrorRecoveryAttempter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCErrorRecoveryAttempter.m; sourceTree = "<group>"; };
@@ -40,6 +71,14 @@
 		49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCRequestDefines.m; sourceTree = "<group>"; };
 		B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSThread+Blocks.h"; sourceTree = "<group>"; };
 		B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSThread+Blocks.m"; sourceTree = "<group>"; };
+		B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequestMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1177EDB1BBAF18E00372D4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B1177EDC1BBAF18E00372D4D /* ThunderRequestMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThunderRequestMac.h; sourceTree = "<group>"; };
+		B1177EE21BBAF18E00372D4D /* ThunderRequestMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThunderRequestMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1177EE81BBAF18E00372D4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B1177EE91BBAF18E00372D4D /* ThunderRequestMacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThunderRequestMacTests.m; sourceTree = "<group>"; };
+		B1177F091BBAF6AA00372D4D /* NSDictionary+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+URLEncoding.h"; sourceTree = "<group>"; };
+		B1177F0A1BBAF6AA00372D4D /* NSDictionary+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+URLEncoding.m"; sourceTree = "<group>"; };
 		C2E5088219C835A300350F00 /* ThunderRequest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2E5088619C835A300350F00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2E5088D19C835A300350F00 /* ThunderRequestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThunderRequestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +96,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B1177ED41BBAF18E00372D4D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1177EDF1BBAF18E00372D4D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1177EE31BBAF18E00372D4D /* ThunderRequestMac.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C2E5087E19C835A300350F00 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -74,11 +128,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B1177ED91BBAF18E00372D4D /* ThunderRequestMac */ = {
+			isa = PBXGroup;
+			children = (
+				B1177EDC1BBAF18E00372D4D /* ThunderRequestMac.h */,
+				B1177EDA1BBAF18E00372D4D /* Supporting Files */,
+			);
+			path = ThunderRequestMac;
+			sourceTree = "<group>";
+		};
+		B1177EDA1BBAF18E00372D4D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B1177EDB1BBAF18E00372D4D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B1177EE61BBAF18E00372D4D /* ThunderRequestMacTests */ = {
+			isa = PBXGroup;
+			children = (
+				B1177EE91BBAF18E00372D4D /* ThunderRequestMacTests.m */,
+				B1177EE71BBAF18E00372D4D /* Supporting Files */,
+			);
+			path = ThunderRequestMacTests;
+			sourceTree = "<group>";
+		};
+		B1177EE71BBAF18E00372D4D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B1177EE81BBAF18E00372D4D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		C2E5087819C835A300350F00 = {
 			isa = PBXGroup;
 			children = (
 				C2E5088419C835A300350F00 /* ThunderRequest */,
 				C2E5088E19C835A300350F00 /* ThunderRequestTests */,
+				B1177ED91BBAF18E00372D4D /* ThunderRequestMac */,
+				B1177EE61BBAF18E00372D4D /* ThunderRequestMacTests */,
 				C2E5088319C835A300350F00 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +178,8 @@
 			children = (
 				C2E5088219C835A300350F00 /* ThunderRequest.framework */,
 				C2E5088D19C835A300350F00 /* ThunderRequestTests.xctest */,
+				B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */,
+				B1177EE21BBAF18E00372D4D /* ThunderRequestMacTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,6 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				C2E5089B19C835D900350F00 /* ThunderRequest.h */,
+				B1177F091BBAF6AA00372D4D /* NSDictionary+URLEncoding.h */,
+				B1177F0A1BBAF6AA00372D4D /* NSDictionary+URLEncoding.m */,
 				C2E5089C19C835D900350F00 /* TSCRequest.h */,
 				C2E5089D19C835D900350F00 /* TSCRequest.m */,
 				C2E5089E19C835D900350F00 /* TSCRequestController.h */,
@@ -147,6 +241,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		B1177ED51BBAF18E00372D4D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1177EDD1BBAF18E00372D4D /* ThunderRequestMac.h in Headers */,
+				B1177F0C1BBAF6AA00372D4D /* NSDictionary+URLEncoding.h in Headers */,
+				B1177EF81BBAF22C00372D4D /* TSCRequest.h in Headers */,
+				B1177EF91BBAF22F00372D4D /* TSCRequestController.h in Headers */,
+				B1177EFA1BBAF23400372D4D /* TSCRequestCredential.h in Headers */,
+				B1177EFB1BBAF23A00372D4D /* TSCRequestResponse.h in Headers */,
+				B1177EFC1BBAF23D00372D4D /* TSCErrorRecoveryAttempter.h in Headers */,
+				B1177EFD1BBAF24100372D4D /* TSCErrorRecoveryOption.h in Headers */,
+				B1177EFE1BBAF24500372D4D /* TSCRequestDefines.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C2E5087F19C835A300350F00 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -155,6 +265,7 @@
 				C2E508A419C835D900350F00 /* ThunderRequest.h in Headers */,
 				49B77E141B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h in Headers */,
 				49B77E101B36A7BF001475CE /* TSCErrorRecoveryOption.h in Headers */,
+				B1177F0B1BBAF6AA00372D4D /* NSDictionary+URLEncoding.h in Headers */,
 				49B77E121B36A7BF001475CE /* TSCRequestDefines.h in Headers */,
 				49B77E0E1B36A7BF001475CE /* TSCErrorRecoveryAttempter.h in Headers */,
 				C2E508A719C835D900350F00 /* TSCRequestController.h in Headers */,
@@ -167,6 +278,42 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		B1177ED71BBAF18E00372D4D /* ThunderRequestMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1177EEF1BBAF18E00372D4D /* Build configuration list for PBXNativeTarget "ThunderRequestMac" */;
+			buildPhases = (
+				B1177ED31BBAF18E00372D4D /* Sources */,
+				B1177ED41BBAF18E00372D4D /* Frameworks */,
+				B1177ED51BBAF18E00372D4D /* Headers */,
+				B1177ED61BBAF18E00372D4D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ThunderRequestMac;
+			productName = ThunderRequestMac;
+			productReference = B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		B1177EE11BBAF18E00372D4D /* ThunderRequestMacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1177EF01BBAF18E00372D4D /* Build configuration list for PBXNativeTarget "ThunderRequestMacTests" */;
+			buildPhases = (
+				B1177EDE1BBAF18E00372D4D /* Sources */,
+				B1177EDF1BBAF18E00372D4D /* Frameworks */,
+				B1177EE01BBAF18E00372D4D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B1177EE51BBAF18E00372D4D /* PBXTargetDependency */,
+			);
+			name = ThunderRequestMacTests;
+			productName = ThunderRequestMacTests;
+			productReference = B1177EE21BBAF18E00372D4D /* ThunderRequestMacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C2E5088119C835A300350F00 /* ThunderRequest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C2E5089519C835A300350F00 /* Build configuration list for PBXNativeTarget "ThunderRequest" */;
@@ -212,6 +359,12 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = threesidedcube;
 				TargetAttributes = {
+					B1177ED71BBAF18E00372D4D = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					B1177EE11BBAF18E00372D4D = {
+						CreatedOnToolsVersion = 6.4;
+					};
 					C2E5088119C835A300350F00 = {
 						CreatedOnToolsVersion = 6.0;
 					};
@@ -234,11 +387,27 @@
 			targets = (
 				C2E5088119C835A300350F00 /* ThunderRequest */,
 				C2E5088C19C835A300350F00 /* ThunderRequestTests */,
+				B1177ED71BBAF18E00372D4D /* ThunderRequestMac */,
+				B1177EE11BBAF18E00372D4D /* ThunderRequestMacTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B1177ED61BBAF18E00372D4D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1177EE01BBAF18E00372D4D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C2E5088019C835A300350F00 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -256,6 +425,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B1177ED31BBAF18E00372D4D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1177EF11BBAF21F00372D4D /* TSCRequest.m in Sources */,
+				B1177F0E1BBAF6AA00372D4D /* NSDictionary+URLEncoding.m in Sources */,
+				B1177EF21BBAF21F00372D4D /* TSCRequestController.m in Sources */,
+				B1177EF31BBAF21F00372D4D /* TSCRequestCredential.m in Sources */,
+				B1177EF41BBAF21F00372D4D /* TSCRequestResponse.m in Sources */,
+				B1177EF51BBAF21F00372D4D /* TSCErrorRecoveryAttempter.m in Sources */,
+				B1177EF61BBAF21F00372D4D /* TSCErrorRecoveryOption.m in Sources */,
+				B1177EF71BBAF21F00372D4D /* TSCRequestDefines.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1177EDE1BBAF18E00372D4D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1177EEA1BBAF18E00372D4D /* ThunderRequestMacTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C2E5087D19C835A300350F00 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -269,6 +461,7 @@
 				C2E508A619C835D900350F00 /* TSCRequest.m in Sources */,
 				49B77E111B36A7BF001475CE /* TSCErrorRecoveryOption.m in Sources */,
 				49F7B2E51B96F53100DDB587 /* TSCRequestDefines.m in Sources */,
+				B1177F0D1BBAF6AA00372D4D /* NSDictionary+URLEncoding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,7 +475,103 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		B1177EE51BBAF18E00372D4D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B1177ED71BBAF18E00372D4D /* ThunderRequestMac */;
+			targetProxy = B1177EE41BBAF18E00372D4D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		B1177EEB1BBAF18E00372D4D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ThunderRequestMac/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B1177EEC1BBAF18E00372D4D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = ThunderRequestMac/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		B1177EED1BBAF18E00372D4D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ThunderRequestMacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B1177EEE1BBAF18E00372D4D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = ThunderRequestMacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		C2E5089319C835A300350F00 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -441,6 +730,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B1177EEF1BBAF18E00372D4D /* Build configuration list for PBXNativeTarget "ThunderRequestMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1177EEB1BBAF18E00372D4D /* Debug */,
+				B1177EEC1BBAF18E00372D4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B1177EF01BBAF18E00372D4D /* Build configuration list for PBXNativeTarget "ThunderRequestMacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1177EED1BBAF18E00372D4D /* Debug */,
+				B1177EEE1BBAF18E00372D4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C2E5087C19C835A300350F00 /* Build configuration list for PBXProject "ThunderRequest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

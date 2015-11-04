@@ -15,7 +15,8 @@ typedef NS_ENUM(NSInteger, TSCRequestContentType) {
     TSCRequestContentTypeFormURLEncoded = 1,
     TSCRequestContentTypeMultipartFormData = 2,
     TSCRequestContentTypeImagePNG = 3,
-    TSCRequestContentTypeImageJPEG = 4
+    TSCRequestContentTypeImageJPEG = 4,
+    TSCRequestContentTypeXMLPlist = 5
 };
 
 /** The styles available for a `TSCErrorRecoveryOption` */

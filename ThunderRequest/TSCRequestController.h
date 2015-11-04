@@ -1,5 +1,10 @@
 @import Foundation;
+
+#if TARGET_OS_IPHONE
 @import UIKit;
+#else
+
+#endif
 #import "TSCRequestDefines.h"
 
 @class TSCRequestResponse;
