@@ -261,9 +261,10 @@
         
     } else {
         
+        NSThread *currentThread = [NSThread currentThread];
         [[self.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             
-            [self TSC_fireRequestCompletionWithData:data response:response error:error request:request completion:completion onThread:[NSThread currentThread]];
+            [self TSC_fireRequestCompletionWithData:data response:response error:error request:request completion:completion onThread:currentThread];
             
         }] resume];
         
