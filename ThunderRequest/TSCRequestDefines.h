@@ -2,6 +2,11 @@ extern NSString *const TSCRequestErrorDomain;
 extern NSString *const TSCRequestServerError;
 extern NSString *const TSCRequestDidReceiveResponse;
 
+extern NSString *const TSCMultipartFormDataDataKey;
+extern NSString *const TSCMultipartFormDataFilenameKey;
+extern NSString *const TSCMultipartFormDataNameKey;
+extern NSString *const TSCMultipartFormDataDispositionKey;
+
 typedef NS_ENUM(NSInteger, TSCRequestHTTPMethod) {
     TSCRequestHTTPMethodGET = 0,
     TSCRequestHTTPMethodPOST = 1,

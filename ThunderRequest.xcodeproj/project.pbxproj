@@ -44,6 +44,12 @@
 		B19894901BEA3E8800E96DA3 /* NSThread+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */; settings = {ASSET_TAGS = (); }; };
 		B1AB78351BDA92CC00F50127 /* NSThread+Blocks.h in Headers */ = {isa = PBXBuildFile; fileRef = B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */; settings = {ASSET_TAGS = (); }; };
 		B1AB78361BDA92CC00F50127 /* NSThread+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */; settings = {ASSET_TAGS = (); }; };
+		B16743E81BA6C4E000352C68 /* TSCOAuth2Manager.h in Headers */ = {isa = PBXBuildFile; fileRef = B16743E61BA6C4E000352C68 /* TSCOAuth2Manager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1EF2E9C1BA6D88E0053B39A /* TSCOAuth2Credential.h in Headers */ = {isa = PBXBuildFile; fileRef = B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1EF2E9D1BA6D88E0053B39A /* TSCOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */; settings = {ASSET_TAGS = (); }; };
+		B1EF2E9F1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9E1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift */; settings = {ASSET_TAGS = (); }; };
+		B1FC231D1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = B1FC231B1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.h */; settings = {ASSET_TAGS = (); }; };
+		B1FC231E1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B1FC231C1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m */; settings = {ASSET_TAGS = (); }; };
 		C2E5089219C835A300350F00 /* ThunderRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089119C835A300350F00 /* ThunderRequestTests.swift */; };
 		C2E508A419C835D900350F00 /* ThunderRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089B19C835D900350F00 /* ThunderRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2E508A519C835D900350F00 /* TSCRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089C19C835D900350F00 /* TSCRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -87,6 +93,12 @@
 		B19894881BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+Synchronous.m"; sourceTree = "<group>"; };
 		B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSThread+Blocks.h"; sourceTree = "<group>"; };
 		B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSThread+Blocks.m"; sourceTree = "<group>"; };
+		B16743E61BA6C4E000352C68 /* TSCOAuth2Manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCOAuth2Manager.h; sourceTree = "<group>"; };
+		B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCOAuth2Credential.h; sourceTree = "<group>"; };
+		B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCOAuth2Credential.m; sourceTree = "<group>"; };
+		B1EF2E9E1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ThunderRequest-KeychainTests.swift"; sourceTree = "<group>"; };
+		B1FC231B1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+URLEncoding.h"; sourceTree = "<group>"; };
+		B1FC231C1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+URLEncoding.m"; sourceTree = "<group>"; };
 		C2E5088219C835A300350F00 /* ThunderRequest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2E5088619C835A300350F00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2E5088D19C835A300350F00 /* ThunderRequestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThunderRequestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,6 +218,9 @@
 				C2E5089F19C835D900350F00 /* TSCRequestController.m */,
 				C2E508A019C835D900350F00 /* TSCRequestCredential.h */,
 				C2E508A119C835D900350F00 /* TSCRequestCredential.m */,
+				B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */,
+				B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */,
+				B16743E61BA6C4E000352C68 /* TSCOAuth2Manager.h */,
 				C2E508A219C835D900350F00 /* TSCRequestResponse.h */,
 				C2E508A319C835D900350F00 /* TSCRequestResponse.m */,
 				49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */,
@@ -214,6 +229,8 @@
 				49B77E091B36A7BF001475CE /* TSCErrorRecoveryOption.m */,
 				49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */,
 				49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */,
+				B1FC231B1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.h */,
+				B1FC231C1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m */,
 				49B77E0C1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h */,
 				49B77E0D1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m */,
 				B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */,
@@ -235,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				C2E5089119C835A300350F00 /* ThunderRequestTests.swift */,
+				B1EF2E9E1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift */,
 				C2E5088F19C835A300350F00 /* Supporting Files */,
 			);
 			path = ThunderRequestTests;
@@ -278,11 +296,13 @@
 				B19894891BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h in Headers */,
 				49B77E141B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h in Headers */,
 				49B77E101B36A7BF001475CE /* TSCErrorRecoveryOption.h in Headers */,
-				B1177F0B1BBAF6AA00372D4D /* NSDictionary+URLEncoding.h in Headers */,
+				B1FC231D1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.h in Headers */,
 				49B77E121B36A7BF001475CE /* TSCRequestDefines.h in Headers */,
 				49B77E0E1B36A7BF001475CE /* TSCErrorRecoveryAttempter.h in Headers */,
+				B1EF2E9C1BA6D88E0053B39A /* TSCOAuth2Credential.h in Headers */,
 				C2E508A719C835D900350F00 /* TSCRequestController.h in Headers */,
 				C2E508A919C835D900350F00 /* TSCRequestCredential.h in Headers */,
+				B16743E81BA6C4E000352C68 /* TSCOAuth2Manager.h in Headers */,
 				C2E508A519C835D900350F00 /* TSCRequest.h in Headers */,
 				B1AB78351BDA92CC00F50127 /* NSThread+Blocks.h in Headers */,
 			);
@@ -467,6 +487,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1EF2E9D1BA6D88E0053B39A /* TSCOAuth2Credential.m in Sources */,
 				C2E508AA19C835D900350F00 /* TSCRequestCredential.m in Sources */,
 				B198948B1BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m in Sources */,
 				49B77E151B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m in Sources */,
@@ -477,7 +498,7 @@
 				C2E508A619C835D900350F00 /* TSCRequest.m in Sources */,
 				49B77E111B36A7BF001475CE /* TSCErrorRecoveryOption.m in Sources */,
 				49F7B2E51B96F53100DDB587 /* TSCRequestDefines.m in Sources */,
-				B1177F0D1BBAF6AA00372D4D /* NSDictionary+URLEncoding.m in Sources */,
+				B1FC231E1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +506,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1EF2E9F1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift in Sources */,
 				C2E5089219C835A300350F00 /* ThunderRequestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
