@@ -14,4 +14,6 @@
 
 - (NSString *)urlEncodedFormString;
 
++ (instancetype)dictionaryWithURLEncodedString:(NSString *)string;
+
 @end

@@ -20,6 +20,28 @@ static NSString *urlEncode(id object) {
     return [string stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
 }
 
++ (instancetype)dictionaryWithURLEncodedString:(NSString *)string
+{
+    NSString *queryString = [[NSURL URLWithString:string] query];
+    
+    NSMutableDictionary *result = [[[self alloc] init] mutableCopy];
+    
+    NSArray *parameters = [queryString componentsSeparatedByString:@"&"];
+    
+    for (NSString *parameter in parameters)
+    {
+        NSArray *parts = [parameter componentsSeparatedByString:@"="];
+        NSString *key = [[parts objectAtIndex:0] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        if ([parts count] > 1)
+        {
+            id value = [[parts objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [result setObject:value forKey:key];
+        }
+    }
+    
+    return result;
+}
+
 - (NSString *)urlEncodedFormString
 {
     if (self.allKeys.count == 0) {
