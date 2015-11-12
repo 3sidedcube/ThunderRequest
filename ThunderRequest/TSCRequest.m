@@ -68,6 +68,7 @@
 
 #pragma mark - PNG Encoding
 
+#if TARGET_OS_IPHONE
 - (NSData *)TSC_pngDataWithDictionary:(NSDictionary *)dictionary
 {
     __block NSData *data;
@@ -85,9 +86,30 @@
     }];
     return data;
 }
+#else
+- (NSData *)TSC_pngDataWithDictionary:(NSDictionary *)dictionary
+{
+    __block NSData *data;
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        
+        if ([obj isKindOfClass:[NSData class]]) {
+            
+            data = obj;
+            *stop = true;
+        } else if ([obj isKindOfClass:[NSImage class]]) {
+            
+            //            data = UIImagePNGRepresentation(obj);
+            *stop = true;
+        }
+    }];
+    return data;
+}
+#endif
+
 
 #pragma mark - JPEG Encoding
 
+#if TARGET_OS_IPHONE
 - (nullable NSData *)TSC_jpgDataWithDictionary:(NSDictionary *)dictionary
 {
     __block NSData *data;
@@ -105,6 +127,27 @@
     }];
     return data;
 }
+#else
+- (nullable NSData *)TSC_jpgDataWithDictionary:(NSDictionary *)dictionary
+{
+    __block NSData *data;
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        
+        if ([obj isKindOfClass:[NSData class]]) {
+            
+            data = obj;
+            *stop = true;
+        } else if ([obj isKindOfClass:[NSImage class]]) {
+            
+            NSBitmapImageRep *imageRep = [[obj representations] objectAtIndex:0];
+            data = [imageRep representationUsingType:NSJPEGFileType properties:nil];
+            *stop = true;
+        }
+    }];
+    return data;
+}
+#endif
+
 
 #pragma mark - XML Plist Encoding
 
@@ -259,9 +302,17 @@
         return (NSData *)object;
     }
     
+#if TARGET_OS_IPHONE
     if ([object isKindOfClass:[UIImage class]]) {
         return UIImageJPEGRepresentation((UIImage *)object, 1.0);
     }
+#else
+    if ([object isKindOfClass:[NSImage class]]) {
+        
+        NSBitmapImageRep *imageRep = [[(NSImage *)object representations] objectAtIndex:0];
+        return [imageRep representationUsingType:NSJPEGFileType properties:nil];
+    }
+#endif
     
     return nil;
 }
