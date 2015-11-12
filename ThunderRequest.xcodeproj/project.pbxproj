@@ -47,6 +47,9 @@
 		B1FA1B501BF0A46800C458F1 /* NSDictionary+URLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = B1FC231B1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1FC231D1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = B1FC231B1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1FC231E1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B1FC231C1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m */; };
+		B1FE42821BF4A36400EDC887 /* TSCOAuth2Credential.h in Headers */ = {isa = PBXBuildFile; fileRef = B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1FE42831BF4A36800EDC887 /* TSCOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */; };
+		B1FE42841BF4A36B00EDC887 /* TSCOAuth2Manager.h in Headers */ = {isa = PBXBuildFile; fileRef = B16743E61BA6C4E000352C68 /* TSCOAuth2Manager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2E5089219C835A300350F00 /* ThunderRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089119C835A300350F00 /* ThunderRequestTests.swift */; };
 		C2E508A419C835D900350F00 /* ThunderRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089B19C835D900350F00 /* ThunderRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2E508A519C835D900350F00 /* TSCRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089C19C835D900350F00 /* TSCRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -273,8 +276,10 @@
 				B1177EF91BBAF22F00372D4D /* TSCRequestController.h in Headers */,
 				B1177EFA1BBAF23400372D4D /* TSCRequestCredential.h in Headers */,
 				B1177EFB1BBAF23A00372D4D /* TSCRequestResponse.h in Headers */,
+				B1FE42821BF4A36400EDC887 /* TSCOAuth2Credential.h in Headers */,
 				B198948F1BEA3E6E00E96DA3 /* NSThread+Blocks.h in Headers */,
 				B1177EFC1BBAF23D00372D4D /* TSCErrorRecoveryAttempter.h in Headers */,
+				B1FE42841BF4A36B00EDC887 /* TSCOAuth2Manager.h in Headers */,
 				B1177EFD1BBAF24100372D4D /* TSCErrorRecoveryOption.h in Headers */,
 				B1177EFE1BBAF24500372D4D /* TSCRequestDefines.h in Headers */,
 			);
@@ -455,6 +460,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1FE42831BF4A36800EDC887 /* TSCOAuth2Credential.m in Sources */,
 				B1177EF11BBAF21F00372D4D /* TSCRequest.m in Sources */,
 				B1177EF21BBAF21F00372D4D /* TSCRequestController.m in Sources */,
 				B1177EF31BBAF21F00372D4D /* TSCRequestCredential.m in Sources */,
