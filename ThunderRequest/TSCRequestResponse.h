@@ -46,6 +46,12 @@
 @property (nonatomic, strong, nullable) NSObject *object;
 
 /**
+ @abstract The redirect response
+ @discussion If the request was redirected, this represents the NSHTTPURLResponse object for the original request
+ */
+@property (nonatomic, strong, nullable) NSHTTPURLResponse *redirectResponse;
+
+/**
  Initialises a new response object using the response given by NSURLSession
  */
 - (nullable instancetype)initWithResponse:(nullable NSURLResponse *)response data:(nullable NSData *)data;

@@ -7,9 +7,35 @@
 #import "NSURLSession+Synchronous.h"
 #import "NSThread+Blocks.h"
 #import "TSCOAuth2Credential.h"
+#import <objc/runtime.h>
 
 static NSString * const TSCQueuedRequestKey = @"TSC_REQUEST";
 static NSString * const TSCQueuedCompletionKey = @"TSC_REQUEST_COMPLETION";
+
+@interface TSCRequest (TaskIdentifier)
+
+/**
+ @abstract Can be used to get the task back for the request
+ */
+@property (nonatomic, assign) NSUInteger taskIdentifier;
+
+@end
+
+@implementation TSCRequest (TaskIdentifier)
+
+static char taskIdentifierKey;
+
+- (NSUInteger)taskIdentifier
+{
+    return [objc_getAssociatedObject(self, &taskIdentifierKey) integerValue];
+}
+
+- (void)setTaskIdentifier:(NSUInteger)taskIdentifier
+{
+    objc_setAssociatedObject(self, &taskIdentifierKey, @(taskIdentifier), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+@end
 
 typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError, BOOL needsQueueing);
 
@@ -70,6 +96,12 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
  */
 @property (nonatomic, strong) NSMutableArray *authQueuedRequests;
 
+/**
+ @abstract A dictionary representing any re-direct responses provided with a redirect request
+ @discussion These will be added onto the TSCRequestResponse object of the re-directed request, they are stored in this request under the request object itself
+ */
+@property (nonatomic, strong) NSMutableDictionary *redirectResponses;
+
 @end
 
 @implementation TSCRequestController
@@ -98,6 +130,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
         self.sharedRequestHeaders = [NSMutableDictionary dictionary];
 
         self.authQueuedRequests = [NSMutableArray new];
+        self.redirectResponses = [NSMutableDictionary new];
     }
     return self;
 }
@@ -307,6 +340,12 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 - (void)TSC_fireRequestCompletionWithData:(NSData *)data response:(NSURLResponse *)response error:(NSError *)error request:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion onThread:(NSThread *)scheduleThread
 {
     TSCRequestResponse *requestResponse = [[TSCRequestResponse alloc] initWithResponse:response data:data];
+    
+    if (request.taskIdentifier && self.redirectResponses[@(request.taskIdentifier)]) {
+        requestResponse.redirectResponse = self.redirectResponses[@(request.taskIdentifier)];
+        [self.redirectResponses removeObjectForKey:@(request.taskIdentifier)];
+    }
+    
     //Notify of response
     [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestDidReceiveResponse" object:requestResponse];
     
@@ -558,12 +597,14 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
         } else {
             
             NSThread *currentThread = [NSThread currentThread];
-            [[welf.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            NSURLSessionDataTask *dataTask = [welf.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                 
                 [welf TSC_fireRequestCompletionWithData:data response:response error:error request:request completion:completion onThread:currentThread];
                 
-            }] resume];
+            }];
             
+            request.taskIdentifier = dataTask.taskIdentifier;
+            [dataTask resume];
         }
     }];
 }
@@ -578,6 +619,12 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     }
     
     completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+}
+
+- (void)URLSession:(NSURLSession *)session task:(nonnull NSURLSessionTask *)task willPerformHTTPRedirection:(nonnull NSHTTPURLResponse *)response newRequest:(nonnull NSURLRequest *)request completionHandler:(nonnull void (^)(NSURLRequest * _Nullable))completionHandler
+{
+    self.redirectResponses[@(task.taskIdentifier)] = response;
+    completionHandler(request);
 }
 
 #pragma mark - NSURLSessionDownloadDelegate
