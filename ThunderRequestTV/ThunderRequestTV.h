@@ -27,4 +27,5 @@ FOUNDATION_EXPORT const unsigned char ThunderRequestTVVersionString[];
 #import "UIAlertController+TSCErrorRecoveryAttempter.h"
 #import "TSCErrorRecoveryAttempter.h"
 #import "TSCErrorRecoveryOption.h"
+#import "NSDictionary+URLEncoding.h"
 
