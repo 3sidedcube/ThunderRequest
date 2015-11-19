@@ -57,6 +57,7 @@
 		B12F7CA81BFDD6B1002B7D60 /* NSDictionary+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B1FC231C1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m */; };
 		B12F7CA91BFDD6B9002B7D60 /* NSURLSession+Synchronous.h in Headers */ = {isa = PBXBuildFile; fileRef = B19894871BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h */; };
 		B12F7CAA1BFDD6BD002B7D60 /* NSURLSession+Synchronous.m in Sources */ = {isa = PBXBuildFile; fileRef = B19894881BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m */; };
+		B12F7CAB1BFDD836002B7D60 /* NSThread+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */; };
 		B16743E81BA6C4E000352C68 /* TSCOAuth2Manager.h in Headers */ = {isa = PBXBuildFile; fileRef = B16743E61BA6C4E000352C68 /* TSCOAuth2Manager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B17F34601BF4A59000F3586C /* NSDictionary+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B1FC231C1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m */; };
 		B19894891BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h in Headers */ = {isa = PBXBuildFile; fileRef = B19894871BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h */; };
@@ -567,6 +568,7 @@
 				49084FDF1BD13DF80012F636 /* TSCRequestDefines.m in Sources */,
 				B12F7C981BFDD47E002B7D60 /* TSCOAuth2Credential.m in Sources */,
 				49084FE01BD13DF80012F636 /* UIAlertController+TSCErrorRecoveryAttempter.m in Sources */,
+				B12F7CAB1BFDD836002B7D60 /* NSThread+Blocks.m in Sources */,
 				B12F7CA81BFDD6B1002B7D60 /* NSDictionary+URLEncoding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
