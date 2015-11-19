@@ -7,6 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49084FD41BD13DBD0012F636 /* ThunderRequestTV.h in Headers */ = {isa = PBXBuildFile; fileRef = 49084FD31BD13DBD0012F636 /* ThunderRequestTV.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49084FD91BD13DF80012F636 /* TSCRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089D19C835D900350F00 /* TSCRequest.m */; };
+		49084FDA1BD13DF80012F636 /* TSCRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089F19C835D900350F00 /* TSCRequestController.m */; };
+		49084FDB1BD13DF80012F636 /* TSCRequestCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A119C835D900350F00 /* TSCRequestCredential.m */; };
+		49084FDC1BD13DF80012F636 /* TSCRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A319C835D900350F00 /* TSCRequestResponse.m */; };
+		49084FDD1BD13DF80012F636 /* TSCErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E071B36A7BF001475CE /* TSCErrorRecoveryAttempter.m */; };
+		49084FDE1BD13DF80012F636 /* TSCErrorRecoveryOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E091B36A7BF001475CE /* TSCErrorRecoveryOption.m */; };
+		49084FDF1BD13DF80012F636 /* TSCRequestDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */; };
+		49084FE01BD13DF80012F636 /* UIAlertController+TSCErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E0D1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m */; };
+		49084FE11BD13E2A0012F636 /* TSCRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089C19C835D900350F00 /* TSCRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49084FE21BD13E2A0012F636 /* TSCRequestController.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089E19C835D900350F00 /* TSCRequestController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49084FE31BD13E2A0012F636 /* TSCRequestCredential.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E508A019C835D900350F00 /* TSCRequestCredential.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49084FE41BD13E2A0012F636 /* TSCRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E508A219C835D900350F00 /* TSCRequestResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49084FE51BD13E2A0012F636 /* TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49084FE61BD13E2A0012F636 /* TSCErrorRecoveryOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49084FE71BD13E2A0012F636 /* TSCRequestDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49084FE81BD13E2A0012F636 /* UIAlertController+TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0C1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49B77E0E1B36A7BF001475CE /* TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49B77E0F1B36A7BF001475CE /* TSCErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E071B36A7BF001475CE /* TSCErrorRecoveryAttempter.m */; };
 		49B77E101B36A7BF001475CE /* TSCErrorRecoveryOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -74,6 +91,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		49084FD11BD13DBD0012F636 /* ThunderRequestTV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequestTV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		49084FD31BD13DBD0012F636 /* ThunderRequestTV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThunderRequestTV.h; sourceTree = "<group>"; };
+		49084FD51BD13DBD0012F636 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCErrorRecoveryAttempter.h; sourceTree = "<group>"; };
 		49B77E071B36A7BF001475CE /* TSCErrorRecoveryAttempter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCErrorRecoveryAttempter.m; sourceTree = "<group>"; };
 		49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCErrorRecoveryOption.h; sourceTree = "<group>"; };
@@ -130,6 +150,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		49084FCD1BD13DBD0012F636 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C2E5087E19C835A300350F00 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -181,6 +208,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		49084FD21BD13DBD0012F636 /* ThunderRequestTV */ = {
+			isa = PBXGroup;
+			children = (
+				49084FD31BD13DBD0012F636 /* ThunderRequestTV.h */,
+				49084FD51BD13DBD0012F636 /* Info.plist */,
+			);
+			path = ThunderRequestTV;
+			sourceTree = "<group>";
+		};
 		C2E5087819C835A300350F00 = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +224,7 @@
 				C2E5088E19C835A300350F00 /* ThunderRequestTests */,
 				B1177ED91BBAF18E00372D4D /* ThunderRequestMac */,
 				B1177EE61BBAF18E00372D4D /* ThunderRequestMacTests */,
+				49084FD21BD13DBD0012F636 /* ThunderRequestTV */,
 				C2E5088319C835A300350F00 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -199,6 +236,7 @@
 				C2E5088D19C835A300350F00 /* ThunderRequestTests.xctest */,
 				B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */,
 				B1177EE21BBAF18E00372D4D /* ThunderRequestMacTests.xctest */,
+				49084FD11BD13DBD0012F636 /* ThunderRequestTV.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -286,6 +324,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		49084FCE1BD13DBD0012F636 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49084FD41BD13DBD0012F636 /* ThunderRequestTV.h in Headers */,
+				49084FE11BD13E2A0012F636 /* TSCRequest.h in Headers */,
+				49084FE21BD13E2A0012F636 /* TSCRequestController.h in Headers */,
+				49084FE31BD13E2A0012F636 /* TSCRequestCredential.h in Headers */,
+				49084FE41BD13E2A0012F636 /* TSCRequestResponse.h in Headers */,
+				49084FE51BD13E2A0012F636 /* TSCErrorRecoveryAttempter.h in Headers */,
+				49084FE61BD13E2A0012F636 /* TSCErrorRecoveryOption.h in Headers */,
+				49084FE71BD13E2A0012F636 /* TSCRequestDefines.h in Headers */,
+				49084FE81BD13E2A0012F636 /* UIAlertController+TSCErrorRecoveryAttempter.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C2E5087F19C835A300350F00 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -346,6 +400,24 @@
 			productReference = B1177EE21BBAF18E00372D4D /* ThunderRequestMacTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		49084FD01BD13DBD0012F636 /* ThunderRequestTV */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49084FD81BD13DBD0012F636 /* Build configuration list for PBXNativeTarget "ThunderRequestTV" */;
+			buildPhases = (
+				49084FCC1BD13DBD0012F636 /* Sources */,
+				49084FCD1BD13DBD0012F636 /* Frameworks */,
+				49084FCE1BD13DBD0012F636 /* Headers */,
+				49084FCF1BD13DBD0012F636 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ThunderRequestTV;
+			productName = ThunderRequestTV;
+			productReference = 49084FD11BD13DBD0012F636 /* ThunderRequestTV.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		C2E5088119C835A300350F00 /* ThunderRequest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C2E5089519C835A300350F00 /* Build configuration list for PBXNativeTarget "ThunderRequest" */;
@@ -397,6 +469,9 @@
 					B1177EE11BBAF18E00372D4D = {
 						CreatedOnToolsVersion = 6.4;
 					};
+					49084FD01BD13DBD0012F636 = {
+						CreatedOnToolsVersion = 7.1;
+					};
 					C2E5088119C835A300350F00 = {
 						CreatedOnToolsVersion = 6.0;
 					};
@@ -421,6 +496,7 @@
 				C2E5088C19C835A300350F00 /* ThunderRequestTests */,
 				B1177ED71BBAF18E00372D4D /* ThunderRequestMac */,
 				B1177EE11BBAF18E00372D4D /* ThunderRequestMacTests */,
+				49084FD01BD13DBD0012F636 /* ThunderRequestTV */,
 			);
 		};
 /* End PBXProject section */
@@ -434,6 +510,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		B1177EE01BBAF18E00372D4D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49084FCF1BD13DBD0012F636 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -480,6 +563,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1177EEA1BBAF18E00372D4D /* ThunderRequestMacTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49084FCC1BD13DBD0012F636 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49084FD91BD13DF80012F636 /* TSCRequest.m in Sources */,
+				49084FDA1BD13DF80012F636 /* TSCRequestController.m in Sources */,
+				49084FDB1BD13DF80012F636 /* TSCRequestCredential.m in Sources */,
+				49084FDC1BD13DF80012F636 /* TSCRequestResponse.m in Sources */,
+				49084FDD1BD13DF80012F636 /* TSCErrorRecoveryAttempter.m in Sources */,
+				49084FDE1BD13DF80012F636 /* TSCErrorRecoveryOption.m in Sources */,
+				49084FDF1BD13DF80012F636 /* TSCRequestDefines.m in Sources */,
+				49084FE01BD13DF80012F636 /* UIAlertController+TSCErrorRecoveryAttempter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,6 +705,49 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		49084FD61BD13DBD0012F636 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = ThunderRequestTV/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hacktothefuture.ThunderRequestTV;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		49084FD71BD13DBD0012F636 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = ThunderRequestTV/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hacktothefuture.ThunderRequestTV;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};
@@ -785,6 +926,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		49084FD81BD13DBD0012F636 /* Build configuration list for PBXNativeTarget "ThunderRequestTV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49084FD61BD13DBD0012F636 /* Debug */,
+				49084FD71BD13DBD0012F636 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		C2E5087C19C835A300350F00 /* Build configuration list for PBXProject "ThunderRequest" */ = {
 			isa = XCConfigurationList;
