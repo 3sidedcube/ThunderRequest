@@ -1,5 +1,7 @@
 #Thunder Request
 
+[![Build Status](https://travis-ci.org/3sidedcube/iOS-ThunderRequest.svg?branch=feature%2Ftravis)](https://travis-ci.org/3sidedcube/iOS-ThunderRequest)
+
 Thunder Request is a Framework used to simplify making web requests.
 
 #Installation
