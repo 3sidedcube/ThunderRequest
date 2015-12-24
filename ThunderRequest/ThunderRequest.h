@@ -18,5 +18,8 @@ FOUNDATION_EXPORT const unsigned char ThunderRequestVersionString[];
 #import "UIAlertController+TSCErrorRecoveryAttempter.h"
 #import "TSCErrorRecoveryAttempter.h"
 #import "TSCErrorRecoveryOption.h"
+#import "NSDictionary+URLEncoding.h"
+#import "TSCOAuth2Manager.h"
+#import "TSCOAuth2Credential.h"
 
 
