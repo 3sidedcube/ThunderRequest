@@ -64,7 +64,7 @@
 		B198948A1BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h in Headers */ = {isa = PBXBuildFile; fileRef = B19894871BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h */; };
 		B198948B1BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m in Sources */ = {isa = PBXBuildFile; fileRef = B19894881BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m */; };
 		B198948C1BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m in Sources */ = {isa = PBXBuildFile; fileRef = B19894881BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m */; };
-		B198948F1BEA3E6E00E96DA3 /* NSThread+Blocks.h in Headers */ = {isa = PBXBuildFile; fileRef = B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */; };
+		B198948F1BEA3E6E00E96DA3 /* NSThread+Blocks.h in Headers */ = {isa = PBXBuildFile; fileRef = B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B19894901BEA3E8800E96DA3 /* NSThread+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */; };
 		B1AB78351BDA92CC00F50127 /* NSThread+Blocks.h in Headers */ = {isa = PBXBuildFile; fileRef = B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */; };
 		B1AB78361BDA92CC00F50127 /* NSThread+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */; };
