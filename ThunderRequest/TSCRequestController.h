@@ -7,6 +7,7 @@
 #endif
 #import "TSCRequestDefines.h"
 #import "TSCOAuth2Manager.h"
+#import "TSCRequest.h"
 
 @class TSCRequestResponse;
 @class TSCRequestCredential;
