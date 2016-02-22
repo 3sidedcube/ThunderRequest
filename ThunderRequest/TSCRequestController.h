@@ -264,4 +264,10 @@ Performs a file download task using the base url and given path component.
  */
 - (void)uploadBodyParams:(nullable NSDictionary *)bodyParams toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
 
+/**
+ Sets the user agent to be used for any instance of TSCRequestController
+ @param userAgent the string to set the request controller's user agent to
+ */
++ (void)setUserAgent:(nullable NSString *)userAgent;
+
 @end
