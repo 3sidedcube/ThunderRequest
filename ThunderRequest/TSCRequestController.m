@@ -135,6 +135,15 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     return self;
 }
 
++ (void)setUserAgent:(NSString *)userAgent
+{
+    if (userAgent) {
+        [[NSUserDefaults standardUserDefaults] setValue:userAgent forKey:@"TSCUserAgent"];
+    } else {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"TSCUserAgent"];
+    }
+}
+
 - (nonnull instancetype)initWithBaseURL:(nonnull NSURL *)baseURL
 {
     self = [self init];
@@ -570,6 +579,12 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
     // Check OAuth status before making the request
     __weak typeof(self) welf = self;
+    
+    NSString *userAgent = [[NSUserDefaults standardUserDefaults] stringForKey:@"TSCUserAgent"];
+    if (userAgent) {
+        [request.requestHeaders setValue:userAgent forKey:@"User-Agent"];
+    }
+    
     [self checkOAuthStatusWithRequest:request completion:^(BOOL authenticated, NSError *error, BOOL needsQueueing) {
        
         if (error && !authenticated && !needsQueueing) {
