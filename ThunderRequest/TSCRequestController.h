@@ -37,7 +37,7 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  @abstract The shared Base URL for all requests routed through the controller
  @discussion This is most commonly set using the `initWithBaseURL:` or `initWithBaseAddress:` methods.
  */
-@property (nonatomic, strong, nonnull) NSURL *sharedBaseURL;
+@property (nonatomic, copy, nonnull) NSURL *sharedBaseURL;
 
 /**
  @abstract The request controller for making OAuth2 re-authentication requests on
