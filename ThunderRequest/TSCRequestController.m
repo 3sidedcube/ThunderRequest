@@ -782,6 +782,10 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     [self.defaultSession invalidateAndCancel];
     [self.backgroundSession invalidateAndCancel];
     [self.ephemeralSession invalidateAndCancel];
+    
+    if (self.OAuth2RequestController) {
+        [self.OAuth2RequestController invalidateAndCancel];
+    }
 }
 
 @end
