@@ -24,6 +24,8 @@
  2. Initialise the controller with either the `initWithBaseURL:` or `initWithBaseAddress:` method.
  3. Use any of the GET, POST, PUT, DELETE or HEAD methods to perform an asynchronous web request
  
+ IMPORTANT --- TSCRequestController uses NSURLSessions internally, which cause a memory leak due to having a strong reference to their delegate
+ when you are done with an instance of TSCRequestController you must call -invalidateAndCancel
  */
 @interface TSCRequestController : NSObject
 
@@ -270,5 +272,10 @@ Performs a file download task using the base url and given path component.
  @param userAgent the string to set the request controller's user agent to
  */
 + (void)setUserAgent:(nullable NSString *)userAgent;
+
+/**
+ Calls invalidate and cancel on all internal NSURLSession objects to allow self to be deallocated
+ */
+- (void)invalidateAndCancel;
 
 @end
