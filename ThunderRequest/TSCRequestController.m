@@ -7,35 +7,11 @@
 #import "NSURLSession+Synchronous.h"
 #import "NSThread+Blocks.h"
 #import "TSCOAuth2Credential.h"
+#import "TSCRequest+TaskIdentifier.h"
 #import <objc/runtime.h>
 
 static NSString * const TSCQueuedRequestKey = @"TSC_REQUEST";
 static NSString * const TSCQueuedCompletionKey = @"TSC_REQUEST_COMPLETION";
-
-@interface TSCRequest (TaskIdentifier)
-
-/**
- @abstract Can be used to get the task back for the request
- */
-@property (nonatomic, assign) NSUInteger taskIdentifier;
-
-@end
-
-@implementation TSCRequest (TaskIdentifier)
-
-static char taskIdentifierKey;
-
-- (NSUInteger)taskIdentifier
-{
-    return [objc_getAssociatedObject(self, &taskIdentifierKey) integerValue];
-}
-
-- (void)setTaskIdentifier:(NSUInteger)taskIdentifier
-{
-    objc_setAssociatedObject(self, &taskIdentifierKey, @(taskIdentifier), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-@end
 
 typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError, BOOL needsQueueing);
 

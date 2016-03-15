@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class TSCRequest;
+
 /**
  Adds synchronous methods to NSURLSession through the use of dispatch semaphores
  */
@@ -22,7 +24,7 @@
  @param error Out parameter (may be NULL) used if an error occurs while processing the request. Will not be modified if the load succeeds.
  @result The content of the URL resulting from performing the load, or nil if the load failed.
  */
-- (nullable NSData *)sendSynchronousDataTaskWithRequest:(NSURLRequest * __nonnull)request returningResponse:(NSURLResponse * __nullable * __nullable)response error:(NSError * __nullable * __nullable)error;
+- (nullable NSData *)sendSynchronousDataTaskWithRequest:(TSCRequest * __nonnull)request returningResponse:(NSURLResponse * __nullable * __nullable)response error:(NSError * __nullable * __nullable)error;
 
 /**
  @method sendSynchronousDataTaskWithURL:returningResponse:error:
@@ -45,7 +47,7 @@
  @param error Out parameter (may be NULL) used if an error occurs while processing the request. Will not be modified if the load succeeds.
  @result The content of the URL resulting from performing the load, or nil if the load failed.
  */
-- (nullable NSData *)sendSynchronousUploadTaskWithRequest:(NSURLRequest * __nonnull)request fromFile:(NSURL * __nonnull)fileURL returningResponse:(NSURLResponse * __nullable * __nullable)response error:(NSError * __nullable * __nullable)error;
+- (nullable NSData *)sendSynchronousUploadTaskWithRequest:(TSCRequest * __nonnull)request fromFile:(NSURL * __nonnull)fileURL returningResponse:(NSURLResponse * __nullable * __nullable)response error:(NSError * __nullable * __nullable)error;
 
 /**
  @method sendSynchronousUploadTaskWithRequest:fromFile:returningResponse:error:
@@ -57,7 +59,7 @@
  @param error Out parameter (may be NULL) used if an error occurs while processing the request. Will not be modified if the load succeeds.
  @result The content of the URL resulting from performing the load, or nil if the load failed.
  */
-- (nullable NSData *)sendSynchronousUploadTaskWithRequest:(NSURLRequest * __nonnull)request fromData:(NSData * __nonnull)data returningResponse:(NSURLResponse * __nullable * __nullable)response error:(NSError * __nullable * __nullable)error;
+- (nullable NSData *)sendSynchronousUploadTaskWithRequest:(TSCRequest * __nonnull)request fromData:(NSData * __nonnull)data returningResponse:(NSURLResponse * __nullable * __nullable)response error:(NSError * __nullable * __nullable)error;
 
 /**
  @method sendSynchronousDownloadTaskWithRequest:returningResponse:error:
@@ -68,7 +70,7 @@
  @param error Out parameter (may be NULL) used if an error occurs while processing the request. Will not be modified if the load succeeds.
  @result The download location resulting from performing the download, or nil if the load failed.
  */
-- (nullable NSURL *)sendSynchronousDownloadTaskWithRequest:(NSURLRequest * __nonnull)request returningResponse:(NSURLResponse * __nullable * __nullable)response error:(NSError * __nullable * __nullable)error;
+- (nullable NSURL *)sendSynchronousDownloadTaskWithRequest:(TSCRequest * __nonnull)request returningResponse:(NSURLResponse * __nullable * __nullable)response error:(NSError * __nullable * __nullable)error;
 
 /**
  @method sendSynchronousDownloadTaskWithURL:returningResponse:error:
