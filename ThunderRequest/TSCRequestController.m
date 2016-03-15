@@ -784,9 +784,4 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     [self.ephemeralSession invalidateAndCancel];
 }
 
-- (void)dealloc
-{
-    NSLog(@"Deallocated");
-}
-
 @end
