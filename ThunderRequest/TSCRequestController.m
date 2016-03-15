@@ -35,12 +35,12 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 /**
  @abstract Uses persistent disk-based cache and stores credentials in the user's keychain
  */
-@property (nonatomic, weak) NSURLSession *defaultSession;
+@property (nonatomic, strong) NSURLSession *defaultSession;
 
 /**
  @abstract Does not store any data on the disk; all caches, credential stores, and so on are kept in the RAM and tied to the session. Thus, when invalidated, they are purged automatically.
  */
-@property (nonatomic, weak) NSURLSession *backgroundSession;
+@property (nonatomic, strong) NSURLSession *backgroundSession;
 
 /**
  @abstract Similar to a default session, except that a seperate process handles all data transfers. Background sessions have some additional limitations.
@@ -98,11 +98,9 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
         NSURLSessionConfiguration *backgroundConfigObject = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:[[NSUUID UUID] UUIDString]];
         NSURLSessionConfiguration *ephemeralConfigObject = [NSURLSessionConfiguration ephemeralSessionConfiguration];
         
-        __weak typeof(self) welf = self;
-        
-        self.defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:welf delegateQueue:welf.defaultRequestQueue];
-        self.backgroundSession = [NSURLSession sessionWithConfiguration:backgroundConfigObject delegate:welf delegateQueue:welf.backgroundRequestQueue];
-        self.ephemeralSession = [NSURLSession sessionWithConfiguration:ephemeralConfigObject delegate:nil delegateQueue:welf.ephemeralRequestQueue];
+        self.defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:self.defaultRequestQueue];
+        self.backgroundSession = [NSURLSession sessionWithConfiguration:backgroundConfigObject delegate:self delegateQueue:self.backgroundRequestQueue];
+        self.ephemeralSession = [NSURLSession sessionWithConfiguration:ephemeralConfigObject delegate:nil delegateQueue:self.ephemeralRequestQueue];
         
         self.completionHandlerDictionary = [NSMutableDictionary dictionary];
         self.sharedRequestHeaders = [NSMutableDictionary dictionary];
@@ -784,10 +782,11 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     [self.defaultSession invalidateAndCancel];
     [self.backgroundSession invalidateAndCancel];
     [self.ephemeralSession invalidateAndCancel];
-    
-    if (self.OAuth2RequestController) {
-        [self.OAuth2RequestController invalidateAndCancel];
-    }
+}
+
+- (void)dealloc
+{
+    NSLog(@"Deallocated");
 }
 
 @end
