@@ -519,12 +519,11 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
         if (self.runSynchronously) {
             
             NSError *error = nil;
-            NSData *data;
             
             if (request.HTTPBody) {
-                data = [welf.backgroundSession sendSynchronousUploadTaskWithRequest:[welf backgroundableRequestObjectFromTSCRequest:request] fromData:request.HTTPBody returningResponse:nil error:&error];
+                [welf.defaultSession sendSynchronousUploadTaskWithRequest:[welf backgroundableRequestObjectFromTSCRequest:request] fromData:request.HTTPBody returningResponse:nil error:&error];
             } else {
-                data = [welf.backgroundSession sendSynchronousUploadTaskWithRequest:[welf backgroundableRequestObjectFromTSCRequest:request] fromFile:[NSURL fileURLWithPath:filePath] returningResponse:nil error:&error];
+                [welf.backgroundSession sendSynchronousUploadTaskWithRequest:[welf backgroundableRequestObjectFromTSCRequest:request] fromFile:[NSURL fileURLWithPath:filePath] returningResponse:nil error:&error];
             }
             
             if (completion) {

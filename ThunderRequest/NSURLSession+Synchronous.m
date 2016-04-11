@@ -7,7 +7,7 @@
 //
 
 #import "NSURLSession+Synchronous.h"
-#import "TSCRequest+TaskIdentifier.h"
+#import "NSMutableURLRequest+TaskIdentifier.h"
 
 
 @implementation NSURLSession (Synchronous)
@@ -15,7 +15,7 @@
 #pragma mark - Data Tasks
 #pragma mark -
 
-- (NSData *)sendSynchronousDataTaskWithRequest:(TSCRequest *)request returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
+- (NSData *)sendSynchronousDataTaskWithRequest:(NSMutableURLRequest *)request returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
 {
     dispatch_semaphore_t taskSemaphore = dispatch_semaphore_create(0);
     __block NSData *returnData;
@@ -45,13 +45,13 @@
 
 - (NSData *)sendSynchronousDataTaskWithURL:(NSURL *)url returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
 {
-    return [self sendSynchronousDataTaskWithRequest:[TSCRequest requestWithURL:url] returningResponse:response error:error];
+    return [self sendSynchronousDataTaskWithRequest:[NSMutableURLRequest requestWithURL:url] returningResponse:response error:error];
 }
 
 #pragma mark - Upload Tasks
 #pragma mark -
 
-- (NSData *)sendSynchronousUploadTaskWithRequest:(TSCRequest *)request fromData:(NSData *)data returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
+- (NSData *)sendSynchronousUploadTaskWithRequest:(NSMutableURLRequest *)request fromData:(NSData *)data returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
 {
     dispatch_semaphore_t taskSemaphore = dispatch_semaphore_create(0);
     __block NSData *returnData;
@@ -80,7 +80,7 @@
     return returnData;
 }
 
-- (NSData *)sendSynchronousUploadTaskWithRequest:(TSCRequest *)request fromFile:(NSURL *)fileURL returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
+- (NSData *)sendSynchronousUploadTaskWithRequest:(NSMutableURLRequest *)request fromFile:(NSURL *)fileURL returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
 {
     dispatch_semaphore_t taskSemaphore = dispatch_semaphore_create(0);
     __block NSData *returnData;
@@ -112,7 +112,7 @@
 #pragma mark - Download Tasks
 #pragma mark -
 
-- (NSURL *)sendSynchronousDownloadTaskWithRequest:(TSCRequest *)request returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
+- (NSURL *)sendSynchronousDownloadTaskWithRequest:(NSMutableURLRequest *)request returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
 {
     dispatch_semaphore_t taskSemaphore = dispatch_semaphore_create(0);
     __block NSURL *returnURL;
@@ -144,7 +144,7 @@
 
 - (NSURL *)sendSynchronousDownloadTaskWithURL:(NSURL *)url returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
 {
-    return [self sendSynchronousDownloadTaskWithRequest:[TSCRequest requestWithURL:url] returningResponse:response error:error];
+    return [self sendSynchronousDownloadTaskWithRequest:[NSMutableURLRequest requestWithURL:url] returningResponse:response error:error];
 }
 
 - (NSURL *)sendSynchronousDownloadTaskWithResumeData:(NSData *)resumeData returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
