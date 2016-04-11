@@ -74,6 +74,12 @@
 		B19894901BEA3E8800E96DA3 /* NSThread+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */; };
 		B1AB78351BDA92CC00F50127 /* NSThread+Blocks.h in Headers */ = {isa = PBXBuildFile; fileRef = B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */; };
 		B1AB78361BDA92CC00F50127 /* NSThread+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */; };
+		B1BA54EF1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */; };
+		B1BA54F01CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */; };
+		B1BA54F11CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */; };
+		B1BA54F21CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */; };
+		B1BA54F31CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */; };
+		B1BA54F41CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */; };
 		B1EF2E9C1BA6D88E0053B39A /* TSCOAuth2Credential.h in Headers */ = {isa = PBXBuildFile; fileRef = B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1EF2E9D1BA6D88E0053B39A /* TSCOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */; };
 		B1EF2E9F1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9E1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift */; };
@@ -130,6 +136,8 @@
 		B19894881BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+Synchronous.m"; sourceTree = "<group>"; };
 		B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSThread+Blocks.h"; sourceTree = "<group>"; };
 		B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSThread+Blocks.m"; sourceTree = "<group>"; };
+		B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+TaskIdentifier.h"; sourceTree = "<group>"; };
+		B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+TaskIdentifier.m"; sourceTree = "<group>"; };
 		B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCOAuth2Credential.h; sourceTree = "<group>"; };
 		B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCOAuth2Credential.m; sourceTree = "<group>"; };
 		B1EF2E9E1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ThunderRequest-KeychainTests.swift"; sourceTree = "<group>"; };
@@ -264,6 +272,8 @@
 				C2E5089B19C835D900350F00 /* ThunderRequest.h */,
 				B16ED2121C59337800ABCC35 /* TSCRequest+TaskIdentifier.h */,
 				B16ED2131C59337800ABCC35 /* TSCRequest+TaskIdentifier.m */,
+				B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */,
+				B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */,
 				B19894871BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h */,
 				B19894881BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m */,
 				C2E5089C19C835D900350F00 /* TSCRequest.h */,
@@ -329,6 +339,7 @@
 			files = (
 				B12F7CA71BFDD6A0002B7D60 /* NSThread+Blocks.h in Headers */,
 				49084FD41BD13DBD0012F636 /* ThunderRequestTV.h in Headers */,
+				B1BA54F11CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h in Headers */,
 				49084FE11BD13E2A0012F636 /* TSCRequest.h in Headers */,
 				49084FE21BD13E2A0012F636 /* TSCRequestController.h in Headers */,
 				B16ED2161C59337800ABCC35 /* TSCRequest+TaskIdentifier.h in Headers */,
@@ -356,6 +367,7 @@
 				B1177EF91BBAF22F00372D4D /* TSCRequestController.h in Headers */,
 				B1177EFA1BBAF23400372D4D /* TSCRequestCredential.h in Headers */,
 				B1177EFB1BBAF23A00372D4D /* TSCRequestResponse.h in Headers */,
+				B1BA54F01CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h in Headers */,
 				B16ED2151C59337800ABCC35 /* TSCRequest+TaskIdentifier.h in Headers */,
 				B1FE42821BF4A36400EDC887 /* TSCOAuth2Credential.h in Headers */,
 				B198948F1BEA3E6E00E96DA3 /* NSThread+Blocks.h in Headers */,
@@ -372,6 +384,7 @@
 			files = (
 				C2E508AB19C835D900350F00 /* TSCRequestResponse.h in Headers */,
 				C2E508A419C835D900350F00 /* ThunderRequest.h in Headers */,
+				B1BA54EF1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h in Headers */,
 				B19894891BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h in Headers */,
 				49B77E141B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h in Headers */,
 				B16ED2141C59337800ABCC35 /* TSCRequest+TaskIdentifier.h in Headers */,
@@ -584,6 +597,7 @@
 				49084FE01BD13DF80012F636 /* UIAlertController+TSCErrorRecoveryAttempter.m in Sources */,
 				B12F7CAB1BFDD836002B7D60 /* NSThread+Blocks.m in Sources */,
 				B12F7CA81BFDD6B1002B7D60 /* NSDictionary+URLEncoding.m in Sources */,
+				B1BA54F41CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,6 +617,7 @@
 				B1177EF61BBAF21F00372D4D /* TSCErrorRecoveryOption.m in Sources */,
 				B16ED2181C59337800ABCC35 /* TSCRequest+TaskIdentifier.m in Sources */,
 				B1177EF71BBAF21F00372D4D /* TSCRequestDefines.m in Sources */,
+				B1BA54F31CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,6 +646,7 @@
 				49B77E111B36A7BF001475CE /* TSCErrorRecoveryOption.m in Sources */,
 				49F7B2E51B96F53100DDB587 /* TSCRequestDefines.m in Sources */,
 				B1FC231E1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m in Sources */,
+				B1BA54F21CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
