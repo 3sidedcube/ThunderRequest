@@ -777,4 +777,11 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     return backgroundableRequest;
 }
 
+- (void)invalidateAndCancel
+{
+    [self.defaultSession invalidateAndCancel];
+    [self.backgroundSession invalidateAndCancel];
+    [self.ephemeralSession invalidateAndCancel];
+}
+
 @end
