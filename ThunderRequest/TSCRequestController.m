@@ -480,6 +480,10 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 - (void)scheduleDownloadRequest:(TSCRequest *)request progress:(TSCRequestProgressHandler)progress completion:(TSCRequestTransferCompletionHandler)completion
 {
     __weak typeof(self) welf = self;
+    
+    //Loading
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
     [request prepareForDispatch];
     
     // Check OAuth status before making the request
@@ -516,6 +520,9 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 - (void)scheduleUploadRequest:(nonnull TSCRequest *)request filePath:(NSString *)filePath progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
     __weak typeof(self) welf = self;
+    
+    //Loading
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     [self checkOAuthStatusWithRequest:request completion:^(BOOL authenticated, NSError *error, BOOL needsQueueing) {
         
@@ -567,9 +574,10 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
     // Check OAuth status before making the request
     __weak typeof(self) welf = self;
-    NSLog(@"Request starting");
+    
+    //Loading
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    NSLog(@"Enabling indicator");
+
     NSString *userAgent = [[NSUserDefaults standardUserDefaults] stringForKey:@"TSCUserAgent"];
     if (userAgent) {
         [request.requestHeaders setValue:userAgent forKey:@"User-Agent"];
@@ -801,12 +809,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 #pragma mark - KVO
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
-//    NSLog(@"Number of requests in default queue:%lu", (unsigned long)self.defaultRequestQueue.operationCount);
-//    NSLog(@"Number of requests in background queue:%lu", (unsigned long)self.backgroundRequestQueue.operationCount);
-//    NSLog(@"Number of requests in ephemeral queue:%lu", (unsigned long)self.ephemeralRequestQueue.operationCount);
-    
     if (self.defaultRequestQueue.operationCount == 0 && self.backgroundRequestQueue.operationCount == 0 && self.ephemeralRequestQueue.operationCount == 0) {
-        NSLog(@"Disabling indicator");
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     }
 }
