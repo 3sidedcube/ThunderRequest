@@ -17,7 +17,11 @@
         self.path = @"";
     }
     
-    self.URL = [NSURL URLWithString:self.path relativeToURL:self.baseURL];
+    if (self.baseURL) {
+        self.URL = [NSURL URLWithString:self.path relativeToURL:self.baseURL];
+    } else {
+        self.URL = [NSURL URLWithString:self.path];
+    }
     
     if (self.URLParameterDictionary) {
         self.URL = [self TSC_populatedAddressWithBaseAddress:self.URL.absoluteString paramDictionary:self.URLParameterDictionary];
