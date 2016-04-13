@@ -482,7 +482,9 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     __weak typeof(self) welf = self;
     
     //Loading
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    #if TARGET_OS_IOS
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    #endif
     
     [request prepareForDispatch];
     
@@ -522,7 +524,9 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     __weak typeof(self) welf = self;
     
     //Loading
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    #if TARGET_OS_IOS
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    #endif
     
     [self checkOAuthStatusWithRequest:request completion:^(BOOL authenticated, NSError *error, BOOL needsQueueing) {
         
@@ -576,8 +580,10 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     __weak typeof(self) welf = self;
     
     //Loading
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-
+    #if TARGET_OS_IOS
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    #endif
+    
     NSString *userAgent = [[NSUserDefaults standardUserDefaults] stringForKey:@"TSCUserAgent"];
     if (userAgent) {
         [request.requestHeaders setValue:userAgent forKey:@"User-Agent"];
@@ -810,7 +816,9 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
     if (self.defaultRequestQueue.operationCount == 0 && self.backgroundRequestQueue.operationCount == 0 && self.ephemeralRequestQueue.operationCount == 0) {
+    #if TARGET_OS_IOS
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    #endif    
     }
 }
 @end
