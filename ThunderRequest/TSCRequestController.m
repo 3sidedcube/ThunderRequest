@@ -336,7 +336,6 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 
 - (void)TSC_fireRequestCompletionWithData:(NSData *)data response:(NSURLResponse *)response error:(NSError *)error request:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion onThread:(NSThread *)scheduleThread
 {
-    NSLog(@"Request finished");
     TSCRequestResponse *requestResponse = [[TSCRequestResponse alloc] initWithResponse:response data:data];
     
     if (request.taskIdentifier && self.redirectResponses[@(request.taskIdentifier)]) {
@@ -481,11 +480,11 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
     __weak typeof(self) welf = self;
     
-    //Loading
+    //Loading (Only if we're the first request)
     #if TARGET_OS_IOS
-        if (![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestShouldHideActivityIndicator"] boolValue]){
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        }
+    if (self.defaultRequestQueue.operationCount == 0 && self.backgroundRequestQueue.operationCount == 0 && self.ephemeralRequestQueue.operationCount == 0) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = true;
+    }
     #endif
     
     [request prepareForDispatch];
@@ -525,11 +524,11 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
     __weak typeof(self) welf = self;
     
-    //Loading
+    //Loading (Only if we're the first request)
     #if TARGET_OS_IOS
-        if (![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestShouldHideActivityIndicator"] boolValue]){
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        }
+    if (self.defaultRequestQueue.operationCount == 0 && self.backgroundRequestQueue.operationCount == 0 && self.ephemeralRequestQueue.operationCount == 0) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = true;
+    }
     #endif
     
     [self checkOAuthStatusWithRequest:request completion:^(BOOL authenticated, NSError *error, BOOL needsQueueing) {
@@ -583,13 +582,13 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     // Check OAuth status before making the request
     __weak typeof(self) welf = self;
     
-    //Loading
+    //Loading (Only if we're the first request)
     #if TARGET_OS_IOS
-        if (![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestShouldHideActivityIndicator"] boolValue]){
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        }
+    if (self.defaultRequestQueue.operationCount == 0 && self.backgroundRequestQueue.operationCount == 0 && self.ephemeralRequestQueue.operationCount == 0) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = true;
+    }
     #endif
-    
+
     NSString *userAgent = [[NSUserDefaults standardUserDefaults] stringForKey:@"TSCUserAgent"];
     if (userAgent) {
         [request.requestHeaders setValue:userAgent forKey:@"User-Agent"];
@@ -823,7 +822,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
     if (self.defaultRequestQueue.operationCount == 0 && self.backgroundRequestQueue.operationCount == 0 && self.ephemeralRequestQueue.operationCount == 0) {
     #if TARGET_OS_IOS
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = false;
     #endif    
     }
 }
