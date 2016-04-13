@@ -81,13 +81,13 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  Initializes the request controller.
  @param baseURL The `NSURL` to initialise the controller with. This URL will be used as the base for all requests.
  */
-- (nonnull instancetype)initWithBaseURL:(nonnull NSURL *)baseURL;
+- (nonnull instancetype)initWithBaseURL:(nullable NSURL *)baseURL;
 
 /**
  Initializes the request controller.
  @param baseAddress The `NSString` to initialise the controller with. This will be converted to a NSURL and be used as the base for all requests.
  */
-- (nonnull instancetype)initWithBaseAddress:(nonnull NSString *)baseAddress;
+- (nonnull instancetype)initWithBaseAddress:(nullable NSString *)baseAddress;
 
 ///---------------------------------------------------------------------------------------
 /// @name GET requests
