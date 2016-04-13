@@ -483,7 +483,9 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     
     //Loading
     #if TARGET_OS_IOS
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        if (![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestShouldHideActivityIndicator"] boolValue]){
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        }
     #endif
     
     [request prepareForDispatch];
@@ -525,7 +527,9 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     
     //Loading
     #if TARGET_OS_IOS
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        if (![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestShouldHideActivityIndicator"] boolValue]){
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        }
     #endif
     
     [self checkOAuthStatusWithRequest:request completion:^(BOOL authenticated, NSError *error, BOOL needsQueueing) {
@@ -581,7 +585,9 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     
     //Loading
     #if TARGET_OS_IOS
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        if (![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestShouldHideActivityIndicator"] boolValue]){
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        }
     #endif
     
     NSString *userAgent = [[NSUserDefaults standardUserDefaults] stringForKey:@"TSCUserAgent"];
