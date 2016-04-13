@@ -10,7 +10,7 @@
 #import "TSCRequest+TaskIdentifier.h"
 #import <objc/runtime.h>
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS
 #import <ThunderRequest/ThunderRequest-Swift.h>
 #endif
 
