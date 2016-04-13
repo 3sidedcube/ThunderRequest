@@ -473,11 +473,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
     __weak typeof(self) welf = self;
     
-    //Loading (Only if we're the first request)
-    #if TARGET_OS_IOS
-    [ApplicationLoadingIndicatorManager.sharedManager showActivityIndicator];
-    #endif
-    
+    [self TSC_showApplicationActivity];
     [request prepareForDispatch];
     
     // Check OAuth status before making the request
@@ -496,9 +492,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
             NSError *error = nil;
             NSURL *url = [welf.backgroundSession sendSynchronousDownloadTaskWithURL:request.URL returningResponse:nil error:&error];
             
-            #if TARGET_OS_IOS
-            [ApplicationLoadingIndicatorManager.sharedManager hideActivityIndicator];
-            #endif
+            [self TSC_hideApplicationActivity];
             
             if (completion) {
                 completion(url, error);
@@ -519,18 +513,14 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
     __weak typeof(self) welf = self;
     
-    //Loading (Only if we're the first request)
-    #if TARGET_OS_IOS
-    [ApplicationLoadingIndicatorManager.sharedManager showActivityIndicator];
-    #endif
+    [self TSC_showApplicationActivity];
     
     [self checkOAuthStatusWithRequest:request completion:^(BOOL authenticated, NSError *error, BOOL needsQueueing) {
         
         if (error || !authenticated) {
             
-            #if TARGET_OS_IOS
-            [ApplicationLoadingIndicatorManager.sharedManager hideActivityIndicator];
-            #endif
+            [self TSC_hideApplicationActivity];
+
             if (completion) {
                 completion(nil, error);
             }
@@ -549,9 +539,8 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
                 [welf.backgroundSession sendSynchronousUploadTaskWithRequest:[welf backgroundableRequestObjectFromTSCRequest:request] fromFile:[NSURL fileURLWithPath:filePath] returningResponse:nil error:&error];
             }
             
-            #if TARGET_OS_IOS
-            [ApplicationLoadingIndicatorManager.sharedManager hideActivityIndicator];
-            #endif
+            [self TSC_hideApplicationActivity];
+
             if (completion) {
                 completion(nil, error);
             }
@@ -582,9 +571,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     __weak typeof(self) welf = self;
     
     //Loading (Only if we're the first request)
-    #if TARGET_OS_IOS
-    [ApplicationLoadingIndicatorManager.sharedManager showActivityIndicator];
-    #endif
+    [self TSC_showApplicationActivity];
 
     NSString *userAgent = [[NSUserDefaults standardUserDefaults] stringForKey:@"TSCUserAgent"];
     if (userAgent) {
@@ -595,9 +582,8 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
        
         if (error && !authenticated && !needsQueueing) {
             
-            #if TARGET_OS_IOS
-            [ApplicationLoadingIndicatorManager.sharedManager hideActivityIndicator];
-            #endif
+            [self TSC_hideApplicationActivity];
+
             if (completion) {
                 completion(nil, error);
             }
@@ -617,17 +603,15 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
             NSError *error = nil;
             NSData *data = [welf.defaultSession sendSynchronousDataTaskWithRequest:request returningResponse:&response error:&error];
             [welf TSC_fireRequestCompletionWithData:data response:response error:error request:request completion:completion onThread:[NSThread currentThread]];
-            #if TARGET_OS_IOS
-            [ApplicationLoadingIndicatorManager.sharedManager hideActivityIndicator];
-            #endif
+            [self TSC_hideApplicationActivity];
+
         } else {
             
             NSThread *currentThread = [NSThread currentThread];
             NSURLSessionDataTask *dataTask = [welf.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                 
-                #if TARGET_OS_IOS
-                [ApplicationLoadingIndicatorManager.sharedManager hideActivityIndicator];
-                #endif
+                [self TSC_hideApplicationActivity];
+
                 [welf TSC_fireRequestCompletionWithData:data response:response error:error request:request completion:completion onThread:currentThread];
                 
             }];
@@ -708,9 +692,8 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     NSString *taskIdentifierString = [NSString stringWithFormat:@"%lu-completion", (unsigned long)identifier];
     NSString *taskProgressIdentifierString = [NSString stringWithFormat:@"%lu-progress", (unsigned long)identifier];
 
-    #if TARGET_OS_IOS
-    [ApplicationLoadingIndicatorManager.sharedManager hideActivityIndicator];
-    #endif
+    [self TSC_hideApplicationActivity];
+
     TSCRequestTransferCompletionHandler handler = [self.completionHandlerDictionary objectForKey:taskIdentifierString];
     
     if (handler) {
@@ -823,6 +806,24 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     [self.defaultSession invalidateAndCancel];
     [self.backgroundSession invalidateAndCancel];
     [self.ephemeralSession invalidateAndCancel];
+}
+
+- (void)TSC_showApplicationActivity
+{
+#if TARGET_OS_IOS
+    if (![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestShouldHideActivityIndicator"] boolValue]) {
+        [ApplicationLoadingIndicatorManager.sharedManager showActivityIndicator];
+    }
+#endif
+}
+
+- (void)TSC_hideApplicationActivity
+{
+#if TARGET_OS_IOS
+    if (![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestShouldHideActivityIndicator"] boolValue]) {
+        [ApplicationLoadingIndicatorManager.sharedManager hideActivityIndicator];
+    }
+#endif
 }
 
 @end
