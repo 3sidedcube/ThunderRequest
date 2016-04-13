@@ -10,7 +10,7 @@ Setting up your app to use Thunder Request is a simple and quick process. Thunde
 
 + Drag all included files and folders to a location within your existing project.
 + Add ThunderRequest.framework to your Embedded Binaries.
-+ Wherever you want to use ThunderTable use `@import ThunderRequest` or `import ThunderRequest` if you're using swift.
++ Wherever you want to use ThunderRequest use `@import ThunderRequest` or `import ThunderRequest` if you're using swift.
 
 #OAuth 2.0 Support
 OAuth 2.0 support is available via the protocol `<TSCOAuth2Manager>` which when set on `TSCRequestController` will have it's delegate methods called to refresh the user's token when it either expires or a 403 is received by the server.
