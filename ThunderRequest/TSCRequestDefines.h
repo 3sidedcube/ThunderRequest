@@ -72,6 +72,8 @@ typedef NS_ENUM(NSInteger, TSCResponseStatus) {
     TSCResponseStatusUnsupportedMediaType = 415,
     TSCResponseStatusRangeNotSatisfiable = 416,
     TSCResponseStatusExpectationFailed = 417,
+    TSCResponseStatusImATeapot = 418,
+    TSCResponseStatusAuthenticationTimeout = 419,
     TSCResponseStatusInternalServerError = 500,
     TSCResponseStatusNotImplemented = 501,
     TSCResponseStatusBadGateway = 502,
