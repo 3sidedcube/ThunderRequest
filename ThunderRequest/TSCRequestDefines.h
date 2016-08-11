@@ -2,6 +2,9 @@ extern NSString *const TSCRequestErrorDomain;
 extern NSString *const TSCRequestServerError;
 extern NSString *const TSCRequestDidReceiveResponse;
 
+extern NSString *const TSCRequestNotificationRequestKey;
+extern NSString *const TSCRequestNotificationResponseKey;
+
 extern NSString *const TSCMultipartFormDataDataKey;
 extern NSString *const TSCMultipartFormDataFilenameKey;
 extern NSString *const TSCMultipartFormDataNameKey;
