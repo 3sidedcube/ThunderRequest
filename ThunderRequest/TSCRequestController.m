@@ -362,13 +362,21 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
         [self.redirectResponses removeObjectForKey:@(request.taskIdentifier)];
     }
     
+    NSMutableDictionary *requestInfo = [NSMutableDictionary new];
+    if (request) {
+        requestInfo[TSCRequestNotificationRequestKey] = request;
+    }
+    if (response) {
+        requestInfo[TSCRequestNotificationResponseKey] = requestResponse;
+    }
+    
     //Notify of response
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestDidReceiveResponse" object:requestResponse];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TSCRequestDidReceiveResponse object:requestResponse userInfo:requestInfo];
     
     //Notify of errors
     if ([self statusCodeIsConsideredHTTPError:requestResponse.status]) {
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestServerError" object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TSCRequestServerError object:requestResponse userInfo:requestInfo];
         
     }
     
