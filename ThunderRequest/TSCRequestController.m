@@ -219,6 +219,32 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     return request;
 }
 
+#pragma mark - PATCH requests
+- (nonnull TSCRequest *)patch:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
+{
+    return [self patch:path withURLParamDictionary:nil bodyParams:bodyParams completion:completion];
+}
+
+- (nonnull TSCRequest *)patch:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
+{
+    return [self patch:path withURLParamDictionary:URLParamDictionary bodyParams:bodyParams contentType:TSCRequestContentTypeJSON completion:completion];
+}
+
+- (nonnull TSCRequest *)patch:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion
+{
+    TSCRequest *request = [TSCRequest new];
+    request.baseURL = self.sharedBaseURL;
+    request.path = path;
+    request.requestHTTPMethod = TSCRequestHTTPMethodPATCH;
+    request.bodyParameters = bodyParams;
+    request.URLParameterDictionary = URLParamDictionary;
+    request.contentType = contentType;
+    request.requestHeaders = self.sharedRequestHeaders;
+    
+    [self scheduleRequest:request completion:completion];
+    return request;
+}
+
 #pragma mark - DELETE Requests
 
 - (nonnull TSCRequest *)delete:(nonnull NSString *)path completion:(nonnull TSCRequestCompletionHandler)completion
