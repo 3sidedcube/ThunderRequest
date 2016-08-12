@@ -179,6 +179,40 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
 - (nonnull TSCRequest *)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion;
 
 ///---------------------------------------------------------------------------------------
+/// @name PATCH requests
+///---------------------------------------------------------------------------------------
+
+/**
+ Performs a PATCH request on the base URL using the supplied bodyParams dictionary as the PATCH body.
+ @param path The path to be appended to the base URL.
+ @param bodyParams The dictionary used in the PATCH body.
+ @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
+ */
+- (nonnull TSCRequest *)patch:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
+
+/**
+ Performs a PATCH request on the base URL using the supplied paramater dictionary to build the URL, and bodyParams dictionary as the PATCH body.
+ @param path The path to be appended to the base URL.
+ @param URLParamDictionary Dictionary used to build the URL.
+ @param bodyParams The dictionary used in the PATCH body.
+ @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
+ */
+- (nonnull TSCRequest *)patch:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
+
+/**
+ Performs a PATCH request on the base URL using the supplied paramater dictionary to build the URL, and bodyParams dictionary as the PATCH body.
+ @param path The path to be appended to the base URL.
+ @param URLParamDictionary Dictionary used to build the URL.
+ @param bodyParams The dictionary used in the PATCH body.
+ @param contentType The type of `TSCRequestContentType` to be used when encoding the request body
+ @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
+ */
+- (nonnull TSCRequest *)patch:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion;
+
+///---------------------------------------------------------------------------------------
 /// @name DELETE requests
 ///---------------------------------------------------------------------------------------
 

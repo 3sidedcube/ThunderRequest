@@ -12,7 +12,8 @@ typedef NS_ENUM(NSInteger, TSCRequestHTTPMethod) {
     TSCRequestHTTPMethodPOST = 1,
     TSCRequestHTTPMethodPUT = 2,
     TSCRequestHTTPMethodDELETE = 3,
-    TSCRequestHTTPMethodHEAD = 4
+    TSCRequestHTTPMethodHEAD = 4,
+    TSCRequestHTTPMethodPATCH = 5
 };
 
 typedef NS_ENUM(NSInteger, TSCRequestContentType) {
