@@ -8,27 +8,27 @@
 
 import UIKit
 
-public class ApplicationLoadingIndicatorManager: NSObject {
+open class ApplicationLoadingIndicatorManager: NSObject {
     
-    public static let sharedManager = ApplicationLoadingIndicatorManager()
-    private var activityCount = 0
+    open static let sharedManager = ApplicationLoadingIndicatorManager()
+    fileprivate var activityCount = 0
         
-    public func showActivityIndicator() {
+    open func showActivityIndicator() {
         
         objc_sync_enter(self)
         if activityCount == 0 {
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
         activityCount += 1
         objc_sync_exit(self)
     }
     
-    public func hideActivityIndicator() {
+    open func hideActivityIndicator() {
         
         objc_sync_enter(self)
         activityCount -= 1
         if activityCount <= 0 {
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
         objc_sync_exit(self)
     }
