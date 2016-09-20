@@ -266,6 +266,9 @@
         case TSCRequestContentTypeXMLPlist:
             return @"text/x-xml-plist";
             break;
+        case TSCRequestContentTypeURLArguments:
+            return @"text/x-url-arguments";
+            break;
         default:
             return @"application/json";
             break;
