@@ -16,13 +16,14 @@ typedef NS_ENUM(NSInteger, TSCRequestHTTPMethod) {
 };
 
 typedef NS_ENUM(NSInteger, TSCRequestContentType) {
-    TSCRequestContentTypeJSON = 0,
-    TSCRequestContentTypeFormURLEncoded = 1,
-    TSCRequestContentTypeMultipartFormData = 2,
-    TSCRequestContentTypeImagePNG = 3,
-    TSCRequestContentTypeImageJPEG = 4,
-    TSCRequestContentTypeXMLPlist = 5,
-    TSCRequestContentTypeURLArguments = 6
+    TSCRequestContentTypeUndefined = 0,
+    TSCRequestContentTypeJSON = 1,
+    TSCRequestContentTypeFormURLEncoded = 2,
+    TSCRequestContentTypeMultipartFormData = 3,
+    TSCRequestContentTypeImagePNG = 4,
+    TSCRequestContentTypeImageJPEG = 5,
+    TSCRequestContentTypeXMLPlist = 6,
+    TSCRequestContentTypeURLArguments = 7
 };
 
 /** The styles available for a `TSCErrorRecoveryOption` */

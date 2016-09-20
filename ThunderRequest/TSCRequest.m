@@ -29,8 +29,10 @@
     
     self.HTTPMethod = [self stringForHTTPMethod:self.requestHTTPMethod];
     self.HTTPBody = [self HTTPBodyWithDictionary:self.bodyParameters];
-    [self setValue:[self TSC_contentTypeStringForContentType:self.contentType] forHTTPHeaderField:@"Content-Type"];
-    [self.requestHeaders setValue:[self TSC_contentTypeStringForContentType:self.contentType] forKey:@"Content-Type"];
+    if (self.contentType != TSCRequestContentTypeUndefined) {
+        [self setValue:[self TSC_contentTypeStringForContentType:self.contentType] forHTTPHeaderField:@"Content-Type"];
+        [self.requestHeaders setValue:[self TSC_contentTypeStringForContentType:self.contentType] forKey:@"Content-Type"];
+    }
     for (NSString *key in [self.requestHeaders allKeys]) {
         [self setValue:self.requestHeaders[key] forHTTPHeaderField:key];
     }
