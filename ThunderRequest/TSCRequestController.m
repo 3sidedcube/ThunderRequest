@@ -155,13 +155,19 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 
 - (nonnull TSCRequest *)get:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion
 {
+    return [self get:path withURLParamDictionary:URLParamDictionary contentType:TSCRequestContentTypeJSON completion:completion];
+}
+
+- (nonnull TSCRequest *)get:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion
+{
     TSCRequest *request = [TSCRequest new];
     request.baseURL = self.sharedBaseURL;
     request.requestHTTPMethod = TSCRequestHTTPMethodGET;
     request.path = path;
     request.URLParameterDictionary = URLParamDictionary;
     request.requestHeaders = self.sharedRequestHeaders;
-
+    request.contentType = contentType;
+    
     [self scheduleRequest:request completion:completion];
     return request;
 }
