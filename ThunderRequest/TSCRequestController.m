@@ -442,7 +442,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     if (self.OAuth2Delegate) {
         
         if (!self.sharedRequestCredential || ![self.sharedRequestCredential isKindOfClass:[TSCOAuth2Credential class]]) {
-            self.sharedRequestCredential = [TSCOAuth2Credential retrieveCredentialWithIdentifier:[self.OAuth2Delegate serviceIdentifier]];
+            self.sharedRequestCredential = [TSCOAuth2Credential retrieveCredentialWithIdentifier:[self.OAuth2Delegate authIdentifier]];
         }
         
         // If we got shared credentials and they are OAuth 2 credentials we can continue
@@ -464,7 +464,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
                     if (!error) {
                         
                         if (saveToKeychain) {
-                            [TSCOAuth2Credential storeCredential:credential withIdentifier:[welf.OAuth2Delegate serviceIdentifier]];
+                            [TSCOAuth2Credential storeCredential:credential withIdentifier:[welf.OAuth2Delegate authIdentifier]];
                         }
                         welf.sharedRequestCredential = credential;
                     }
@@ -779,7 +779,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
         return;
     }
     
-    TSCOAuth2Credential *credential = (TSCOAuth2Credential *)[TSCOAuth2Credential retrieveCredentialWithIdentifier:[OAuth2Delegate serviceIdentifier]];
+    TSCOAuth2Credential *credential = (TSCOAuth2Credential *)[TSCOAuth2Credential retrieveCredentialWithIdentifier:[OAuth2Delegate authIdentifier]];
     if (credential) {
         self.sharedRequestCredential = credential;
     }
@@ -805,7 +805,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     }
     
     if (save) {
-        [[credential class] storeCredential:credential withIdentifier: self.OAuth2Delegate ? [self.OAuth2Delegate serviceIdentifier] : [NSString stringWithFormat:@"thundertable.com.threesidedcube-%@", self.sharedBaseURL]];
+        [[credential class] storeCredential:credential withIdentifier: self.OAuth2Delegate ? [self.OAuth2Delegate authIdentifier] : [NSString stringWithFormat:@"thundertable.com.threesidedcube-%@", self.sharedBaseURL]];
     }
 }
 
