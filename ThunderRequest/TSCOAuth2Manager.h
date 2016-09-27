@@ -17,7 +17,7 @@ typedef void (^TSCOAuthAuthenticateCompletion)(TSCOAuth2Credential * __nullable 
 @optional
 
 /**
- This method will be called if a request is made without a TSCOAuthCredential object having been saved to the keychain under -serviceIdentifier
+ This method will be called if a request is made without a TSCOAuthCredential object having been saved to the keychain under -authIdentifier
  @param completion The completion block which should be called when the user has been authenticated
  */
 - (void)authenticateWithCompletion:(nonnull TSCOAuthAuthenticateCompletion)completion;
@@ -35,6 +35,6 @@ typedef void (^TSCOAuthAuthenticateCompletion)(TSCOAuth2Credential * __nullable 
 /**
  This should return the service identifier for the OAuth flow, which the credentials object will be saved into the keychain under
  */
-- (nonnull NSString *)serviceIdentifier;
+- (nonnull NSString *)authIdentifier;
 
 @end
