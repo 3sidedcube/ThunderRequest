@@ -312,4 +312,19 @@ Performs a file download task using the base url and given path component.
  */
 - (void)invalidateAndCancel;
 
+///---------------------------------------------------------------------------------------
+/// @name Cancelling requests
+///---------------------------------------------------------------------------------------
+
+/**
+ Cancels all requests in any of the queues calling the completion block with a cancellation error
+ */
+- (void)cancelAllRequests;
+
+/**
+ Cancels requests in any of the queues with a specific tag, calling the completion block with a cancellation error
+ @param tag The tag to cancel requests for
+ */
+- (void)cancelRequestsWithTag:(NSInteger)tag;
+
 @end
