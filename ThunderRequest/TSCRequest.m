@@ -239,6 +239,8 @@
             return @"DELETE";
         case TSCRequestHTTPMethodHEAD:
             return @"HEAD";
+        case TSCRequestHTTPMethodPATCH:
+            return @"PATCH";
         default:
             return nil;
             break;

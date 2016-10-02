@@ -10,8 +10,34 @@
 #import "TSCRequest+TaskIdentifier.h"
 #import <objc/runtime.h>
 
+#if TARGET_OS_IOS
+#import <ThunderRequest/ThunderRequest-Swift.h>
+#endif
+
 static NSString * const TSCQueuedRequestKey = @"TSC_REQUEST";
 static NSString * const TSCQueuedCompletionKey = @"TSC_REQUEST_COMPLETION";
+
+@interface NSURLSessionTask (Request)
+
+@property (nonatomic, strong) TSCRequest *request;
+
+@end
+
+@implementation NSURLSessionTask (Request)
+
+static char requestKey;
+
+- (TSCRequest *)request
+{
+    return objc_getAssociatedObject(self, &requestKey);
+}
+
+- (void)setRequest:(TSCRequest *)request
+{
+    objc_setAssociatedObject(self, &requestKey, request, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+@end
 
 typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError, BOOL needsQueueing);
 
@@ -82,13 +108,6 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 
 @implementation TSCRequestController
 
-- (void)dealloc
-{
-    [self.defaultRequestQueue removeObserver:self forKeyPath:@"operationCount" context:NULL];
-    [self.backgroundRequestQueue removeObserver:self forKeyPath:@"operationCount" context:NULL];
-    [self.ephemeralRequestQueue removeObserver:self forKeyPath:@"operationCount" context:NULL];
-}
-
 - (instancetype)init
 {
     self = [super init];
@@ -97,30 +116,74 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
         self.verboseLogging = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestVerboseLogging"] boolValue];
         self.truncatesVerboseResponse = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestTruncatesVerboseResponse"] boolValue];
         
-        self.defaultRequestQueue = [NSOperationQueue new];
-        self.backgroundRequestQueue = [NSOperationQueue new];
-        self.ephemeralRequestQueue = [NSOperationQueue new];
-        
-        NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
-        NSURLSessionConfiguration *backgroundConfigObject = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:[[NSUUID UUID] UUIDString]];
-        NSURLSessionConfiguration *ephemeralConfigObject = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-        
-        self.defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:self.defaultRequestQueue];
-        self.backgroundSession = [NSURLSession sessionWithConfiguration:backgroundConfigObject delegate:self delegateQueue:self.backgroundRequestQueue];
-        self.ephemeralSession = [NSURLSession sessionWithConfiguration:ephemeralConfigObject delegate:nil delegateQueue:self.ephemeralRequestQueue];
-        
-        self.completionHandlerDictionary = [NSMutableDictionary dictionary];
         self.sharedRequestHeaders = [NSMutableDictionary dictionary];
 
         self.authQueuedRequests = [NSMutableArray new];
         self.redirectResponses = [NSMutableDictionary new];
         
-        [self.defaultRequestQueue addObserver:self forKeyPath:@"operationCount" options:NSKeyValueObservingOptionNew context:NULL];
-        [self.backgroundRequestQueue addObserver:self forKeyPath:@"operationCount" options:NSKeyValueObservingOptionNew context:NULL];
-        [self.ephemeralRequestQueue addObserver:self forKeyPath:@"operationCount" options:NSKeyValueObservingOptionNew context:NULL];
-
+        [self resetAllSessions];
     }
     return self;
+}
+
+- (void)resetAllSessions
+{
+    self.defaultRequestQueue = [NSOperationQueue new];
+    self.backgroundRequestQueue = [NSOperationQueue new];
+    self.ephemeralRequestQueue = [NSOperationQueue new];
+    
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSessionConfiguration *backgroundConfigObject = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:[[NSUUID UUID] UUIDString]];
+    NSURLSessionConfiguration *ephemeralConfigObject = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    
+    self.defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:self.defaultRequestQueue];
+    self.backgroundSession = [NSURLSession sessionWithConfiguration:backgroundConfigObject delegate:self delegateQueue:self.backgroundRequestQueue];
+    self.ephemeralSession = [NSURLSession sessionWithConfiguration:ephemeralConfigObject delegate:nil delegateQueue:self.ephemeralRequestQueue];
+    
+    self.completionHandlerDictionary = [NSMutableDictionary dictionary];
+
+}
+
+- (void)cancelAllRequests
+{
+    [self.defaultSession invalidateAndCancel];
+    [self.backgroundSession invalidateAndCancel];
+    [self.ephemeralSession invalidateAndCancel];
+    
+    [self resetAllSessions];
+}
+
+- (void)cancelRequestsWithTag:(NSInteger)tag
+{
+    [self.defaultSession getAllTasksWithCompletionHandler:^(NSArray<__kindof NSURLSessionTask *> * _Nonnull tasks) {
+        
+        for (NSURLSessionTask *task in tasks) {
+            
+            if (task.request && task.request.tag == tag) {
+                [task cancel];
+            }
+        }
+    }];
+    
+    [self.backgroundSession getAllTasksWithCompletionHandler:^(NSArray<__kindof NSURLSessionTask *> * _Nonnull tasks) {
+        
+        for (NSURLSessionTask *task in tasks) {
+            
+            if (task.request && task.request.tag == tag) {
+                [task cancel];
+            }
+        }
+    }];
+    
+    [self.ephemeralSession getAllTasksWithCompletionHandler:^(NSArray<__kindof NSURLSessionTask *> * _Nonnull tasks) {
+        
+        for (NSURLSessionTask *task in tasks) {
+            
+            if (task.request && task.request.tag == tag) {
+                [task cancel];
+            }
+        }
+    }];
 }
 
 + (void)setUserAgent:(NSString *)userAgent
@@ -222,6 +285,32 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     request.contentType = contentType;
     request.requestHeaders = self.sharedRequestHeaders;
 
+    [self scheduleRequest:request completion:completion];
+    return request;
+}
+
+#pragma mark - PATCH requests
+- (nonnull TSCRequest *)patch:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
+{
+    return [self patch:path withURLParamDictionary:nil bodyParams:bodyParams completion:completion];
+}
+
+- (nonnull TSCRequest *)patch:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
+{
+    return [self patch:path withURLParamDictionary:URLParamDictionary bodyParams:bodyParams contentType:TSCRequestContentTypeJSON completion:completion];
+}
+
+- (nonnull TSCRequest *)patch:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion
+{
+    TSCRequest *request = [TSCRequest new];
+    request.baseURL = self.sharedBaseURL;
+    request.path = path;
+    request.requestHTTPMethod = TSCRequestHTTPMethodPATCH;
+    request.bodyParameters = bodyParams;
+    request.URLParameterDictionary = URLParamDictionary;
+    request.contentType = contentType;
+    request.requestHeaders = self.sharedRequestHeaders;
+    
     [self scheduleRequest:request completion:completion];
     return request;
 }
@@ -336,7 +425,6 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 
 - (void)TSC_fireRequestCompletionWithData:(NSData *)data response:(NSURLResponse *)response error:(NSError *)error request:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion onThread:(NSThread *)scheduleThread
 {
-    NSLog(@"Request finished");
     TSCRequestResponse *requestResponse = [[TSCRequestResponse alloc] initWithResponse:response data:data];
     
     if (request.taskIdentifier && self.redirectResponses[@(request.taskIdentifier)]) {
@@ -344,13 +432,21 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
         [self.redirectResponses removeObjectForKey:@(request.taskIdentifier)];
     }
     
+    NSMutableDictionary *requestInfo = [NSMutableDictionary new];
+    if (request) {
+        requestInfo[TSCRequestNotificationRequestKey] = request;
+    }
+    if (response) {
+        requestInfo[TSCRequestNotificationResponseKey] = requestResponse;
+    }
+    
     //Notify of response
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestDidReceiveResponse" object:requestResponse];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TSCRequestDidReceiveResponse object:requestResponse userInfo:requestInfo];
     
     //Notify of errors
     if ([self statusCodeIsConsideredHTTPError:requestResponse.status]) {
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"TSCRequestServerError" object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TSCRequestServerError object:requestResponse userInfo:requestInfo];
         
     }
     
@@ -416,7 +512,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     if (self.OAuth2Delegate) {
         
         if (!self.sharedRequestCredential || ![self.sharedRequestCredential isKindOfClass:[TSCOAuth2Credential class]]) {
-            self.sharedRequestCredential = [TSCOAuth2Credential retrieveCredentialWithIdentifier:[self.OAuth2Delegate serviceIdentifier]];
+            self.sharedRequestCredential = [TSCOAuth2Credential retrieveCredentialWithIdentifier:[self.OAuth2Delegate authIdentifier]];
         }
         
         // If we got shared credentials and they are OAuth 2 credentials we can continue
@@ -438,7 +534,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
                     if (!error) {
                         
                         if (saveToKeychain) {
-                            [TSCOAuth2Credential storeCredential:credential withIdentifier:[welf.OAuth2Delegate serviceIdentifier]];
+                            [TSCOAuth2Credential storeCredential:credential withIdentifier:[welf.OAuth2Delegate authIdentifier]];
                         }
                         welf.sharedRequestCredential = credential;
                     }
@@ -481,13 +577,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
     __weak typeof(self) welf = self;
     
-    //Loading
-    #if TARGET_OS_IOS
-        if (![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestShouldHideActivityIndicator"] boolValue]){
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        }
-    #endif
-    
+    [self TSC_showApplicationActivity];
     [request prepareForDispatch];
     
     // Check OAuth status before making the request
@@ -506,6 +596,8 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
             NSError *error = nil;
             NSURL *url = [welf.backgroundSession sendSynchronousDownloadTaskWithURL:request.URL returningResponse:nil error:&error];
             
+            [self TSC_hideApplicationActivity];
+            
             if (completion) {
                 completion(url, error);
             }
@@ -515,6 +607,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
             // Should be using downloadtaskwithrequest but it has a bug which causes it to return nil.
             NSURLSessionDownloadTask *task = [welf.backgroundSession downloadTaskWithURL:request.URL];
             [welf addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
+            task.request = request;
             [task resume];
             
         }
@@ -525,17 +618,14 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
     __weak typeof(self) welf = self;
     
-    //Loading
-    #if TARGET_OS_IOS
-        if (![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestShouldHideActivityIndicator"] boolValue]){
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        }
-    #endif
+    [self TSC_showApplicationActivity];
     
     [self checkOAuthStatusWithRequest:request completion:^(BOOL authenticated, NSError *error, BOOL needsQueueing) {
         
         if (error || !authenticated) {
             
+            [self TSC_hideApplicationActivity];
+
             if (completion) {
                 completion(nil, error);
             }
@@ -554,6 +644,8 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
                 [welf.backgroundSession sendSynchronousUploadTaskWithRequest:[welf backgroundableRequestObjectFromTSCRequest:request] fromFile:[NSURL fileURLWithPath:filePath] returningResponse:nil error:&error];
             }
             
+            [self TSC_hideApplicationActivity];
+
             if (completion) {
                 completion(nil, error);
             }
@@ -571,6 +663,8 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
             
             [welf addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
             
+            task.request = request;
+            
             [task resume];
             
         }
@@ -583,13 +677,9 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     // Check OAuth status before making the request
     __weak typeof(self) welf = self;
     
-    //Loading
-    #if TARGET_OS_IOS
-        if (![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestShouldHideActivityIndicator"] boolValue]){
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        }
-    #endif
-    
+    //Loading (Only if we're the first request)
+    [self TSC_showApplicationActivity];
+
     NSString *userAgent = [[NSUserDefaults standardUserDefaults] stringForKey:@"TSCUserAgent"];
     if (userAgent) {
         [request.requestHeaders setValue:userAgent forKey:@"User-Agent"];
@@ -599,6 +689,8 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
        
         if (error && !authenticated && !needsQueueing) {
             
+            [self TSC_hideApplicationActivity];
+
             if (completion) {
                 completion(nil, error);
             }
@@ -618,17 +710,21 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
             NSError *error = nil;
             NSData *data = [welf.defaultSession sendSynchronousDataTaskWithRequest:request returningResponse:&response error:&error];
             [welf TSC_fireRequestCompletionWithData:data response:response error:error request:request completion:completion onThread:[NSThread currentThread]];
-            
+            [self TSC_hideApplicationActivity];
+
         } else {
             
             NSThread *currentThread = [NSThread currentThread];
             NSURLSessionDataTask *dataTask = [welf.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                 
+                [self TSC_hideApplicationActivity];
+
                 [welf TSC_fireRequestCompletionWithData:data response:response error:error request:request completion:completion onThread:currentThread];
                 
             }];
             
             request.taskIdentifier = dataTask.taskIdentifier;
+            dataTask.request = request;
             [dataTask resume];
         }
     }];
@@ -704,6 +800,8 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     NSString *taskIdentifierString = [NSString stringWithFormat:@"%lu-completion", (unsigned long)identifier];
     NSString *taskProgressIdentifierString = [NSString stringWithFormat:@"%lu-progress", (unsigned long)identifier];
 
+    [self TSC_hideApplicationActivity];
+
     TSCRequestTransferCompletionHandler handler = [self.completionHandlerDictionary objectForKey:taskIdentifierString];
     
     if (handler) {
@@ -755,7 +853,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
         return;
     }
     
-    TSCOAuth2Credential *credential = (TSCOAuth2Credential *)[TSCOAuth2Credential retrieveCredentialWithIdentifier:[OAuth2Delegate serviceIdentifier]];
+    TSCOAuth2Credential *credential = (TSCOAuth2Credential *)[TSCOAuth2Credential retrieveCredentialWithIdentifier:[OAuth2Delegate authIdentifier]];
     if (credential) {
         self.sharedRequestCredential = credential;
     }
@@ -781,7 +879,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     }
     
     if (save) {
-        [[credential class] storeCredential:credential withIdentifier: self.OAuth2Delegate ? [self.OAuth2Delegate serviceIdentifier] : [NSString stringWithFormat:@"thundertable.com.threesidedcube-%@", self.sharedBaseURL]];
+        [[credential class] storeCredential:credential withIdentifier: self.OAuth2Delegate ? [self.OAuth2Delegate authIdentifier] : [NSString stringWithFormat:@"thundertable.com.threesidedcube-%@", self.sharedBaseURL]];
     }
 }
 
@@ -818,13 +916,22 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     [self.ephemeralSession invalidateAndCancel];
 }
 
-#pragma mark - KVO
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+- (void)TSC_showApplicationActivity
 {
-    if (self.defaultRequestQueue.operationCount == 0 && self.backgroundRequestQueue.operationCount == 0 && self.ephemeralRequestQueue.operationCount == 0) {
-    #if TARGET_OS_IOS
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    #endif    
+#if TARGET_OS_IOS
+    if (![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestShouldHideActivityIndicator"] boolValue]) {
+        [ApplicationLoadingIndicatorManager.sharedManager showActivityIndicator];
     }
+#endif
 }
+
+- (void)TSC_hideApplicationActivity
+{
+#if TARGET_OS_IOS
+    if (![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestShouldHideActivityIndicator"] boolValue]) {
+        [ApplicationLoadingIndicatorManager.sharedManager hideActivityIndicator];
+    }
+#endif
+}
+
 @end
