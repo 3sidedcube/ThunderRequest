@@ -462,18 +462,26 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
         
         [recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Cancel" type:TSCErrorRecoveryOptionTypeCancel handler:nil]];
         
-        if (error) {
-            completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
-        } else {
+        dispatch_queue_t callbackQueue = self.callbackQueue != NULL ? self.callbackQueue : dispatch_get_main_queue();
+        dispatch_async(callbackQueue, ^{
             
-            NSError *httpError = [NSError errorWithDomain:TSCRequestErrorDomain code:requestResponse.status userInfo:@{NSLocalizedDescriptionKey: [NSHTTPURLResponse localizedStringForStatusCode:requestResponse.status]}];
-            completion(requestResponse, [recoveryAttempter recoverableErrorWithError:httpError]);
-            
-        }
+            if (error) {
+                completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
+            } else {
+                
+                NSError *httpError = [NSError errorWithDomain:TSCRequestErrorDomain code:requestResponse.status userInfo:@{NSLocalizedDescriptionKey: [NSHTTPURLResponse localizedStringForStatusCode:requestResponse.status]}];
+                completion(requestResponse, [recoveryAttempter recoverableErrorWithError:httpError]);
+                
+            }
+        });
         
     } else {
         
-        completion(requestResponse, error);
+        dispatch_queue_t callbackQueue = self.callbackQueue != NULL ? self.callbackQueue : dispatch_get_main_queue();
+        dispatch_async(callbackQueue, ^{
+            completion(requestResponse, error);
+        });
+        
     }
     
     //Log
@@ -481,21 +489,22 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
         
         if (error) {
             
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
                 NSLog(@"Request:%@", request);
                 NSLog(@"\n<ThunderRequest>\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: FAILURE \nError Description: %@",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], error.localizedDescription);
-            }];
-            
+            });
+
         } else {
             
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
                 
                 NSRange truncatedRange = {0, MIN(requestResponse.string.length, 25)};
                 truncatedRange = [requestResponse.string rangeOfComposedCharacterSequencesForRange:truncatedRange];
                 
                 NSLog(@"\n<ThunderRequest>\nURL:    %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: %li\nResponse Body: %@\n",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], (long)requestResponse.status, self.truncatesVerboseResponse ? [[requestResponse.string substringWithRange:truncatedRange] stringByAppendingString:@"..."] : requestResponse.string);
-            }];
+            });
+            
         }
     }
 }

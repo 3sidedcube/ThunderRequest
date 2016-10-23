@@ -40,6 +40,11 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
 @property (nonatomic, strong, nonnull) NSURL *sharedBaseURL;
 
 /**
+ A custom queue to dispatch all callbacks from requests onto
+ */
+@property (nonatomic, assign, nullable) dispatch_queue_t callbackQueue;
+
+/**
  @abstract The request controller for making OAuth2 re-authentication requests on
  */
 @property (nonatomic, strong, nullable) TSCRequestController *OAuth2RequestController;
