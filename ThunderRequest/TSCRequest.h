@@ -36,7 +36,7 @@
 /**
  @abstract A dictionary to be used as the body of the request
  */
-@property (nonatomic, strong, nullable) NSDictionary *bodyParameters;
+@property (nonatomic, strong, nullable) id bodyParameters;
 
 /**
  @abstract A dictionary to be used as the headers for the request

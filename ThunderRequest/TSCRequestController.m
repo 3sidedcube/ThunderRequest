@@ -168,17 +168,17 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 
 #pragma mark - POST Requests
 
-- (nonnull TSCRequest *)post:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)post:(nonnull NSString *)path bodyParams:(id)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
 {
     return [self post:path withURLParamDictionary:nil bodyParams:bodyParams completion:completion];
 }
 
-- (nonnull TSCRequest *)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(id)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
 {
     return [self post:path withURLParamDictionary:URLParamDictionary bodyParams:bodyParams contentType:TSCRequestContentTypeJSON completion:completion];
 }
 
-- (nonnull TSCRequest *)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(id)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion
 {
     TSCRequest *request = [TSCRequest new];
     request.baseURL = self.sharedBaseURL;
@@ -194,17 +194,17 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 }
 
 #pragma mark - PUT Requests
-- (nonnull TSCRequest *)put:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)put:(nonnull NSString *)path bodyParams:(id)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
 {
     return [self put:path withURLParamDictionary:nil bodyParams:bodyParams completion:completion];
 }
 
-- (nonnull TSCRequest *)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(id)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
 {
     return [self put:path withURLParamDictionary:URLParamDictionary bodyParams:bodyParams contentType:TSCRequestContentTypeJSON completion:completion];
 }
 
-- (nonnull TSCRequest *)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(id)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion
 {
     TSCRequest *request = [TSCRequest new];
     request.baseURL = self.sharedBaseURL;
@@ -220,17 +220,17 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 }
 
 #pragma mark - PATCH requests
-- (nonnull TSCRequest *)patch:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)patch:(nonnull NSString *)path bodyParams:(id)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
 {
     return [self patch:path withURLParamDictionary:nil bodyParams:bodyParams completion:completion];
 }
 
-- (nonnull TSCRequest *)patch:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)patch:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(id)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion
 {
     return [self patch:path withURLParamDictionary:URLParamDictionary bodyParams:bodyParams contentType:TSCRequestContentTypeJSON completion:completion];
 }
 
-- (nonnull TSCRequest *)patch:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion
+- (nonnull TSCRequest *)patch:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(id)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion
 {
     TSCRequest *request = [TSCRequest new];
     request.baseURL = self.sharedBaseURL;
