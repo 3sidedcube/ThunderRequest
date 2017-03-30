@@ -534,8 +534,9 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
             
         } else {
             
-            // Should be using downloadtaskwithrequest but it has a bug which causes it to return nil.
-            NSURLSessionDownloadTask *task = [welf.backgroundSession downloadTaskWithURL:request.URL];
+            NSURLRequest *normalisedRequest = [self backgroundableRequestObjectFromTSCRequest:request];
+            NSURLSessionDownloadTask *task = [welf.backgroundSession downloadTaskWithRequest:normalisedRequest];
+            
             [welf addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
             [task resume];
             
