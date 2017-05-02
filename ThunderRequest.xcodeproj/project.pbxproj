@@ -517,7 +517,7 @@
 					};
 					C2E5088119C835A300350F00 = {
 						CreatedOnToolsVersion = 6.0;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0830;
 					};
 					C2E5088C19C835A300350F00 = {
 						CreatedOnToolsVersion = 6.0;
