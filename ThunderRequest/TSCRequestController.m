@@ -847,7 +847,10 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
 #if TARGET_OS_IOS
     if (![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestShouldHideActivityIndicator"] boolValue]) {
-        [ApplicationLoadingIndicatorManager.sharedManager showActivityIndicator];
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [ApplicationLoadingIndicatorManager.sharedManager showActivityIndicator];
+        }];
+        
     }
 #endif
 }
@@ -856,7 +859,9 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
 #if TARGET_OS_IOS
     if (![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestShouldHideActivityIndicator"] boolValue]) {
-        [ApplicationLoadingIndicatorManager.sharedManager hideActivityIndicator];
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [ApplicationLoadingIndicatorManager.sharedManager hideActivityIndicator];
+        }];
     }
 #endif
 }
