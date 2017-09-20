@@ -160,12 +160,13 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     request.requestHTTPMethod = TSCRequestHTTPMethodGET;
     request.path = path;
     request.URLParameterDictionary = URLParamDictionary;
-    request.requestHeaders = self.sharedRequestHeaders;
 	
+	NSMutableDictionary *requestHeaders = [self.sharedRequestHeaders mutableCopy];
 	// In some API's an error will be returned if you set a Content-Type header
 	// but don't pass a body (In the case of a GET request you never pass a body)
 	// so for GET requests we nill this out
-	request.requestHeaders["Content-Type"] = nil;
+	[requestHeaders removeObjectForKey:@"Content-Type"];
+    request.requestHeaders = requestHeaders;
 
     [self scheduleRequest:request completion:completion];
     return request;
