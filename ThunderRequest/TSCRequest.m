@@ -32,7 +32,7 @@
 	
 	// We don't set the content-type header for GET requests as they shouldn't be sending data
 	// and some APIs will error if you provide a Content-Type with no data!
-	if (self.HTTPMethod == TSCRequestHTTPMethodGET && self.HTTPBody) {
+	if (self.HTTPMethod != TSCRequestHTTPMethodGET && self.HTTPBody) {
 		[self setValue:[self TSC_contentTypeStringForContentType:self.contentType] forHTTPHeaderField:@"Content-Type"];
 		[self.requestHeaders setValue:[self TSC_contentTypeStringForContentType:self.contentType] forKey:@"Content-Type"];
 	}
