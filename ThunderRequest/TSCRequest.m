@@ -38,7 +38,7 @@
 	}
 	
 	if (self.HTTPMethod == TSCRequestHTTPMethodGET && self.HTTPBody) {
-		NSLog(@"<ThunderRequest> Invalid request to: %@. Should not be sending a GET request with a non-nil body", self.URL.absoluteString)
+		NSLog(@"<ThunderRequest> Invalid request to: %@. Should not be sending a GET request with a non-nil body", self.URL.absoluteString);
 	}
 	
     for (NSString *key in [self.requestHeaders allKeys]) {
