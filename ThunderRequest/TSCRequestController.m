@@ -17,6 +17,28 @@
 static NSString * const TSCQueuedRequestKey = @"TSC_REQUEST";
 static NSString * const TSCQueuedCompletionKey = @"TSC_REQUEST_COMPLETION";
 
+@interface NSURLSessionTask (Request)
+
+@property (nonatomic, strong) TSCRequest *request;
+
+@end
+
+@implementation NSURLSessionTask (Request)
+
+static char requestKey;
+
+- (TSCRequest *)request
+{
+    return objc_getAssociatedObject(self, &requestKey);
+}
+
+- (void)setRequest:(TSCRequest *)request
+{
+    objc_setAssociatedObject(self, &requestKey, request, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+@end
+
 typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError, BOOL needsQueueing);
 
 @interface TSCRequestController () <NSURLSessionDownloadDelegate, NSURLSessionTaskDelegate>
@@ -88,32 +110,80 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 
 - (instancetype)init
 {
-	self = [super init];
-	if (self) {
-		
-		self.verboseLogging = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestVerboseLogging"] boolValue];
-		self.truncatesVerboseResponse = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestTruncatesVerboseResponse"] boolValue];
-		
-		self.defaultRequestQueue = [NSOperationQueue new];
-		self.backgroundRequestQueue = [NSOperationQueue new];
-		self.ephemeralRequestQueue = [NSOperationQueue new];
-		
-		NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
-		NSURLSessionConfiguration *backgroundConfigObject = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:[[NSUUID UUID] UUIDString]];
-		NSURLSessionConfiguration *ephemeralConfigObject = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-		
-		self.defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:self.defaultRequestQueue];
-		self.backgroundSession = [NSURLSession sessionWithConfiguration:backgroundConfigObject delegate:self delegateQueue:self.backgroundRequestQueue];
-		self.ephemeralSession = [NSURLSession sessionWithConfiguration:ephemeralConfigObject delegate:nil delegateQueue:self.ephemeralRequestQueue];
-		
-		self.completionHandlerDictionary = [NSMutableDictionary dictionary];
-		self.sharedRequestHeaders = [NSMutableDictionary dictionary];
-		
-		self.authQueuedRequests = [NSMutableArray new];
-		self.redirectResponses = [NSMutableDictionary new];
-		
-	}
-	return self;
+    self = [super init];
+    if (self) {
+
+        self.verboseLogging = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestVerboseLogging"] boolValue];
+        self.truncatesVerboseResponse = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestTruncatesVerboseResponse"] boolValue];
+        
+        self.sharedRequestHeaders = [NSMutableDictionary dictionary];
+
+        self.authQueuedRequests = [NSMutableArray new];
+        self.redirectResponses = [NSMutableDictionary new];
+        
+        [self resetAllSessions];
+    }
+    return self;
+}
+
+- (void)resetAllSessions
+{
+    self.defaultRequestQueue = [NSOperationQueue new];
+    self.backgroundRequestQueue = [NSOperationQueue new];
+    self.ephemeralRequestQueue = [NSOperationQueue new];
+    
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSessionConfiguration *backgroundConfigObject = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:[[NSUUID UUID] UUIDString]];
+    NSURLSessionConfiguration *ephemeralConfigObject = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    
+    self.defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:self.defaultRequestQueue];
+    self.backgroundSession = [NSURLSession sessionWithConfiguration:backgroundConfigObject delegate:self delegateQueue:self.backgroundRequestQueue];
+    self.ephemeralSession = [NSURLSession sessionWithConfiguration:ephemeralConfigObject delegate:nil delegateQueue:self.ephemeralRequestQueue];
+    
+    self.completionHandlerDictionary = [NSMutableDictionary dictionary];
+
+}
+
+- (void)cancelAllRequests
+{
+    [self.defaultSession invalidateAndCancel];
+    [self.backgroundSession invalidateAndCancel];
+    [self.ephemeralSession invalidateAndCancel];
+    
+    [self resetAllSessions];
+}
+
+- (void)cancelRequestsWithTag:(NSInteger)tag
+{
+    [self.defaultSession getAllTasksWithCompletionHandler:^(NSArray<__kindof NSURLSessionTask *> * _Nonnull tasks) {
+        
+        for (NSURLSessionTask *task in tasks) {
+            
+            if (task.request && task.request.tag == tag) {
+                [task cancel];
+            }
+        }
+    }];
+    
+    [self.backgroundSession getAllTasksWithCompletionHandler:^(NSArray<__kindof NSURLSessionTask *> * _Nonnull tasks) {
+        
+        for (NSURLSessionTask *task in tasks) {
+            
+            if (task.request && task.request.tag == tag) {
+                [task cancel];
+            }
+        }
+    }];
+    
+    [self.ephemeralSession getAllTasksWithCompletionHandler:^(NSArray<__kindof NSURLSessionTask *> * _Nonnull tasks) {
+        
+        for (NSURLSessionTask *task in tasks) {
+            
+            if (task.request && task.request.tag == tag) {
+                [task cancel];
+            }
+        }
+    }];
 }
 
 + (void)setUserAgent:(NSString *)userAgent
@@ -288,7 +358,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 
 #pragma mark - DOWNLOAD/UPLOAD Requests
 
-- (void)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+- (nonnull TSCRequest *)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
 	TSCRequest *request = [TSCRequest new];
 	request.baseURL = self.sharedBaseURL;
@@ -297,9 +367,10 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	request.requestHeaders = self.sharedRequestHeaders;
 	
 	[self scheduleDownloadRequest:request progress:progress completion:completion];
+	return request;
 }
 
-- (void)uploadFileFromPath:(nonnull NSString *)filePath toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+- (nonnull TSCRequest *)uploadFileFromPath:(nonnull NSString *)filePath toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
 	TSCRequest *request = [TSCRequest new];
 	request.baseURL = self.sharedBaseURL;
@@ -308,9 +379,10 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	request.requestHeaders = self.sharedRequestHeaders;
 	
 	[self scheduleUploadRequest:request filePath:filePath progress:progress completion:completion];
+	return request;
 }
 
-- (void)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+- (nonnull TSCRequest *)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
 	TSCRequest *request = [TSCRequest new];
 	request.baseURL = self.sharedBaseURL;
@@ -325,9 +397,10 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	[fileData writeToFile:filePathString atomically:YES];
 	
 	[self scheduleUploadRequest:request filePath:filePathString progress:progress completion:completion];
+	return request;
 }
 
-- (void)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+- (nonnull TSCRequest *)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
 	TSCRequest *request = [TSCRequest new];
 	request.baseURL = self.sharedBaseURL;
@@ -343,9 +416,10 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	[fileData writeToFile:filePathString atomically:YES];
 	
 	[self scheduleUploadRequest:request filePath:filePathString progress:progress completion:completion];
+	return request;
 }
 
-- (void)uploadBodyParams:(nullable NSDictionary *)bodyParams toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+- (nonnull TSCRequest *)uploadBodyParams:(nullable NSDictionary *)bodyParams toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
 	TSCRequest *request = [TSCRequest new];
 	request.baseURL = self.sharedBaseURL;
@@ -356,6 +430,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	request.bodyParameters = bodyParams;
 	
 	[self scheduleUploadRequest:request filePath:nil progress:progress completion:completion];
+	return request;
 }
 
 - (void)TSC_fireRequestCompletionWithData:(NSData *)data response:(NSURLResponse *)response error:(NSError *)error request:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion onThread:(NSThread *)scheduleThread
