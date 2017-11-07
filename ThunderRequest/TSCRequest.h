@@ -51,6 +51,12 @@
 @property (nonatomic, strong, nullable) NSDictionary *URLParameterDictionary;
 
 /**
+ @abstract The tag of the request
+ @discussion This can be used for example to cancel a bunch of requests marked with the same tag!
+ */
+@property (nonatomic, assign) NSInteger tag;
+
+/**
  Configures the request with the set parameters and makes it ready for queuing 
  */
 - (void)prepareForDispatch;
