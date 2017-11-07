@@ -367,6 +367,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	request.requestHeaders = self.sharedRequestHeaders;
 	
 	[self scheduleDownloadRequest:request progress:progress completion:completion];
+	return request;
 }
 
 - (nonnull TSCRequest *)uploadFileFromPath:(nonnull NSString *)filePath toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
@@ -378,6 +379,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	request.requestHeaders = self.sharedRequestHeaders;
 	
 	[self scheduleUploadRequest:request filePath:filePath progress:progress completion:completion];
+	return request;
 }
 
 - (nonnull TSCRequest *)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
@@ -395,6 +397,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	[fileData writeToFile:filePathString atomically:YES];
 	
 	[self scheduleUploadRequest:request filePath:filePathString progress:progress completion:completion];
+	return request;
 }
 
 - (nonnull TSCRequest *)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
@@ -413,6 +416,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	[fileData writeToFile:filePathString atomically:YES];
 	
 	[self scheduleUploadRequest:request filePath:filePathString progress:progress completion:completion];
+	return request;
 }
 
 - (nonnull TSCRequest *)uploadBodyParams:(nullable NSDictionary *)bodyParams toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
@@ -426,6 +430,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	request.bodyParameters = bodyParams;
 	
 	[self scheduleUploadRequest:request filePath:nil progress:progress completion:completion];
+	return request;
 }
 
 - (void)TSC_fireRequestCompletionWithData:(NSData *)data response:(NSURLResponse *)response error:(NSError *)error request:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion onThread:(NSThread *)scheduleThread
