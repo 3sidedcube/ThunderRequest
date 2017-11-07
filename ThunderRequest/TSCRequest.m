@@ -29,8 +29,18 @@
     
     self.HTTPMethod = [self stringForHTTPMethod:self.requestHTTPMethod];
     self.HTTPBody = [self HTTPBodyWithDictionary:self.bodyParameters];
-    [self setValue:[self TSC_contentTypeStringForContentType:self.contentType] forHTTPHeaderField:@"Content-Type"];
-    [self.requestHeaders setValue:[self TSC_contentTypeStringForContentType:self.contentType] forKey:@"Content-Type"];
+	
+	// We don't set the content-type header for GET requests as they shouldn't be sending data
+	// and some APIs will error if you provide a Content-Type with no data!
+	if (self.HTTPMethod != TSCRequestHTTPMethodGET && self.HTTPBody) {
+		[self setValue:[self TSC_contentTypeStringForContentType:self.contentType] forHTTPHeaderField:@"Content-Type"];
+		[self.requestHeaders setValue:[self TSC_contentTypeStringForContentType:self.contentType] forKey:@"Content-Type"];
+	}
+	
+	if (self.HTTPMethod == TSCRequestHTTPMethodGET && self.HTTPBody) {
+		NSLog(@"<ThunderRequest> Invalid request to: %@. Should not be sending a GET request with a non-nil body", self.URL.absoluteString);
+	}
+	
     for (NSString *key in [self.requestHeaders allKeys]) {
         [self setValue:self.requestHeaders[key] forHTTPHeaderField:key];
     }
