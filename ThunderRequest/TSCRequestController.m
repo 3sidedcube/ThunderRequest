@@ -352,7 +352,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 
 #pragma mark - DOWNLOAD/UPLOAD Requests
 
-- (void)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+- (nonnull TSCRequest *)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
     TSCRequest *request = [TSCRequest new];
     request.baseURL = self.sharedBaseURL;
@@ -360,10 +360,11 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     request.requestHTTPMethod = TSCRequestHTTPMethodGET;
     request.requestHeaders = self.sharedRequestHeaders;
 
-    [self scheduleDownloadRequest:request progress:progress completion:completion];
+	[self scheduleDownloadRequest:request progress:progress completion:completion];
+	return request;
 }
 
-- (void)uploadFileFromPath:(nonnull NSString *)filePath toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+- (nonnull TSCRequest *)uploadFileFromPath:(nonnull NSString *)filePath toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
     TSCRequest *request = [TSCRequest new];
     request.baseURL = self.sharedBaseURL;
@@ -371,10 +372,11 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     request.requestHTTPMethod = TSCRequestHTTPMethodPOST;
     request.requestHeaders = self.sharedRequestHeaders;
     
-    [self scheduleUploadRequest:request filePath:filePath progress:progress completion:completion];
+	[self scheduleUploadRequest:request filePath:filePath progress:progress completion:completion];
+	return request;
 }
 
-- (void)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+- (nonnull TSCRequest *)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
     TSCRequest *request = [TSCRequest new];
     request.baseURL = self.sharedBaseURL;
@@ -388,10 +390,11 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     NSString *filePathString = [cachesDirectory stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
     [fileData writeToFile:filePathString atomically:YES];
     
-    [self scheduleUploadRequest:request filePath:filePathString progress:progress completion:completion];
+	[self scheduleUploadRequest:request filePath:filePathString progress:progress completion:completion];
+	return request;
 }
 
-- (void)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+- (nonnull TSCRequest *)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
     TSCRequest *request = [TSCRequest new];
     request.baseURL = self.sharedBaseURL;
@@ -406,10 +409,11 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     NSString *filePathString = [cachesDirectory stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
     [fileData writeToFile:filePathString atomically:YES];
     
-    [self scheduleUploadRequest:request filePath:filePathString progress:progress completion:completion];
+	[self scheduleUploadRequest:request filePath:filePathString progress:progress completion:completion];
+	return request;
 }
 
-- (void)uploadBodyParams:(nullable NSDictionary *)bodyParams toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+- (nonnull TSCRequest *)uploadBodyParams:(nullable NSDictionary *)bodyParams toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
     TSCRequest *request = [TSCRequest new];
     request.baseURL = self.sharedBaseURL;
@@ -420,7 +424,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
     request.bodyParameters = bodyParams;
     
     [self scheduleUploadRequest:request filePath:nil progress:progress completion:completion];
-    
+	return request;
 }
 
 - (void)TSC_fireRequestCompletionWithData:(NSData *)data response:(NSURLResponse *)response error:(NSError *)error request:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion onThread:(NSThread *)scheduleThread
