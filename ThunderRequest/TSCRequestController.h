@@ -256,7 +256,7 @@ Performs a file download task using the base url and given path component.
 @param progress The block to be called with progress information during the download
 @param completion The completion block that will be fired once the request has completed
 */
-- (void)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
+- (nonnull TSCRequest *)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
 
 
 ///---------------------------------------------------------------------------------------
@@ -270,7 +270,7 @@ Performs a file download task using the base url and given path component.
  @param progress The block to be called with progress information during the download
  @param completion The completion block that will be fired once the request has completed
  */
-- (void)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
+- (nonnull TSCRequest *)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
 
 /**
  Performs a file upload task using the base url and given path component.
@@ -280,7 +280,7 @@ Performs a file download task using the base url and given path component.
  @param progress The block to be called with progress information during the download
  @param completion The completion block that will be fired once the request has completed
  */
-- (void)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
+- (nonnull TSCRequest *)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
 
 /**
  Performs a file upload task using the base url and given path component.
@@ -289,7 +289,7 @@ Performs a file download task using the base url and given path component.
  @param progress The block to be called with progress information during the download
  @param completion The completion block that will be fired once the request has completed
  */
-- (void)uploadFileFromPath:(nonnull NSString *)filePath toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
+- (nonnull TSCRequest *)uploadFileFromPath:(nonnull NSString *)filePath toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
 
 /**
  Performs a file upload task using the base url and given path component.
@@ -299,7 +299,7 @@ Performs a file download task using the base url and given path component.
  @param progress The block to be called with progress information during the download
  @param completion The completion block that will be fired once the request has completed
  */
-- (void)uploadBodyParams:(nullable NSDictionary *)bodyParams toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
+- (nonnull TSCRequest *)uploadBodyParams:(nullable NSDictionary *)bodyParams toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
 
 /**
  Sets the user agent to be used for any instance of TSCRequestController
