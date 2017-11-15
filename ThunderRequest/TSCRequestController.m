@@ -615,8 +615,10 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 			NSURLSessionDownloadTask *task = [welf.backgroundSession downloadTaskWithRequest:normalisedRequest];
 			
 			[welf addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
+            
+            // Set the request on the task
+            task.request = request;
 			[task resume];
-			
 		}
 	}];
 }
@@ -670,10 +672,9 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 			
 			[welf addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
 			
+            task.request = request;
 			[task resume];
-			
 		}
-		
 	}];
 }
 
@@ -729,6 +730,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 			}];
 			
 			request.taskIdentifier = dataTask.taskIdentifier;
+            dataTask.request = request;
 			[dataTask resume];
 		}
 	}];
