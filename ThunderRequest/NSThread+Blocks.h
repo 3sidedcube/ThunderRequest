@@ -17,20 +17,20 @@
  Performs a block of code on the current thread
  @param block The block of code to call
  */
-- (void)performBlock:(void (^)())block;
+- (void)performBlock:(void (^)(void))block;
 
 /**
  Performs a block of code on the current thread
  @param block The block of code to call
  @param wait Weather the thread should wait until the block of code is run
  */
-- (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait;
+- (void)performBlock:(void (^)(void))block waitUntilDone:(BOOL)wait;
 
 /**
  Performs a block of code on the current thread
  @param block The block of code to call
  @param delay A time interval to wait until the block of code is run
  */
-- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
+- (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
 
 @end
