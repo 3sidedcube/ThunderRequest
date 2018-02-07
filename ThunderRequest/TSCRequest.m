@@ -9,7 +9,14 @@
 #import <AppKit/AppKit.h>
 #endif
 
+@import os.log;
+static os_log_t request_log;
+
 @implementation TSCRequest
+
++ (void)initialize {
+	request_log = os_log_create("com.threesidedcube.ThunderRequest", "TSCRequest");
+}
 
 - (void)prepareForDispatch
 {
@@ -38,7 +45,7 @@
 	}
 	
 	if (self.HTTPMethod == TSCRequestHTTPMethodGET && self.HTTPBody) {
-		NSLog(@"<ThunderRequest> Invalid request to: %@. Should not be sending a GET request with a non-nil body", self.URL.absoluteString);
+		os_log_error(request_log, "<ThunderRequest> Invalid request to: %@. Should not be sending a GET request with a non-nil body", self.URL.absoluteString);
 	}
 	
     for (NSString *key in [self.requestHeaders allKeys]) {
