@@ -78,16 +78,6 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 @property (nonatomic, strong) NSURLSession *ephemeralSession;
 
 /**
- @abstract Defines whether or not verbose logging of requests and responses is enabled. Defined by setting "TSCThunderRequestVerboseLogging" boolean in info plsit
- */
-@property (nonatomic) BOOL verboseLogging;
-
-/**
- @abstract Defines whether or not verbose logging should include the full response body or a truncated version
- */
-@property (nonatomic) BOOL truncatesVerboseResponse;
-
-/**
  @abstract A dictionary of completion handlers to be called when file downloads are complete
  */
 @property (nonatomic, strong) NSMutableDictionary *completionHandlerDictionary;
@@ -121,10 +111,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 {
     self = [super init];
     if (self) {
-
-        self.verboseLogging = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestVerboseLogging"] boolValue];
-        self.truncatesVerboseResponse = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestTruncatesVerboseResponse"] boolValue];
-        
+		
         self.sharedRequestHeaders = [NSMutableDictionary dictionary];
 
         self.authQueuedRequests = [NSMutableArray new];
@@ -498,20 +485,13 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	}
 	
 	//Log
-	if (self.verboseLogging) {
+	
+	if (error) {
+		os_log_debug(request_controller_log, "Request:%@", request);
+		os_log_error(request_controller_log, "\n<ThunderRequest>\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: FAILURE \nError Description: %@",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], error.localizedDescription );
+	} else {
 		
-		if (error) {
-            os_log_debug(request_controller_log, "Request:%@", request);
-            os_log_error(request_controller_log, "\n<ThunderRequest>\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: FAILURE \nError Description: %@",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], error.localizedDescription );
-		} else {
-			[scheduleThread performBlock:^{
-				
-				NSRange truncatedRange = {0, MIN(requestResponse.string.length, 25)};
-				truncatedRange = [requestResponse.string rangeOfComposedCharacterSequencesForRange:truncatedRange];
-				
-                os_log_debug(request_controller_log, "\n<ThunderRequest>\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: %li\nResponse Body: %@\n", request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], (long)requestResponse.status, self.truncatesVerboseResponse ? [[requestResponse.string substringWithRange:truncatedRange] stringByAppendingString:@"..."] : requestResponse.string);
-			}];
-		}
+		os_log_debug(request_controller_log, "\n<ThunderRequest>\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: %li\nResponse Body: %@\n", request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], (long)requestResponse.status, requestResponse.string);
 	}
 }
 
