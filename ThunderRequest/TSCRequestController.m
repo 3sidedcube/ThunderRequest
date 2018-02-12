@@ -429,7 +429,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	return request;
 }
 
-- (void)TSC_fireRequestCompletionWithData:(NSData *)data response:(NSURLResponse *)response error:(NSError *)error request:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion onThread:(NSThread *)scheduleThread
+- (void)TSC_fireRequestCompletionWithData:(NSData *)data response:(NSURLResponse *)response error:(NSError *)error request:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion
 {
 	TSCRequestResponse *requestResponse = [[TSCRequestResponse alloc] initWithResponse:response data:data];
 	
@@ -466,8 +466,9 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 		
 		[recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Cancel" type:TSCErrorRecoveryOptionTypeCancel handler:nil]];
 		
-		[scheduleThread performBlock:^{
-			
+		dispatch_queue_t callbackQueue = self.callbackQueue != NULL ? self.callbackQueue : dispatch_get_main_queue();
+		dispatch_async(callbackQueue, ^{
+
 			if (error) {
 				completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
 			} else {
@@ -475,13 +476,14 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 				NSError *httpError = [NSError errorWithDomain:TSCRequestErrorDomain code:requestResponse.status userInfo:@{NSLocalizedDescriptionKey: [NSHTTPURLResponse localizedStringForStatusCode:requestResponse.status]}];
 				completion(requestResponse, [recoveryAttempter recoverableErrorWithError:httpError]);
 			}
-		}];
+		});
 		
 	} else {
 		
-		[scheduleThread performBlock:^{
+		dispatch_queue_t callbackQueue = self.callbackQueue != NULL ? self.callbackQueue : dispatch_get_main_queue();
+		dispatch_async(callbackQueue, ^{
 			completion(requestResponse, error);
-		}];
+		});
 	}
 	
 	//Log
@@ -702,17 +704,16 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 			NSURLResponse *response = nil;
 			NSError *error = nil;
 			NSData *data = [welf.defaultSession sendSynchronousDataTaskWithRequest:request returningResponse:&response error:&error];
-			[welf TSC_fireRequestCompletionWithData:data response:response error:error request:request completion:completion onThread:[NSThread currentThread]];
+			[welf TSC_fireRequestCompletionWithData:data response:response error:error request:request completion:completion];
 			[self TSC_hideApplicationActivity];
 			
 		} else {
 			
-			NSThread *currentThread = [NSThread currentThread];
 			NSURLSessionDataTask *dataTask = [welf.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 				
 				[self TSC_hideApplicationActivity];
 				
-				[welf TSC_fireRequestCompletionWithData:data response:response error:error request:request completion:completion onThread:currentThread];
+				[welf TSC_fireRequestCompletionWithData:data response:response error:error request:request completion:completion];
 				
 			}];
 			

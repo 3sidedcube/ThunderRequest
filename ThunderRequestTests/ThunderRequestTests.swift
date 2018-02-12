@@ -169,7 +169,7 @@ class ThunderRequestTests: XCTestCase {
         
         let finishExpectation = expectationWithDescription("App should correctly send POST data to server")
         
-        requestController.post("post", bodyParams: [NSString(string: "RequestTest"):"Success"], completion: { (response: TSCRequestResponse?, error: NSError?) -> Void in
+        requestController.post("post", bodyParams: [NSString(string: "RequestTest"):"Success"], completion: { (response: TSCRequestResponse?, error: Error?) -> Void in
             
             let responseJson = response?.dictionary?["json"] as! Dictionary<String, String>
             let successString = responseJson["RequestTest"]
