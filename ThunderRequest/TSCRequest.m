@@ -45,7 +45,7 @@ static os_log_t request_log;
 	}
 	
 	if (self.HTTPMethod == TSCRequestHTTPMethodGET && self.HTTPBody) {
-		os_log_error(request_log, "<ThunderRequest> Invalid request to: %@. Should not be sending a GET request with a non-nil body", self.URL.absoluteString);
+		os_log_error(request_log, "Invalid request to: %@. Should not be sending a GET request with a non-nil body", self.URL.absoluteString);
 	}
 	
     for (NSString *key in [self.requestHeaders allKeys]) {
