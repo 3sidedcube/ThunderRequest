@@ -110,6 +110,16 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  */
 - (nonnull TSCRequest *)get:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion;
 
+/**
+ Performs a GET request on the base URL using the supplied paramater dictionary to build the URL.
+ @param path The path to be appended to the base URL.
+ @param URLParamDictionary Dictionary used to build the URL.
+ @param contentType The content type to send in the header
+ @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
+ */
+- (nonnull TSCRequest *)get:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion;
+
 ///---------------------------------------------------------------------------------------
 /// @name POST requests
 ///---------------------------------------------------------------------------------------
