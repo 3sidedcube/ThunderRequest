@@ -10,12 +10,16 @@
 #import "TSCRequest+TaskIdentifier.h"
 #import <objc/runtime.h>
 
+@import os.log;
+
 #if TARGET_OS_IOS
 #import <ThunderRequest/ThunderRequest-Swift.h>
 #endif
 
 static NSString * const TSCQueuedRequestKey = @"TSC_REQUEST";
 static NSString * const TSCQueuedCompletionKey = @"TSC_REQUEST_COMPLETION";
+
+static os_log_t request_controller_log;
 
 @interface NSURLSessionTask (Request)
 
@@ -74,16 +78,6 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 @property (nonatomic, strong) NSURLSession *ephemeralSession;
 
 /**
- @abstract Defines whether or not verbose logging of requests and responses is enabled. Defined by setting "TSCThunderRequestVerboseLogging" boolean in info plsit
- */
-@property (nonatomic) BOOL verboseLogging;
-
-/**
- @abstract Defines whether or not verbose logging should include the full response body or a truncated version
- */
-@property (nonatomic) BOOL truncatesVerboseResponse;
-
-/**
  @abstract A dictionary of completion handlers to be called when file downloads are complete
  */
 @property (nonatomic, strong) NSMutableDictionary *completionHandlerDictionary;
@@ -108,14 +102,16 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 
 @implementation TSCRequestController
 
+// Set up the logging component before it's used.
++ (void)initialize {
+    request_controller_log = os_log_create("com.threesidedcube.ThunderRequest", "TSCRequestController");
+}
+
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-
-        self.verboseLogging = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestVerboseLogging"] boolValue];
-        self.truncatesVerboseResponse = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TSCThunderRequestTruncatesVerboseResponse"] boolValue];
-        
+		
         self.sharedRequestHeaders = [NSMutableDictionary dictionary];
 
         self.authQueuedRequests = [NSMutableArray new];
@@ -489,22 +485,13 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	}
 	
 	//Log
-	if (self.verboseLogging) {
+	
+	if (error) {
+		os_log_debug(request_controller_log, "Request:%@", request);
+		os_log_error(request_controller_log, "\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: FAILURE \nError Description: %@",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], error.localizedDescription );
+	} else {
 		
-		if (error) {
-			
-			NSLog(@"Request:%@", request);
-			NSLog(@"\n<ThunderRequest>\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: FAILURE \nError Description: %@",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], error.localizedDescription);
-		} else {
-			
-			[scheduleThread performBlock:^{
-				
-				NSRange truncatedRange = {0, MIN(requestResponse.string.length, 25)};
-				truncatedRange = [requestResponse.string rangeOfComposedCharacterSequencesForRange:truncatedRange];
-				
-				NSLog(@"\n<ThunderRequest>\nURL:    %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: %li\nResponse Body: %@\n",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], (long)requestResponse.status, self.truncatesVerboseResponse ? [[requestResponse.string substringWithRange:truncatedRange] stringByAppendingString:@"..."] : requestResponse.string);
-			}];
-		}
+		os_log_debug(request_controller_log, "\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: %li\nResponse Body: %@\n", request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], (long)requestResponse.status, requestResponse.string);
 	}
 }
 
@@ -789,13 +776,13 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	NSString *taskProgressIdentifierString = [NSString stringWithFormat:@"%lu-progress", (unsigned long)identifier];
 	
 	if ([self.completionHandlerDictionary objectForKey:taskIdentifierString]) {
-		NSLog(@"Error: Got multiple handlers for a single task identifier.  This should not happen.\n");
+        os_log_error(request_controller_log, "Error: Got multiple handlers for a single task identifier.  This should not happen.\n");
 	}
 	
 	[self.completionHandlerDictionary setObject:handler forKey:taskIdentifierString];
 	
 	if ([self.completionHandlerDictionary objectForKey:taskProgressIdentifierString]) {
-		NSLog(@"Error: Got multiple progress handlers for a single task identifier.  This should not happen.\n");
+        os_log_error(request_controller_log, "Error: Got multiple progress handlers for a single task identifier.  This should not happen.\n");
 	}
 	
 	[self.completionHandlerDictionary setObject:progress forKey:taskProgressIdentifierString];
@@ -896,7 +883,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 
 - (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session
 {
-	NSLog(@"finihed events for bg session");
+    os_log_debug(request_controller_log, "finished events for bg session");
 }
 
 #pragma mark - Request conversion
