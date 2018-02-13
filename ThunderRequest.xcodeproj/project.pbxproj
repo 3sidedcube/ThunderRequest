@@ -103,6 +103,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		493394C520330A8600F51E11 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C2E5087919C835A300350F00 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C2E5088119C835A300350F00;
+			remoteInfo = ThunderRequest;
+		};
 		B1177EE41BBAF18E00372D4D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C2E5087919C835A300350F00 /* Project object */;
@@ -490,6 +497,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				493394C620330A8600F51E11 /* PBXTargetDependency */,
 			);
 			name = ThunderRequestTests;
 			productName = ThunderRequestTests;
@@ -668,6 +676,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		493394C620330A8600F51E11 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C2E5088119C835A300350F00 /* ThunderRequest */;
+			targetProxy = 493394C520330A8600F51E11 /* PBXContainerItemProxy */;
+		};
 		B1177EE51BBAF18E00372D4D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B1177ED71BBAF18E00372D4D /* ThunderRequestMac */;
