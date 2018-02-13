@@ -24,6 +24,7 @@
 		49084FE61BD13E2A0012F636 /* TSCErrorRecoveryOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49084FE71BD13E2A0012F636 /* TSCRequestDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49084FE81BD13E2A0012F636 /* UIAlertController+TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0C1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		493394C820330C6F00F51E11 /* ThunderRequest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2E5088219C835A300350F00 /* ThunderRequest.framework */; };
 		49B77E0E1B36A7BF001475CE /* TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49B77E0F1B36A7BF001475CE /* TSCErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E071B36A7BF001475CE /* TSCErrorRecoveryAttempter.m */; };
 		49B77E101B36A7BF001475CE /* TSCErrorRecoveryOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -103,13 +104,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		493394C520330A8600F51E11 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C2E5087919C835A300350F00 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C2E5088119C835A300350F00;
-			remoteInfo = ThunderRequest;
-		};
 		B1177EE41BBAF18E00372D4D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C2E5087919C835A300350F00 /* Project object */;
@@ -202,6 +196,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				493394C820330C6F00F51E11 /* ThunderRequest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +210,13 @@
 				49084FD51BD13DBD0012F636 /* Info.plist */,
 			);
 			path = ThunderRequestTV;
+			sourceTree = "<group>";
+		};
+		493394C720330C6F00F51E11 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		B1177ED91BBAF18E00372D4D /* ThunderRequestMac */ = {
@@ -260,6 +262,7 @@
 				B1177EE61BBAF18E00372D4D /* ThunderRequestMacTests */,
 				49084FD21BD13DBD0012F636 /* ThunderRequestTV */,
 				C2E5088319C835A300350F00 /* Products */,
+				493394C720330C6F00F51E11 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -497,7 +500,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				493394C620330A8600F51E11 /* PBXTargetDependency */,
 			);
 			name = ThunderRequestTests;
 			productName = ThunderRequestTests;
@@ -676,11 +678,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		493394C620330A8600F51E11 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C2E5088119C835A300350F00 /* ThunderRequest */;
-			targetProxy = 493394C520330A8600F51E11 /* PBXContainerItemProxy */;
-		};
 		B1177EE51BBAF18E00372D4D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B1177ED71BBAF18E00372D4D /* ThunderRequestMac */;
