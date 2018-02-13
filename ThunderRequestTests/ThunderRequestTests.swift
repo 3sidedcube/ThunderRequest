@@ -8,11 +8,11 @@
 
 import UIKit
 import XCTest
-import ThunderRequest
+@testable import ThunderRequest
 
 class ThunderRequestTests: XCTestCase {
     
-    let requestBaseURL = NSURL(string: "https://httpbin.org/")
+    let requestBaseURL = URL(string: "https://httpbin.org/")
 
     override func setUp() {
         super.setUp()
@@ -35,7 +35,7 @@ class ThunderRequestTests: XCTestCase {
         
         let requestController = TSCRequestController(baseURL: requestBaseURL!)
         
-        let finishExpectation = expectationWithDescription("GET Request")
+        let finishExpectation = expectation(description: "GET Request")
         
         requestController.get("get") { (response, error) -> Void in
             
@@ -46,7 +46,7 @@ class ThunderRequestTests: XCTestCase {
             
         }
         
-        waitForExpectationsWithTimeout(35) { (error) -> Void in
+        waitForExpectations(timeout: 35) { (error) -> Void in
             
             XCTAssertNil(error, "The GET request timed out")
             
@@ -58,7 +58,7 @@ class ThunderRequestTests: XCTestCase {
             
         let requestController = TSCRequestController(baseURL: requestBaseURL!)
         
-        let finishExpectation = expectationWithDescription("404 Request should return with response and error")
+        let finishExpectation = expectation(description: "404 Request should return with response and error")
         
         requestController.get("status/404", completion: { (response, error) -> Void in
 
@@ -70,7 +70,7 @@ class ThunderRequestTests: XCTestCase {
             
         })
         
-        waitForExpectationsWithTimeout(35, handler: { (error) -> Void in
+        waitForExpectations(timeout: 35, handler: { (error) -> Void in
             
             XCTAssertNil(error, "The 404 request timed out")
             
@@ -82,7 +82,7 @@ class ThunderRequestTests: XCTestCase {
         
         let requestController = TSCRequestController(baseURL: requestBaseURL!)
         
-        let finishExpectation = expectationWithDescription("500 Response should return with response and error")
+        let finishExpectation = expectation(description: "500 Response should return with response and error")
         
         requestController.get("status/500", completion: { (response, error) -> Void in
             
@@ -94,7 +94,7 @@ class ThunderRequestTests: XCTestCase {
             
         })
         
-        waitForExpectationsWithTimeout(35, handler: { (error) -> Void in
+        waitForExpectations(timeout: 35, handler: { (error) -> Void in
             
             XCTAssertNil(error, "The 404 request timed out")
             
@@ -105,11 +105,11 @@ class ThunderRequestTests: XCTestCase {
     
         let requestController = TSCRequestController(baseURL: requestBaseURL!)
 
-        let finishExpectation = expectationWithDescription("App should be notified about server errors")
+        let finishExpectation = expectation(description: "App should be notified about server errors")
 
         var notificationFound = false
 
-        let observer = NSNotificationCenter.defaultCenter().addObserverForName("TSCRequestServerError", object: nil, queue: nil) { (notification) -> Void in
+        let observer = NotificationCenter.default.addObserver(forName: NSNotification.Name("TSCRequestServerError"), object: nil, queue: nil) { (notification) -> Void in
 
             notificationFound = true
 
@@ -123,11 +123,11 @@ class ThunderRequestTests: XCTestCase {
 
         })
     
-        waitForExpectationsWithTimeout(35, handler: { (error) -> Void in
+        waitForExpectations(timeout: 35, handler: { (error) -> Void in
 
             XCTAssertNil(error, "The notification test timed out")
             
-            NSNotificationCenter.defaultCenter().removeObserver(observer)
+            NotificationCenter.default.removeObserver(observer)
 
         })
     }
@@ -136,11 +136,11 @@ class ThunderRequestTests: XCTestCase {
         
         let requestController = TSCRequestController(baseURL: requestBaseURL!)
         
-        let finishExpectation = expectationWithDescription("App should be notified about server responses")
+        let finishExpectation = expectation(description: "App should be notified about server responses")
         
         var notificationFound = false
         
-        let observer = NSNotificationCenter.defaultCenter().addObserverForName("TSCRequestDidReceiveResponse", object: nil, queue: nil) { (notification) -> Void in
+        let observer = NotificationCenter.default.addObserver(forName: NSNotification.Name("TSCRequestDidReceiveResponse"), object: nil, queue: nil) { (notification) -> Void in
             
             notificationFound = true
             
@@ -154,11 +154,11 @@ class ThunderRequestTests: XCTestCase {
             
         })
         
-        waitForExpectationsWithTimeout(35, handler: { (error) -> Void in
+        waitForExpectations(timeout: 35, handler: { (error) -> Void in
             
             XCTAssertNil(error, "The server response notification test timed out")
             
-            NSNotificationCenter.defaultCenter().removeObserver(observer)
+            NotificationCenter.default.removeObserver(observer)
             
         })
     }
@@ -167,7 +167,7 @@ class ThunderRequestTests: XCTestCase {
         
         let requestController = TSCRequestController(baseURL: requestBaseURL!)
         
-        let finishExpectation = expectationWithDescription("App should correctly send POST data to server")
+        let finishExpectation = expectation(description: "App should correctly send POST data to server")
         
         requestController.post("post", bodyParams: [NSString(string: "RequestTest"):"Success"], completion: { (response: TSCRequestResponse?, error: Error?) -> Void in
             
@@ -178,7 +178,7 @@ class ThunderRequestTests: XCTestCase {
             
         })
         
-        waitForExpectationsWithTimeout(35, handler: { (error) -> Void in
+        waitForExpectations(timeout: 35, handler: { (error) -> Void in
         
             XCTAssertNil(error, "The POST request timed out")
             
