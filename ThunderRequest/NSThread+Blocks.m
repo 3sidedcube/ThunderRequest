@@ -10,14 +10,14 @@
 
 @implementation NSThread (Blocks)
 
-+ (void)runBlock:(void (^)())block
++ (void)runBlock:(void (^)(void))block
 {
     if (block) {
         block();
     }
 }
 
-- (void)performBlock:(void (^)())block
+- (void)performBlock:(void (^)(void))block
 {
     if ([[NSThread currentThread] isEqual:self]) {
         
@@ -30,12 +30,12 @@
     }
 }
 
-- (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait
+- (void)performBlock:(void (^)(void))block waitUntilDone:(BOOL)wait
 {
     [NSThread performSelector:@selector(runBlock:) onThread:self withObject:[block copy] waitUntilDone:wait];
 }
 
-- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay
+- (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay
 {
     [self performSelector:@selector(performBlock:) withObject:[block copy] afterDelay:delay];
 }

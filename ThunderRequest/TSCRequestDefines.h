@@ -2,6 +2,9 @@ extern NSString *const TSCRequestErrorDomain;
 extern NSString *const TSCRequestServerError;
 extern NSString *const TSCRequestDidReceiveResponse;
 
+extern NSString *const TSCRequestNotificationRequestKey;
+extern NSString *const TSCRequestNotificationResponseKey;
+
 extern NSString *const TSCMultipartFormDataDataKey;
 extern NSString *const TSCMultipartFormDataFilenameKey;
 extern NSString *const TSCMultipartFormDataNameKey;
@@ -12,16 +15,19 @@ typedef NS_ENUM(NSInteger, TSCRequestHTTPMethod) {
     TSCRequestHTTPMethodPOST = 1,
     TSCRequestHTTPMethodPUT = 2,
     TSCRequestHTTPMethodDELETE = 3,
-    TSCRequestHTTPMethodHEAD = 4
+    TSCRequestHTTPMethodHEAD = 4,
+    TSCRequestHTTPMethodPATCH = 5
 };
 
 typedef NS_ENUM(NSInteger, TSCRequestContentType) {
-    TSCRequestContentTypeJSON = 0,
-    TSCRequestContentTypeFormURLEncoded = 1,
-    TSCRequestContentTypeMultipartFormData = 2,
-    TSCRequestContentTypeImagePNG = 3,
-    TSCRequestContentTypeImageJPEG = 4,
-    TSCRequestContentTypeXMLPlist = 5
+    TSCRequestContentTypeUndefined = 0,
+    TSCRequestContentTypeJSON = 1,
+    TSCRequestContentTypeFormURLEncoded = 2,
+    TSCRequestContentTypeMultipartFormData = 3,
+    TSCRequestContentTypeImagePNG = 4,
+    TSCRequestContentTypeImageJPEG = 5,
+    TSCRequestContentTypeXMLPlist = 6,
+    TSCRequestContentTypeURLArguments = 7
 };
 
 /** The styles available for a `TSCErrorRecoveryOption` */
@@ -69,6 +75,8 @@ typedef NS_ENUM(NSInteger, TSCResponseStatus) {
     TSCResponseStatusUnsupportedMediaType = 415,
     TSCResponseStatusRangeNotSatisfiable = 416,
     TSCResponseStatusExpectationFailed = 417,
+    TSCResponseStatusImATeapot = 418,
+    TSCResponseStatusAuthenticationTimeout = 419,
     TSCResponseStatusInternalServerError = 500,
     TSCResponseStatusNotImplemented = 501,
     TSCResponseStatusBadGateway = 502,

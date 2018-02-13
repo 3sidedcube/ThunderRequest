@@ -7,6 +7,7 @@
 #endif
 #import "TSCRequestDefines.h"
 #import "TSCOAuth2Manager.h"
+#import "TSCRequest.h"
 
 @class TSCRequestResponse;
 @class TSCRequestCredential;
@@ -23,6 +24,8 @@
  2. Initialise the controller with either the `initWithBaseURL:` or `initWithBaseAddress:` method.
  3. Use any of the GET, POST, PUT, DELETE or HEAD methods to perform an asynchronous web request
  
+ IMPORTANT --- TSCRequestController uses NSURLSessions internally, which cause a memory leak due to having a strong reference to their delegate
+ when you are done with an instance of TSCRequestController you must call -invalidateAndCancel
  */
 @interface TSCRequestController : NSObject
 
@@ -35,6 +38,11 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  @discussion This is most commonly set using the `initWithBaseURL:` or `initWithBaseAddress:` methods.
  */
 @property (nonatomic, strong, nonnull) NSURL *sharedBaseURL;
+
+/**
+ A custom queue to dispatch all callbacks from requests onto
+ */
+@property (nonatomic, assign, nullable) dispatch_queue_t callbackQueue;
 
 /**
  @abstract The request controller for making OAuth2 re-authentication requests on
@@ -78,13 +86,13 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  Initializes the request controller.
  @param baseURL The `NSURL` to initialise the controller with. This URL will be used as the base for all requests.
  */
-- (nonnull instancetype)initWithBaseURL:(nonnull NSURL *)baseURL;
+- (nonnull instancetype)initWithBaseURL:(nullable NSURL *)baseURL;
 
 /**
  Initializes the request controller.
  @param baseAddress The `NSString` to initialise the controller with. This will be converted to a NSURL and be used as the base for all requests.
  */
-- (nonnull instancetype)initWithBaseAddress:(nonnull NSString *)baseAddress;
+- (nonnull instancetype)initWithBaseAddress:(nullable NSString *)baseAddress;
 
 ///---------------------------------------------------------------------------------------
 /// @name GET requests
@@ -107,6 +115,16 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  */
 - (nonnull TSCRequest *)get:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary completion:(nonnull TSCRequestCompletionHandler)completion;
 
+/**
+ Performs a GET request on the base URL using the supplied paramater dictionary to build the URL.
+ @param path The path to be appended to the base URL.
+ @param URLParamDictionary Dictionary used to build the URL.
+ @param contentType The content type to send in the header
+ @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
+ */
+- (nonnull TSCRequest *)get:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion;
+
 ///---------------------------------------------------------------------------------------
 /// @name POST requests
 ///---------------------------------------------------------------------------------------
@@ -118,7 +136,7 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  @param completion The completion block that will be fired once the request has completed.
  @return the request object which was created to perform the required HTTP Request
  */
-- (nonnull TSCRequest *)post:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)post:(nonnull NSString *)path bodyParams:(nullable id)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
 
 /**
  Performs a POST request on the base URL using the supplied paramater dictionary to build the URL, and bodyParams dictionary as the POST body.
@@ -128,7 +146,7 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  @param completion The completion block that will be fired once the request has completed.
  @return the request object which was created to perform the required HTTP Request
  */
-- (nonnull TSCRequest *)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable id)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
 
 /**
  Performs a POST request on the base URL using the supplied paramater dictionary to build the URL, and bodyParams dictionary as the POST body.
@@ -139,7 +157,7 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  @param completion The completion block that will be fired once the request has completed.
  @return the request object which was created to perform the required HTTP Request
  */
-- (nonnull TSCRequest *)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)post:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable id)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion;
 
 ///---------------------------------------------------------------------------------------
 /// @name PUT requests
@@ -152,7 +170,7 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  @param completion The completion block that will be fired once the request has completed.
  @return the request object which was created to perform the required HTTP Request
  */
-- (nonnull TSCRequest *)put:(nonnull NSString *)path bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)put:(nonnull NSString *)path bodyParams:(nullable id)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
 
 /**
  Performs a PUT request on the base URL using the supplied paramater dictionary to build the URL, and bodyParams dictionary as the PUT body.
@@ -162,7 +180,7 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  @param completion The completion block that will be fired once the request has completed.
  @return the request object which was created to perform the required HTTP Request
  */
-- (nonnull TSCRequest *)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable id)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
 
 /**
  Performs a PUT request on the base URL using the supplied paramater dictionary to build the URL, and bodyParams dictionary as the POST body.
@@ -173,7 +191,41 @@ typedef void (^TSCRequestProgressHandler)(CGFloat progress, NSInteger totalBytes
  @param completion The completion block that will be fired once the request has completed.
  @return the request object which was created to perform the required HTTP Request
  */
-- (nonnull TSCRequest *)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable NSDictionary *)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion;
+- (nonnull TSCRequest *)put:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable id)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion;
+
+///---------------------------------------------------------------------------------------
+/// @name PATCH requests
+///---------------------------------------------------------------------------------------
+
+/**
+ Performs a PATCH request on the base URL using the supplied bodyParams dictionary as the PATCH body.
+ @param path The path to be appended to the base URL.
+ @param bodyParams The dictionary used in the PATCH body.
+ @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
+ */
+- (nonnull TSCRequest *)patch:(nonnull NSString *)path bodyParams:(nullable id)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
+
+/**
+ Performs a PATCH request on the base URL using the supplied paramater dictionary to build the URL, and bodyParams dictionary as the PATCH body.
+ @param path The path to be appended to the base URL.
+ @param URLParamDictionary Dictionary used to build the URL.
+ @param bodyParams The dictionary used in the PATCH body.
+ @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
+ */
+- (nonnull TSCRequest *)patch:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable id)bodyParams completion:(nonnull TSCRequestCompletionHandler)completion;
+
+/**
+ Performs a PATCH request on the base URL using the supplied paramater dictionary to build the URL, and bodyParams dictionary as the PATCH body.
+ @param path The path to be appended to the base URL.
+ @param URLParamDictionary Dictionary used to build the URL.
+ @param bodyParams The dictionary used in the PATCH body.
+ @param contentType The type of `TSCRequestContentType` to be used when encoding the request body
+ @param completion The completion block that will be fired once the request has completed.
+ @return the request object which was created to perform the required HTTP Request
+ */
+- (nonnull TSCRequest *)patch:(nonnull NSString *)path withURLParamDictionary:(nullable NSDictionary *)URLParamDictionary bodyParams:(nullable id)bodyParams contentType:(TSCRequestContentType)contentType completion:(nonnull TSCRequestCompletionHandler)completion;
 
 ///---------------------------------------------------------------------------------------
 /// @name DELETE requests
@@ -219,7 +271,7 @@ Performs a file download task using the base url and given path component.
 @param progress The block to be called with progress information during the download
 @param completion The completion block that will be fired once the request has completed
 */
-- (void)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
+- (nonnull TSCRequest *)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
 
 
 ///---------------------------------------------------------------------------------------
@@ -233,7 +285,7 @@ Performs a file download task using the base url and given path component.
  @param progress The block to be called with progress information during the download
  @param completion The completion block that will be fired once the request has completed
  */
-- (void)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
+- (nonnull TSCRequest *)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
 
 /**
  Performs a file upload task using the base url and given path component.
@@ -243,7 +295,7 @@ Performs a file download task using the base url and given path component.
  @param progress The block to be called with progress information during the download
  @param completion The completion block that will be fired once the request has completed
  */
-- (void)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
+- (nonnull TSCRequest *)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
 
 /**
  Performs a file upload task using the base url and given path component.
@@ -252,7 +304,7 @@ Performs a file download task using the base url and given path component.
  @param progress The block to be called with progress information during the download
  @param completion The completion block that will be fired once the request has completed
  */
-- (void)uploadFileFromPath:(nonnull NSString *)filePath toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
+- (nonnull TSCRequest *)uploadFileFromPath:(nonnull NSString *)filePath toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
 
 /**
  Performs a file upload task using the base url and given path component.
@@ -262,6 +314,32 @@ Performs a file download task using the base url and given path component.
  @param progress The block to be called with progress information during the download
  @param completion The completion block that will be fired once the request has completed
  */
-- (void)uploadBodyParams:(nullable NSDictionary *)bodyParams toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
+- (nonnull TSCRequest *)uploadBodyParams:(nullable NSDictionary *)bodyParams toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
+
+/**
+ Sets the user agent to be used for any instance of TSCRequestController
+ @param userAgent the string to set the request controller's user agent to
+ */
++ (void)setUserAgent:(nullable NSString *)userAgent;
+
+/**
+ Calls invalidate and cancel on all internal NSURLSession objects to allow self to be deallocated
+ */
+- (void)invalidateAndCancel;
+
+///---------------------------------------------------------------------------------------
+/// @name Cancelling requests
+///---------------------------------------------------------------------------------------
+
+/**
+ Cancels all requests in any of the queues calling the completion block with a cancellation error
+ */
+- (void)cancelAllRequests;
+
+/**
+ Cancels requests in any of the queues with a specific tag, calling the completion block with a cancellation error
+ @param tag The tag to cancel requests for
+ */
+- (void)cancelRequestsWithTag:(NSInteger)tag;
 
 @end

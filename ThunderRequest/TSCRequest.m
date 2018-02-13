@@ -9,7 +9,14 @@
 #import <AppKit/AppKit.h>
 #endif
 
+@import os.log;
+static os_log_t request_log;
+
 @implementation TSCRequest
+
++ (void)initialize {
+	request_log = os_log_create("com.threesidedcube.ThunderRequest", "TSCRequest");
+}
 
 - (void)prepareForDispatch
 {
@@ -17,7 +24,11 @@
         self.path = @"";
     }
     
-    self.URL = [NSURL URLWithString:self.path relativeToURL:self.baseURL];
+    if (self.baseURL) {
+        self.URL = [NSURL URLWithString:self.path relativeToURL:self.baseURL];
+    } else {
+        self.URL = [NSURL URLWithString:self.path];
+    }
     
     if (self.URLParameterDictionary) {
         self.URL = [self TSC_populatedAddressWithBaseAddress:self.URL.absoluteString paramDictionary:self.URLParameterDictionary];
@@ -25,8 +36,18 @@
     
     self.HTTPMethod = [self stringForHTTPMethod:self.requestHTTPMethod];
     self.HTTPBody = [self HTTPBodyWithDictionary:self.bodyParameters];
-    [self setValue:[self TSC_contentTypeStringForContentType:self.contentType] forHTTPHeaderField:@"Content-Type"];
-    [self.requestHeaders setValue:[self TSC_contentTypeStringForContentType:self.contentType] forKey:@"Content-Type"];
+	
+	// We don't set the content-type header for GET requests as they shouldn't be sending data
+	// and some APIs will error if you provide a Content-Type with no data!
+	if (self.HTTPMethod != TSCRequestHTTPMethodGET && self.HTTPBody) {
+		[self setValue:[self TSC_contentTypeStringForContentType:self.contentType] forHTTPHeaderField:@"Content-Type"];
+		[self.requestHeaders setValue:[self TSC_contentTypeStringForContentType:self.contentType] forKey:@"Content-Type"];
+	}
+	
+	if (self.HTTPMethod == TSCRequestHTTPMethodGET && self.HTTPBody) {
+		os_log_error(request_log, "Invalid request to: %@. Should not be sending a GET request with a non-nil body", self.URL.absoluteString);
+	}
+	
     for (NSString *key in [self.requestHeaders allKeys]) {
         [self setValue:self.requestHeaders[key] forHTTPHeaderField:key];
     }
@@ -235,6 +256,8 @@
             return @"DELETE";
         case TSCRequestHTTPMethodHEAD:
             return @"HEAD";
+        case TSCRequestHTTPMethodPATCH:
+            return @"PATCH";
         default:
             return nil;
             break;
@@ -261,6 +284,9 @@
             break;
         case TSCRequestContentTypeXMLPlist:
             return @"text/x-xml-plist";
+            break;
+        case TSCRequestContentTypeURLArguments:
+            return @"text/x-url-arguments";
             break;
         default:
             return @"application/json";

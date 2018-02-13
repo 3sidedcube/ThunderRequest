@@ -7,18 +7,20 @@
 //
 
 #import "NSURLSession+Synchronous.h"
+#import "NSMutableURLRequest+TaskIdentifier.h"
+
 
 @implementation NSURLSession (Synchronous)
 
 #pragma mark - Data Tasks
 #pragma mark -
 
-- (NSData *)sendSynchronousDataTaskWithRequest:(NSURLRequest *)request returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
+- (NSData *)sendSynchronousDataTaskWithRequest:(NSMutableURLRequest *)request returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
 {
     dispatch_semaphore_t taskSemaphore = dispatch_semaphore_create(0);
     __block NSData *returnData;
     
-    [[self dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable taskResponse, NSError * _Nullable taskError) {
+    NSURLSessionDataTask *task = [self dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable taskResponse, NSError * _Nullable taskError) {
         
         returnData = data;
         
@@ -31,7 +33,10 @@
         }
         
         dispatch_semaphore_signal(taskSemaphore);
-    }] resume];
+    }];
+    
+    request.taskIdentifier = task.taskIdentifier;
+    [task resume];
     
     dispatch_semaphore_wait(taskSemaphore, DISPATCH_TIME_FOREVER);
     
@@ -40,18 +45,18 @@
 
 - (NSData *)sendSynchronousDataTaskWithURL:(NSURL *)url returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
 {
-    return [self sendSynchronousDataTaskWithRequest:[NSURLRequest requestWithURL:url] returningResponse:response error:error];
+    return [self sendSynchronousDataTaskWithRequest:[NSMutableURLRequest requestWithURL:url] returningResponse:response error:error];
 }
 
 #pragma mark - Upload Tasks
 #pragma mark -
 
-- (NSData *)sendSynchronousUploadTaskWithRequest:(NSURLRequest *)request fromData:(NSData *)data returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
+- (NSData *)sendSynchronousUploadTaskWithRequest:(NSMutableURLRequest *)request fromData:(NSData *)data returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
 {
     dispatch_semaphore_t taskSemaphore = dispatch_semaphore_create(0);
     __block NSData *returnData;
     
-    [[self uploadTaskWithRequest:request fromData:data completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable taskResponse, NSError * _Nullable taskError) {
+    NSURLSessionUploadTask *task = [self uploadTaskWithRequest:request fromData:data completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable taskResponse, NSError * _Nullable taskError) {
         
         returnData = data;
         
@@ -65,19 +70,22 @@
         
         dispatch_semaphore_signal(taskSemaphore);
         
-    }] resume];
+    }];
+    
+    request.taskIdentifier = task.taskIdentifier;
+    [task resume];
     
     dispatch_semaphore_wait(taskSemaphore, DISPATCH_TIME_FOREVER);
     
     return returnData;
 }
 
-- (NSData *)sendSynchronousUploadTaskWithRequest:(NSURLRequest *)request fromFile:(NSURL *)fileURL returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
+- (NSData *)sendSynchronousUploadTaskWithRequest:(NSMutableURLRequest *)request fromFile:(NSURL *)fileURL returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
 {
     dispatch_semaphore_t taskSemaphore = dispatch_semaphore_create(0);
     __block NSData *returnData;
     
-    [[self uploadTaskWithRequest:request fromFile:fileURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable taskResponse, NSError * _Nullable taskError) {
+    NSURLSessionUploadTask *task = [self uploadTaskWithRequest:request fromFile:fileURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable taskResponse, NSError * _Nullable taskError) {
         
         returnData = data;
         
@@ -91,7 +99,10 @@
         
         dispatch_semaphore_signal(taskSemaphore);
         
-    }] resume];
+    }];
+    
+    request.taskIdentifier = task.taskIdentifier;
+    [task resume];
     
     dispatch_semaphore_wait(taskSemaphore, DISPATCH_TIME_FOREVER);
     
@@ -101,12 +112,12 @@
 #pragma mark - Download Tasks
 #pragma mark -
 
-- (NSURL *)sendSynchronousDownloadTaskWithRequest:(NSURLRequest *)request returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
+- (NSURL *)sendSynchronousDownloadTaskWithRequest:(NSMutableURLRequest *)request returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
 {
     dispatch_semaphore_t taskSemaphore = dispatch_semaphore_create(0);
     __block NSURL *returnURL;
     
-    [[self downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable taskResponse, NSError * _Nullable taskError) {
+    NSURLSessionDownloadTask *task = [self downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable taskResponse, NSError * _Nullable taskError) {
         
         returnURL = location;
         
@@ -120,7 +131,11 @@
         
         dispatch_semaphore_signal(taskSemaphore);
         
-    }] resume];
+    }];
+    
+    request.taskIdentifier = task.taskIdentifier;
+    
+    [task resume];
     
     dispatch_semaphore_wait(taskSemaphore, DISPATCH_TIME_FOREVER);
     
@@ -129,7 +144,7 @@
 
 - (NSURL *)sendSynchronousDownloadTaskWithURL:(NSURL *)url returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
 {
-    return [self sendSynchronousDownloadTaskWithRequest:[NSURLRequest requestWithURL:url] returningResponse:response error:error];
+    return [self sendSynchronousDownloadTaskWithRequest:[NSMutableURLRequest requestWithURL:url] returningResponse:response error:error];
 }
 
 - (NSURL *)sendSynchronousDownloadTaskWithResumeData:(NSData *)resumeData returningResponse:(NSURLResponse *__autoreleasing  _Nullable *)response error:(NSError *__autoreleasing  _Nullable *)error
@@ -137,7 +152,7 @@
     dispatch_semaphore_t taskSemaphore = dispatch_semaphore_create(0);
     __block NSURL *returnURL;
     
-    [[self downloadTaskWithResumeData:resumeData completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable taskResponse, NSError * _Nullable taskError) {
+    NSURLSessionDownloadTask *task = [self downloadTaskWithResumeData:resumeData completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable taskResponse, NSError * _Nullable taskError) {
         
         returnURL = location;
         
@@ -151,7 +166,9 @@
         
         dispatch_semaphore_signal(taskSemaphore);
         
-    }] resume];
+    }];
+    
+    [task resume];
     
     dispatch_semaphore_wait(taskSemaphore, DISPATCH_TIME_FOREVER);
     

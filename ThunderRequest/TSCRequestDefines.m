@@ -11,6 +11,8 @@
 NSString *const TSCRequestErrorDomain = @"com.threesidedcube.ThunderRequest";
 NSString *const TSCRequestServerError = @"TSCRequestServerError";
 NSString *const TSCRequestDidReceiveResponse = @"TSCRequestDidReceiveResponse";
+NSString *const TSCRequestNotificationRequestKey = @"TSCRequestNotificationRequestKey";
+NSString *const TSCRequestNotificationResponseKey = @"TSCRequestNotificationResponseKey";
 
 NSString *const TSCMultipartFormDataDataKey = @"TSC_MPFD_DATA";
 NSString *const TSCMultipartFormDataFilenameKey = @"TSC_MPFD_FILENAME";

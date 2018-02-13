@@ -65,7 +65,11 @@
 #ifdef DEBUG
     return _array;
 #else
-    return (NSArray * )[self object];
+    if ([[self object] isKindOfClass:[NSArray class]]) {
+        return (NSArray * )[self object];
+    } else {
+        return nil;
+    }
 #endif
 }
 
@@ -74,7 +78,11 @@
 #ifdef DEBUG
     return _dictionary;
 #else
-    return (NSDictionary * )[self object];
+    if ([[self object] isKindOfClass:[NSDictionary class]]) {
+        return (NSDictionary * )[self object];
+    } else {
+        return nil;
+    }
 #endif
 }
 

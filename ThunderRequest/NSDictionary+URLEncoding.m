@@ -17,7 +17,7 @@ static NSString *toString(id object) {
 // helper function: get the url encoded string form of any object
 static NSString *urlEncode(id object) {
     NSString *string = toString(object);
-    return [string stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+    return [string stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 }
 
 + (instancetype)dictionaryWithURLEncodedString:(NSString *)string
@@ -31,10 +31,10 @@ static NSString *urlEncode(id object) {
     for (NSString *parameter in parameters)
     {
         NSArray *parts = [parameter componentsSeparatedByString:@"="];
-        NSString *key = [[parts objectAtIndex:0] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *key = [[parts objectAtIndex:0] stringByRemovingPercentEncoding];
         if ([parts count] > 1)
         {
-            id value = [[parts objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            id value = [[parts objectAtIndex:1] stringByRemovingPercentEncoding];
             [result setObject:value forKey:key];
         }
     }

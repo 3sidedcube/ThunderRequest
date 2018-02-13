@@ -36,7 +36,7 @@
 /**
  @abstract A dictionary to be used as the body of the request
  */
-@property (nonatomic, strong, nullable) NSDictionary *bodyParameters;
+@property (nonatomic, strong, nullable) id bodyParameters;
 
 /**
  @abstract A dictionary to be used as the headers for the request
@@ -49,6 +49,12 @@
  @discussion For example a URL path could be constructed as "api/(:version)/users". The "(:version)" part of the path will be replaced by the value for the "version" key in this dictionary
  */
 @property (nonatomic, strong, nullable) NSDictionary *URLParameterDictionary;
+
+/**
+ @abstract The tag of the request
+ @discussion This can be used for example to cancel a bunch of requests marked with the same tag!
+ */
+@property (nonatomic, assign) NSInteger tag;
 
 /**
  Configures the request with the set parameters and makes it ready for queuing 
