@@ -33,6 +33,10 @@
 		49B77E141B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0C1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49B77E151B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E0D1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m */; };
 		49F7B2E51B96F53100DDB587 /* TSCRequestDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */; };
+		B1113ED6207E65FF00FB680A /* BackgroundSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1113ED5207E65FF00FB680A /* BackgroundSessionController.swift */; };
+		B1113ED7207E65FF00FB680A /* BackgroundSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1113ED5207E65FF00FB680A /* BackgroundSessionController.swift */; };
+		B1113ED8207E65FF00FB680A /* BackgroundSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1113ED5207E65FF00FB680A /* BackgroundSessionController.swift */; };
+		B1113ED9207E65FF00FB680A /* BackgroundSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1113ED5207E65FF00FB680A /* BackgroundSessionController.swift */; };
 		B1177EDD1BBAF18E00372D4D /* ThunderRequestMac.h in Headers */ = {isa = PBXBuildFile; fileRef = B1177EDC1BBAF18E00372D4D /* ThunderRequestMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1177EE31BBAF18E00372D4D /* ThunderRequestMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */; };
 		B1177EEA1BBAF18E00372D4D /* ThunderRequestMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B1177EE91BBAF18E00372D4D /* ThunderRequestMacTests.m */; };
@@ -153,6 +157,7 @@
 		49B77E0C1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+TSCErrorRecoveryAttempter.h"; sourceTree = "<group>"; };
 		49B77E0D1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+TSCErrorRecoveryAttempter.m"; sourceTree = "<group>"; };
 		49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCRequestDefines.m; sourceTree = "<group>"; };
+		B1113ED5207E65FF00FB680A /* BackgroundSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundSessionController.swift; sourceTree = "<group>"; };
 		B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequestMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1177EDB1BBAF18E00372D4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1177EDC1BBAF18E00372D4D /* ThunderRequestMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThunderRequestMac.h; sourceTree = "<group>"; };
@@ -342,6 +347,7 @@
 				C2E5089D19C835D900350F00 /* TSCRequest.m */,
 				C2E5089E19C835D900350F00 /* TSCRequestController.h */,
 				C2E5089F19C835D900350F00 /* TSCRequestController.m */,
+				B1113ED5207E65FF00FB680A /* BackgroundSessionController.swift */,
 				C2E508A019C835D900350F00 /* TSCRequestCredential.h */,
 				C2E508A119C835D900350F00 /* TSCRequestCredential.m */,
 				B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */,
@@ -607,10 +613,11 @@
 				TargetAttributes = {
 					49084FD01BD13DBD0012F636 = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0930;
 					};
 					B1177ED71BBAF18E00372D4D = {
 						CreatedOnToolsVersion = 6.4;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0930;
 					};
 					B1177EE11BBAF18E00372D4D = {
 						CreatedOnToolsVersion = 6.4;
@@ -618,6 +625,7 @@
 					B120EE3C207B895800A4A7CA = {
 						CreatedOnToolsVersion = 9.3;
 						DevelopmentTeam = 25H7BM6YWK;
+						LastSwiftMigration = 0930;
 						ProvisioningStyle = Automatic;
 					};
 					C2E5088119C835A300350F00 = {
@@ -702,6 +710,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49084FD91BD13DF80012F636 /* TSCRequest.m in Sources */,
+				B1113ED8207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
 				B12F7CAA1BFDD6BD002B7D60 /* NSURLSession+Synchronous.m in Sources */,
 				49084FDA1BD13DF80012F636 /* TSCRequestController.m in Sources */,
 				49084FDB1BD13DF80012F636 /* TSCRequestCredential.m in Sources */,
@@ -728,6 +737,7 @@
 				B1177EF31BBAF21F00372D4D /* TSCRequestCredential.m in Sources */,
 				B19894901BEA3E8800E96DA3 /* NSThread+Blocks.m in Sources */,
 				B1177EF41BBAF21F00372D4D /* TSCRequestResponse.m in Sources */,
+				B1113ED7207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
 				B1177EF51BBAF21F00372D4D /* TSCErrorRecoveryAttempter.m in Sources */,
 				B198948C1BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m in Sources */,
 				B17F34601BF4A59000F3586C /* NSDictionary+URLEncoding.m in Sources */,
@@ -756,6 +766,7 @@
 				B120EE61207B897600A4A7CA /* NSThread+Blocks.m in Sources */,
 				B120EE59207B897600A4A7CA /* TSCErrorRecoveryOption.m in Sources */,
 				B120EE46207B896D00A4A7CA /* TSCRequest+TaskIdentifier.m in Sources */,
+				B1113ED9207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
 				B120EE5D207B897600A4A7CA /* NSDictionary+URLEncoding.m in Sources */,
 				B120EE57207B897600A4A7CA /* TSCErrorRecoveryAttempter.m in Sources */,
 				B120EE5B207B897600A4A7CA /* TSCRequestDefines.m in Sources */,
@@ -782,6 +793,7 @@
 				49B77E0F1B36A7BF001475CE /* TSCErrorRecoveryAttempter.m in Sources */,
 				C2E508A619C835D900350F00 /* TSCRequest.m in Sources */,
 				49B77E111B36A7BF001475CE /* TSCErrorRecoveryOption.m in Sources */,
+				B1113ED6207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
 				49F7B2E51B96F53100DDB587 /* TSCRequestDefines.m in Sources */,
 				B1FC231E1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m in Sources */,
 				B1BA54F21CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */,
@@ -811,6 +823,7 @@
 		49084FD61BD13DBD0012F636 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -825,6 +838,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
@@ -833,6 +848,7 @@
 		49084FD71BD13DBD0012F636 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -848,6 +864,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
@@ -856,6 +873,7 @@
 		B1177EEB1BBAF18E00372D4D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -876,6 +894,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -883,6 +902,7 @@
 		B1177EEC1BBAF18E00372D4D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -907,6 +927,7 @@
 		B1177EED1BBAF18E00372D4D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -930,6 +951,7 @@
 		B1177EEE1BBAF18E00372D4D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -954,6 +976,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -975,6 +998,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 4.3;
 			};
@@ -987,6 +1012,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1009,6 +1035,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 4.3;
 			};
