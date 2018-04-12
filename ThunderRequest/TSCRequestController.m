@@ -788,13 +788,17 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
         os_log_error(request_controller_log, "Error: Got multiple handlers for a single task identifier.  This should not happen.\n");
 	}
 	
-	[self.completionHandlerDictionary setObject:handler forKey:taskIdentifierString];
+    if (handler) {
+        [self.completionHandlerDictionary setObject:handler forKey:taskIdentifierString];
+    }
 	
 	if ([self.completionHandlerDictionary objectForKey:taskProgressIdentifierString]) {
         os_log_error(request_controller_log, "Error: Got multiple progress handlers for a single task identifier.  This should not happen.\n");
 	}
 	
-	[self.completionHandlerDictionary setObject:progress forKey:taskProgressIdentifierString];
+    if (progress) {
+        [self.completionHandlerDictionary setObject:progress forKey:taskProgressIdentifierString];
+    }
 }
 
 - (void)callCompletionHandlerForTaskIdentifier:(NSUInteger)identifier downloadedFileURL:(NSURL *)fileURL downloadError:(NSError *)error
