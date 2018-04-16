@@ -273,6 +273,15 @@ Performs a file download task using the base url and given path component.
 */
 - (nonnull TSCRequest *)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
 
+/**
+ Performs a file download task using the base url and given path component.
+ @param path The path to be appended to the base URL
+ @param date The date to perform the request at
+ @param progress The block to be called with progress information during the download
+ @param completion The completion block that will be fired once the request has completed
+ */
+- (nonnull TSCRequest *)downloadFileWithPath:(nonnull NSString *)path on:(nullable NSDate *)date progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
+
 
 ///---------------------------------------------------------------------------------------
 /// @name Upload requests
@@ -280,7 +289,7 @@ Performs a file download task using the base url and given path component.
 
 /**
  Performs a file upload task using the base url and given path component.
- @param imageData The NSData of an image to upload
+ @param fileData The NSData of a file to upload
  @param path The path to be appended to the base URL
  @param progress The block to be called with progress information during the download
  @param completion The completion block that will be fired once the request has completed
@@ -289,9 +298,9 @@ Performs a file download task using the base url and given path component.
 
 /**
  Performs a file upload task using the base url and given path component.
- @param imageData The NSData of an image to upload
+ @param fileData The NSData of a file to upload
  @param path The path to be appended to the base URL
- @param contentType The content type of the upload
+ @param type The content type of the upload
  @param progress The block to be called with progress information during the download
  @param completion The completion block that will be fired once the request has completed
  */
@@ -299,7 +308,7 @@ Performs a file download task using the base url and given path component.
 
 /**
  Performs a file upload task using the base url and given path component.
- @param path The NSData of an image to upload
+ @param filePath The path to upload the file from
  @param path The path to be appended to the base URL
  @param progress The block to be called with progress information during the download
  @param completion The completion block that will be fired once the request has completed
@@ -310,7 +319,7 @@ Performs a file download task using the base url and given path component.
  Performs a file upload task using the base url and given path component.
  @param bodyParams The NSDictionary of an object to upload
  @param path The path to be appended to the base URL
- @param contentType The content type of the upload
+ @param type The content type of the upload
  @param progress The block to be called with progress information during the download
  @param completion The completion block that will be fired once the request has completed
  */

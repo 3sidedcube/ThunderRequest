@@ -356,14 +356,19 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 
 - (nonnull TSCRequest *)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
-	TSCRequest *request = [TSCRequest new];
-	request.baseURL = self.sharedBaseURL;
-	request.path = path;
-	request.requestHTTPMethod = TSCRequestHTTPMethodGET;
-	request.requestHeaders = self.sharedRequestHeaders;
-	
-	[self scheduleDownloadRequest:request progress:progress completion:completion];
-	return request;
+    return [self downloadFileWithPath:path on:nil progress:progress completion:completion];
+}
+
+- (TSCRequest *)downloadFileWithPath:(NSString *)path on:(NSDate *)date progress:(TSCRequestProgressHandler)progress completion:(TSCRequestTransferCompletionHandler)completion {
+    
+    TSCRequest *request = [TSCRequest new];
+    request.baseURL = self.sharedBaseURL;
+    request.path = path;
+    request.requestHTTPMethod = TSCRequestHTTPMethodGET;
+    request.requestHeaders = self.sharedRequestHeaders;
+    
+    [self scheduleDownloadRequest:request on:date progress:progress completion:completion];
+    return request;
 }
 
 - (nonnull TSCRequest *)uploadFileFromPath:(nonnull NSString *)filePath toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
@@ -374,7 +379,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	request.requestHTTPMethod = TSCRequestHTTPMethodPOST;
 	request.requestHeaders = self.sharedRequestHeaders;
 	
-	[self scheduleUploadRequest:request filePath:filePath progress:progress completion:completion];
+    [self scheduleUploadRequest:request on:nil filePath:filePath progress:progress completion:completion];
 	return request;
 }
 
@@ -392,7 +397,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	NSString *filePathString = [cachesDirectory stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
 	[fileData writeToFile:filePathString atomically:YES];
 	
-	[self scheduleUploadRequest:request filePath:filePathString progress:progress completion:completion];
+	[self scheduleUploadRequest:request on:nil  filePath:filePathString progress:progress completion:completion];
 	return request;
 }
 
@@ -411,7 +416,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	NSString *filePathString = [cachesDirectory stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
 	[fileData writeToFile:filePathString atomically:YES];
 	
-	[self scheduleUploadRequest:request filePath:filePathString progress:progress completion:completion];
+	[self scheduleUploadRequest:request on:nil filePath:filePathString progress:progress completion:completion];
 	return request;
 }
 
@@ -425,7 +430,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	request.contentType = type;
 	request.bodyParameters = bodyParams;
 	
-	[self scheduleUploadRequest:request filePath:nil progress:progress completion:completion];
+	[self scheduleUploadRequest:request on:nil filePath:nil progress:progress completion:completion];
 	return request;
 }
 
@@ -569,7 +574,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	}
 }
 
-- (void)scheduleDownloadRequest:(TSCRequest *)request progress:(TSCRequestProgressHandler)progress completion:(TSCRequestTransferCompletionHandler)completion
+- (void)scheduleDownloadRequest:(TSCRequest *)request on:(NSDate *)beginDate progress:(TSCRequestProgressHandler)progress completion:(TSCRequestTransferCompletionHandler)completion
 {
 	__weak typeof(self) welf = self;
 	
@@ -602,6 +607,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 			
 			NSURLRequest *normalisedRequest = [self backgroundableRequestObjectFromTSCRequest:request];
 			NSURLSessionDownloadTask *task = [welf.backgroundSession downloadTaskWithRequest:normalisedRequest];
+            task.earliestBeginDate = beginDate;
 			
 			[welf addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
             
@@ -612,7 +618,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	}];
 }
 
-- (void)scheduleUploadRequest:(nonnull TSCRequest *)request filePath:(NSString *)filePath progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
+- (void)scheduleUploadRequest:(nonnull TSCRequest *)request on:(NSDate *)beginDate filePath:(NSString *)filePath progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
 	__weak typeof(self) welf = self;
 	
@@ -658,6 +664,8 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 				
 				task = [welf.backgroundSession uploadTaskWithRequest:[welf backgroundableRequestObjectFromTSCRequest:request] fromFile:[NSURL fileURLWithPath:filePath]];
 			}
+            
+            task.earliestBeginDate = beginDate;
 			
 			[welf addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
 			
@@ -780,13 +788,17 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
         os_log_error(request_controller_log, "Error: Got multiple handlers for a single task identifier.  This should not happen.\n");
 	}
 	
-	[self.completionHandlerDictionary setObject:handler forKey:taskIdentifierString];
+    if (handler) {
+        [self.completionHandlerDictionary setObject:handler forKey:taskIdentifierString];
+    }
 	
 	if ([self.completionHandlerDictionary objectForKey:taskProgressIdentifierString]) {
         os_log_error(request_controller_log, "Error: Got multiple progress handlers for a single task identifier.  This should not happen.\n");
 	}
 	
-	[self.completionHandlerDictionary setObject:progress forKey:taskProgressIdentifierString];
+    if (progress) {
+        [self.completionHandlerDictionary setObject:progress forKey:taskProgressIdentifierString];
+    }
 }
 
 - (void)callCompletionHandlerForTaskIdentifier:(NSUInteger)identifier downloadedFileURL:(NSURL *)fileURL downloadError:(NSError *)error
