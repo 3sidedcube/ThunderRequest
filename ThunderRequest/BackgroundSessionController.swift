@@ -45,9 +45,11 @@ public class BackgroundRequestController: NSObject, URLSessionDelegate, URLSessi
         urlSession = URLSession(configuration: sessionConfiguration, delegate: self, delegateQueue: queue)
     }
     
+    #if os(iOS) || os(tvOS) || os(watchOS)
     public func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
         finishedHandler?(session)
     }
+    #endif
     
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         
