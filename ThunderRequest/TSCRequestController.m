@@ -607,7 +607,10 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 			
 			NSURLRequest *normalisedRequest = [self backgroundableRequestObjectFromTSCRequest:request];
 			NSURLSessionDownloadTask *task = [welf.backgroundSession downloadTaskWithRequest:normalisedRequest];
-            task.earliestBeginDate = beginDate;
+            
+            if (@available(iOS 11.0, *)) {
+                task.earliestBeginDate = beginDate;
+            }
 			
 			[welf addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
             
