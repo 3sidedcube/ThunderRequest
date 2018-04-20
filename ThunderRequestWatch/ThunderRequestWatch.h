@@ -27,3 +27,4 @@ FOUNDATION_EXPORT const unsigned char ThunderRequestWatchVersionString[];
 #import "TSCErrorRecoveryAttempter.h"
 #import "TSCErrorRecoveryOption.h"
 #import "NSDictionary+URLEncoding.h"
+#import "TSCOAuth2Credential.h"

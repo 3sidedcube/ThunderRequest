@@ -41,32 +41,32 @@
 
 /**
  Registers an override for a system error message. For example, CLGeocoder has very poor standard error mesaging. Registering an error through this method will ensure that this error message is used instead of the system one
- @param errorDescrion The description that you want to display to the user instead of the system one
+ @param errorDescription The description that you want to display to the user instead of the system one
  @param domain The domain of the error. Use constants where possible
- @param code The error code to override. Use constants where possible
+ @param errorCode The error code to override. Use constants where possible
  */
 + (void)registerOverrideDescription:(nullable NSString *)errorDescription forDomain:(nonnull NSString *)domain code:(NSInteger)errorCode;
 
 /**
  Registers an override for a system error message. For example, CLGeocoder has very poor standard error mesaging. Registering an error through this method will ensure that this error message is used instead of the system one
- @param errorDescrion The description that you want to display to the user instead of the system one
+ @param errorDescription The description that you want to display to the user instead of the system one
  @param recoverySuggestion Advice to the user on how to recover from the error
  @param domain The domain of the error. Use constants where possible
- @param code The error code to override. Use constants where possible
+ @param errorCode The error code to override. Use constants where possible
  */
 + (void)registerOverrideDescription:(nullable NSString *)errorDescription recoverySuggestion:(nullable NSString *)recoverySuggestion forDomain:(nonnull NSString *)domain code:(NSInteger)errorCode;
 
 /**
  Retrieves an override for an error key if there is one, and ignores it if not
  @param domain The domain of the error. Use constants where possible
- @param code The error code to override. Use constants where possible
+ @param errorCode The error code to override. Use constants where possible
  */
 + (nullable NSString *)errorDescriptionStringForDomain:(nonnull NSString *)domain code:(NSInteger)errorCode;
 
 /**
  Retrieves an override for an error key if there is one, and ignores it if not
  @param domain The domain of the error. Use constants where possible
- @param code The error code to override. Use constants where possible
+ @param errorCode The error code to override. Use constants where possible
  */
 + (nullable NSString *)errorRecoveryStringForDomain:(nonnull NSString *)domain code:(NSInteger)errorCode;
 
