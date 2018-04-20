@@ -608,7 +608,7 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 			NSURLRequest *normalisedRequest = [self backgroundableRequestObjectFromTSCRequest:request];
 			NSURLSessionDownloadTask *task = [welf.backgroundSession downloadTaskWithRequest:normalisedRequest];
             
-            if (@available(iOS 11.0, *) && @available(watchOS 4.0, *)) {
+            if (@available(iOS 11.0, watchOS 4.0, *)) {
                 task.earliestBeginDate = beginDate;
             }
 			
