@@ -668,7 +668,9 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 				task = [welf.backgroundSession uploadTaskWithRequest:[welf backgroundableRequestObjectFromTSCRequest:request] fromFile:[NSURL fileURLWithPath:filePath]];
 			}
             
-            task.earliestBeginDate = beginDate;
+            if (@available(iOS 11.0, watchOS 4.0, *)) {
+                task.earliestBeginDate = beginDate;
+            }
 			
 			[welf addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
 			
