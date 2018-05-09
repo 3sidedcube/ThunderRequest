@@ -160,8 +160,8 @@ static os_log_t request_log;
             *stop = true;
         } else if ([obj isKindOfClass:[NSImage class]]) {
             
-            NSBitmapImageRep *imageRep = [[obj representations] objectAtIndex:0];
-            data = [imageRep representationUsingType:NSJPEGFileType properties:nil];
+            NSBitmapImageRep *imageRep = (NSBitmapImageRep *)[[obj representations] objectAtIndex:0];
+            data = [imageRep representationUsingType:NSJPEGFileType properties:@{}];
             *stop = true;
         }
     }];
@@ -335,8 +335,8 @@ static os_log_t request_log;
 #else
     if ([object isKindOfClass:[NSImage class]]) {
         
-        NSBitmapImageRep *imageRep = [[(NSImage *)object representations] objectAtIndex:0];
-        return [imageRep representationUsingType:NSJPEGFileType properties:nil];
+        NSBitmapImageRep *imageRep = (NSBitmapImageRep *)[[(NSImage *)object representations] objectAtIndex:0];
+        return [imageRep representationUsingType:NSJPEGFileType properties:@{}];
     }
 #endif
     

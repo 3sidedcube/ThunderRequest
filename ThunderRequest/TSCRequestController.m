@@ -899,10 +899,12 @@ typedef void (^TSCOAuth2CheckCompletion) (BOOL authenticated, NSError *authError
 	[self setSharedRequestCredential:sharedRequestCredential andSaveToKeychain:false];
 }
 
+#if !TARGET_OS_OSX
 - (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session
 {
     os_log_debug(request_controller_log, "finished events for bg session");
 }
+#endif
 
 #pragma mark - Request conversion
 
