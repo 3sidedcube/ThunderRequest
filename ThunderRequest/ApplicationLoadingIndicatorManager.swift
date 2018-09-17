@@ -11,7 +11,7 @@ import UIKit
 open class ApplicationLoadingIndicatorManager: NSObject {
 	
 	@objc(sharedManager)
-    open static let shared = ApplicationLoadingIndicatorManager()
+    public static let shared = ApplicationLoadingIndicatorManager()
     fileprivate var activityCount = 0
         
     @objc open func showActivityIndicator() {
