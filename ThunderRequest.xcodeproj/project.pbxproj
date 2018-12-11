@@ -114,6 +114,57 @@
 		B1BA54F21CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */; };
 		B1BA54F31CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */; };
 		B1BA54F41CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */; };
+		B1DB2C6C21BFD2A4007FAB21 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */; };
+		B1DB2C6D21BFD2A4007FAB21 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */; };
+		B1DB2C6E21BFD2A4007FAB21 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */; };
+		B1DB2C6F21BFD2A4007FAB21 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */; };
+		B1DB2C7121BFD898007FAB21 /* Data+ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7021BFD898007FAB21 /* Data+ContentType.swift */; };
+		B1DB2C7221BFD898007FAB21 /* Data+ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7021BFD898007FAB21 /* Data+ContentType.swift */; };
+		B1DB2C7321BFD898007FAB21 /* Data+ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7021BFD898007FAB21 /* Data+ContentType.swift */; };
+		B1DB2C7421BFD898007FAB21 /* Data+ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7021BFD898007FAB21 /* Data+ContentType.swift */; };
+		B1DB2C7621BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7521BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift */; };
+		B1DB2C7721BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7521BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift */; };
+		B1DB2C7821BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7521BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift */; };
+		B1DB2C7921BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7521BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift */; };
+		B1DB2C7B21BFE1FF007FAB21 /* Data+Generic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7A21BFE1FF007FAB21 /* Data+Generic.swift */; };
+		B1DB2C7C21BFE1FF007FAB21 /* Data+Generic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7A21BFE1FF007FAB21 /* Data+Generic.swift */; };
+		B1DB2C7D21BFE1FF007FAB21 /* Data+Generic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7A21BFE1FF007FAB21 /* Data+Generic.swift */; };
+		B1DB2C7E21BFE1FF007FAB21 /* Data+Generic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7A21BFE1FF007FAB21 /* Data+Generic.swift */; };
+		B1DB2C8121BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C8021BFEC18007FAB21 /* MultipartFormRequestBody.swift */; };
+		B1DB2C8221BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C8021BFEC18007FAB21 /* MultipartFormRequestBody.swift */; };
+		B1DB2C8321BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C8021BFEC18007FAB21 /* MultipartFormRequestBody.swift */; };
+		B1DB2C8421BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C8021BFEC18007FAB21 /* MultipartFormRequestBody.swift */; };
+		B1DB2C8821BFF322007FAB21 /* MultipartFormFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C8721BFF322007FAB21 /* MultipartFormFile.swift */; };
+		B1DB2C8921BFF322007FAB21 /* MultipartFormFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C8721BFF322007FAB21 /* MultipartFormFile.swift */; };
+		B1DB2C8A21BFF322007FAB21 /* MultipartFormFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C8721BFF322007FAB21 /* MultipartFormFile.swift */; };
+		B1DB2C8B21BFF322007FAB21 /* MultipartFormFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C8721BFF322007FAB21 /* MultipartFormFile.swift */; };
+		B1DB2C8D21BFF33C007FAB21 /* Data+Mutate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C8C21BFF33C007FAB21 /* Data+Mutate.swift */; };
+		B1DB2C8E21BFF33C007FAB21 /* Data+Mutate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C8C21BFF33C007FAB21 /* Data+Mutate.swift */; };
+		B1DB2C8F21BFF33C007FAB21 /* Data+Mutate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C8C21BFF33C007FAB21 /* Data+Mutate.swift */; };
+		B1DB2C9021BFF33C007FAB21 /* Data+Mutate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C8C21BFF33C007FAB21 /* Data+Mutate.swift */; };
+		B1DB2C9221BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C9121BFF352007FAB21 /* String+MultipartFormElement.swift */; };
+		B1DB2C9321BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C9121BFF352007FAB21 /* String+MultipartFormElement.swift */; };
+		B1DB2C9421BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C9121BFF352007FAB21 /* String+MultipartFormElement.swift */; };
+		B1DB2C9521BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C9121BFF352007FAB21 /* String+MultipartFormElement.swift */; };
+		B1DB2C9721BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C9621BFF3D4007FAB21 /* Data+MultipartFormElement.swift */; };
+		B1DB2C9821BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C9621BFF3D4007FAB21 /* Data+MultipartFormElement.swift */; };
+		B1DB2C9921BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C9621BFF3D4007FAB21 /* Data+MultipartFormElement.swift */; };
+		B1DB2C9A21BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C9621BFF3D4007FAB21 /* Data+MultipartFormElement.swift */; };
+		B1DB2C9C21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C9B21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift */; };
+		B1DB2C9E21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C9B21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift */; };
+		B1DB2C9F21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C9B21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift */; };
+		B1DB2CA421BFF843007FAB21 /* NSImage+MultipartFormElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CA021BFF3F4007FAB21 /* NSImage+MultipartFormElement.swift */; };
+		B1DB2CA621BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CA521BFFBFE007FAB21 /* ImageRequestBody.swift */; };
+		B1DB2CA721BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CA521BFFBFE007FAB21 /* ImageRequestBody.swift */; };
+		B1DB2CA821BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CA521BFFBFE007FAB21 /* ImageRequestBody.swift */; };
+		B1DB2CA921BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CA521BFFBFE007FAB21 /* ImageRequestBody.swift */; };
+		B1DBEFF321BFC44400D22137 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF221BFC44400D22137 /* Request.swift */; };
+		B1DBEFF421BFC44400D22137 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF221BFC44400D22137 /* Request.swift */; };
+		B1DBEFF521BFC44400D22137 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF221BFC44400D22137 /* Request.swift */; };
+		B1DBEFF621BFC44B00D22137 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF221BFC44400D22137 /* Request.swift */; };
+		B1DBEFF821BFC65000D22137 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF721BFC65000D22137 /* HTTP.swift */; };
+		B1DBEFF921BFC65000D22137 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF721BFC65000D22137 /* HTTP.swift */; };
+		B1DBEFFA21BFC65000D22137 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF721BFC65000D22137 /* HTTP.swift */; };
 		B1EF2E9C1BA6D88E0053B39A /* TSCOAuth2Credential.h in Headers */ = {isa = PBXBuildFile; fileRef = B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1EF2E9D1BA6D88E0053B39A /* TSCOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */; };
 		B1EF2E9F1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9E1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift */; };
@@ -177,6 +228,20 @@
 		B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSThread+Blocks.m"; sourceTree = "<group>"; };
 		B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+TaskIdentifier.h"; sourceTree = "<group>"; };
 		B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+TaskIdentifier.m"; sourceTree = "<group>"; };
+		B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
+		B1DB2C7021BFD898007FAB21 /* Data+ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+ContentType.swift"; sourceTree = "<group>"; };
+		B1DB2C7521BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+URLEncodedString.swift"; sourceTree = "<group>"; };
+		B1DB2C7A21BFE1FF007FAB21 /* Data+Generic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Generic.swift"; sourceTree = "<group>"; };
+		B1DB2C8021BFEC18007FAB21 /* MultipartFormRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormRequestBody.swift; sourceTree = "<group>"; };
+		B1DB2C8721BFF322007FAB21 /* MultipartFormFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormFile.swift; sourceTree = "<group>"; };
+		B1DB2C8C21BFF33C007FAB21 /* Data+Mutate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Mutate.swift"; sourceTree = "<group>"; };
+		B1DB2C9121BFF352007FAB21 /* String+MultipartFormElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MultipartFormElement.swift"; sourceTree = "<group>"; };
+		B1DB2C9621BFF3D4007FAB21 /* Data+MultipartFormElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+MultipartFormElement.swift"; sourceTree = "<group>"; };
+		B1DB2C9B21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+MultipartFormElement.swift"; sourceTree = "<group>"; };
+		B1DB2CA021BFF3F4007FAB21 /* NSImage+MultipartFormElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+MultipartFormElement.swift"; sourceTree = "<group>"; };
+		B1DB2CA521BFFBFE007FAB21 /* ImageRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequestBody.swift; sourceTree = "<group>"; };
+		B1DBEFF221BFC44400D22137 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		B1DBEFF721BFC65000D22137 /* HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
 		B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCOAuth2Credential.h; sourceTree = "<group>"; };
 		B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCOAuth2Credential.m; sourceTree = "<group>"; };
 		B1EF2E9E1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ThunderRequest-KeychainTests.swift"; sourceTree = "<group>"; };
@@ -305,6 +370,48 @@
 			path = ThunderRequestWatch;
 			sourceTree = "<group>";
 		};
+		B1DB2C6A21BFD290007FAB21 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */,
+				B1DB2C7021BFD898007FAB21 /* Data+ContentType.swift */,
+				B1DB2C7521BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift */,
+				B1DB2C7A21BFE1FF007FAB21 /* Data+Generic.swift */,
+				B1DB2C8C21BFF33C007FAB21 /* Data+Mutate.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		B1DB2C7F21BFEBF3007FAB21 /* Request Body Types */ = {
+			isa = PBXGroup;
+			children = (
+				B1DB2CA521BFFBFE007FAB21 /* ImageRequestBody.swift */,
+				B1DB2C8521BFF2E5007FAB21 /* Multipart Form */,
+			);
+			name = "Request Body Types";
+			sourceTree = "<group>";
+		};
+		B1DB2C8521BFF2E5007FAB21 /* Multipart Form */ = {
+			isa = PBXGroup;
+			children = (
+				B1DB2C8621BFF306007FAB21 /* Elements */,
+				B1DB2C8021BFEC18007FAB21 /* MultipartFormRequestBody.swift */,
+			);
+			name = "Multipart Form";
+			sourceTree = "<group>";
+		};
+		B1DB2C8621BFF306007FAB21 /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+				B1DB2C8721BFF322007FAB21 /* MultipartFormFile.swift */,
+				B1DB2C9121BFF352007FAB21 /* String+MultipartFormElement.swift */,
+				B1DB2C9621BFF3D4007FAB21 /* Data+MultipartFormElement.swift */,
+				B1DB2C9B21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift */,
+				B1DB2CA021BFF3F4007FAB21 /* NSImage+MultipartFormElement.swift */,
+			);
+			name = Elements;
+			sourceTree = "<group>";
+		};
 		C2E5087819C835A300350F00 = {
 			isa = PBXGroup;
 			children = (
@@ -343,6 +450,10 @@
 				B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */,
 				B19894871BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h */,
 				B19894881BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m */,
+				B1DBEFF721BFC65000D22137 /* HTTP.swift */,
+				B1DBEFF221BFC44400D22137 /* Request.swift */,
+				B1DB2C7F21BFEBF3007FAB21 /* Request Body Types */,
+				B1DB2C6A21BFD290007FAB21 /* Helpers */,
 				C2E5089C19C835D900350F00 /* TSCRequest.h */,
 				C2E5089D19C835D900350F00 /* TSCRequest.m */,
 				C2E5089E19C835D900350F00 /* TSCRequestController.h */,
@@ -711,20 +822,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				49084FD91BD13DF80012F636 /* TSCRequest.m in Sources */,
+				B1DB2C8A21BFF322007FAB21 /* MultipartFormFile.swift in Sources */,
+				B1DB2C9E21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift in Sources */,
+				B1DBEFF521BFC44400D22137 /* Request.swift in Sources */,
 				B1113ED8207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
+				B1DB2C6E21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
+				B1DB2C7321BFD898007FAB21 /* Data+ContentType.swift in Sources */,
 				B12F7CAA1BFDD6BD002B7D60 /* NSURLSession+Synchronous.m in Sources */,
+				B1DB2C9921BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
 				49084FDA1BD13DF80012F636 /* TSCRequestController.m in Sources */,
 				49084FDB1BD13DF80012F636 /* TSCRequestCredential.m in Sources */,
 				49084FDC1BD13DF80012F636 /* TSCRequestResponse.m in Sources */,
 				49084FDD1BD13DF80012F636 /* TSCErrorRecoveryAttempter.m in Sources */,
 				B16ED2191C59337800ABCC35 /* TSCRequest+TaskIdentifier.m in Sources */,
 				49084FDE1BD13DF80012F636 /* TSCErrorRecoveryOption.m in Sources */,
+				B1DBEFFA21BFC65000D22137 /* HTTP.swift in Sources */,
 				49084FDF1BD13DF80012F636 /* TSCRequestDefines.m in Sources */,
 				B12F7C981BFDD47E002B7D60 /* TSCOAuth2Credential.m in Sources */,
+				B1DB2C7821BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */,
+				B1DB2C8F21BFF33C007FAB21 /* Data+Mutate.swift in Sources */,
+				B1DB2C9421BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */,
 				49084FE01BD13DF80012F636 /* UIAlertController+TSCErrorRecoveryAttempter.m in Sources */,
 				B12F7CAB1BFDD836002B7D60 /* NSThread+Blocks.m in Sources */,
+				B1DB2C8321BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */,
 				B12F7CA81BFDD6B1002B7D60 /* NSDictionary+URLEncoding.m in Sources */,
 				B1BA54F41CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */,
+				B1DB2C7D21BFE1FF007FAB21 /* Data+Generic.swift in Sources */,
+				B1DB2CA821BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,16 +857,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1FE42831BF4A36800EDC887 /* TSCOAuth2Credential.m in Sources */,
+				B1DB2C9821BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
+				B1DB2C6D21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
+				B1DB2C9321BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */,
+				B1DB2CA721BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */,
+				B1DB2C7721BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */,
 				B1177EF11BBAF21F00372D4D /* TSCRequest.m in Sources */,
 				B1177EF21BBAF21F00372D4D /* TSCRequestController.m in Sources */,
 				B1177EF31BBAF21F00372D4D /* TSCRequestCredential.m in Sources */,
 				B19894901BEA3E8800E96DA3 /* NSThread+Blocks.m in Sources */,
+				B1DBEFF921BFC65000D22137 /* HTTP.swift in Sources */,
+				B1DB2C7221BFD898007FAB21 /* Data+ContentType.swift in Sources */,
 				B1177EF41BBAF21F00372D4D /* TSCRequestResponse.m in Sources */,
+				B1DB2C8E21BFF33C007FAB21 /* Data+Mutate.swift in Sources */,
 				B1113ED7207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
+				B1DB2C7C21BFE1FF007FAB21 /* Data+Generic.swift in Sources */,
+				B1DB2C8921BFF322007FAB21 /* MultipartFormFile.swift in Sources */,
+				B1DB2C8221BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */,
+				B1DBEFF421BFC44400D22137 /* Request.swift in Sources */,
 				B1177EF51BBAF21F00372D4D /* TSCErrorRecoveryAttempter.m in Sources */,
 				B198948C1BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m in Sources */,
 				B17F34601BF4A59000F3586C /* NSDictionary+URLEncoding.m in Sources */,
 				B1177EF61BBAF21F00372D4D /* TSCErrorRecoveryOption.m in Sources */,
+				B1DB2CA421BFF843007FAB21 /* NSImage+MultipartFormElement.swift in Sources */,
 				B16ED2181C59337800ABCC35 /* TSCRequest+TaskIdentifier.m in Sources */,
 				B1177EF71BBAF21F00372D4D /* TSCRequestDefines.m in Sources */,
 				B1BA54F31CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */,
@@ -764,17 +901,29 @@
 				B120EE4A207B897600A4A7CA /* NSURLSession+Synchronous.m in Sources */,
 				B120EE55207B897600A4A7CA /* TSCRequestResponse.m in Sources */,
 				B120EE52207B897600A4A7CA /* TSCOAuth2Credential.m in Sources */,
+				B1DB2C6F21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
 				B120EE61207B897600A4A7CA /* NSThread+Blocks.m in Sources */,
+				B1DB2C7E21BFE1FF007FAB21 /* Data+Generic.swift in Sources */,
+				B1DB2C8421BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */,
 				B120EE59207B897600A4A7CA /* TSCErrorRecoveryOption.m in Sources */,
 				B120EE46207B896D00A4A7CA /* TSCRequest+TaskIdentifier.m in Sources */,
+				B1DB2C9521BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */,
+				B1DB2C9F21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift in Sources */,
+				B1DB2C9021BFF33C007FAB21 /* Data+Mutate.swift in Sources */,
 				B1113ED9207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
+				B1DBEFF621BFC44B00D22137 /* Request.swift in Sources */,
+				B1DB2C8B21BFF322007FAB21 /* MultipartFormFile.swift in Sources */,
 				B120EE5D207B897600A4A7CA /* NSDictionary+URLEncoding.m in Sources */,
+				B1DB2C9A21BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
 				B120EE57207B897600A4A7CA /* TSCErrorRecoveryAttempter.m in Sources */,
 				B120EE5B207B897600A4A7CA /* TSCRequestDefines.m in Sources */,
 				B120EE4C207B897600A4A7CA /* TSCRequest.m in Sources */,
 				B120EE50207B897600A4A7CA /* TSCRequestCredential.m in Sources */,
 				B120EE4E207B897600A4A7CA /* TSCRequestController.m in Sources */,
+				B1DB2C7921BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */,
+				B1DB2C7421BFD898007FAB21 /* Data+ContentType.swift in Sources */,
 				B120EE48207B897100A4A7CA /* NSMutableURLRequest+TaskIdentifier.m in Sources */,
+				B1DB2CA921BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -782,6 +931,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1DB2C9721BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
 				B1EF2E9D1BA6D88E0053B39A /* TSCOAuth2Credential.m in Sources */,
 				C2E508AA19C835D900350F00 /* TSCRequestCredential.m in Sources */,
 				B198948B1BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m in Sources */,
@@ -789,15 +939,27 @@
 				C2E508AC19C835D900350F00 /* TSCRequestResponse.m in Sources */,
 				C2E508A819C835D900350F00 /* TSCRequestController.m in Sources */,
 				B16ED2171C59337800ABCC35 /* TSCRequest+TaskIdentifier.m in Sources */,
+				B1DBEFF321BFC44400D22137 /* Request.swift in Sources */,
+				B1DB2C8821BFF322007FAB21 /* MultipartFormFile.swift in Sources */,
 				B15560F41CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift in Sources */,
+				B1DB2C8121BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */,
+				B1DBEFF821BFC65000D22137 /* HTTP.swift in Sources */,
+				B1DB2C9C21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift in Sources */,
 				B1AB78361BDA92CC00F50127 /* NSThread+Blocks.m in Sources */,
 				49B77E0F1B36A7BF001475CE /* TSCErrorRecoveryAttempter.m in Sources */,
 				C2E508A619C835D900350F00 /* TSCRequest.m in Sources */,
 				49B77E111B36A7BF001475CE /* TSCErrorRecoveryOption.m in Sources */,
 				B1113ED6207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
+				B1DB2C7B21BFE1FF007FAB21 /* Data+Generic.swift in Sources */,
+				B1DB2C9221BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */,
+				B1DB2C7621BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */,
+				B1DB2C7121BFD898007FAB21 /* Data+ContentType.swift in Sources */,
 				49F7B2E51B96F53100DDB587 /* TSCRequestDefines.m in Sources */,
+				B1DB2C6C21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
+				B1DB2CA621BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */,
 				B1FC231E1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m in Sources */,
 				B1BA54F21CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */,
+				B1DB2C8D21BFF33C007FAB21 /* Data+Mutate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
