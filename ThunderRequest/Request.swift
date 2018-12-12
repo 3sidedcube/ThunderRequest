@@ -12,7 +12,6 @@ import os.log
 /// A `Request` object represents a URL load request to be made by an instance of `RequestController`
 ///
 /// Generally `Request` objects are created automatically by `RequestController`, but you may with to manually construct one in certain cases
-@available(OSX 10.12, *)
 public class Request {
 
     /// The base URL for the request e.g. "https://api.mywebsite.com"
@@ -30,8 +29,8 @@ public class Request {
     /// An object to be used as the body of the request
     var body: RequestBody?
     
-    /// A custom formatter that takes the requests's body and formats it to a `Data` object
-    var bodyFormatter: ((_ body: Any) -> Data?)?
+    /// URL query items to be sent with the request
+    var urlQueryItems: [URLQueryItem]?
     
     /// A dictionary to be used as the headers for the request
     var headers: [String : String?] = [:]
@@ -43,13 +42,21 @@ public class Request {
     /// This can be used to cancel multiple requests with the same tag.
     var tag: Int?
     
-    private let log = OSLog(subsystem: "com.threesidedcube.ThunderRequest", category: "Request")
+    private var _log: Any? = nil
+    @available(macOS 10.12, *)
+    fileprivate var log: OSLog {
+        if _log == nil {
+            _log = OSLog(subsystem: "com.threesidedcube.ThunderRequest", category: "Request")
+        }
+        return _log as! OSLog
+    }
     
-    init(baseURL: URL, path: String?, method: HTTP.Method) {
+    init(baseURL: URL, path: String?, method: HTTP.Method, queryItems: [URLQueryItem]?) {
         
         self.path = path
         self.method = method
         self.baseURL = baseURL
+        urlQueryItems = queryItems
     }
     
     /// Configures and returns an `NSMutableRequest` which can be used with an `NSURLSession`
@@ -57,19 +64,25 @@ public class Request {
     /// - Returns: Returns a valid request object
     func construct() throws -> NSMutableURLRequest {
         
-        let url: URL
+        guard var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: false) else {
+            throw RequestError.invalidBaseURL
+        }
         
         if let path = path {
-            url = URL(string: path, relativeTo: baseURL) ?? baseURL
-        } else {
-            url = baseURL
+            urlComponents.path = urlComponents.path.appending(path)
+        }
+        
+        urlComponents.queryItems = urlQueryItems
+        
+        guard let url = urlComponents.url else {
+            throw RequestError.invalidURL
         }
         
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = method.rawValue
         
         if let body = body {
-            request.httpBody = body.data()
+            request.httpBody = body.payload()
         }
         
         // Don't set the content-type header for GET requests, as they shouldn't be sending data
@@ -81,7 +94,9 @@ public class Request {
         }
         
         if method == .GET && request.httpBody != nil {
-            os_log("Invalid request to: %{public}@. Should not be sending a GET request with a non-nil body", log: log, type: .error, url.absoluteString)
+            if #available(OSX 10.12, *) {
+                os_log("Invalid request to: %{public}@. Should not be sending a GET request with a non-nil body", log: log, type: .error, url.absoluteString)
+            }
         }
         
         headers.forEach { (keyValue) in
@@ -90,4 +105,10 @@ public class Request {
         
         return request
     }
+}
+
+public enum RequestError: Error {
+    case invalidBaseURL
+    case invalidURL
+    case invalidBody
 }

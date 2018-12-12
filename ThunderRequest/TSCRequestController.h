@@ -315,30 +315,5 @@ Performs a file download task using the base url and given path component.
  */
 - (nonnull TSCRequest *)uploadBodyParams:(nullable NSDictionary *)bodyParams toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion;
 
-/**
- Sets the user agent to be used for any instance of TSCRequestController
- @param userAgent the string to set the request controller's user agent to
- */
-+ (void)setUserAgent:(nullable NSString *)userAgent;
-
-/**
- Calls invalidate and cancel on all internal NSURLSession objects to allow self to be deallocated
- */
-- (void)invalidateAndCancel;
-
-///---------------------------------------------------------------------------------------
-/// @name Cancelling requests
-///---------------------------------------------------------------------------------------
-
-/**
- Cancels all requests in any of the queues calling the completion block with a cancellation error
- */
-- (void)cancelAllRequests;
-
-/**
- Cancels requests in any of the queues with a specific tag, calling the completion block with a cancellation error
- @param tag The tag to cancel requests for
- */
-- (void)cancelRequestsWithTag:(NSInteger)tag;
 
 @end

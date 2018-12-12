@@ -105,11 +105,11 @@ public struct ImageRequestBody: RequestBody {
         self.format = format
     }
     
-    var contentType: String? {
+    public var contentType: String? {
         return format.contentType
     }
     
-    func data() -> Data? {
+    public func payload() -> Data? {
         return image.dataFor(format: format)
     }
 }

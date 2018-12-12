@@ -41,11 +41,11 @@ public struct MultipartFormRequestBody: RequestBody {
         self.boundary = boundary ?? "----TSCRequestController" + (String(describing: parts).md5Hex ?? "")
     }
     
-    var contentType: String? {
+    public var contentType: String? {
         return "multipart/form-data; boundary=\(boundary)"
     }
     
-    func data() -> Data? {
+    public func payload() -> Data? {
         var returnData = Data()
         parts.forEach { (keyValue) in
             guard let partData = keyValue.value.multipartDataWith(boundary: boundary, key: keyValue.key) else {
