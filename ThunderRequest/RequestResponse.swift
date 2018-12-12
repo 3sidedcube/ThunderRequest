@@ -14,30 +14,37 @@ import Foundation
 public class RequestResponse {
     
     /// A dictionary representation of the headers the server responded with
-    public var headers: [AnyHashable : Any] {
-        return httpResponse.allHeaderFields
+    public var headers: [AnyHashable : Any]? {
+        return httpResponse?.allHeaderFields
     }
     
     /// Raw data returned from the server
     public let data: Data?
     
     /// The `HTTPURLResponse` object returned from the request. Contains info such as the response code.
-    public let httpResponse: HTTPURLResponse
+    public let httpResponse: HTTPURLResponse?
     
-    init(httpResponse response: HTTPURLResponse, data: Data?) {
+    /// The redirect response
+    /// If the request was redirected, this represents the URLResponse for the original request
+    public var redirectResponse: HTTPURLResponse?
+    
+    init(response: URLResponse, data: Data?) {
         
-        httpResponse = response
+        httpResponse = response as? HTTPURLResponse
         self.data = data
     }
     
     /// The status of the HTTP request as an enum
     public var status: HTTP.StatusCode {
+        guard let httpResponse = httpResponse else {
+            return .unknownError
+        }
         return HTTP.StatusCode(rawValue: httpResponse.statusCode) ?? .unknownError
     }
     
     /// The status of the HTTP request as a raw integer value
     public var statusCode: Int {
-        return httpResponse.statusCode
+        return httpResponse?.statusCode ?? -1
     }
     
     /// Attempts to parse the response data to `Any`

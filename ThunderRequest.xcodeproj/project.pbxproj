@@ -202,6 +202,14 @@
 		B1DB2CF421C15616007FAB21 /* RequestController+Callbacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CF221C15616007FAB21 /* RequestController+Callbacks.swift */; };
 		B1DB2CF521C15616007FAB21 /* RequestController+Callbacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CF221C15616007FAB21 /* RequestController+Callbacks.swift */; };
 		B1DB2CF621C15616007FAB21 /* RequestController+Callbacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CF221C15616007FAB21 /* RequestController+Callbacks.swift */; };
+		B1DB2CF821C1692A007FAB21 /* URLSession+Synchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CF721C1692A007FAB21 /* URLSession+Synchronous.swift */; };
+		B1DB2CF921C1692A007FAB21 /* URLSession+Synchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CF721C1692A007FAB21 /* URLSession+Synchronous.swift */; };
+		B1DB2CFA21C1692A007FAB21 /* URLSession+Synchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CF721C1692A007FAB21 /* URLSession+Synchronous.swift */; };
+		B1DB2CFB21C1692A007FAB21 /* URLSession+Synchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CF721C1692A007FAB21 /* URLSession+Synchronous.swift */; };
+		B1DB2CFD21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CFC21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift */; };
+		B1DB2CFE21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CFC21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift */; };
+		B1DB2CFF21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CFC21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift */; };
+		B1DB2D0021C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CFC21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift */; };
 		B1DBEFF321BFC44400D22137 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF221BFC44400D22137 /* Request.swift */; };
 		B1DBEFF421BFC44400D22137 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF221BFC44400D22137 /* Request.swift */; };
 		B1DBEFF521BFC44400D22137 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF221BFC44400D22137 /* Request.swift */; };
@@ -295,6 +303,8 @@
 		B1DB2CE821C15268007FAB21 /* RequestController+SessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestController+SessionDelegate.swift"; sourceTree = "<group>"; };
 		B1DB2CED21C15282007FAB21 /* URLSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionDelegate.swift; sourceTree = "<group>"; };
 		B1DB2CF221C15616007FAB21 /* RequestController+Callbacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestController+Callbacks.swift"; sourceTree = "<group>"; };
+		B1DB2CF721C1692A007FAB21 /* URLSession+Synchronous.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Synchronous.swift"; sourceTree = "<group>"; };
+		B1DB2CFC21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+TaskIdentifier.swift"; sourceTree = "<group>"; };
 		B1DBEFF221BFC44400D22137 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		B1DBEFF721BFC65000D22137 /* HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
 		B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCOAuth2Credential.h; sourceTree = "<group>"; };
@@ -435,6 +445,7 @@
 				B1DB2C8C21BFF33C007FAB21 /* Data+Mutate.swift */,
 				B1DB2CE321C12DEA007FAB21 /* URLSessionTask+Tag.swift */,
 				B1DB2CED21C15282007FAB21 /* URLSessionDelegate.swift */,
+				B1DB2CF721C1692A007FAB21 /* URLSession+Synchronous.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -512,6 +523,7 @@
 			children = (
 				C2E5089B19C835D900350F00 /* ThunderRequest.h */,
 				B15560F31CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift */,
+				B1DB2CFC21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift */,
 				B16ED2121C59337800ABCC35 /* TSCRequest+TaskIdentifier.h */,
 				B16ED2131C59337800ABCC35 /* TSCRequest+TaskIdentifier.m */,
 				B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */,
@@ -910,6 +922,7 @@
 				B1DB2C9921BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
 				49084FDA1BD13DF80012F636 /* TSCRequestController.m in Sources */,
 				49084FDB1BD13DF80012F636 /* TSCRequestCredential.m in Sources */,
+				B1DB2CFA21C1692A007FAB21 /* URLSession+Synchronous.swift in Sources */,
 				49084FDC1BD13DF80012F636 /* TSCRequestResponse.m in Sources */,
 				49084FDD1BD13DF80012F636 /* TSCErrorRecoveryAttempter.m in Sources */,
 				B16ED2191C59337800ABCC35 /* TSCRequest+TaskIdentifier.m in Sources */,
@@ -931,6 +944,7 @@
 				B12F7CA81BFDD6B1002B7D60 /* NSDictionary+URLEncoding.m in Sources */,
 				B1BA54F41CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */,
 				B1DB2CC021C01601007FAB21 /* FormURLEncodedRequestBody.swift in Sources */,
+				B1DB2CFF21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */,
 				B1DB2C7D21BFE1FF007FAB21 /* Data+Generic.swift in Sources */,
 				B1DB2CA821BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */,
 				B1DB2CCA21C01EF2007FAB21 /* RequestController.swift in Sources */,
@@ -948,6 +962,7 @@
 				B1DB2CDA21C11AE8007FAB21 /* RequestResponse+Codable.swift in Sources */,
 				B1DB2C9321BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */,
 				B1DB2CA721BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */,
+				B1DB2CFE21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */,
 				B1DB2C7721BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */,
 				B1177EF11BBAF21F00372D4D /* TSCRequest.m in Sources */,
 				B1177EF21BBAF21F00372D4D /* TSCRequestController.m in Sources */,
@@ -957,6 +972,7 @@
 				B19894901BEA3E8800E96DA3 /* NSThread+Blocks.m in Sources */,
 				B1DBEFF921BFC65000D22137 /* HTTP.swift in Sources */,
 				B1DB2C7221BFD898007FAB21 /* Data+ContentType.swift in Sources */,
+				B1DB2CF921C1692A007FAB21 /* URLSession+Synchronous.swift in Sources */,
 				B1177EF41BBAF21F00372D4D /* TSCRequestResponse.m in Sources */,
 				B1DB2CC921C01EF2007FAB21 /* RequestController.swift in Sources */,
 				B1DB2C8E21BFF33C007FAB21 /* Data+Mutate.swift in Sources */,
@@ -1030,7 +1046,9 @@
 				B1DB2C7921BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */,
 				B1DB2C7421BFD898007FAB21 /* Data+ContentType.swift in Sources */,
 				B120EE48207B897100A4A7CA /* NSMutableURLRequest+TaskIdentifier.m in Sources */,
+				B1DB2D0021C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */,
 				B1DB2CA921BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */,
+				B1DB2CFB21C1692A007FAB21 /* URLSession+Synchronous.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1065,6 +1083,7 @@
 				49B77E111B36A7BF001475CE /* TSCErrorRecoveryOption.m in Sources */,
 				B1DB2CB921C013B0007FAB21 /* XMLPlistRequestBody.swift in Sources */,
 				B1113ED6207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
+				B1DB2CFD21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */,
 				B1DB2C7B21BFE1FF007FAB21 /* Data+Generic.swift in Sources */,
 				B1DB2CF321C15616007FAB21 /* RequestController+Callbacks.swift in Sources */,
 				B1DB2C9221BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */,
@@ -1075,6 +1094,7 @@
 				B1DB2C6C21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
 				B1DB2CA621BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */,
 				B1FC231E1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m in Sources */,
+				B1DB2CF821C1692A007FAB21 /* URLSession+Synchronous.swift in Sources */,
 				B1BA54F21CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */,
 				B1DB2CEE21C15282007FAB21 /* URLSessionDelegate.swift in Sources */,
 				B1DB2C8D21BFF33C007FAB21 /* Data+Mutate.swift in Sources */,

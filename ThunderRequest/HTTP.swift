@@ -287,5 +287,9 @@ public struct HTTP {
         case railgunError
         case originDNSError = 530
         case networkReadTimeoutError = 598
+        
+        public var isConsideredError: Bool {
+            return rawValue >= 400 && rawValue < 600
+        }
     }
 }

@@ -62,7 +62,7 @@ public class Request {
     /// Configures and returns an `NSMutableRequest` which can be used with an `NSURLSession`
     ///
     /// - Returns: Returns a valid request object
-    func construct() throws -> NSMutableURLRequest {
+    func construct() throws -> URLRequest {
         
         guard var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: false) else {
             throw RequestError.invalidBaseURL
@@ -78,7 +78,7 @@ public class Request {
             throw RequestError.invalidURL
         }
         
-        let request = NSMutableURLRequest(url: url)
+        var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         
         if let body = body {

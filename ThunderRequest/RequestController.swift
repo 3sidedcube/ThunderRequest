@@ -9,7 +9,7 @@
 import Foundation
 
 public typealias RequestCompletion = (_ response: RequestResponse?, _ error: Error?) -> Void
-public typealias TransferCompletion = (_ fileLocation: URL?, _ error: Error?) -> Void
+public typealias TransferCompletion = (_ response: RequestResponse?, _ fileLocation: URL?, _ error: Error?) -> Void
 public typealias ProgressHandler = (_ progress: Double, _ totalBytes: Int64, _ transferredBytes: Int64) -> Void
 
 /// An instance of `RequestController` lets you asynchronously perform HTTP requests with a closure being called upn completion.
@@ -177,6 +177,7 @@ public class RequestController {
         )
         request.contentType = contentType
         request.body = body
+        request.tag = tag
         
         var allHeaders = sharedRequestHeaders
         
@@ -209,6 +210,10 @@ public class RequestController {
         // Set activity indicator (Only if we're the first request)
         RequestController.showApplicationActivityIndicator()
         
+        if let userAgent = UserDefaults.standard.string(forKey: "TSCUserAgent"), !request.headers.keys.contains("User-Agent") {
+            request.headers["User-Agent"] = userAgent
+        }
+        
         checkOAuthStatusFor(request: request) { [weak self] (authenticated, error, needsQueueing) in
             
             if let error = error, !authenticated, !needsQueueing {
@@ -228,11 +233,24 @@ public class RequestController {
             
             do {
                 
-                let urlRequest = try request.construct()
+                var urlRequest = try request.construct()
                 
                 if self.runSynchronously {
                     
-                    urlRequest.addValue("Hello", forHTTPHeaderField: "World")
+                    let response = self.defaultSession.sendSynchronousDataTaskWith(request: &urlRequest)
+                    self.callCompletionHandlersFor(request: urlRequest, data: response.data, response: response.response, error: response.error)
+                    RequestController.hideApplicationActivityIndicator()
+                    
+                } else {
+                    
+                    let dataTask = self.defaultSession.dataTask(with: urlRequest, completionHandler: { [weak self] (data, response, error) in
+                        RequestController.hideApplicationActivityIndicator()
+                        guard let self = self else { return }
+                        self.callCompletionHandlersFor(request: urlRequest, data: data, response: response, error: error)
+                    })
+                    
+                    dataTask.tag = request.tag
+                    dataTask.resume()
                 }
                 
             } catch let error {
@@ -241,6 +259,77 @@ public class RequestController {
             }
         }
     }
+    
+    //MARK: Upload
+    
+    /// Schedules a `Request` object to be uploaded using the `URLSession`.
+    ///
+    /// - Parameters:
+    ///   - request: The request to be uploaded.
+    ///   - date: When to make the request (defaults to current date).
+    ///   - fileURL: The file url to upload from.
+    ///   - progress: A closure to be called with progress updates.
+    ///   - completion: A closure to be called once the upload has finished.
+    public func scheduleUpload(_ request: Request, on date: Date = Date(), fileURL: URL, progress: ProgressHandler?, completion: TransferCompletion?) {
+        
+        // Set activity indicator (Only if we're the first request)
+        RequestController.showApplicationActivityIndicator()
+        
+        if let userAgent = UserDefaults.standard.string(forKey: "TSCUserAgent"), !request.headers.keys.contains("User-Agent") {
+            request.headers["User-Agent"] = userAgent
+        }
+        
+        checkOAuthStatusFor(request: request) { [weak self] (authenticated, error, needsQueueing) in
+            
+            if error != nil || !authenticated {
+                
+                RequestController.hideApplicationActivityIndicator()
+                completion?(nil, nil, error)
+                return
+            }
+            
+            guard let self = self else { return }
+            
+            do {
+                
+                var urlRequest = try request.construct()
+                
+                if self.runSynchronously {
+                    
+                    let response: (response: URLResponse?, error: Error?)
+                    if let body = urlRequest.httpBody {
+                        response = self.defaultSession.sendSynchronousUploadTaskWith(request: &urlRequest, uploadData: body)
+                    } else {
+                        response = self.defaultSession.sendSynchronousUploadTaskWith(request: &urlRequest, fileURL: fileURL)
+                    }
+                    
+                    RequestController.hideApplicationActivityIndicator()
+                    var returnResponse: RequestResponse?
+                    if let requestResponse = response.response {
+                        returnResponse = RequestResponse(response: requestResponse, data: nil)
+                    }
+                    completion?(returnResponse, nil, error)
+                    
+                } else {
+                    
+                    let dataTask = self.defaultSession.dataTask(with: urlRequest, completionHandler: { [weak self] (data, response, error) in
+                        RequestController.hideApplicationActivityIndicator()
+                        guard let self = self else { return }
+                        self.callCompletionHandlersFor(request: urlRequest, data: data, response: response, error: error)
+                    })
+                    
+                    dataTask.tag = request.tag
+                    dataTask.resume()
+                }
+                
+            } catch let error {
+                
+                completion?(nil, error)
+            }
+        }
+    }
+    
+    //MARK: Download
     
     //MARK: - Cancelling Requests -
     

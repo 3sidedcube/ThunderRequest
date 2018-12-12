@@ -8,7 +8,16 @@
 
 import Foundation
 
+public struct RequestNotificationKey {
+    public static let request = "TSCRequestNotificationRequestKey"
+    public static let response = "TSCRequestNotificationResponseKey"
+}
+
 extension RequestController {
+    
+    static let DidReceiveResponseNotificationName = Notification.Name(rawValue: "TSCRequestDidReceiveResponse")
+    
+    static let DidErrorNotificationName = Notification.Name("TSCRequestServerError")
     
     func add(completionHandler: TransferCompletion?, progressHandler: ProgressHandler?, forTaskId taskId: Int) {
         
@@ -29,10 +38,50 @@ extension RequestController {
         progressHandlers[taskIdentifier]?(progress, totalBytes, progressBytes)
     }
     
-    func callCompletionHandlersFor(taskIdentifier: Int, downloadedFileURL fileURL: URL?, error: Error?) {
+    func callTransferCompletionHandlersFor(taskIdentifier: Int, downloadedFileURL fileURL: URL?, error: Error?) {
         
         transferCompletionHandlers[taskIdentifier]?(fileURL, error)
         transferCompletionHandlers[taskIdentifier] = nil
         progressHandlers[taskIdentifier] = nil
+    }
+    
+    func callCompletionHandlersFor(request: URLRequest, data: Data?, response urlResponse: URLResponse?, error: Error?) {
+        
+        var response: RequestResponse?
+        if let urlResponse = urlResponse {
+            RequestResponse(response: urlResponse, data: data)
+        }
+        
+        if let redirectResponse = redirectResponses[request.taskIdentifier] {
+            response?.redirectResponse = redirectResponse
+        }
+        
+        var requestInfo: [AnyHashable : Any] = [:]
+        requestInfo[RequestNotificationKey.request] = request
+        requestInfo[RequestNotificationKey.response] = response
+        
+        NotificationCenter.default.post(name: RequestController.DidReceiveResponseNotificationName, object: nil, userInfo: requestInfo)
+        
+        if response?.status.isConsideredError == true {
+            NotificationCenter.default.post(name: RequestController.DidErrorNotificationName, object: nil, userInfo: requestInfo)
+        }
+        
+        defer {
+            
+            //TODO: Add back in!
+//            if (error) {
+//                os_log_debug(request_controller_log, "Request:%@", request);
+//                os_log_error(request_controller_log, "\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: FAILURE \nError Description: %@",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], error.localizedDescription );
+//            } else {
+//
+//                os_log_debug(request_controller_log, "\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: %li\nResponse Body: %@\n", request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], (long)requestResponse.status, requestResponse.string);
+//            }
+        }
+        
+        guard error != nil || response?.status.isConsideredError == true else {
+            return
+        }
+        
+//        let errorRecoveryAttempter = TSCErrorRecoveryAttempter()
     }
 }

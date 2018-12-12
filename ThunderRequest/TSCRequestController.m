@@ -290,23 +290,7 @@ static os_log_t request_controller_log;
 - (void)scheduleUploadRequest:(nonnull TSCRequest *)request on:(NSDate *)beginDate filePath:(NSString *)filePath progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
 	__weak typeof(self) welf = self;
-	
-//    [self TSC_showApplicationActivity];
-	
-//    [self checkOAuthStatusWithRequest:request completion:^(BOOL authenticated, NSError *error, BOOL needsQueueing) {
-		
-		if (error || !authenticated) {
 			
-//            [self TSC_hideApplicationActivity];
-			
-			if (completion) {
-				completion(nil, error);
-			}
-			return;
-		}
-		
-		[request prepareForDispatch];
-		
 		if (self.runSynchronously) {
 			
 			NSError *error = nil;
@@ -348,58 +332,7 @@ static os_log_t request_controller_log;
 
 - (void)scheduleRequest:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion
 {
-	// Check OAuth status before making the request
-	__weak typeof(self) welf = self;
 	
-	//Loading (Only if we're the first request)
-	
-	NSString *userAgent = [[NSUserDefaults standardUserDefaults] stringForKey:@"TSCUserAgent"];
-	if (userAgent) {
-		[request.requestHeaders setValue:userAgent forKey:@"User-Agent"];
-	}
-	
-	[self checkOAuthStatusWithRequest:request completion:^(BOOL authenticated, NSError *error, BOOL needsQueueing) {
-		
-		if (error && !authenticated && !needsQueueing) {
-			
-//            [self TSC_hideApplicationActivity];
-			
-			if (completion) {
-				completion(nil, error);
-			}
-			return;
-			
-		} else if (needsQueueing) {
-			
-			// If we're not authenticated but didn't get an error then our request came inbetween calling re-authentication and getting
-//            [welf.authQueuedRequests addObject:@{TSCQueuedRequestKey:request,TSCQueuedCompletionKey:completion ? : ^( TSCRequestResponse *response, NSError *error){}}];
-		}
-		
-		[request prepareForDispatch];
-		
-		if (welf.runSynchronously) {
-			
-			NSURLResponse *response = nil;
-			NSError *error = nil;
-			NSData *data = [welf.defaultSession sendSynchronousDataTaskWithRequest:request returningResponse:&response error:&error];
-			[welf TSC_fireRequestCompletionWithData:data response:response error:error request:request completion:completion];
-//            [self TSC_hideApplicationActivity];
-			
-		} else {
-			
-			NSURLSessionDataTask *dataTask = [welf.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-				
-//                [self TSC_hideApplicationActivity];
-				
-				[welf TSC_fireRequestCompletionWithData:data response:response error:error request:request completion:completion];
-				
-			}];
-			
-			request.taskIdentifier = dataTask.taskIdentifier;
-//            dataTask.request = request;
-			[dataTask resume];
-		}
-	}];
 }
 
 #pragma mark - NSURLSession challenge handling
