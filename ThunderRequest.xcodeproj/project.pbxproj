@@ -108,6 +108,10 @@
 		B19894901BEA3E8800E96DA3 /* NSThread+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */; };
 		B1AB78351BDA92CC00F50127 /* NSThread+Blocks.h in Headers */ = {isa = PBXBuildFile; fileRef = B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */; };
 		B1AB78361BDA92CC00F50127 /* NSThread+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */; };
+		B1ADAD3F21C2761100012BFB /* URLRequest+Backgroundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */; };
+		B1ADAD4021C2761700012BFB /* URLRequest+Backgroundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */; };
+		B1ADAD4121C2761800012BFB /* URLRequest+Backgroundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */; };
+		B1ADAD4221C2761800012BFB /* URLRequest+Backgroundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */; };
 		B1BA54EF1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */; };
 		B1BA54F01CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */; };
 		B1BA54F11CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */; };
@@ -278,6 +282,7 @@
 		B19894881BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+Synchronous.m"; sourceTree = "<group>"; };
 		B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSThread+Blocks.h"; sourceTree = "<group>"; };
 		B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSThread+Blocks.m"; sourceTree = "<group>"; };
+		B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Backgroundable.swift"; sourceTree = "<group>"; };
 		B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+TaskIdentifier.h"; sourceTree = "<group>"; };
 		B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+TaskIdentifier.m"; sourceTree = "<group>"; };
 		B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
@@ -446,6 +451,7 @@
 				B1DB2CE321C12DEA007FAB21 /* URLSessionTask+Tag.swift */,
 				B1DB2CED21C15282007FAB21 /* URLSessionDelegate.swift */,
 				B1DB2CF721C1692A007FAB21 /* URLSession+Synchronous.swift */,
+				B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -938,6 +944,7 @@
 				B1DB2CDB21C11AE8007FAB21 /* RequestResponse+Codable.swift in Sources */,
 				B1DB2C9421BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */,
 				B1DB2CE621C12DEA007FAB21 /* URLSessionTask+Tag.swift in Sources */,
+				B1ADAD4121C2761800012BFB /* URLRequest+Backgroundable.swift in Sources */,
 				49084FE01BD13DF80012F636 /* UIAlertController+TSCErrorRecoveryAttempter.m in Sources */,
 				B12F7CAB1BFDD836002B7D60 /* NSThread+Blocks.m in Sources */,
 				B1DB2C8321BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */,
@@ -957,6 +964,7 @@
 			files = (
 				B1FE42831BF4A36800EDC887 /* TSCOAuth2Credential.m in Sources */,
 				B1DB2CEA21C15268007FAB21 /* RequestController+SessionDelegate.swift in Sources */,
+				B1ADAD4021C2761700012BFB /* URLRequest+Backgroundable.swift in Sources */,
 				B1DB2C9821BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
 				B1DB2C6D21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
 				B1DB2CDA21C11AE8007FAB21 /* RequestResponse+Codable.swift in Sources */,
@@ -1015,6 +1023,7 @@
 				B120EE4A207B897600A4A7CA /* NSURLSession+Synchronous.m in Sources */,
 				B120EE55207B897600A4A7CA /* TSCRequestResponse.m in Sources */,
 				B120EE52207B897600A4A7CA /* TSCOAuth2Credential.m in Sources */,
+				B1ADAD4221C2761800012BFB /* URLRequest+Backgroundable.swift in Sources */,
 				B1DB2CB721C012C5007FAB21 /* JSONRequestBody.swift in Sources */,
 				B1DB2C6F21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
 				B1DB2CDC21C11AE8007FAB21 /* RequestResponse+Codable.swift in Sources */,
@@ -1056,6 +1065,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1ADAD3F21C2761100012BFB /* URLRequest+Backgroundable.swift in Sources */,
 				B1DB2C9721BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
 				B1EF2E9D1BA6D88E0053B39A /* TSCOAuth2Credential.m in Sources */,
 				C2E508AA19C835D900350F00 /* TSCRequestCredential.m in Sources */,

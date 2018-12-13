@@ -11,7 +11,7 @@ import Foundation
 extension RequestController: SessionDelegate {
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        callCompletionHandlersFor(taskIdentifier: downloadTask.taskIdentifier, downloadedFileURL: location, error: nil)
+        callTransferCompletionHandlersFor(taskIdentifier: downloadTask.taskIdentifier, downloadedFileURL: location, error: nil, response: downloadTask.response)
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
@@ -29,7 +29,7 @@ extension RequestController: SessionDelegate {
     }
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        callCompletionHandlersFor(taskIdentifier: task.taskIdentifier, downloadedFileURL: nil, error: error)
+        callTransferCompletionHandlersFor(taskIdentifier: task.taskIdentifier, downloadedFileURL: nil, error: error, response: task.response)
     }
     
     func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) {
