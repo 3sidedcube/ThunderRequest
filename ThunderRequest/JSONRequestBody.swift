@@ -19,7 +19,7 @@ public struct JSONRequestBody: RequestBody {
     ///
     /// - Parameters:
     ///   - jsonObject: The JSON to send
-    init(_ jsonObject: Any) {
+    public init(_ jsonObject: Any) {
         self.jsonObject = jsonObject
     }
     

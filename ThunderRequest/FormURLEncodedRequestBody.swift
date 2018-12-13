@@ -13,13 +13,13 @@ import Foundation
 public struct FormURLEncodedRequestBody: RequestBody {
     
     /// The payload object that should be sent with the request
-    let payloadObject: [AnyHashable : Any]
+    public let payloadObject: [AnyHashable : Any]
     
     /// Creates a new form url encoded upload request body
     ///
     /// - Parameters:
     ///   - propertyList: The Plist to send
-    init(_ payload: [AnyHashable: Any]) {
+    public init(_ payload: [AnyHashable: Any]) {
         self.payloadObject = payload
     }
     

@@ -36,7 +36,7 @@ public struct MultipartFormRequestBody: RequestBody {
     /// - Parameters:
     ///   - parts: A dictionary comprising the multi-part elements to be sent with the request
     ///   - boundary: (Optional) the boundary to use to separate elements in `object`
-    init(parts: [String : MultipartFormElement], boundary: String?) {
+    public init(parts: [String : MultipartFormElement], boundary: String?) {
         self.parts = parts
         self.boundary = boundary ?? "----TSCRequestController" + (String(describing: parts).md5Hex ?? "")
     }

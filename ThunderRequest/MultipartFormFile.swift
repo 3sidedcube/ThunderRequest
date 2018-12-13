@@ -10,19 +10,19 @@ import Foundation
 
 public struct MultipartFormFile: MultipartFormElement {
     
-    let fileData: Data
+    public let fileData: Data
     
-    let contentType: String
+    public let contentType: String
     
-    let fileName: String
+    public let fileName: String
     
-    let disposition: String?
+    public let disposition: String?
     
-    let name: String?
+    public let name: String?
     
-    let transferEncoding: String?
+    public let transferEncoding: String?
     
-    init(fileData: Data, contentType: String, fileName: String, disposition: String? = nil, name: String? = nil, transferEncoding: String? = nil) {
+    public init(fileData: Data, contentType: String, fileName: String, disposition: String? = nil, name: String? = nil, transferEncoding: String? = nil) {
         
         self.fileData = fileData
         self.contentType = contentType

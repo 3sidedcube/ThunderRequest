@@ -14,10 +14,10 @@ import UIKit
 public typealias Image = UIImage
 #endif
 
-extension Image {
+public extension Image {
     
     /// Image format (jpeg/png/gif e.t.c)
-    enum Format {
+    public enum Format {
         case jpeg
         case png
         #if os(macOS)
@@ -90,17 +90,17 @@ extension Image {
 public struct ImageRequestBody: RequestBody {
     
     /// The image that should be uploaded
-    let image: Image
+    public let image: Image
     
     /// The image format of the image
-    let format: Image.Format
+    public let format: Image.Format
     
     /// Creates a new image upload request body
     ///
     /// - Parameters:
     ///   - image: The image to upload
     ///   - format: The format to apply to the image
-    init(image: Image, format: Image.Format) {
+    public init(image: Image, format: Image.Format) {
         self.image = image
         self.format = format
     }

@@ -23,7 +23,7 @@ public struct PropertyListRequestBody: RequestBody {
     /// - Parameters:
     ///   - propertyList: The Plist to send
     ///   - format: (optional) How to format the plist
-    init(_ propertyList: Any, format: PropertyListSerialization.PropertyListFormat = .xml) {
+    public init(_ propertyList: Any, format: PropertyListSerialization.PropertyListFormat = .xml) {
         self.propertyList = propertyList
         self.format = format
     }
