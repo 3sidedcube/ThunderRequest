@@ -125,6 +125,8 @@ public class RequestController {
     
     private func resetSessions() {
         
+        invalidateAndCancel()
+        
         defaultRequestQueue = OperationQueue()
         backgroundRequestQueue = OperationQueue()
         ephemeralRequestQueue = OperationQueue()
