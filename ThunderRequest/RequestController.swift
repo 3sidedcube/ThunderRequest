@@ -72,7 +72,7 @@ public class RequestController {
     
     /// Does not store any data on the disk; all caches, credential stores, and so on are kept in the RAM and tied
     /// to the session. Thus, when invalidated, they are purged automatically.
-    private var backgroundSession: URLSession = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: ""))
+    private var backgroundSession: URLSession = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: ProcessInfo.processInfo.globallyUniqueString))
     
     /// Similar to a default session, except that a seperate process handles all data transfers. Background sessions have some additional limitations.
     private var ephemeralSession: URLSession = URLSession(configuration: URLSessionConfiguration.ephemeral)
@@ -132,7 +132,7 @@ public class RequestController {
         sessionDelegate = SessionDelegateProxy(delegate: self)
         
         let defaultConfig = URLSessionConfiguration.default
-        let backgroundConfig = URLSessionConfiguration.background(withIdentifier: NSUUID().uuidString)
+        let backgroundConfig = URLSessionConfiguration.background(withIdentifier: ProcessInfo.processInfo.globallyUniqueString)
         let ephemeralConfig = URLSessionConfiguration.ephemeral
         
         defaultSession = URLSession(configuration: defaultConfig, delegate: sessionDelegate, delegateQueue: defaultRequestQueue)

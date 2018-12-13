@@ -15,7 +15,7 @@ extension RequestResponse {
     /// First attempts using JSONDecoder, then falls back to PropertyListDecoder
     ///
     /// - Returns: The decoded object, if parsing was sucessful
-    func decoded<T: Decodable>() -> T? {
+    public func decoded<T: Decodable>() -> T? {
         
         guard let data = data else { return nil }
         
