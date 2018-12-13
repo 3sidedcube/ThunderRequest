@@ -90,7 +90,10 @@ public class RequestController {
             sharedBaseURL = URL(string: baseURL.absoluteString.appending("/")) ?? baseURL
         }
         
-        sessionDelegate = SessionDelegateProxy(delegate: self)
+        defer {
+            sessionDelegate = SessionDelegateProxy(delegate: self)
+        }
+        
         sharedRequestCredentials = TSCRequestCredential.retrieveCredential(withIdentifier: "thundertable.com.threesidedcube-\(sharedBaseURL)")
         resetSessions()
     }
@@ -114,7 +117,7 @@ public class RequestController {
         }
     }
     
-    private let sessionDelegate: SessionDelegateProxy
+    private var sessionDelegate: SessionDelegateProxy?
     
     var transferCompletionHandlers: [Int : TransferCompletion] = [:]
     
