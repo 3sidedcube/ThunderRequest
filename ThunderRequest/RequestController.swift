@@ -145,17 +145,41 @@ public class RequestController {
     }
     
     //MARK: - Making Requests -
+    //MARK: General Requests
+    
+    private func setHeaders(_ headers: [String: String?]?, for request: Request) {
+        
+        var allHeaders = sharedRequestHeaders
+        
+        // In some APIs an error will be returned if you set a Content-Type header
+        // but don't pass a body (In the case of a GET request you never pass a body)
+        // so for GET requests we nil this out
+        if request.method == .GET {
+            allHeaders["Content-Type"] = nil
+        }
+        
+        if let headers = headers {
+            allHeaders.merge(headers, uniquingKeysWith: { (key1, key2) in
+                return key1
+            })
+        }
+        
+        request.headers = allHeaders
+    }
     
     /// Performs a HTTP request to the given path using the parameters provided
+    ///
+    /// If you already have a `Request` object, use one of the `schedule` methods instead.
     ///
     /// - Parameters:
     ///   - path: The path to append to `sharedBaseURL`
     ///   - method: The HTTP method to use for the request
     ///   - body: The body to be sent with the request
+    ///   - tag: A tag to apply to the request so it can be cancelled later
     ///   - contentType: (Optional) an override to the content type provided by `body`
     ///   - overrideURL: (Optional) an override for `sharedBaseURL`
     ///   - queryItems: (Optional) query items to append to the url
-    ///   - headers: (Optional) an array of override headers to be merged with `sharedRequestHeaders`
+    ///   - headers: (Optional) a dictionary of override headers to be merged with `sharedRequestHeaders`
     ///   - completion: (Optional) A closure to be called once the request has completed
     /// - Returns: The request object that will be run
     public func request(
@@ -179,26 +203,199 @@ public class RequestController {
         request.body = body
         request.tag = tag
         
-        var allHeaders = sharedRequestHeaders
-        
-        // In some APIs an error will be returned if you set a Content-Type header
-        // but don't pass a body (In the case of a GET request you never pass a body)
-        // so for GET requests we nil this out
-        if method == .GET {
-            allHeaders["Content-Type"] = nil
-        }
-        
-        if let headers = headers {
-            allHeaders.merge(headers, uniquingKeysWith: { (key1, key2) in
-                return key1
-            })
-        }
-        
-        request.headers = allHeaders
+        setHeaders(headers, for: request)
         schedule(request: request, completion: completion)
         
         return request
     }
+    
+    //MARK: Uploads
+    /// Performs a HTTP request to upload the file at a given file url to a given path
+    ///
+    /// If you already have a `Request` object, use one of the `schedule` methods instead.
+    ///
+    /// - Parameters:
+    ///   - fileURL: The file to upload
+    ///   - path: The path to append to `sharedBaseURL`
+    ///   - tag: A tag to apply to the request so it can be cancelled later
+    ///   - contentType: (Optional) an override to the content type provided by `body`
+    ///   - overrideURL: (Optional) an override for `sharedBaseURL`
+    ///   - queryItems: (Optional) query items to append to the url
+    ///   - headers: (Optional) a dictionary of override headers to be merged with `sharedRequestHeaders`
+    ///   - progress: (Optional) A closure to be called as the upload progresses
+    ///   - completion: (Optional) A closure to be called once the upload has completed
+    /// - Returns: The request which has been made
+    public func uploadFile(
+        _ fileURL: URL,
+        to path: String?,
+        tag: Int = Int.random(in: 0...1000),
+        contentType: String? = nil,
+        overrideURL: URL? = nil,
+        queryItems: [URLQueryItem]? = nil,
+        headers: [String: String?]? = nil,
+        progress: ProgressHandler?,
+        completion: TransferCompletion?
+    ) -> Request {
+        
+        let request = Request(
+            baseURL: overrideURL ?? sharedBaseURL,
+            path: path,
+            method: .POST,
+            queryItems: queryItems
+        )
+        request.contentType = contentType
+        request.tag = tag
+        setHeaders(headers, for: request)
+        
+        scheduleUpload(request, on: nil, fileURL: fileURL, progress: progress, completion: completion)
+        
+        return request
+    }
+    
+    /// Performs a HTTP request to upload some given data
+    ///
+    /// If you already have a `Request` object, use one of the `schedule` methods instead.
+    ///
+    /// - Parameters:
+    ///   - data: The data to upload
+    ///   - path: The path to append to `sharedBaseURL`
+    ///   - tag: A tag to apply to the request so it can be cancelled later
+    ///   - contentType: (Optional) an override to the content type provided by `body`
+    ///   - overrideURL: (Optional) an override for `sharedBaseURL`
+    ///   - queryItems: (Optional) query items to append to the url
+    ///   - headers: (Optional) a dictionary of override headers to be merged with `sharedRequestHeaders`
+    ///   - progress: (Optional) A closure to be called as the upload progresses
+    ///   - completion: (Optional) A closure to be called once the upload has completed
+    /// - Returns: The request which has been made
+    public func uploadData(
+        _ data: Data,
+        to path: String?,
+        tag: Int = Int.random(in: 0...1000),
+        contentType: String? = nil,
+        overrideURL: URL? = nil,
+        queryItems: [URLQueryItem]? = nil,
+        headers: [String: String?]? = nil,
+        progress: ProgressHandler?,
+        completion: TransferCompletion?
+    ) -> Request {
+        
+        let request = Request(
+            baseURL: overrideURL ?? sharedBaseURL,
+            path: path,
+            method: .POST,
+            queryItems: queryItems
+        )
+        
+        guard let cachesDirectory = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).last else {
+            // TODO: Send error as last parameter
+            completion?(nil, nil, nil)
+            return request
+        }
+        
+        let cacheURL = URL(fileURLWithPath: cachesDirectory).appendingPathComponent(NSUUID().uuidString)
+        
+        do {
+            try data.write(to: cacheURL)
+        } catch let error {
+            completion?(nil, nil, error)
+            return request
+        }
+        
+        request.contentType = contentType
+        request.tag = tag
+        //TODO: Make `Data` conform to RequestBody
+//        request.body = data
+        setHeaders(headers, for: request)
+        
+        scheduleUpload(request, on: nil, fileURL: cacheURL, progress: progress, completion: completion)
+        
+        return request
+    }
+    
+    /// Performs a HTTP request to upload to the given path using the parameters provided
+    ///
+    /// If you already have a `Request` object, use one of the `schedule` methods instead.
+    ///
+    /// - Parameters:
+    ///   - path: The path to append to `sharedBaseURL`
+    ///   - body: The body to be uploaded
+    ///   - tag: A tag to apply to the upload so it can be cancelled later
+    ///   - contentType: (Optional) an override to the content type provided by `body`
+    ///   - overrideURL: (Optional) an override for `sharedBaseURL`
+    ///   - queryItems: (Optional) query items to append to the url
+    ///   - headers: (Optional) a dictionary of override headers to be merged with `sharedRequestHeaders`
+    ///   - progress: (Optional) A closure to be called as the upload progresses
+    ///   - completion: (Optional) A closure to be called once the upload has completed
+    /// - Returns: The request object that will be run
+    public func upload(
+        _ path: String?,
+        body: RequestBody?,
+        tag: Int = Int.random(in: 0...1000),
+        contentType: String? = nil,
+        overrideURL: URL? = nil,
+        queryItems: [URLQueryItem]? = nil,
+        headers: [String: String?]? = nil,
+        progress: ProgressHandler?,
+        completion: TransferCompletion?) -> Request {
+        
+        let request = Request(
+            baseURL: overrideURL ?? sharedBaseURL,
+            path: path,
+            method: .POST,
+            queryItems: queryItems
+        )
+        request.contentType = contentType
+        request.body = body
+        request.tag = tag
+        
+        setHeaders(headers, for: request)
+        scheduleUpload(request, on: nil, fileURL: nil, progress: progress, completion: completion)
+        
+        return request
+    }
+    
+    //MARK: Download
+    
+    /// Performs a HTTP request to download from the given path using the parameters provided
+    ///
+    /// If you already have a `Request` object, use one of the `schedule` methods instead.
+    ///
+    /// - Parameters:
+    ///   - path: The path to append to `sharedBaseURL`
+    ///   - on: The date to schedule the download on
+    ///   - tag: A tag to apply to the download so it can be cancelled later\
+    ///   - overrideURL: (Optional) an override for `sharedBaseURL`
+    ///   - queryItems: (Optional) query items to append to the url
+    ///   - headers: (Optional) a dictionary of override headers to be merged with `sharedRequestHeaders`
+    ///   - progress: (Optional) A closure to be called as the download progresses
+    ///   - completion: (Optional) A closure to be called once the download has completed
+    /// - Returns: The request object that will be run
+    public func download(
+        _ path: String?,
+        on: Date? = nil,
+        tag: Int = Int.random(in: 0...1000),
+        overrideURL: URL? = nil,
+        queryItems: [URLQueryItem]? = nil,
+        headers: [String: String?]? = nil,
+        progress: ProgressHandler?,
+        completion: TransferCompletion?) -> Request {
+        
+        let request = Request(
+            baseURL: overrideURL ?? sharedBaseURL,
+            path: path,
+            method: .GET,
+            queryItems: queryItems
+        )
+        request.tag = tag
+        
+        setHeaders(headers, for: request)
+        scheduleDownload(request, on: on, progress: progress, completion: completion)
+        
+        return request
+    }
+    
+    //MARK: - Scheduling Requests -
+    //MARK: General
     
     /// Schedules a `Request` object to be made using the `URLSession`.
     ///
@@ -270,7 +467,7 @@ public class RequestController {
     ///   - fileURL: The file url to upload from.
     ///   - progress: A closure to be called with progress updates.
     ///   - completion: A closure to be called once the upload has finished.
-    public func scheduleUpload(_ request: Request, on date: Date = Date(), fileURL: URL, progress: ProgressHandler?, completion: TransferCompletion?) {
+    public func scheduleUpload(_ request: Request, on date: Date? = nil, fileURL: URL?, progress: ProgressHandler?, completion: TransferCompletion?) {
         
         // Set activity indicator (Only if we're the first request)
         RequestController.showApplicationActivityIndicator()
@@ -296,40 +493,117 @@ public class RequestController {
                 
                 if self.runSynchronously {
                     
-                    let response: (response: URLResponse?, error: Error?)
+                    let response: (data: Data?, response: URLResponse?, error: Error?)
                     if let body = urlRequest.httpBody {
                         response = self.defaultSession.sendSynchronousUploadTaskWith(request: &urlRequest, uploadData: body)
-                    } else {
+                    } else if let fileURL = fileURL {
                         response = self.defaultSession.sendSynchronousUploadTaskWith(request: &urlRequest, fileURL: fileURL)
+                    } else {
+                        //TODO: Throw error?
+                        response = self.defaultSession.sendSynchronousUploadTaskWith(request: &urlRequest, uploadData: Data())
                     }
+                    
+                    RequestController.hideApplicationActivityIndicator()
+                    var returnResponse: RequestResponse?
+                    if let requestResponse = response.response {
+                        returnResponse = RequestResponse(response: requestResponse, data: response.data)
+                    }
+                    completion?(returnResponse, nil, error)
+                    
+                } else {
+                    
+                    let task: URLSessionUploadTask
+                    if let body = urlRequest.httpBody {
+                        task = self.defaultSession.uploadTask(with: urlRequest.backgroundable ?? urlRequest, from: body)
+                    } else if let fileURL = fileURL {
+                        task = self.backgroundSession.uploadTask(with: urlRequest.backgroundable ?? urlRequest, fromFile: fileURL)
+                    } else {
+                        //TODO: Throw error?
+                        task = self.backgroundSession.uploadTask(with: urlRequest.backgroundable ?? urlRequest, from: Data())
+                    }
+                    
+                    if #available(iOS 11, watchOS 4.0, macOS 10.13, *) {
+                        task.earliestBeginDate = date
+                    }
+                    
+                    self.add(completionHandler: completion, progressHandler: progress, forTaskId: task.taskIdentifier)
+                    
+                    task.tag = request.tag
+                    task.resume()
+                }
+                
+            } catch let error {
+                
+                completion?(nil, nil, error)
+            }
+        }
+    }
+    
+    //MARK: Download
+    
+    /// Schedules a `Request` object to be downloaded using the `URLSession`.
+    ///
+    /// - Parameters:
+    ///   - request: The request to be downloaded.
+    ///   - date: When to make the request (defaults to current date).
+    ///   - progress: A closure to be called with progress updates.
+    ///   - completion: A closure to be called once the download has finished.
+    public func scheduleDownload(_ request: Request, on date: Date? = nil, progress: ProgressHandler?, completion: TransferCompletion?) {
+        
+        // Set activity indicator (Only if we're the first request)
+        RequestController.showApplicationActivityIndicator()
+        
+        if let userAgent = UserDefaults.standard.string(forKey: "TSCUserAgent"), !request.headers.keys.contains("User-Agent") {
+            request.headers["User-Agent"] = userAgent
+        }
+        
+        checkOAuthStatusFor(request: request) { [weak self] (authenticated, error, needsQueueing) in
+            
+            if error != nil || !authenticated {
+                
+                RequestController.hideApplicationActivityIndicator()
+                completion?(nil, nil, error)
+                return
+            }
+            
+            guard let self = self else { return }
+            
+            do {
+                
+                var urlRequest = try request.construct()
+                
+                if self.runSynchronously {
+                    
+                    let response = self.backgroundSession.sendSynchronousDownloadTaskWith(request: &urlRequest)
                     
                     RequestController.hideApplicationActivityIndicator()
                     var returnResponse: RequestResponse?
                     if let requestResponse = response.response {
                         returnResponse = RequestResponse(response: requestResponse, data: nil)
                     }
-                    completion?(returnResponse, nil, error)
+                    completion?(returnResponse, response.downloadURL, error)
                     
                 } else {
                     
-                    let dataTask = self.defaultSession.dataTask(with: urlRequest, completionHandler: { [weak self] (data, response, error) in
-                        RequestController.hideApplicationActivityIndicator()
-                        guard let self = self else { return }
-                        self.callCompletionHandlersFor(request: urlRequest, data: data, response: response, error: error)
-                    })
+                    let backgroundableRequest = urlRequest.backgroundable ?? urlRequest
+                    let task = self.backgroundSession.downloadTask(with: backgroundableRequest)
                     
-                    dataTask.tag = request.tag
-                    dataTask.resume()
+                    if #available(iOS 11, watchOS 4.0, macOS 10.13, *) {
+                        task.earliestBeginDate = date
+                    }
+                    
+                    self.add(completionHandler: completion, progressHandler: progress, forTaskId: task.taskIdentifier)
+                    
+                    task.tag = request.tag
+                    task.resume()
                 }
                 
             } catch let error {
                 
-                completion?(nil, error)
+                completion?(nil, nil, error)
             }
         }
     }
-    
-    //MARK: Download
     
     //MARK: - Cancelling Requests -
     

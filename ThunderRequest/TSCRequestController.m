@@ -18,7 +18,7 @@
 
 static os_log_t request_controller_log;
 
-@interface TSCRequestController () <NSURLSessionDownloadDelegate, NSURLSessionTaskDelegate>
+@interface TSCRequestController ()
 
 /**
  @abstract The operation queue that contains all requests added to a default session
@@ -78,96 +78,6 @@ static os_log_t request_controller_log;
 // Set up the logging component before it's used.
 + (void)initialize {
     request_controller_log = os_log_create("com.threesidedcube.ThunderRequest", "TSCRequestController");
-}
-
-#pragma mark - GET Requests
-
-#pragma mark - PUT Requests
-
-#pragma mark - PATCH requests
-
-#pragma mark - DELETE Requests
-
-#pragma mark - DOWNLOAD/UPLOAD Requests
-
-- (nonnull TSCRequest *)downloadFileWithPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
-{
-    return [self downloadFileWithPath:path on:nil progress:progress completion:completion];
-}
-
-- (TSCRequest *)downloadFileWithPath:(NSString *)path on:(NSDate *)date progress:(TSCRequestProgressHandler)progress completion:(TSCRequestTransferCompletionHandler)completion {
-    
-    TSCRequest *request = [TSCRequest new];
-    request.baseURL = self.sharedBaseURL;
-    request.path = path;
-    request.requestHTTPMethod = TSCRequestHTTPMethodGET;
-    request.requestHeaders = self.sharedRequestHeaders;
-    
-    [self scheduleDownloadRequest:request on:date progress:progress completion:completion];
-    return request;
-}
-
-- (nonnull TSCRequest *)uploadFileFromPath:(nonnull NSString *)filePath toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
-{
-	TSCRequest *request = [TSCRequest new];
-	request.baseURL = self.sharedBaseURL;
-	request.path = path;
-	request.requestHTTPMethod = TSCRequestHTTPMethodPOST;
-	request.requestHeaders = self.sharedRequestHeaders;
-	
-    [self scheduleUploadRequest:request on:nil filePath:filePath progress:progress completion:completion];
-	return request;
-}
-
-- (nonnull TSCRequest *)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
-{
-	TSCRequest *request = [TSCRequest new];
-	request.baseURL = self.sharedBaseURL;
-	request.path = path;
-	request.requestHTTPMethod = TSCRequestHTTPMethodPOST;
-	request.requestHeaders = self.sharedRequestHeaders;
-	request.HTTPBody = fileData;
-	
-	NSString *cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-	
-	NSString *filePathString = [cachesDirectory stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
-	[fileData writeToFile:filePathString atomically:YES];
-	
-	[self scheduleUploadRequest:request on:nil  filePath:filePathString progress:progress completion:completion];
-	return request;
-}
-
-- (nonnull TSCRequest *)uploadFileData:(nonnull NSData *)fileData toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
-{
-	TSCRequest *request = [TSCRequest new];
-	request.baseURL = self.sharedBaseURL;
-	request.path = path;
-	request.requestHTTPMethod = TSCRequestHTTPMethodPOST;
-	request.requestHeaders = self.sharedRequestHeaders;
-	request.contentType = type;
-	request.HTTPBody = fileData;
-	
-	NSString *cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-	
-	NSString *filePathString = [cachesDirectory stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
-	[fileData writeToFile:filePathString atomically:YES];
-	
-	[self scheduleUploadRequest:request on:nil filePath:filePathString progress:progress completion:completion];
-	return request;
-}
-
-- (nonnull TSCRequest *)uploadBodyParams:(nullable NSDictionary *)bodyParams toPath:(nonnull NSString *)path contentType:(TSCRequestContentType)type progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
-{
-	TSCRequest *request = [TSCRequest new];
-	request.baseURL = self.sharedBaseURL;
-	request.path = path;
-	request.requestHTTPMethod = TSCRequestHTTPMethodPOST;
-	request.requestHeaders = self.sharedRequestHeaders;
-	request.contentType = type;
-	request.bodyParameters = bodyParams;
-	
-	[self scheduleUploadRequest:request on:nil filePath:nil progress:progress completion:completion];
-	return request;
 }
 
 - (void)TSC_fireRequestCompletionWithData:(NSData *)data response:(NSURLResponse *)response error:(NSError *)error request:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion
@@ -242,92 +152,12 @@ static os_log_t request_controller_log;
 
 - (void)scheduleDownloadRequest:(TSCRequest *)request on:(NSDate *)beginDate progress:(TSCRequestProgressHandler)progress completion:(TSCRequestTransferCompletionHandler)completion
 {
-	__weak typeof(self) welf = self;
 	
-//    [self TSC_showApplicationActivity];
-	[request prepareForDispatch];
-	
-	// Check OAuth status before making the request
-//    [self checkOAuthStatusWithRequest:request completion:^(BOOL authenticated, NSError *error, BOOL needsQueueing) {
-		
-		if (error || !authenticated) {
-			
-			if (completion) {
-				completion(nil, error);
-			}
-			return;
-		}
-		
-		if (self.runSynchronously) {
-			
-			NSError *error = nil;
-			NSURL *url = [welf.backgroundSession sendSynchronousDownloadTaskWithURL:request.URL returningResponse:nil error:&error];
-			
-//            [self TSC_hideApplicationActivity];
-			
-			if (completion) {
-				completion(url, error);
-			}
-			
-		} else {
-			
-			NSURLRequest *normalisedRequest = [self backgroundableRequestObjectFromTSCRequest:request];
-			NSURLSessionDownloadTask *task = [welf.backgroundSession downloadTaskWithRequest:normalisedRequest];
-            
-            if (@available(iOS 11.0, watchOS 4.0, macOS 10.13, *)) {
-                task.earliestBeginDate = beginDate;
-            }
-			
-			[welf addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
-            
-            // Set the request on the task
-//            task.request = request;
-			[task resume];
-		}
-//    }];
 }
 
 - (void)scheduleUploadRequest:(nonnull TSCRequest *)request on:(NSDate *)beginDate filePath:(NSString *)filePath progress:(nullable TSCRequestProgressHandler)progress completion:(nonnull TSCRequestTransferCompletionHandler)completion
 {
-	__weak typeof(self) welf = self;
-			
-		if (self.runSynchronously) {
-			
-			NSError *error = nil;
-			
-			if (request.HTTPBody) {
-				[welf.defaultSession sendSynchronousUploadTaskWithRequest:[welf backgroundableRequestObjectFromTSCRequest:request] fromData:request.HTTPBody returningResponse:nil error:&error];
-			} else {
-				[welf.backgroundSession sendSynchronousUploadTaskWithRequest:[welf backgroundableRequestObjectFromTSCRequest:request] fromFile:[NSURL fileURLWithPath:filePath] returningResponse:nil error:&error];
-			}
-			
-//            [self TSC_hideApplicationActivity];
-			
-			if (completion) {
-				completion(nil, error);
-			}
-			
-		} else {
-			
-			NSURLSessionUploadTask *task;
-			
-			if (request.HTTPBody) {
-				task = [welf.defaultSession uploadTaskWithRequest:[welf backgroundableRequestObjectFromTSCRequest:request] fromData:request.HTTPBody];
-			} else {
-				
-				task = [welf.backgroundSession uploadTaskWithRequest:[welf backgroundableRequestObjectFromTSCRequest:request] fromFile:[NSURL fileURLWithPath:filePath]];
-			}
-            
-            if (@available(iOS 11.0, watchOS 4.0, macOS 10.13,*)) {
-                task.earliestBeginDate = beginDate;
-            }
-			
-			[welf addCompletionHandler:completion progressHandler:progress forTaskIdentifier:task.taskIdentifier];
-			
-//            task.request = request;
-			[task resume];
-		}
-//    }];
+	
 }
 
 - (void)scheduleRequest:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion
@@ -383,7 +213,7 @@ static os_log_t request_controller_log;
 - (TSCRequestController *)OAuth2RequestController
 {
 	if (!_OAuth2RequestController) {
-		_OAuth2RequestController = [[TSCRequestController alloc] initWithBaseURL:self.sharedBaseURL];
+//        _OAuth2RequestController = [[TSCRequestController alloc] initWithBaseURL:self.sharedBaseURL];
 	}
 	
 	return _OAuth2RequestController;

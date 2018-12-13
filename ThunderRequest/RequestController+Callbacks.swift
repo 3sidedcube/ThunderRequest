@@ -38,9 +38,14 @@ extension RequestController {
         progressHandlers[taskIdentifier]?(progress, totalBytes, progressBytes)
     }
     
-    func callTransferCompletionHandlersFor(taskIdentifier: Int, downloadedFileURL fileURL: URL?, error: Error?) {
+    func callTransferCompletionHandlersFor(taskIdentifier: Int, downloadedFileURL fileURL: URL?, error: Error?, response: URLResponse?) {
         
-        transferCompletionHandlers[taskIdentifier]?(fileURL, error)
+        var requestResponse: RequestResponse?
+        if let urlResponse = response {
+            requestResponse = RequestResponse(response: urlResponse, data: nil)
+        }
+        
+        transferCompletionHandlers[taskIdentifier]?(requestResponse, fileURL, error)
         transferCompletionHandlers[taskIdentifier] = nil
         progressHandlers[taskIdentifier] = nil
     }
@@ -49,7 +54,7 @@ extension RequestController {
         
         var response: RequestResponse?
         if let urlResponse = urlResponse {
-            RequestResponse(response: urlResponse, data: data)
+            response = RequestResponse(response: urlResponse, data: data)
         }
         
         if let redirectResponse = redirectResponses[request.taskIdentifier] {

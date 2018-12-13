@@ -44,7 +44,7 @@ extension URLSession {
     
     //MARK: - Upload Tasks -
     
-    func sendSynchronousUploadTaskWith(request: inout URLRequest, uploadData: Data) -> (response: URLResponse?, error: Error?) {
+    func sendSynchronousUploadTaskWith(request: inout URLRequest, uploadData: Data) -> (data: Data?, response: URLResponse?, error: Error?) {
         
         let taskSemaphore = DispatchSemaphore(value: 0)
         var data: Data?
@@ -68,7 +68,7 @@ extension URLSession {
         return (data, response, error)
     }
     
-    func sendSynchronousUploadTaskWith(request: inout URLRequest, fileURL: URL) -> (response: URLResponse?, error: Error?) {
+    func sendSynchronousUploadTaskWith(request: inout URLRequest, fileURL: URL) -> (data: Data?, response: URLResponse?, error: Error?) {
         
         let taskSemaphore = DispatchSemaphore(value: 0)
         var data: Data?
