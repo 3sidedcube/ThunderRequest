@@ -161,7 +161,7 @@ public class RequestController {
     public func request(
         _ path: String?,
         method: HTTP.Method,
-        body: RequestBody?,
+        body: RequestBody? = nil,
         tag: Int = Int.random(in: 0...1000),
         contentType: String? = nil,
         overrideURL: URL? = nil,
