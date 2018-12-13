@@ -59,13 +59,13 @@ public class RequestController {
     public var runSynchronously: Bool = false
     
     /// The operation queue that contains all requests added to a default session
-    private var defaultRequestQueue = OperationQueue()
+    private var defaultRequestQueue: OperationQueue?
     
     /// The operation queue that contains all requests added to a background session
-    private var backgroundRequestQueue = OperationQueue()
+    private var backgroundRequestQueue: OperationQueue?
     
     /// The operation queue that contains all requests added to a ephemeral session
-    private var ephemeralRequestQueue = OperationQueue()
+    private var ephemeralRequestQueue: OperationQueue?
     
     /// Uses persistent disk-based cache and stores credentials in the user's keychain
     private var defaultSession: URLSession = URLSession(configuration: URLSessionConfiguration.default)
@@ -129,8 +129,11 @@ public class RequestController {
         invalidateAndCancel()
         
         defaultRequestQueue = OperationQueue()
+        defaultRequestQueue?.maxConcurrentOperationCount = 1
         backgroundRequestQueue = OperationQueue()
+        backgroundRequestQueue?.maxConcurrentOperationCount = 1
         ephemeralRequestQueue = OperationQueue()
+        ephemeralRequestQueue?.maxConcurrentOperationCount = 1
         
         let defaultConfig = URLSessionConfiguration.default
         let backgroundConfig = URLSessionConfiguration.background(withIdentifier: ProcessInfo.processInfo.globallyUniqueString)
