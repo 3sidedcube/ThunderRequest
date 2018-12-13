@@ -16,7 +16,7 @@ extension RequestController: SessionDelegate {
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
         let progress = Double(totalBytesWritten)/Double(totalBytesExpectedToWrite)
-        callProgressHandlerFor(taskIdentifier: downloadTask.taskIdentifier, progress: progress, totalBytes: totalBytesExpectedToWrite, progressBytes: bytesWritten)
+        callProgressHandlerFor(taskIdentifier: downloadTask.taskIdentifier, progress: progress, totalBytes: totalBytesExpectedToWrite, progressBytes: totalBytesWritten)
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) {
