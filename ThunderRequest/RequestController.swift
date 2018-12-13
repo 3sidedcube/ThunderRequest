@@ -90,10 +90,7 @@ public class RequestController {
             sharedBaseURL = URL(string: baseURL.absoluteString.appending("/")) ?? baseURL
         }
         
-        defer {
-            sessionDelegate = SessionDelegateProxy(delegate: self)
-        }
-        
+        sessionDelegate = SessionDelegateProxy(delegate: self)        
         sharedRequestCredentials = TSCRequestCredential.retrieveCredential(withIdentifier: "thundertable.com.threesidedcube-\(sharedBaseURL)")
         resetSessions()
     }
