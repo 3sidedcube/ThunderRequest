@@ -182,7 +182,7 @@ public class RequestController {
     ///   - headers: (Optional) a dictionary of override headers to be merged with `sharedRequestHeaders`
     ///   - completion: (Optional) A closure to be called once the request has completed
     /// - Returns: The request object that will be run
-    public func request(
+    @discardableResult public func request(
         _ path: String?,
         method: HTTP.Method,
         body: RequestBody? = nil,
@@ -225,7 +225,7 @@ public class RequestController {
     ///   - progress: (Optional) A closure to be called as the upload progresses
     ///   - completion: (Optional) A closure to be called once the upload has completed
     /// - Returns: The request which has been made
-    public func uploadFile(
+    @discardableResult public func uploadFile(
         _ fileURL: URL,
         to path: String?,
         tag: Int = Int.random(in: 0...1000),
@@ -267,7 +267,7 @@ public class RequestController {
     ///   - progress: (Optional) A closure to be called as the upload progresses
     ///   - completion: (Optional) A closure to be called once the upload has completed
     /// - Returns: The request which has been made
-    public func uploadData(
+    @discardableResult public func uploadData(
         _ data: Data,
         to path: String?,
         tag: Int = Int.random(in: 0...1000),
@@ -327,7 +327,7 @@ public class RequestController {
     ///   - progress: (Optional) A closure to be called as the upload progresses
     ///   - completion: (Optional) A closure to be called once the upload has completed
     /// - Returns: The request object that will be run
-    public func upload(
+    @discardableResult public func upload(
         _ path: String?,
         body: RequestBody?,
         tag: Int = Int.random(in: 0...1000),
@@ -370,7 +370,7 @@ public class RequestController {
     ///   - progress: (Optional) A closure to be called as the download progresses
     ///   - completion: (Optional) A closure to be called once the download has completed
     /// - Returns: The request object that will be run
-    public func download(
+    @discardableResult public func download(
         _ path: String?,
         on: Date? = nil,
         tag: Int = Int.random(in: 0...1000),
