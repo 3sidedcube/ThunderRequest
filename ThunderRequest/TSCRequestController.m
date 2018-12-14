@@ -75,9 +75,14 @@ static os_log_t request_controller_log;
 
 @implementation TSCRequestController
 
+// Set up the logging component before it's used.
++ (void)initialize {
+    request_controller_log = os_log_create("com.threesidedcube.ThunderRequest", "TSCRequestController");
+}
+
 - (void)TSC_fireRequestCompletionWithData:(NSData *)data response:(NSURLResponse *)response error:(NSError *)error request:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion
 {
-
+	
 }
 
 #pragma mark - Request scheduling

@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import os.log
 
 public struct RequestNotificationKey {
     public static let request = "TSCRequestNotificationRequestKey"
     public static let response = "TSCRequestNotificationResponseKey"
 }
+
 public extension HTTP {
     
     public struct Error: CustomisableRecoverableError {
@@ -98,14 +100,50 @@ extension RequestController {
         
         defer {
             
-            //TODO: Add back in!
-//            if (error) {
-//                os_log_debug(request_controller_log, "Request:%@", request);
-//                os_log_error(request_controller_log, "\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: FAILURE \nError Description: %@",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], error.localizedDescription );
-//            } else {
-//
-//                os_log_debug(request_controller_log, "\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: %li\nResponse Body: %@\n", request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], (long)requestResponse.status, requestResponse.string);
-//            }
+            if let error = error {
+                os_log("Request: %@", log: requestLog, type: .debug, urlRequest.debugDescription)
+                os_log("""
+                        
+                        URL: %@
+                        Method:%@
+                        Request Headers:%@
+                        Body: %@
+
+                        Response Status: FAILURE
+                        Error Description: %@
+                        """,
+                       log: requestLog,
+                       type: .error,
+                       urlRequest.url?.description ?? request.baseURL.description,
+                       request.method.rawValue,
+                       urlRequest.allHTTPHeaderFields ?? "",
+                       urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "",
+                       error.localizedDescription
+                    )
+            } else {
+                
+                os_log("Request: %@", log: requestLog, type: .debug, urlRequest.debugDescription)
+                os_log("""
+                        
+                        URL: %@
+                        Method: %@
+                        Request Headers: %@
+                        Body: %@
+
+                        Response Status: %li
+                        Response Body: %@
+
+                        """,
+                       log: requestLog,
+                       type: .error,
+                       urlRequest.url?.description ?? request.baseURL.description,
+                       request.method.rawValue,
+                       urlRequest.allHTTPHeaderFields ?? "",
+                       urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "",
+                       response?.status.rawValue ?? 999,
+                       response?.string ?? ""
+                )
+            }
         }
         
         guard error != nil || response?.status.isConsideredError == true else {
