@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 public typealias RequestCompletion = (_ response: RequestResponse?, _ error: Error?) -> Void
 public typealias TransferCompletion = (_ response: RequestResponse?, _ fileLocation: URL?, _ error: Error?) -> Void
@@ -32,6 +33,8 @@ public class RequestController {
     
     /// A custom queue to dispatch all request callbacks onto
     public var callbackQueue: DispatchQueue?
+    
+    let requestLog: OSLog = OSLog(subsystem: "com.threesidedcube.ThunderRequest", category: "RequestController")
     
     /// The request controller for making OAuth2 re-authentication requests on
     public var OAuth2RequestController: RequestController?
@@ -439,7 +442,7 @@ public class RequestController {
                 if self.runSynchronously {
                     
                     let response = self.defaultSession.sendSynchronousDataTaskWith(request: &urlRequest)
-                    self.callCompletionHandlersFor(request: urlRequest, data: response.data, response: response.response, error: response.error)
+                    self.callCompletionHandlersFor(request: request, urlRequest: urlRequest, data: response.data, response: response.response, error: response.error, completion: completion)
                     RequestController.hideApplicationActivityIndicator()
                     
                 } else {
@@ -447,7 +450,7 @@ public class RequestController {
                     let dataTask = self.defaultSession.dataTask(with: urlRequest, completionHandler: { [weak self] (data, response, error) in
                         RequestController.hideApplicationActivityIndicator()
                         guard let self = self else { return }
-                        self.callCompletionHandlersFor(request: urlRequest, data: data, response: response, error: error)
+                        self.callCompletionHandlersFor(request: request, urlRequest: urlRequest, data: data, response: response, error: error, completion: completion)
                     })
                     
                     dataTask.tag = request.tag

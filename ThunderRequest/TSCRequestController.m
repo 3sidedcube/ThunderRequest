@@ -75,77 +75,9 @@ static os_log_t request_controller_log;
 
 @implementation TSCRequestController
 
-// Set up the logging component before it's used.
-+ (void)initialize {
-    request_controller_log = os_log_create("com.threesidedcube.ThunderRequest", "TSCRequestController");
-}
-
 - (void)TSC_fireRequestCompletionWithData:(NSData *)data response:(NSURLResponse *)response error:(NSError *)error request:(TSCRequest *)request completion:(TSCRequestCompletionHandler)completion
 {
-	TSCRequestResponse *requestResponse = [[TSCRequestResponse alloc] initWithResponse:response data:data];
-	
-	if (request.taskIdentifier && self.redirectResponses[@(request.taskIdentifier)]) {
-		requestResponse.redirectResponse = self.redirectResponses[@(request.taskIdentifier)];
-		[self.redirectResponses removeObjectForKey:@(request.taskIdentifier)];
-	}
-	
-	NSMutableDictionary *requestInfo = [NSMutableDictionary new];
-	if (request) {
-		requestInfo[TSCRequestNotificationRequestKey] = request;
-	}
-	if (response) {
-		requestInfo[TSCRequestNotificationResponseKey] = requestResponse;
-	}
-	
-	//Notify of response
-	[[NSNotificationCenter defaultCenter] postNotificationName:TSCRequestDidReceiveResponse object:requestResponse userInfo:requestInfo];
-	
-	//Notify of errors
-	if ([self statusCodeIsConsideredHTTPError:requestResponse.status]) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:TSCRequestServerError object:requestResponse userInfo:requestInfo];
-	}
-	
-	if (error || [self statusCodeIsConsideredHTTPError:requestResponse.status]) {
-		
-		TSCErrorRecoveryAttempter *recoveryAttempter = [TSCErrorRecoveryAttempter new];
-		
-		[recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Retry" type:TSCErrorRecoveryOptionTypeRetry handler:^(TSCErrorRecoveryOption *option) {
-			
-			[self scheduleRequest:request completion:completion];
-			
-		}]];
-		
-		[recoveryAttempter addOption:[TSCErrorRecoveryOption optionWithTitle:@"Cancel" type:TSCErrorRecoveryOptionTypeCancel handler:nil]];
-		
-		dispatch_queue_t callbackQueue = self.callbackQueue != NULL ? self.callbackQueue : dispatch_get_main_queue();
-		dispatch_async(callbackQueue, ^{
 
-			if (error) {
-				completion(requestResponse, [recoveryAttempter recoverableErrorWithError:error]);
-			} else {
-				
-				NSError *httpError = [NSError errorWithDomain:TSCRequestErrorDomain code:requestResponse.status userInfo:@{NSLocalizedDescriptionKey: [NSHTTPURLResponse localizedStringForStatusCode:requestResponse.status]}];
-				completion(requestResponse, [recoveryAttempter recoverableErrorWithError:httpError]);
-			}
-		});
-		
-	} else {
-		
-		dispatch_queue_t callbackQueue = self.callbackQueue != NULL ? self.callbackQueue : dispatch_get_main_queue();
-		dispatch_async(callbackQueue, ^{
-			completion(requestResponse, error);
-		});
-	}
-	
-	//Log
-	
-	if (error) {
-		os_log_debug(request_controller_log, "Request:%@", request);
-		os_log_error(request_controller_log, "\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: FAILURE \nError Description: %@",request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], error.localizedDescription );
-	} else {
-		
-		os_log_debug(request_controller_log, "\nURL: %@\nMethod: %@\nRequest Headers:%@\nBody: %@\n\nResponse Status: %li\nResponse Body: %@\n", request.URL, request.HTTPMethod, request.allHTTPHeaderFields, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding], (long)requestResponse.status, requestResponse.string);
-	}
 }
 
 #pragma mark - Request scheduling

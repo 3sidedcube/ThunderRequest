@@ -12,8 +12,33 @@ public struct RequestNotificationKey {
     public static let request = "TSCRequestNotificationRequestKey"
     public static let response = "TSCRequestNotificationResponseKey"
 }
+public extension HTTP {
+    
+    public struct Error: CustomisableRecoverableError {
+        
+        public var description: String?
+        
+        public var code: Int?
+        
+        public var domain: String?
+        
+        public var failureReason: String?
+        
+        public var recoverySuggestion: String?
+        
+        public var options: [ErrorRecoveryOption] = []
+        
+        init(statusCode: HTTP.StatusCode, domain: String) {
+            failureReason = statusCode.localizedDescription
+            self.code = statusCode.rawValue
+            self.domain = domain
+        }
+    }
+}
 
 extension RequestController {
+    
+    public static let ErrorDomain = "com.threesidedcube.ThunderRequest"
     
     static let DidReceiveResponseNotificationName = Notification.Name(rawValue: "TSCRequestDidReceiveResponse")
     
@@ -50,14 +75,14 @@ extension RequestController {
         progressHandlers[taskIdentifier] = nil
     }
     
-    func callCompletionHandlersFor(request: URLRequest, data: Data?, response urlResponse: URLResponse?, error: Error?) {
+    func callCompletionHandlersFor(request: Request, urlRequest: URLRequest, data: Data?, response urlResponse: URLResponse?, error: Error?, completion: RequestCompletion?) {
         
         var response: RequestResponse?
         if let urlResponse = urlResponse {
             response = RequestResponse(response: urlResponse, data: data)
         }
         
-        if let redirectResponse = redirectResponses[request.taskIdentifier] {
+        if let redirectResponse = redirectResponses[urlRequest.taskIdentifier] {
             response?.redirectResponse = redirectResponse
         }
         
@@ -84,9 +109,27 @@ extension RequestController {
         }
         
         guard error != nil || response?.status.isConsideredError == true else {
+            (callbackQueue ?? DispatchQueue.main).async {
+                completion?(response, error)
+            }
             return
         }
         
-//        let errorRecoveryAttempter = TSCErrorRecoveryAttempter()
+        var recoverableError: CustomisableRecoverableError
+        if let error = error {
+            recoverableError = AnyCustomisableRecoverableError(error)
+        } else {
+            recoverableError = HTTP.Error(statusCode: response?.status ?? .unknownError, domain: RequestController.ErrorDomain)
+        }
+        
+        recoverableError.add(option: ErrorRecoveryOption(title: "Retry", style: .retry, handler: { (_, _) in
+            self.schedule(request: request, completion: completion)
+        }))
+        
+        recoverableError.add(option: ErrorRecoveryOption(title: "Cancel", style: .cancel))
+        
+        (callbackQueue ?? DispatchQueue.main).async {
+            completion?(response, recoverableError)
+        }
     }
 }

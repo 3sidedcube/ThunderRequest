@@ -291,5 +291,9 @@ public struct HTTP {
         public var isConsideredError: Bool {
             return rawValue >= 400 && rawValue < 600
         }
+        
+        public var localizedDescription: String {
+            return HTTPURLResponse.localizedString(forStatusCode: rawValue)
+        }
     }
 }
