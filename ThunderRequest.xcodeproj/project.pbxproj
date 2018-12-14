@@ -51,6 +51,10 @@
 		B117120221C3D55700800EEA /* Data+RequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117120021C3D55700800EEA /* Data+RequestBody.swift */; };
 		B117120321C3D55700800EEA /* Data+RequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117120021C3D55700800EEA /* Data+RequestBody.swift */; };
 		B117120421C3D55700800EEA /* Data+RequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117120021C3D55700800EEA /* Data+RequestBody.swift */; };
+		B117120621C3D75B00800EEA /* EncodableRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117120521C3D75B00800EEA /* EncodableRequestBody.swift */; };
+		B117120721C3D75B00800EEA /* EncodableRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117120521C3D75B00800EEA /* EncodableRequestBody.swift */; };
+		B117120821C3D75B00800EEA /* EncodableRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117120521C3D75B00800EEA /* EncodableRequestBody.swift */; };
+		B117120921C3D75B00800EEA /* EncodableRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117120521C3D75B00800EEA /* EncodableRequestBody.swift */; };
 		B1177EDD1BBAF18E00372D4D /* ThunderRequestMac.h in Headers */ = {isa = PBXBuildFile; fileRef = B1177EDC1BBAF18E00372D4D /* ThunderRequestMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1177EE31BBAF18E00372D4D /* ThunderRequestMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */; };
 		B1177EEA1BBAF18E00372D4D /* ThunderRequestMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B1177EE91BBAF18E00372D4D /* ThunderRequestMacTests.m */; };
@@ -283,6 +287,7 @@
 		B11711F521C3B3EF00800EEA /* ErrorRecoveryOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorRecoveryOption.swift; sourceTree = "<group>"; };
 		B11711FA21C3BB2500800EEA /* UIAlertController+ErrorRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+ErrorRecovery.swift"; sourceTree = "<group>"; };
 		B117120021C3D55700800EEA /* Data+RequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+RequestBody.swift"; sourceTree = "<group>"; };
+		B117120521C3D75B00800EEA /* EncodableRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableRequestBody.swift; sourceTree = "<group>"; };
 		B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequestMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1177EDB1BBAF18E00372D4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1177EDC1BBAF18E00372D4D /* ThunderRequestMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThunderRequestMac.h; sourceTree = "<group>"; };
@@ -493,6 +498,7 @@
 				B1DB2C8521BFF2E5007FAB21 /* Multipart Form */,
 				B1DB2CB821C013B0007FAB21 /* XMLPlistRequestBody.swift */,
 				B117120021C3D55700800EEA /* Data+RequestBody.swift */,
+				B117120521C3D75B00800EEA /* EncodableRequestBody.swift */,
 			);
 			name = "Request Body Types";
 			sourceTree = "<group>";
@@ -946,6 +952,7 @@
 				49084FD91BD13DF80012F636 /* TSCRequest.m in Sources */,
 				B1DB2CB621C012C5007FAB21 /* JSONRequestBody.swift in Sources */,
 				B1DB2CBB21C013B0007FAB21 /* XMLPlistRequestBody.swift in Sources */,
+				B117120821C3D75B00800EEA /* EncodableRequestBody.swift in Sources */,
 				B1DB2C8A21BFF322007FAB21 /* MultipartFormFile.swift in Sources */,
 				B1DB2C9E21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift in Sources */,
 				B1DBEFF521BFC44400D22137 /* Request.swift in Sources */,
@@ -1029,6 +1036,7 @@
 				B1177EF51BBAF21F00372D4D /* TSCErrorRecoveryAttempter.m in Sources */,
 				B1DB2CE521C12DEA007FAB21 /* URLSessionTask+Tag.swift in Sources */,
 				B1DB2CEF21C15282007FAB21 /* URLSessionDelegate.swift in Sources */,
+				B117120721C3D75B00800EEA /* EncodableRequestBody.swift in Sources */,
 				B11711F121C3B2E300800EEA /* CustomisableRecoverableError.swift in Sources */,
 				B198948C1BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m in Sources */,
 				B1DB2CF421C15616007FAB21 /* RequestController+Callbacks.swift in Sources */,
@@ -1087,6 +1095,7 @@
 				B120EE57207B897600A4A7CA /* TSCErrorRecoveryAttempter.m in Sources */,
 				B120EE5B207B897600A4A7CA /* TSCRequestDefines.m in Sources */,
 				B1DB2CCB21C01EF2007FAB21 /* RequestController.swift in Sources */,
+				B117120921C3D75B00800EEA /* EncodableRequestBody.swift in Sources */,
 				B1DB2CD021C02172007FAB21 /* RequestResponse.swift in Sources */,
 				B120EE4C207B897600A4A7CA /* TSCRequest.m in Sources */,
 				B120EE50207B897600A4A7CA /* TSCRequestCredential.m in Sources */,
@@ -1105,6 +1114,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B117120621C3D75B00800EEA /* EncodableRequestBody.swift in Sources */,
 				B1ADAD3F21C2761100012BFB /* URLRequest+Backgroundable.swift in Sources */,
 				B1DB2C9721BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
 				B1EF2E9D1BA6D88E0053B39A /* TSCOAuth2Credential.m in Sources */,
