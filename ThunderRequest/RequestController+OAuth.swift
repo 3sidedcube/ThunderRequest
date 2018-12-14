@@ -12,25 +12,25 @@ typealias OAuthCheckCompletion = (_ authenticated: Bool, _ error: Error?, _ need
 
 extension RequestController {
     
-    /// Checks the OAuth authentication status for a given request
+    /// Checks the authentication status for a given request
     ///
     /// - Parameters:
     ///   - request: The request to check authentication for
     ///   - completion: Closure callback with result
-    func checkOAuthStatusFor(request: Request, completion: @escaping OAuthCheckCompletion) {
+    func checkAuthStatusFor(request: Request, completion: @escaping OAuthCheckCompletion) {
         
-        guard let oAuth2Delegate = oAuth2Delegate else {
+        guard let authenticator = authenticator else {
             completion(true, nil, false)
             return
         }
         
         // If we have an oAuth2 delegate and the request isn't the request to refresh the token
-        if sharedRequestCredentials as? TSCOAuth2Credential == nil {
-            sharedRequestCredentials = TSCOAuth2Credential.retrieveCredential(withIdentifier: oAuth2Delegate.authIdentifier())
+        if sharedRequestCredentials as? OAuth2Credential == nil {
+            sharedRequestCredentials = OAuth2Credential.retrieve(withIdentifier: authenticator.authIdentifier)
         }
         
         // Make sure we have shared credentials, and they are oAuth2 credentials
-        guard let oAuth2Credentials = sharedRequestCredentials as? TSCOAuth2Credential else {
+        guard let oAuth2Credentials = sharedRequestCredentials as? OAuth2Credential else {
             completion(true, nil, false)
             return
         }
@@ -46,12 +46,12 @@ extension RequestController {
         // to make the authentication request, we don't end up in an infinite loop!
         self.reAuthenticating = true
         
-        oAuth2Delegate.reAuthenticateCredential(oAuth2Credentials) { [weak self] (newCredential, error, saveToKeychain) in
+        authenticator.reAuthenticate(credential: oAuth2Credentials) { [weak self] (newCredential, error, saveToKeychain) in
             
             // If we don't have an error, then save the credentials to the keychain
             if let credentials = newCredential, error == nil {
                 if saveToKeychain {
-                    TSCOAuth2Credential.store(credentials, withIdentifier: oAuth2Delegate.authIdentifier())
+                    OAuth2Credential.store(credential: credentials, identifier: authenticator.authIdentifier)
                 }
                 self?.sharedRequestCredentials = credentials
             }

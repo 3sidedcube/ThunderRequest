@@ -73,7 +73,7 @@ class ThunderRequestTests: XCTestCase {
         
         let finishExpectation = expectation(description: "500 Response should return with response and error")
         
-        requestController.request("status/404", method: .GET) { (response, error) in
+        requestController.request("status/500", method: .GET) { (response, error) in
             XCTAssertNotNil(error, "Request controller did not return an error object")
             XCTAssertNotNil(response, "Request controller did not return a response object")
             XCTAssertEqual(response!.status, .internalServerError, "Request controller did not return 500")

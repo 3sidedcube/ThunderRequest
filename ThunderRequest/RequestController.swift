@@ -51,10 +51,16 @@ public class RequestController {
     public var sharedRequestHeaders: [String : String?] = [:]
     
     /// The shared request credentials to be used for authorization with any authentication challenge
-    public var sharedRequestCredentials: TSCRequestCredential?
+    public var sharedRequestCredentials: RequestCredential?
     
-    /// The OAuth2 delegate which will respond to OAuth2 unauthenticated responses e.t.c.
-    public var oAuth2Delegate: TSCOAuth2Manager?
+    /// The authenticator object which will respond to unauthenticated responses e.t.c.
+    public var authenticator: Authenticator? {
+        didSet {
+            guard let authenticator = authenticator else { return }
+            guard let credentials = RequestCredential.retrieve(withIdentifier: authenticator.authIdentifier) else { return }
+            sharedRequestCredentials = credentials
+        }
+    }
     
     /// An array of requests that were sent whilst waiting for an authentication callback.
     var requestsQueuedForAuthentication: [(Request, RequestCompletion?)] = []
@@ -99,7 +105,7 @@ public class RequestController {
         }
         
         sessionDelegate = SessionDelegateProxy(delegate: self)        
-        sharedRequestCredentials = TSCRequestCredential.retrieveCredential(withIdentifier: "thundertable.com.threesidedcube-\(sharedBaseURL)")
+        sharedRequestCredentials = RequestCredential.retrieve(withIdentifier: "thundertable.com.threesidedcube-\(sharedBaseURL)")
         resetSessions()
     }
     
@@ -421,7 +427,7 @@ public class RequestController {
             request.headers["User-Agent"] = userAgent
         }
         
-        checkOAuthStatusFor(request: request) { [weak self] (authenticated, error, needsQueueing) in
+        checkAuthStatusFor(request: request) { [weak self] (authenticated, error, needsQueueing) in
             
             if let error = error, !authenticated, !needsQueueing {
                 
@@ -486,7 +492,7 @@ public class RequestController {
             request.headers["User-Agent"] = userAgent
         }
         
-        checkOAuthStatusFor(request: request) { [weak self] (authenticated, error, needsQueueing) in
+        checkAuthStatusFor(request: request) { [weak self] (authenticated, error, needsQueueing) in
             
             if error != nil || !authenticated {
                 
@@ -567,7 +573,7 @@ public class RequestController {
             request.headers["User-Agent"] = userAgent
         }
         
-        checkOAuthStatusFor(request: request) { [weak self] (authenticated, error, needsQueueing) in
+        checkAuthStatusFor(request: request) { [weak self] (authenticated, error, needsQueueing) in
             
             if error != nil || !authenticated {
                 
@@ -670,8 +676,14 @@ public class RequestController {
     /// service identifier is set on the request controller. If `OAuth2Delegate` is non-nil
     /// when this method is called it will be saved under the current delegate's service
     /// identifier. Otherwise it will be saved under a string appended by `sharedBaseURL`
-    public func set(sharedRequestCredentials: TSCRequestCredential, savingToKeychain: Bool) {
+    public func set(sharedRequestCredentials: RequestCredential?, savingToKeychain: Bool) {
+        self.sharedRequestCredentials = sharedRequestCredentials
+        if let credential = sharedRequestCredentials, let authToken = credential.authorizationToken {
+            sharedRequestHeaders["Authorization"] = "\(credential.tokenType) \(authToken)"
+        }
         
+        guard savingToKeychain else { return }
+        RequestCredential.store(credential: sharedRequestCredentials, identifier: authenticator?.authIdentifier ?? "thundertable.com.threesidedcube-\(sharedBaseURL)")
     }
 }
 
