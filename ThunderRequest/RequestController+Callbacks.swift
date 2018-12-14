@@ -20,7 +20,7 @@ public extension HTTP {
         
         public var description: String?
         
-        public var code: Int?
+        public var code: Int
         
         public var domain: String?
         

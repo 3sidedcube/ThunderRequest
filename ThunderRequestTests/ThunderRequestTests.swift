@@ -165,8 +165,12 @@ class ThunderRequestTests: XCTestCase {
         let finishExpectation = expectation(description: "App should correctly send POST data to server")
         
         requestController.request("get", method: .GET, tag: 123) { (_, error) in
-            print("Error", error ?? "")
-            finishExpectation.fulfill()
+            XCTAssertNotNil(error, "Error unexpectedly nil")
+            defer {
+                finishExpectation.fulfill()
+            }
+            guard let error = error else { return }
+            XCTAssertEqual((error as NSError).code, URLError.cancelled.rawValue, "Request controller returned invalid error")
         }
         requestController.cancelRequestsWith(tag: 123)
         

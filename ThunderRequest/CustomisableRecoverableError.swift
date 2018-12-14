@@ -25,7 +25,7 @@ public protocol CustomisableRecoverableError: RecoverableError {
     var options: [ErrorRecoveryOption] { get set }
     
     /// The code for the error.
-    var code: Int? { get }
+    var code: Int { get }
     
     /// The domain of the error.
     var domain: String? { get }
@@ -106,7 +106,7 @@ public struct ErrorOverrides {
 }
 
 /// A struct which attempts to convert any `Error` into a customisable representation
-public struct AnyCustomisableRecoverableError: CustomisableRecoverableError {
+public struct AnyCustomisableRecoverableError: CustomisableRecoverableError, CustomNSError {
     
     public var description: String?
     
@@ -116,9 +116,17 @@ public struct AnyCustomisableRecoverableError: CustomisableRecoverableError {
     
     public var options: [ErrorRecoveryOption] = []
     
-    public var code: Int?
+    public var code: Int
     
     public var domain: String?
+    
+    public var errorCode: Int {
+        return code
+    }
+    
+    public var errorDomain: String {
+        return domain ?? "Unknown"
+    }
     
     init(_ error: Error) {
         

@@ -23,26 +23,26 @@ class ThunderRequest_KeychainTests: XCTestCase {
     
     func testInitialiseUsernamePasswordCredential() {
         
-        let credential = TSCRequestCredential(username: "test", password: "123")
+        let credential = RequestCredential(username: "test", password: "123")
         
-        XCTAssertNotNil(credential?.username, "Username is nil")
-        XCTAssertNotNil(credential?.password, "Password is nil")
-        XCTAssertNotNil(credential?.credential, "Credential is nil")
+        XCTAssertNotNil(credential.username, "Username is nil")
+        XCTAssertNotNil(credential.password, "Password is nil")
+        XCTAssertNotNil(credential.credential, "Credential is nil")
     }
     
     func testInitialiseAuthTokenCredential() {
         
-        let credential = TSCRequestCredential(authorizationToken: "SHADSJMAS")
+        let credential = RequestCredential(authorizationToken: "SHADSJMAS")
         
-        XCTAssertNotNil(credential?.authorizationToken, "Authorization Token is nil")
+        XCTAssertNotNil(credential.authorizationToken, "Authorization Token is nil")
     }
     
     func testInitialiseOAuth2Credential() {
         
-        let credential = TSCOAuth2Credential(authorizationToken: "saDHSAHF", refreshToken: "DSAHJDSA", expiryDate: Date(timeIntervalSinceNow: 24))
+        let credential = OAuth2Credential(authorizationToken: "saDHSAHF", refreshToken: "DSAHJDSA", expiryDate: Date(timeIntervalSinceNow: 24))
         
-        XCTAssertNotNil(credential?.authorizationToken, "Authorization Token is nil")
-        XCTAssertNotNil(credential?.refreshToken, "Refresh Token is nil")
-        XCTAssertNotNil(credential?.expirationDate, "Expiry Date is nil")
+        XCTAssertNotNil(credential.authorizationToken, "Authorization Token is nil")
+        XCTAssertNotNil(credential.refreshToken, "Refresh Token is nil")
+        XCTAssertNotNil(credential.expirationDate, "Expiry Date is nil")
     }
 }
