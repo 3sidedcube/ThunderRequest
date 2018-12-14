@@ -8,31 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		49084FD41BD13DBD0012F636 /* ThunderRequestTV.h in Headers */ = {isa = PBXBuildFile; fileRef = 49084FD31BD13DBD0012F636 /* ThunderRequestTV.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49084FD91BD13DF80012F636 /* TSCRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089D19C835D900350F00 /* TSCRequest.m */; };
-		49084FDA1BD13DF80012F636 /* TSCRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089F19C835D900350F00 /* TSCRequestController.m */; };
-		49084FDB1BD13DF80012F636 /* TSCRequestCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A119C835D900350F00 /* TSCRequestCredential.m */; };
-		49084FDC1BD13DF80012F636 /* TSCRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A319C835D900350F00 /* TSCRequestResponse.m */; };
-		49084FDD1BD13DF80012F636 /* TSCErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E071B36A7BF001475CE /* TSCErrorRecoveryAttempter.m */; };
-		49084FDE1BD13DF80012F636 /* TSCErrorRecoveryOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E091B36A7BF001475CE /* TSCErrorRecoveryOption.m */; };
-		49084FDF1BD13DF80012F636 /* TSCRequestDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */; };
-		49084FE01BD13DF80012F636 /* UIAlertController+TSCErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E0D1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m */; };
-		49084FE11BD13E2A0012F636 /* TSCRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089C19C835D900350F00 /* TSCRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49084FE21BD13E2A0012F636 /* TSCRequestController.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089E19C835D900350F00 /* TSCRequestController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49084FE31BD13E2A0012F636 /* TSCRequestCredential.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E508A019C835D900350F00 /* TSCRequestCredential.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49084FE41BD13E2A0012F636 /* TSCRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E508A219C835D900350F00 /* TSCRequestResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49084FE51BD13E2A0012F636 /* TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49084FE61BD13E2A0012F636 /* TSCErrorRecoveryOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49084FE71BD13E2A0012F636 /* TSCRequestDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49084FE81BD13E2A0012F636 /* UIAlertController+TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0C1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		493394C820330C6F00F51E11 /* ThunderRequest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2E5088219C835A300350F00 /* ThunderRequest.framework */; };
-		49B77E0E1B36A7BF001475CE /* TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49B77E0F1B36A7BF001475CE /* TSCErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E071B36A7BF001475CE /* TSCErrorRecoveryAttempter.m */; };
-		49B77E101B36A7BF001475CE /* TSCErrorRecoveryOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49B77E111B36A7BF001475CE /* TSCErrorRecoveryOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E091B36A7BF001475CE /* TSCErrorRecoveryOption.m */; };
-		49B77E121B36A7BF001475CE /* TSCRequestDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49B77E141B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0C1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49B77E151B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E0D1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m */; };
-		49F7B2E51B96F53100DDB587 /* TSCRequestDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */; };
 		B1113ED6207E65FF00FB680A /* BackgroundSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1113ED5207E65FF00FB680A /* BackgroundSessionController.swift */; };
 		B1113ED7207E65FF00FB680A /* BackgroundSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1113ED5207E65FF00FB680A /* BackgroundSessionController.swift */; };
 		B1113ED8207E65FF00FB680A /* BackgroundSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1113ED5207E65FF00FB680A /* BackgroundSessionController.swift */; };
@@ -55,87 +32,41 @@
 		B117120721C3D75B00800EEA /* EncodableRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117120521C3D75B00800EEA /* EncodableRequestBody.swift */; };
 		B117120821C3D75B00800EEA /* EncodableRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117120521C3D75B00800EEA /* EncodableRequestBody.swift */; };
 		B117120921C3D75B00800EEA /* EncodableRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117120521C3D75B00800EEA /* EncodableRequestBody.swift */; };
+		B117120A21C3DC6C00800EEA /* TSCRequestCredential.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E508A019C835D900350F00 /* TSCRequestCredential.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B117120B21C3DC6D00800EEA /* TSCRequestCredential.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E508A019C835D900350F00 /* TSCRequestCredential.h */; };
+		B117120C21C3DC6E00800EEA /* TSCRequestCredential.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E508A019C835D900350F00 /* TSCRequestCredential.h */; };
+		B117120D21C3DC6E00800EEA /* TSCRequestCredential.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E508A019C835D900350F00 /* TSCRequestCredential.h */; };
+		B117120E21C3DC7100800EEA /* TSCRequestCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A119C835D900350F00 /* TSCRequestCredential.m */; };
+		B117120F21C3DC7200800EEA /* TSCRequestCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A119C835D900350F00 /* TSCRequestCredential.m */; };
+		B117121021C3DC7300800EEA /* TSCRequestCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A119C835D900350F00 /* TSCRequestCredential.m */; };
+		B117121121C3DC7300800EEA /* TSCRequestCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A119C835D900350F00 /* TSCRequestCredential.m */; };
+		B117121221C3DC7D00800EEA /* TSCOAuth2Credential.h in Headers */ = {isa = PBXBuildFile; fileRef = B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B117121321C3DC7E00800EEA /* TSCOAuth2Credential.h in Headers */ = {isa = PBXBuildFile; fileRef = B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B117121421C3DC7F00800EEA /* TSCOAuth2Credential.h in Headers */ = {isa = PBXBuildFile; fileRef = B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B117121521C3DC8000800EEA /* TSCOAuth2Credential.h in Headers */ = {isa = PBXBuildFile; fileRef = B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B117121621C3DC8C00800EEA /* TSCOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */; };
+		B117121721C3DC8D00800EEA /* TSCOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */; };
+		B117121821C3DC8E00800EEA /* TSCOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */; };
+		B117121921C3DC8E00800EEA /* TSCOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */; };
+		B117121A21C3DC9100800EEA /* TSCOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */; };
+		B117121B21C3DC9100800EEA /* TSCOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */; };
+		B117121C21C3DC9400800EEA /* TSCRequestCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A119C835D900350F00 /* TSCRequestCredential.m */; };
+		B117121D21C3DC9500800EEA /* TSCRequestCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A119C835D900350F00 /* TSCRequestCredential.m */; };
+		B117121E21C3DC9C00800EEA /* TSCOAuth2Manager.h in Headers */ = {isa = PBXBuildFile; fileRef = B16743E61BA6C4E000352C68 /* TSCOAuth2Manager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B117121F21C3DC9C00800EEA /* TSCOAuth2Manager.h in Headers */ = {isa = PBXBuildFile; fileRef = B16743E61BA6C4E000352C68 /* TSCOAuth2Manager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B117122021C3DC9D00800EEA /* TSCOAuth2Manager.h in Headers */ = {isa = PBXBuildFile; fileRef = B16743E61BA6C4E000352C68 /* TSCOAuth2Manager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B117122121C3DC9E00800EEA /* TSCOAuth2Manager.h in Headers */ = {isa = PBXBuildFile; fileRef = B16743E61BA6C4E000352C68 /* TSCOAuth2Manager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1177EDD1BBAF18E00372D4D /* ThunderRequestMac.h in Headers */ = {isa = PBXBuildFile; fileRef = B1177EDC1BBAF18E00372D4D /* ThunderRequestMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1177EE31BBAF18E00372D4D /* ThunderRequestMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */; };
 		B1177EEA1BBAF18E00372D4D /* ThunderRequestMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B1177EE91BBAF18E00372D4D /* ThunderRequestMacTests.m */; };
-		B1177EF11BBAF21F00372D4D /* TSCRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089D19C835D900350F00 /* TSCRequest.m */; };
-		B1177EF21BBAF21F00372D4D /* TSCRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089F19C835D900350F00 /* TSCRequestController.m */; };
-		B1177EF31BBAF21F00372D4D /* TSCRequestCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A119C835D900350F00 /* TSCRequestCredential.m */; };
-		B1177EF41BBAF21F00372D4D /* TSCRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A319C835D900350F00 /* TSCRequestResponse.m */; };
-		B1177EF51BBAF21F00372D4D /* TSCErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E071B36A7BF001475CE /* TSCErrorRecoveryAttempter.m */; };
-		B1177EF61BBAF21F00372D4D /* TSCErrorRecoveryOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E091B36A7BF001475CE /* TSCErrorRecoveryOption.m */; };
-		B1177EF71BBAF21F00372D4D /* TSCRequestDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */; };
-		B1177EF81BBAF22C00372D4D /* TSCRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089C19C835D900350F00 /* TSCRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1177EF91BBAF22F00372D4D /* TSCRequestController.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089E19C835D900350F00 /* TSCRequestController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B1177EFA1BBAF23400372D4D /* TSCRequestCredential.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E508A019C835D900350F00 /* TSCRequestCredential.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B1177EFB1BBAF23A00372D4D /* TSCRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E508A219C835D900350F00 /* TSCRequestResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B1177EFC1BBAF23D00372D4D /* TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B1177EFD1BBAF24100372D4D /* TSCErrorRecoveryOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B1177EFE1BBAF24500372D4D /* TSCRequestDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B120EE41207B895800A4A7CA /* ThunderRequestWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = B120EE3F207B895800A4A7CA /* ThunderRequestWatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B120EE45207B896D00A4A7CA /* TSCRequest+TaskIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = B16ED2121C59337800ABCC35 /* TSCRequest+TaskIdentifier.h */; };
-		B120EE46207B896D00A4A7CA /* TSCRequest+TaskIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B16ED2131C59337800ABCC35 /* TSCRequest+TaskIdentifier.m */; };
-		B120EE47207B897100A4A7CA /* NSMutableURLRequest+TaskIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */; };
-		B120EE48207B897100A4A7CA /* NSMutableURLRequest+TaskIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */; };
-		B120EE49207B897600A4A7CA /* NSURLSession+Synchronous.h in Headers */ = {isa = PBXBuildFile; fileRef = B19894871BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h */; };
-		B120EE4A207B897600A4A7CA /* NSURLSession+Synchronous.m in Sources */ = {isa = PBXBuildFile; fileRef = B19894881BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m */; };
-		B120EE4B207B897600A4A7CA /* TSCRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089C19C835D900350F00 /* TSCRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B120EE4C207B897600A4A7CA /* TSCRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089D19C835D900350F00 /* TSCRequest.m */; };
 		B120EE4D207B897600A4A7CA /* TSCRequestController.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089E19C835D900350F00 /* TSCRequestController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B120EE4E207B897600A4A7CA /* TSCRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089F19C835D900350F00 /* TSCRequestController.m */; };
-		B120EE4F207B897600A4A7CA /* TSCRequestCredential.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E508A019C835D900350F00 /* TSCRequestCredential.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B120EE50207B897600A4A7CA /* TSCRequestCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A119C835D900350F00 /* TSCRequestCredential.m */; };
-		B120EE51207B897600A4A7CA /* TSCOAuth2Credential.h in Headers */ = {isa = PBXBuildFile; fileRef = B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B120EE52207B897600A4A7CA /* TSCOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */; };
-		B120EE53207B897600A4A7CA /* TSCOAuth2Manager.h in Headers */ = {isa = PBXBuildFile; fileRef = B16743E61BA6C4E000352C68 /* TSCOAuth2Manager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B120EE54207B897600A4A7CA /* TSCRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E508A219C835D900350F00 /* TSCRequestResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B120EE55207B897600A4A7CA /* TSCRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A319C835D900350F00 /* TSCRequestResponse.m */; };
-		B120EE56207B897600A4A7CA /* TSCErrorRecoveryAttempter.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B120EE57207B897600A4A7CA /* TSCErrorRecoveryAttempter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E071B36A7BF001475CE /* TSCErrorRecoveryAttempter.m */; };
-		B120EE58207B897600A4A7CA /* TSCErrorRecoveryOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B120EE59207B897600A4A7CA /* TSCErrorRecoveryOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B77E091B36A7BF001475CE /* TSCErrorRecoveryOption.m */; };
-		B120EE5A207B897600A4A7CA /* TSCRequestDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B120EE5B207B897600A4A7CA /* TSCRequestDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */; };
-		B120EE5C207B897600A4A7CA /* NSDictionary+URLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = B1FC231B1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B120EE5D207B897600A4A7CA /* NSDictionary+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B1FC231C1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m */; };
-		B120EE60207B897600A4A7CA /* NSThread+Blocks.h in Headers */ = {isa = PBXBuildFile; fileRef = B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */; };
-		B120EE61207B897600A4A7CA /* NSThread+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */; };
-		B12F7C971BFDD47A002B7D60 /* TSCOAuth2Credential.h in Headers */ = {isa = PBXBuildFile; fileRef = B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B12F7C981BFDD47E002B7D60 /* TSCOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */; };
-		B12F7CA41BFDD680002B7D60 /* TSCOAuth2Manager.h in Headers */ = {isa = PBXBuildFile; fileRef = B16743E61BA6C4E000352C68 /* TSCOAuth2Manager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B12F7CA51BFDD690002B7D60 /* NSDictionary+URLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = B1FC231B1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B12F7CA71BFDD6A0002B7D60 /* NSThread+Blocks.h in Headers */ = {isa = PBXBuildFile; fileRef = B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */; };
-		B12F7CA81BFDD6B1002B7D60 /* NSDictionary+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B1FC231C1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m */; };
-		B12F7CA91BFDD6B9002B7D60 /* NSURLSession+Synchronous.h in Headers */ = {isa = PBXBuildFile; fileRef = B19894871BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h */; };
-		B12F7CAA1BFDD6BD002B7D60 /* NSURLSession+Synchronous.m in Sources */ = {isa = PBXBuildFile; fileRef = B19894881BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m */; };
-		B12F7CAB1BFDD836002B7D60 /* NSThread+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */; };
 		B15560F41CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15560F31CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift */; };
-		B16743E81BA6C4E000352C68 /* TSCOAuth2Manager.h in Headers */ = {isa = PBXBuildFile; fileRef = B16743E61BA6C4E000352C68 /* TSCOAuth2Manager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B16ED2141C59337800ABCC35 /* TSCRequest+TaskIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = B16ED2121C59337800ABCC35 /* TSCRequest+TaskIdentifier.h */; };
-		B16ED2151C59337800ABCC35 /* TSCRequest+TaskIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = B16ED2121C59337800ABCC35 /* TSCRequest+TaskIdentifier.h */; };
-		B16ED2161C59337800ABCC35 /* TSCRequest+TaskIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = B16ED2121C59337800ABCC35 /* TSCRequest+TaskIdentifier.h */; };
-		B16ED2171C59337800ABCC35 /* TSCRequest+TaskIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B16ED2131C59337800ABCC35 /* TSCRequest+TaskIdentifier.m */; };
-		B16ED2181C59337800ABCC35 /* TSCRequest+TaskIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B16ED2131C59337800ABCC35 /* TSCRequest+TaskIdentifier.m */; };
-		B16ED2191C59337800ABCC35 /* TSCRequest+TaskIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B16ED2131C59337800ABCC35 /* TSCRequest+TaskIdentifier.m */; };
-		B17F34601BF4A59000F3586C /* NSDictionary+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B1FC231C1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m */; };
-		B19894891BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h in Headers */ = {isa = PBXBuildFile; fileRef = B19894871BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h */; };
-		B198948A1BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h in Headers */ = {isa = PBXBuildFile; fileRef = B19894871BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h */; };
-		B198948B1BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m in Sources */ = {isa = PBXBuildFile; fileRef = B19894881BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m */; };
-		B198948C1BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m in Sources */ = {isa = PBXBuildFile; fileRef = B19894881BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m */; };
-		B198948F1BEA3E6E00E96DA3 /* NSThread+Blocks.h in Headers */ = {isa = PBXBuildFile; fileRef = B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B19894901BEA3E8800E96DA3 /* NSThread+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */; };
-		B1AB78351BDA92CC00F50127 /* NSThread+Blocks.h in Headers */ = {isa = PBXBuildFile; fileRef = B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */; };
-		B1AB78361BDA92CC00F50127 /* NSThread+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */; };
 		B1ADAD3F21C2761100012BFB /* URLRequest+Backgroundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */; };
 		B1ADAD4021C2761700012BFB /* URLRequest+Backgroundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */; };
 		B1ADAD4121C2761800012BFB /* URLRequest+Backgroundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */; };
 		B1ADAD4221C2761800012BFB /* URLRequest+Backgroundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */; };
-		B1BA54EF1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */; };
-		B1BA54F01CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */; };
-		B1BA54F11CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */; };
-		B1BA54F21CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */; };
-		B1BA54F31CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */; };
-		B1BA54F41CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */; };
 		B1DB2C6C21BFD2A4007FAB21 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */; };
 		B1DB2C6D21BFD2A4007FAB21 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */; };
 		B1DB2C6E21BFD2A4007FAB21 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */; };
@@ -239,25 +170,10 @@
 		B1DBEFF821BFC65000D22137 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF721BFC65000D22137 /* HTTP.swift */; };
 		B1DBEFF921BFC65000D22137 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF721BFC65000D22137 /* HTTP.swift */; };
 		B1DBEFFA21BFC65000D22137 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF721BFC65000D22137 /* HTTP.swift */; };
-		B1EF2E9C1BA6D88E0053B39A /* TSCOAuth2Credential.h in Headers */ = {isa = PBXBuildFile; fileRef = B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B1EF2E9D1BA6D88E0053B39A /* TSCOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */; };
 		B1EF2E9F1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9E1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift */; };
-		B1FA1B501BF0A46800C458F1 /* NSDictionary+URLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = B1FC231B1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B1FC231D1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = B1FC231B1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B1FC231E1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B1FC231C1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m */; };
-		B1FE42821BF4A36400EDC887 /* TSCOAuth2Credential.h in Headers */ = {isa = PBXBuildFile; fileRef = B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B1FE42831BF4A36800EDC887 /* TSCOAuth2Credential.m in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */; };
-		B1FE42841BF4A36B00EDC887 /* TSCOAuth2Manager.h in Headers */ = {isa = PBXBuildFile; fileRef = B16743E61BA6C4E000352C68 /* TSCOAuth2Manager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2E5089219C835A300350F00 /* ThunderRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089119C835A300350F00 /* ThunderRequestTests.swift */; };
 		C2E508A419C835D900350F00 /* ThunderRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089B19C835D900350F00 /* ThunderRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C2E508A519C835D900350F00 /* TSCRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089C19C835D900350F00 /* TSCRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C2E508A619C835D900350F00 /* TSCRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089D19C835D900350F00 /* TSCRequest.m */; };
 		C2E508A719C835D900350F00 /* TSCRequestController.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089E19C835D900350F00 /* TSCRequestController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C2E508A819C835D900350F00 /* TSCRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089F19C835D900350F00 /* TSCRequestController.m */; };
-		C2E508A919C835D900350F00 /* TSCRequestCredential.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E508A019C835D900350F00 /* TSCRequestCredential.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C2E508AA19C835D900350F00 /* TSCRequestCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A119C835D900350F00 /* TSCRequestCredential.m */; };
-		C2E508AB19C835D900350F00 /* TSCRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E508A219C835D900350F00 /* TSCRequestResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C2E508AC19C835D900350F00 /* TSCRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E508A319C835D900350F00 /* TSCRequestResponse.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -274,14 +190,6 @@
 		49084FD11BD13DBD0012F636 /* ThunderRequestTV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequestTV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49084FD31BD13DBD0012F636 /* ThunderRequestTV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThunderRequestTV.h; sourceTree = "<group>"; };
 		49084FD51BD13DBD0012F636 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCErrorRecoveryAttempter.h; sourceTree = "<group>"; };
-		49B77E071B36A7BF001475CE /* TSCErrorRecoveryAttempter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCErrorRecoveryAttempter.m; sourceTree = "<group>"; };
-		49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCErrorRecoveryOption.h; sourceTree = "<group>"; };
-		49B77E091B36A7BF001475CE /* TSCErrorRecoveryOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCErrorRecoveryOption.m; sourceTree = "<group>"; };
-		49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCRequestDefines.h; sourceTree = "<group>"; };
-		49B77E0C1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+TSCErrorRecoveryAttempter.h"; sourceTree = "<group>"; };
-		49B77E0D1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+TSCErrorRecoveryAttempter.m"; sourceTree = "<group>"; };
-		49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCRequestDefines.m; sourceTree = "<group>"; };
 		B1113ED5207E65FF00FB680A /* BackgroundSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundSessionController.swift; sourceTree = "<group>"; };
 		B11711EF21C3B2E300800EEA /* CustomisableRecoverableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomisableRecoverableError.swift; sourceTree = "<group>"; };
 		B11711F521C3B3EF00800EEA /* ErrorRecoveryOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorRecoveryOption.swift; sourceTree = "<group>"; };
@@ -299,15 +207,7 @@
 		B120EE40207B895800A4A7CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B15560F31CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationLoadingIndicatorManager.swift; sourceTree = "<group>"; };
 		B16743E61BA6C4E000352C68 /* TSCOAuth2Manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCOAuth2Manager.h; sourceTree = "<group>"; };
-		B16ED2121C59337800ABCC35 /* TSCRequest+TaskIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TSCRequest+TaskIdentifier.h"; sourceTree = "<group>"; };
-		B16ED2131C59337800ABCC35 /* TSCRequest+TaskIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TSCRequest+TaskIdentifier.m"; sourceTree = "<group>"; };
-		B19894871BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSession+Synchronous.h"; sourceTree = "<group>"; };
-		B19894881BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+Synchronous.m"; sourceTree = "<group>"; };
-		B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSThread+Blocks.h"; sourceTree = "<group>"; };
-		B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSThread+Blocks.m"; sourceTree = "<group>"; };
 		B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Backgroundable.swift"; sourceTree = "<group>"; };
-		B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+TaskIdentifier.h"; sourceTree = "<group>"; };
-		B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+TaskIdentifier.m"; sourceTree = "<group>"; };
 		B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
 		B1DB2C7021BFD898007FAB21 /* Data+ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+ContentType.swift"; sourceTree = "<group>"; };
 		B1DB2C7521BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+URLEncodedString.swift"; sourceTree = "<group>"; };
@@ -338,22 +238,16 @@
 		B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCOAuth2Credential.h; sourceTree = "<group>"; };
 		B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCOAuth2Credential.m; sourceTree = "<group>"; };
 		B1EF2E9E1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ThunderRequest-KeychainTests.swift"; sourceTree = "<group>"; };
-		B1FC231B1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+URLEncoding.h"; sourceTree = "<group>"; };
-		B1FC231C1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+URLEncoding.m"; sourceTree = "<group>"; };
 		C2E5088219C835A300350F00 /* ThunderRequest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2E5088619C835A300350F00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2E5088D19C835A300350F00 /* ThunderRequestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThunderRequestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2E5089019C835A300350F00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2E5089119C835A300350F00 /* ThunderRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThunderRequestTests.swift; sourceTree = "<group>"; };
 		C2E5089B19C835D900350F00 /* ThunderRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThunderRequest.h; sourceTree = "<group>"; };
-		C2E5089C19C835D900350F00 /* TSCRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCRequest.h; sourceTree = "<group>"; };
-		C2E5089D19C835D900350F00 /* TSCRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCRequest.m; sourceTree = "<group>"; };
 		C2E5089E19C835D900350F00 /* TSCRequestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCRequestController.h; sourceTree = "<group>"; };
 		C2E5089F19C835D900350F00 /* TSCRequestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCRequestController.m; sourceTree = "<group>"; };
 		C2E508A019C835D900350F00 /* TSCRequestCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCRequestCredential.h; sourceTree = "<group>"; };
 		C2E508A119C835D900350F00 /* TSCRequestCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCRequestCredential.m; sourceTree = "<group>"; };
-		C2E508A219C835D900350F00 /* TSCRequestResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSCRequestResponse.h; sourceTree = "<group>"; };
-		C2E508A319C835D900350F00 /* TSCRequestResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSCRequestResponse.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -565,20 +459,12 @@
 				C2E5089B19C835D900350F00 /* ThunderRequest.h */,
 				B15560F31CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift */,
 				B1DB2CFC21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift */,
-				B16ED2121C59337800ABCC35 /* TSCRequest+TaskIdentifier.h */,
-				B16ED2131C59337800ABCC35 /* TSCRequest+TaskIdentifier.m */,
-				B1BA54ED1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h */,
-				B1BA54EE1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m */,
-				B19894871BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h */,
-				B19894881BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m */,
 				B1DBEFF721BFC65000D22137 /* HTTP.swift */,
 				B1DB2CD821C11AE8007FAB21 /* RequestResponse+Codable.swift */,
 				B1DBEFF221BFC44400D22137 /* Request.swift */,
 				B1DB2CDD21C12B1B007FAB21 /* OAuth */,
 				B1DB2C7F21BFEBF3007FAB21 /* Request Body Types */,
 				B1DB2C6A21BFD290007FAB21 /* Helpers */,
-				C2E5089C19C835D900350F00 /* TSCRequest.h */,
-				C2E5089D19C835D900350F00 /* TSCRequest.m */,
 				B1DB2CC721C01EF2007FAB21 /* RequestController.swift */,
 				B1DB2CF221C15616007FAB21 /* RequestController+Callbacks.swift */,
 				B1DB2CE821C15268007FAB21 /* RequestController+SessionDelegate.swift */,
@@ -591,21 +477,7 @@
 				B1EF2E9A1BA6D88E0053B39A /* TSCOAuth2Credential.h */,
 				B1EF2E9B1BA6D88E0053B39A /* TSCOAuth2Credential.m */,
 				B16743E61BA6C4E000352C68 /* TSCOAuth2Manager.h */,
-				C2E508A219C835D900350F00 /* TSCRequestResponse.h */,
-				C2E508A319C835D900350F00 /* TSCRequestResponse.m */,
 				B11711F421C3B3DD00800EEA /* Errors */,
-				49B77E061B36A7BF001475CE /* TSCErrorRecoveryAttempter.h */,
-				49B77E071B36A7BF001475CE /* TSCErrorRecoveryAttempter.m */,
-				49B77E081B36A7BF001475CE /* TSCErrorRecoveryOption.h */,
-				49B77E091B36A7BF001475CE /* TSCErrorRecoveryOption.m */,
-				49B77E0A1B36A7BF001475CE /* TSCRequestDefines.h */,
-				49F7B2E41B96F53100DDB587 /* TSCRequestDefines.m */,
-				B1FC231B1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.h */,
-				B1FC231C1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m */,
-				49B77E0C1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h */,
-				49B77E0D1B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m */,
-				B1AB78331BDA92CC00F50127 /* NSThread+Blocks.h */,
-				B1AB78341BDA92CC00F50127 /* NSThread+Blocks.m */,
 				C2E5088519C835A300350F00 /* Supporting Files */,
 			);
 			path = ThunderRequest;
@@ -644,22 +516,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B12F7CA71BFDD6A0002B7D60 /* NSThread+Blocks.h in Headers */,
 				49084FD41BD13DBD0012F636 /* ThunderRequestTV.h in Headers */,
-				B1BA54F11CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h in Headers */,
-				49084FE11BD13E2A0012F636 /* TSCRequest.h in Headers */,
 				49084FE21BD13E2A0012F636 /* TSCRequestController.h in Headers */,
-				B16ED2161C59337800ABCC35 /* TSCRequest+TaskIdentifier.h in Headers */,
-				B12F7CA41BFDD680002B7D60 /* TSCOAuth2Manager.h in Headers */,
-				B12F7CA51BFDD690002B7D60 /* NSDictionary+URLEncoding.h in Headers */,
-				49084FE31BD13E2A0012F636 /* TSCRequestCredential.h in Headers */,
-				49084FE41BD13E2A0012F636 /* TSCRequestResponse.h in Headers */,
-				B12F7CA91BFDD6B9002B7D60 /* NSURLSession+Synchronous.h in Headers */,
-				B12F7C971BFDD47A002B7D60 /* TSCOAuth2Credential.h in Headers */,
-				49084FE51BD13E2A0012F636 /* TSCErrorRecoveryAttempter.h in Headers */,
-				49084FE61BD13E2A0012F636 /* TSCErrorRecoveryOption.h in Headers */,
-				49084FE71BD13E2A0012F636 /* TSCRequestDefines.h in Headers */,
-				49084FE81BD13E2A0012F636 /* UIAlertController+TSCErrorRecoveryAttempter.h in Headers */,
+				B117120C21C3DC6E00800EEA /* TSCRequestCredential.h in Headers */,
+				B117122021C3DC9D00800EEA /* TSCOAuth2Manager.h in Headers */,
+				B117121421C3DC7F00800EEA /* TSCOAuth2Credential.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,21 +528,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B198948A1BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h in Headers */,
 				B1177EDD1BBAF18E00372D4D /* ThunderRequestMac.h in Headers */,
-				B1FA1B501BF0A46800C458F1 /* NSDictionary+URLEncoding.h in Headers */,
-				B1177EF81BBAF22C00372D4D /* TSCRequest.h in Headers */,
 				B1177EF91BBAF22F00372D4D /* TSCRequestController.h in Headers */,
-				B1177EFA1BBAF23400372D4D /* TSCRequestCredential.h in Headers */,
-				B1177EFB1BBAF23A00372D4D /* TSCRequestResponse.h in Headers */,
-				B1BA54F01CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h in Headers */,
-				B16ED2151C59337800ABCC35 /* TSCRequest+TaskIdentifier.h in Headers */,
-				B1FE42821BF4A36400EDC887 /* TSCOAuth2Credential.h in Headers */,
-				B198948F1BEA3E6E00E96DA3 /* NSThread+Blocks.h in Headers */,
-				B1177EFC1BBAF23D00372D4D /* TSCErrorRecoveryAttempter.h in Headers */,
-				B1FE42841BF4A36B00EDC887 /* TSCOAuth2Manager.h in Headers */,
-				B1177EFD1BBAF24100372D4D /* TSCErrorRecoveryOption.h in Headers */,
-				B1177EFE1BBAF24500372D4D /* TSCRequestDefines.h in Headers */,
+				B117120B21C3DC6D00800EEA /* TSCRequestCredential.h in Headers */,
+				B117121F21C3DC9C00800EEA /* TSCOAuth2Manager.h in Headers */,
+				B117121321C3DC7E00800EEA /* TSCOAuth2Credential.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -689,21 +540,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B120EE54207B897600A4A7CA /* TSCRequestResponse.h in Headers */,
 				B120EE41207B895800A4A7CA /* ThunderRequestWatch.h in Headers */,
 				B120EE4D207B897600A4A7CA /* TSCRequestController.h in Headers */,
-				B120EE4F207B897600A4A7CA /* TSCRequestCredential.h in Headers */,
-				B120EE5C207B897600A4A7CA /* NSDictionary+URLEncoding.h in Headers */,
-				B120EE51207B897600A4A7CA /* TSCOAuth2Credential.h in Headers */,
-				B120EE53207B897600A4A7CA /* TSCOAuth2Manager.h in Headers */,
-				B120EE56207B897600A4A7CA /* TSCErrorRecoveryAttempter.h in Headers */,
-				B120EE60207B897600A4A7CA /* NSThread+Blocks.h in Headers */,
-				B120EE4B207B897600A4A7CA /* TSCRequest.h in Headers */,
-				B120EE47207B897100A4A7CA /* NSMutableURLRequest+TaskIdentifier.h in Headers */,
-				B120EE5A207B897600A4A7CA /* TSCRequestDefines.h in Headers */,
-				B120EE49207B897600A4A7CA /* NSURLSession+Synchronous.h in Headers */,
-				B120EE58207B897600A4A7CA /* TSCErrorRecoveryOption.h in Headers */,
-				B120EE45207B896D00A4A7CA /* TSCRequest+TaskIdentifier.h in Headers */,
+				B117120D21C3DC6E00800EEA /* TSCRequestCredential.h in Headers */,
+				B117122121C3DC9E00800EEA /* TSCOAuth2Manager.h in Headers */,
+				B117121521C3DC8000800EEA /* TSCOAuth2Credential.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,22 +552,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2E508AB19C835D900350F00 /* TSCRequestResponse.h in Headers */,
 				C2E508A419C835D900350F00 /* ThunderRequest.h in Headers */,
-				B1BA54EF1CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.h in Headers */,
-				B19894891BEA3B7C00E96DA3 /* NSURLSession+Synchronous.h in Headers */,
-				49B77E141B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.h in Headers */,
-				B16ED2141C59337800ABCC35 /* TSCRequest+TaskIdentifier.h in Headers */,
-				49B77E101B36A7BF001475CE /* TSCErrorRecoveryOption.h in Headers */,
-				B1FC231D1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.h in Headers */,
-				49B77E121B36A7BF001475CE /* TSCRequestDefines.h in Headers */,
-				49B77E0E1B36A7BF001475CE /* TSCErrorRecoveryAttempter.h in Headers */,
-				B1EF2E9C1BA6D88E0053B39A /* TSCOAuth2Credential.h in Headers */,
 				C2E508A719C835D900350F00 /* TSCRequestController.h in Headers */,
-				C2E508A919C835D900350F00 /* TSCRequestCredential.h in Headers */,
-				B16743E81BA6C4E000352C68 /* TSCOAuth2Manager.h in Headers */,
-				C2E508A519C835D900350F00 /* TSCRequest.h in Headers */,
-				B1AB78351BDA92CC00F50127 /* NSThread+Blocks.h in Headers */,
+				B117120A21C3DC6C00800EEA /* TSCRequestCredential.h in Headers */,
+				B117121E21C3DC9C00800EEA /* TSCOAuth2Manager.h in Headers */,
+				B117121221C3DC7D00800EEA /* TSCOAuth2Credential.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -949,7 +779,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49084FD91BD13DF80012F636 /* TSCRequest.m in Sources */,
 				B1DB2CB621C012C5007FAB21 /* JSONRequestBody.swift in Sources */,
 				B1DB2CBB21C013B0007FAB21 /* XMLPlistRequestBody.swift in Sources */,
 				B117120821C3D75B00800EEA /* EncodableRequestBody.swift in Sources */,
@@ -962,22 +791,15 @@
 				B1113ED8207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
 				B1DB2C6E21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
 				B1DB2C7321BFD898007FAB21 /* Data+ContentType.swift in Sources */,
-				B12F7CAA1BFDD6BD002B7D60 /* NSURLSession+Synchronous.m in Sources */,
 				B1DB2CF021C15282007FAB21 /* URLSessionDelegate.swift in Sources */,
 				B1DB2C9921BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
-				49084FDA1BD13DF80012F636 /* TSCRequestController.m in Sources */,
-				49084FDB1BD13DF80012F636 /* TSCRequestCredential.m in Sources */,
 				B1DB2CFA21C1692A007FAB21 /* URLSession+Synchronous.swift in Sources */,
-				49084FDC1BD13DF80012F636 /* TSCRequestResponse.m in Sources */,
-				49084FDD1BD13DF80012F636 /* TSCErrorRecoveryAttempter.m in Sources */,
-				B16ED2191C59337800ABCC35 /* TSCRequest+TaskIdentifier.m in Sources */,
-				49084FDE1BD13DF80012F636 /* TSCErrorRecoveryOption.m in Sources */,
+				B117121821C3DC8E00800EEA /* TSCOAuth2Credential.m in Sources */,
 				B11711FF21C3BB3100800EEA /* UIAlertController+ErrorRecovery.swift in Sources */,
 				B1DBEFFA21BFC65000D22137 /* HTTP.swift in Sources */,
 				B1DB2CE121C12B2A007FAB21 /* RequestController+OAuth.swift in Sources */,
 				B1DB2CF521C15616007FAB21 /* RequestController+Callbacks.swift in Sources */,
-				49084FDF1BD13DF80012F636 /* TSCRequestDefines.m in Sources */,
-				B12F7C981BFDD47E002B7D60 /* TSCOAuth2Credential.m in Sources */,
+				B117121021C3DC7300800EEA /* TSCRequestCredential.m in Sources */,
 				B1DB2CEB21C15268007FAB21 /* RequestController+SessionDelegate.swift in Sources */,
 				B1DB2C7821BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */,
 				B1DB2C8F21BFF33C007FAB21 /* Data+Mutate.swift in Sources */,
@@ -985,11 +807,7 @@
 				B1DB2C9421BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */,
 				B1DB2CE621C12DEA007FAB21 /* URLSessionTask+Tag.swift in Sources */,
 				B1ADAD4121C2761800012BFB /* URLRequest+Backgroundable.swift in Sources */,
-				49084FE01BD13DF80012F636 /* UIAlertController+TSCErrorRecoveryAttempter.m in Sources */,
-				B12F7CAB1BFDD836002B7D60 /* NSThread+Blocks.m in Sources */,
 				B1DB2C8321BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */,
-				B12F7CA81BFDD6B1002B7D60 /* NSDictionary+URLEncoding.m in Sources */,
-				B1BA54F41CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */,
 				B1DB2CC021C01601007FAB21 /* FormURLEncodedRequestBody.swift in Sources */,
 				B1DB2CFF21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */,
 				B1DB2C7D21BFE1FF007FAB21 /* Data+Generic.swift in Sources */,
@@ -1003,7 +821,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1FE42831BF4A36800EDC887 /* TSCOAuth2Credential.m in Sources */,
 				B1DB2CEA21C15268007FAB21 /* RequestController+SessionDelegate.swift in Sources */,
 				B1ADAD4021C2761700012BFB /* URLRequest+Backgroundable.swift in Sources */,
 				B1DB2C9821BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
@@ -1013,41 +830,31 @@
 				B1DB2CA721BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */,
 				B1DB2CFE21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */,
 				B1DB2C7721BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */,
-				B1177EF11BBAF21F00372D4D /* TSCRequest.m in Sources */,
-				B1177EF21BBAF21F00372D4D /* TSCRequestController.m in Sources */,
+				B117120F21C3DC7200800EEA /* TSCRequestCredential.m in Sources */,
 				B1DB2CCE21C02172007FAB21 /* RequestResponse.swift in Sources */,
-				B1177EF31BBAF21F00372D4D /* TSCRequestCredential.m in Sources */,
 				B1DB2CB521C012C5007FAB21 /* JSONRequestBody.swift in Sources */,
-				B19894901BEA3E8800E96DA3 /* NSThread+Blocks.m in Sources */,
 				B1DBEFF921BFC65000D22137 /* HTTP.swift in Sources */,
 				B1DB2C7221BFD898007FAB21 /* Data+ContentType.swift in Sources */,
 				B11711F721C3B3EF00800EEA /* ErrorRecoveryOption.swift in Sources */,
 				B1DB2CF921C1692A007FAB21 /* URLSession+Synchronous.swift in Sources */,
-				B1177EF41BBAF21F00372D4D /* TSCRequestResponse.m in Sources */,
 				B1DB2CC921C01EF2007FAB21 /* RequestController.swift in Sources */,
 				B1DB2C8E21BFF33C007FAB21 /* Data+Mutate.swift in Sources */,
 				B1113ED7207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
 				B1DB2C7C21BFE1FF007FAB21 /* Data+Generic.swift in Sources */,
 				B1DB2C8921BFF322007FAB21 /* MultipartFormFile.swift in Sources */,
 				B1DB2C8221BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */,
+				B117121721C3DC8D00800EEA /* TSCOAuth2Credential.m in Sources */,
 				B1DBEFF421BFC44400D22137 /* Request.swift in Sources */,
 				B1DB2CE021C12B2A007FAB21 /* RequestController+OAuth.swift in Sources */,
 				B1DB2CBF21C01601007FAB21 /* FormURLEncodedRequestBody.swift in Sources */,
-				B1177EF51BBAF21F00372D4D /* TSCErrorRecoveryAttempter.m in Sources */,
 				B1DB2CE521C12DEA007FAB21 /* URLSessionTask+Tag.swift in Sources */,
 				B1DB2CEF21C15282007FAB21 /* URLSessionDelegate.swift in Sources */,
 				B117120721C3D75B00800EEA /* EncodableRequestBody.swift in Sources */,
 				B11711F121C3B2E300800EEA /* CustomisableRecoverableError.swift in Sources */,
-				B198948C1BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m in Sources */,
 				B1DB2CF421C15616007FAB21 /* RequestController+Callbacks.swift in Sources */,
-				B17F34601BF4A59000F3586C /* NSDictionary+URLEncoding.m in Sources */,
-				B1177EF61BBAF21F00372D4D /* TSCErrorRecoveryOption.m in Sources */,
 				B1DB2CBA21C013B0007FAB21 /* XMLPlistRequestBody.swift in Sources */,
 				B1DB2CA421BFF843007FAB21 /* NSImage+MultipartFormElement.swift in Sources */,
-				B16ED2181C59337800ABCC35 /* TSCRequest+TaskIdentifier.m in Sources */,
 				B117120221C3D55700800EEA /* Data+RequestBody.swift in Sources */,
-				B1177EF71BBAF21F00372D4D /* TSCRequestDefines.m in Sources */,
-				B1BA54F31CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1055,6 +862,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B117121D21C3DC9500800EEA /* TSCRequestCredential.m in Sources */,
+				B117121B21C3DC9100800EEA /* TSCOAuth2Credential.m in Sources */,
 				B1177EEA1BBAF18E00372D4D /* ThunderRequestMacTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1065,21 +874,15 @@
 			files = (
 				B1DB2CE721C12DEA007FAB21 /* URLSessionTask+Tag.swift in Sources */,
 				B1DB2CF121C15282007FAB21 /* URLSessionDelegate.swift in Sources */,
-				B120EE4A207B897600A4A7CA /* NSURLSession+Synchronous.m in Sources */,
-				B120EE55207B897600A4A7CA /* TSCRequestResponse.m in Sources */,
-				B120EE52207B897600A4A7CA /* TSCOAuth2Credential.m in Sources */,
 				B1ADAD4221C2761800012BFB /* URLRequest+Backgroundable.swift in Sources */,
 				B1DB2CB721C012C5007FAB21 /* JSONRequestBody.swift in Sources */,
 				B1DB2C6F21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
 				B11711F921C3B3EF00800EEA /* ErrorRecoveryOption.swift in Sources */,
 				B1DB2CDC21C11AE8007FAB21 /* RequestResponse+Codable.swift in Sources */,
-				B120EE61207B897600A4A7CA /* NSThread+Blocks.m in Sources */,
 				B1DB2C7E21BFE1FF007FAB21 /* Data+Generic.swift in Sources */,
 				B1DB2C8421BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */,
 				B1DB2CBC21C013B0007FAB21 /* XMLPlistRequestBody.swift in Sources */,
 				B1DB2CEC21C15268007FAB21 /* RequestController+SessionDelegate.swift in Sources */,
-				B120EE59207B897600A4A7CA /* TSCErrorRecoveryOption.m in Sources */,
-				B120EE46207B896D00A4A7CA /* TSCRequest+TaskIdentifier.m in Sources */,
 				B1DB2C9521BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */,
 				B1DB2C9F21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift in Sources */,
 				B1DB2C9021BFF33C007FAB21 /* Data+Mutate.swift in Sources */,
@@ -1088,25 +891,20 @@
 				B1DBEFF621BFC44B00D22137 /* Request.swift in Sources */,
 				B11711F321C3B2E300800EEA /* CustomisableRecoverableError.swift in Sources */,
 				B117120421C3D55700800EEA /* Data+RequestBody.swift in Sources */,
+				B117121921C3DC8E00800EEA /* TSCOAuth2Credential.m in Sources */,
 				B1DB2C8B21BFF322007FAB21 /* MultipartFormFile.swift in Sources */,
-				B120EE5D207B897600A4A7CA /* NSDictionary+URLEncoding.m in Sources */,
 				B1DB2C9A21BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
 				B1DB2CE221C12B2A007FAB21 /* RequestController+OAuth.swift in Sources */,
-				B120EE57207B897600A4A7CA /* TSCErrorRecoveryAttempter.m in Sources */,
-				B120EE5B207B897600A4A7CA /* TSCRequestDefines.m in Sources */,
 				B1DB2CCB21C01EF2007FAB21 /* RequestController.swift in Sources */,
 				B117120921C3D75B00800EEA /* EncodableRequestBody.swift in Sources */,
 				B1DB2CD021C02172007FAB21 /* RequestResponse.swift in Sources */,
-				B120EE4C207B897600A4A7CA /* TSCRequest.m in Sources */,
-				B120EE50207B897600A4A7CA /* TSCRequestCredential.m in Sources */,
 				B1DB2CC121C01601007FAB21 /* FormURLEncodedRequestBody.swift in Sources */,
-				B120EE4E207B897600A4A7CA /* TSCRequestController.m in Sources */,
 				B1DB2C7921BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */,
 				B1DB2C7421BFD898007FAB21 /* Data+ContentType.swift in Sources */,
-				B120EE48207B897100A4A7CA /* NSMutableURLRequest+TaskIdentifier.m in Sources */,
 				B1DB2D0021C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */,
 				B1DB2CA921BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */,
 				B1DB2CFB21C1692A007FAB21 /* URLSession+Synchronous.swift in Sources */,
+				B117121121C3DC7300800EEA /* TSCRequestCredential.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1117,30 +915,21 @@
 				B117120621C3D75B00800EEA /* EncodableRequestBody.swift in Sources */,
 				B1ADAD3F21C2761100012BFB /* URLRequest+Backgroundable.swift in Sources */,
 				B1DB2C9721BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
-				B1EF2E9D1BA6D88E0053B39A /* TSCOAuth2Credential.m in Sources */,
-				C2E508AA19C835D900350F00 /* TSCRequestCredential.m in Sources */,
-				B198948B1BEA3B7C00E96DA3 /* NSURLSession+Synchronous.m in Sources */,
-				49B77E151B36A7BF001475CE /* UIAlertController+TSCErrorRecoveryAttempter.m in Sources */,
 				B1DB2CE921C15268007FAB21 /* RequestController+SessionDelegate.swift in Sources */,
-				C2E508AC19C835D900350F00 /* TSCRequestResponse.m in Sources */,
 				B1DB2CC821C01EF2007FAB21 /* RequestController.swift in Sources */,
 				B1DB2CD921C11AE8007FAB21 /* RequestResponse+Codable.swift in Sources */,
-				C2E508A819C835D900350F00 /* TSCRequestController.m in Sources */,
-				B16ED2171C59337800ABCC35 /* TSCRequest+TaskIdentifier.m in Sources */,
 				B1DBEFF321BFC44400D22137 /* Request.swift in Sources */,
 				B1DB2CCD21C02172007FAB21 /* RequestResponse.swift in Sources */,
 				B1DB2C8821BFF322007FAB21 /* MultipartFormFile.swift in Sources */,
 				B1DB2CBE21C01601007FAB21 /* FormURLEncodedRequestBody.swift in Sources */,
+				B117120E21C3DC7100800EEA /* TSCRequestCredential.m in Sources */,
 				B15560F41CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift in Sources */,
 				B1DB2C8121BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */,
 				B1DBEFF821BFC65000D22137 /* HTTP.swift in Sources */,
 				B1DB2CE421C12DEA007FAB21 /* URLSessionTask+Tag.swift in Sources */,
 				B1DB2C9C21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift in Sources */,
-				B1AB78361BDA92CC00F50127 /* NSThread+Blocks.m in Sources */,
+				B117121621C3DC8C00800EEA /* TSCOAuth2Credential.m in Sources */,
 				B1DB2CB421C012C5007FAB21 /* JSONRequestBody.swift in Sources */,
-				49B77E0F1B36A7BF001475CE /* TSCErrorRecoveryAttempter.m in Sources */,
-				C2E508A619C835D900350F00 /* TSCRequest.m in Sources */,
-				49B77E111B36A7BF001475CE /* TSCErrorRecoveryOption.m in Sources */,
 				B1DB2CB921C013B0007FAB21 /* XMLPlistRequestBody.swift in Sources */,
 				B117120121C3D55700800EEA /* Data+RequestBody.swift in Sources */,
 				B1113ED6207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
@@ -1154,12 +943,9 @@
 				B11711F621C3B3EF00800EEA /* ErrorRecoveryOption.swift in Sources */,
 				B11711FB21C3BB2500800EEA /* UIAlertController+ErrorRecovery.swift in Sources */,
 				B1DB2CDF21C12B2A007FAB21 /* RequestController+OAuth.swift in Sources */,
-				49F7B2E51B96F53100DDB587 /* TSCRequestDefines.m in Sources */,
 				B1DB2C6C21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
 				B1DB2CA621BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */,
-				B1FC231E1BC6A6EA00E67C8D /* NSDictionary+URLEncoding.m in Sources */,
 				B1DB2CF821C1692A007FAB21 /* URLSession+Synchronous.swift in Sources */,
-				B1BA54F21CBB9F4700C74C06 /* NSMutableURLRequest+TaskIdentifier.m in Sources */,
 				B1DB2CEE21C15282007FAB21 /* URLSessionDelegate.swift in Sources */,
 				B1DB2C8D21BFF33C007FAB21 /* Data+Mutate.swift in Sources */,
 			);
@@ -1170,7 +956,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1EF2E9F1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift in Sources */,
+				B117121A21C3DC9100800EEA /* TSCOAuth2Credential.m in Sources */,
 				C2E5089219C835A300350F00 /* ThunderRequestTests.swift in Sources */,
+				B117121C21C3DC9400800EEA /* TSCRequestCredential.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
