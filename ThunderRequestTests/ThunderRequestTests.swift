@@ -12,7 +12,7 @@ import XCTest
 
 class ThunderRequestTests: XCTestCase {
     
-    let requestBaseURL = URL(string: "https://httpbin.org/")
+    let requestBaseURL = URL(string: "https://httpbin.org/")!
 
     override func setUp() {
         super.setUp()
@@ -26,14 +26,14 @@ class ThunderRequestTests: XCTestCase {
     
     func testCreateControllerWithURL() {
         
-        let requestController = RequestController(baseURL: requestBaseURL!)
+        let requestController = RequestController(baseURL: requestBaseURL)
         
         XCTAssertNotNil(requestController, "A request Controller failed to be initialised with a URL")
     }
     
     func testRequestInvokesSuccessCompletionBlockWithResponseObject() {
         
-        let requestController = RequestController(baseURL: requestBaseURL!)
+        let requestController = RequestController(baseURL: requestBaseURL)
         
         let finishExpectation = expectation(description: "GET Request")
         
@@ -51,7 +51,7 @@ class ThunderRequestTests: XCTestCase {
     
     func testOperationInvokesFailureCompletionBlockWithErrorOn404() {
             
-        let requestController = RequestController(baseURL: requestBaseURL!)
+        let requestController = RequestController(baseURL: requestBaseURL)
         
         let finishExpectation = expectation(description: "404 Request should return with response and error")
         
@@ -69,7 +69,7 @@ class ThunderRequestTests: XCTestCase {
     
     func testOperationInvokesFailureCompletionBlockWithErrorOn500() {
         
-        let requestController = RequestController(baseURL: requestBaseURL!)
+        let requestController = RequestController(baseURL: requestBaseURL)
         
         let finishExpectation = expectation(description: "500 Response should return with response and error")
         
@@ -87,7 +87,7 @@ class ThunderRequestTests: XCTestCase {
     
     func testAppIsNotifiedAboutServerErrors() {
     
-        let requestController = RequestController(baseURL: requestBaseURL!)
+        let requestController = RequestController(baseURL: requestBaseURL)
 
         let finishExpectation = expectation(description: "App should be notified about server errors")
 
@@ -112,7 +112,7 @@ class ThunderRequestTests: XCTestCase {
     
     func testAppIsNotifiedAboutServerResponse() {
         
-        let requestController = RequestController(baseURL: requestBaseURL!)
+        let requestController = RequestController(baseURL: requestBaseURL)
         
         let finishExpectation = expectation(description: "App should be notified about server responses")
         
@@ -141,7 +141,7 @@ class ThunderRequestTests: XCTestCase {
     
     func testPostRequest() {
         
-        let requestController = RequestController(baseURL: requestBaseURL!)
+        let requestController = RequestController(baseURL: requestBaseURL)
         
         let finishExpectation = expectation(description: "App should correctly send POST data to server")
         
@@ -155,6 +155,23 @@ class ThunderRequestTests: XCTestCase {
         
         waitForExpectations(timeout: 35, handler: { (error) -> Void in
             XCTAssertNil(error, "The POST request timed out")
+        })
+    }
+    
+    func testCancelRequestWithTagReturnsCancelledError() {
+        
+        let requestController = RequestController(baseURL: requestBaseURL)
+        
+        let finishExpectation = expectation(description: "App should correctly send POST data to server")
+        
+        requestController.request("get", method: .GET, tag: 123) { (_, error) in
+            print("Error", error ?? "")
+            finishExpectation.fulfill()
+        }
+        requestController.cancelRequestsWith(tag: 123)
+        
+        waitForExpectations(timeout: 35, handler: { (error) -> Void in
+            XCTAssertNil(error, "The GET request timed out")
         })
     }
 }
