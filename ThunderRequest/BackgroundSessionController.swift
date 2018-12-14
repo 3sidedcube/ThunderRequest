@@ -13,7 +13,7 @@ import Foundation
 /// The helper wraps NSURLConnectionDownloadDelegate and calls a provided handler with the results of any requests as `TSCRequestResponse` objects
 public class BackgroundRequestController: NSObject, URLSessionDelegate, URLSessionDownloadDelegate {
     
-    public typealias ResponseHandler = (_ task: URLSessionTask, _ response: TSCRequestResponse?, _ error: Error?) -> Void
+    public typealias ResponseHandler = (_ task: URLSessionTask, _ response: RequestResponse?, _ error: Error?) -> Void
     
     public typealias FinishHandler = (_ session: URLSession) -> Void
     
@@ -52,8 +52,11 @@ public class BackgroundRequestController: NSObject, URLSessionDelegate, URLSessi
     #endif
     
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        
-        let response = TSCRequestResponse(response: downloadTask.response, data: try? Data(contentsOf: location))
+        guard let taskResponse = downloadTask.response else {
+            responseHandler?(downloadTask, nil, nil)
+            return
+        }
+        let response = RequestResponse(response: taskResponse, data: try? Data(contentsOf: location))
         responseHandler?(downloadTask, response, nil)
     }
     
