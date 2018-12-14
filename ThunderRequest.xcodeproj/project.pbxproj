@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		49084FD41BD13DBD0012F636 /* ThunderRequestTV.h in Headers */ = {isa = PBXBuildFile; fileRef = 49084FD31BD13DBD0012F636 /* ThunderRequestTV.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49084FE21BD13E2A0012F636 /* TSCRequestController.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089E19C835D900350F00 /* TSCRequestController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		493394C820330C6F00F51E11 /* ThunderRequest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2E5088219C835A300350F00 /* ThunderRequest.framework */; };
 		B1113ED6207E65FF00FB680A /* BackgroundSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1113ED5207E65FF00FB680A /* BackgroundSessionController.swift */; };
 		B1113ED7207E65FF00FB680A /* BackgroundSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1113ED5207E65FF00FB680A /* BackgroundSessionController.swift */; };
@@ -59,9 +58,7 @@
 		B1177EDD1BBAF18E00372D4D /* ThunderRequestMac.h in Headers */ = {isa = PBXBuildFile; fileRef = B1177EDC1BBAF18E00372D4D /* ThunderRequestMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1177EE31BBAF18E00372D4D /* ThunderRequestMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */; };
 		B1177EEA1BBAF18E00372D4D /* ThunderRequestMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B1177EE91BBAF18E00372D4D /* ThunderRequestMacTests.m */; };
-		B1177EF91BBAF22F00372D4D /* TSCRequestController.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089E19C835D900350F00 /* TSCRequestController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B120EE41207B895800A4A7CA /* ThunderRequestWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = B120EE3F207B895800A4A7CA /* ThunderRequestWatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B120EE4D207B897600A4A7CA /* TSCRequestController.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089E19C835D900350F00 /* TSCRequestController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B15560F41CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15560F31CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift */; };
 		B1ADAD3F21C2761100012BFB /* URLRequest+Backgroundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */; };
 		B1ADAD4021C2761700012BFB /* URLRequest+Backgroundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */; };
@@ -173,7 +170,6 @@
 		B1EF2E9F1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9E1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift */; };
 		C2E5089219C835A300350F00 /* ThunderRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089119C835A300350F00 /* ThunderRequestTests.swift */; };
 		C2E508A419C835D900350F00 /* ThunderRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089B19C835D900350F00 /* ThunderRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C2E508A719C835D900350F00 /* TSCRequestController.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089E19C835D900350F00 /* TSCRequestController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -517,7 +513,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				49084FD41BD13DBD0012F636 /* ThunderRequestTV.h in Headers */,
-				49084FE21BD13E2A0012F636 /* TSCRequestController.h in Headers */,
 				B117120C21C3DC6E00800EEA /* TSCRequestCredential.h in Headers */,
 				B117122021C3DC9D00800EEA /* TSCOAuth2Manager.h in Headers */,
 				B117121421C3DC7F00800EEA /* TSCOAuth2Credential.h in Headers */,
@@ -529,7 +524,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1177EDD1BBAF18E00372D4D /* ThunderRequestMac.h in Headers */,
-				B1177EF91BBAF22F00372D4D /* TSCRequestController.h in Headers */,
 				B117120B21C3DC6D00800EEA /* TSCRequestCredential.h in Headers */,
 				B117121F21C3DC9C00800EEA /* TSCOAuth2Manager.h in Headers */,
 				B117121321C3DC7E00800EEA /* TSCOAuth2Credential.h in Headers */,
@@ -541,7 +535,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B120EE41207B895800A4A7CA /* ThunderRequestWatch.h in Headers */,
-				B120EE4D207B897600A4A7CA /* TSCRequestController.h in Headers */,
 				B117120D21C3DC6E00800EEA /* TSCRequestCredential.h in Headers */,
 				B117122121C3DC9E00800EEA /* TSCOAuth2Manager.h in Headers */,
 				B117121521C3DC8000800EEA /* TSCOAuth2Credential.h in Headers */,
@@ -553,7 +546,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2E508A419C835D900350F00 /* ThunderRequest.h in Headers */,
-				C2E508A719C835D900350F00 /* TSCRequestController.h in Headers */,
 				B117120A21C3DC6C00800EEA /* TSCRequestCredential.h in Headers */,
 				B117121E21C3DC9C00800EEA /* TSCOAuth2Manager.h in Headers */,
 				B117121221C3DC7D00800EEA /* TSCOAuth2Credential.h in Headers */,
