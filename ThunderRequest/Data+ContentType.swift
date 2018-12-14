@@ -10,11 +10,11 @@ import Foundation
 
 
 
-extension Data {
+public extension Data {
     
-    var contentType: String? {
+    var mimeType: String {
         
-        guard count > 0 else { return nil }
+        guard count > 0 else { return "application/octet-stream" }
         let firstByte = self[0]
         switch firstByte {
         case 0xFF:
@@ -30,13 +30,13 @@ extension Data {
         case 0x44:
             return "text/plain"
         default:
-            return nil
+            return "application/octet-stream"
         }
     }
     
     var fileExtension: String? {
         
-        switch contentType {
+        switch mimeType {
         case "image/jpeg":
             return "jpg"
         case "image/png":

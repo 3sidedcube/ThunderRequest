@@ -26,6 +26,11 @@ public typealias ProgressHandler = (_ progress: Double, _ totalBytes: Int64, _ t
 /// IMPORTANT --- `RequestController` uses URLSession internally which hold a strong reference to their delegate. You must therefore call `invalidateAndCancel` when done with your `RequestController` object.
 public class RequestController {
     
+    public enum UploadError: Error {
+        case saveToDiskFailed
+        case noFileOrDataProvided
+    }
+    
     /// The shared Base URL for all requests routed through the controller
     ///
     /// This is most commonly set via the init(baseURL:) method
@@ -294,8 +299,7 @@ public class RequestController {
         )
         
         guard let cachesDirectory = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).last else {
-            // TODO: Send error as last parameter
-            completion?(nil, nil, nil)
+            completion?(nil, nil, UploadError.saveToDiskFailed)
             return request
         }
         
@@ -310,8 +314,7 @@ public class RequestController {
         
         request.contentType = contentType
         request.tag = tag
-        //TODO: Make `Data` conform to RequestBody
-//        request.body = data
+        request.body = data
         setHeaders(headers, for: request)
         
         scheduleUpload(request, on: nil, fileURL: cacheURL, progress: progress, completion: completion)
@@ -506,8 +509,8 @@ public class RequestController {
                     } else if let fileURL = fileURL {
                         response = self.defaultSession.sendSynchronousUploadTaskWith(request: &urlRequest, fileURL: fileURL)
                     } else {
-                        //TODO: Throw error?
-                        response = self.defaultSession.sendSynchronousUploadTaskWith(request: &urlRequest, uploadData: Data())
+                        completion?(nil, nil, UploadError.noFileOrDataProvided)
+                        return
                     }
                     
                     RequestController.hideApplicationActivityIndicator()
@@ -525,8 +528,8 @@ public class RequestController {
                     } else if let fileURL = fileURL {
                         task = self.backgroundSession.uploadTask(with: urlRequest.backgroundable ?? urlRequest, fromFile: fileURL)
                     } else {
-                        //TODO: Throw error?
-                        task = self.backgroundSession.uploadTask(with: urlRequest.backgroundable ?? urlRequest, from: Data())
+                        completion?(nil, nil, UploadError.noFileOrDataProvided)
+                        return
                     }
                     
                     if #available(iOS 11, watchOS 4.0, macOS 10.13, *) {

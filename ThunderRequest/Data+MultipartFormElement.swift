@@ -11,12 +11,7 @@ import Foundation
 extension Data: MultipartFormElement {
     
     public func multipartDataWith(boundary: String, key: String) -> Data? {
-        
-        guard let contentType = contentType else {
-            return nil
-        }
-        
-        return multipartDataWith(boundary: boundary, key: key, contentType: contentType, fileExtension: fileExtension)
+        return multipartDataWith(boundary: boundary, key: key, contentType: mimeType, fileExtension: fileExtension)
     }
     
     func multipartDataWith(boundary: String, key: String, contentType: String, fileExtension: String?) -> Data? {
