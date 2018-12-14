@@ -16,8 +16,3 @@ FOUNDATION_EXPORT const unsigned char ThunderRequestMacVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <ThunderRequestMac/PublicHeader.h>
 
-#import <ThunderRequestMac/TSCRequestCredential.h>
-#import <ThunderRequestMac/TSCOAuth2Manager.h>
-#import <ThunderRequestMac/TSCOAuth2Credential.h>
-
-

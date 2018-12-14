@@ -39,7 +39,14 @@ public class RequestController {
     /// A custom queue to dispatch all request callbacks onto
     public var callbackQueue: DispatchQueue?
     
-    let requestLog: OSLog = OSLog(subsystem: "com.threesidedcube.ThunderRequest", category: "RequestController")
+    private var _requestLog: Any? = nil
+    @available(macOS 10.12, *)
+    var requestLog: OSLog {
+        if _requestLog == nil {
+            _requestLog = OSLog(subsystem: "com.threesidedcube.ThunderRequest", category: "RequestController")
+        }
+        return _requestLog as! OSLog
+    }
     
     /// The request controller for making OAuth2 re-authentication requests on
     public var OAuth2RequestController: RequestController?

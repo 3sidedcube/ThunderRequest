@@ -101,8 +101,9 @@ extension RequestController {
         defer {
             
             if let error = error {
-                os_log("Request: %@", log: requestLog, type: .debug, urlRequest.debugDescription)
-                os_log("""
+                if #available(OSX 10.12, *) {
+                    os_log("Request: %@", log: requestLog, type: .debug, urlRequest.debugDescription)
+                    os_log("""
                         
                         URL: %@
                         Method:%@
@@ -112,37 +113,42 @@ extension RequestController {
                         Response Status: FAILURE
                         Error Description: %@
                         """,
-                       log: requestLog,
-                       type: .error,
-                       urlRequest.url?.description ?? request.baseURL.description,
-                       request.method.rawValue,
-                       urlRequest.allHTTPHeaderFields ?? "",
-                       urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "",
-                       error.localizedDescription
+                           log: requestLog,
+                           type: .error,
+                           urlRequest.url?.description ?? request.baseURL.description,
+                           request.method.rawValue,
+                           urlRequest.allHTTPHeaderFields ?? "",
+                           urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "",
+                           error.localizedDescription
                     )
+                }
+                
             } else {
                 
-                os_log("Request: %@", log: requestLog, type: .debug, urlRequest.debugDescription)
-                os_log("""
-                        
-                        URL: %@
-                        Method: %@
-                        Request Headers: %@
-                        Body: %@
+                if #available(OSX 10.12, *) {
 
-                        Response Status: %li
-                        Response Body: %@
+                    os_log("Request: %@", log: requestLog, type: .debug, urlRequest.debugDescription)
+                    os_log("""
+                            
+                            URL: %@
+                            Method: %@
+                            Request Headers: %@
+                            Body: %@
 
-                        """,
-                       log: requestLog,
-                       type: .error,
-                       urlRequest.url?.description ?? request.baseURL.description,
-                       request.method.rawValue,
-                       urlRequest.allHTTPHeaderFields ?? "",
-                       urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "",
-                       response?.status.rawValue ?? 999,
-                       response?.string ?? ""
-                )
+                            Response Status: %li
+                            Response Body: %@
+
+                            """,
+                           log: requestLog,
+                           type: .error,
+                           urlRequest.url?.description ?? request.baseURL.description,
+                           request.method.rawValue,
+                           urlRequest.allHTTPHeaderFields ?? "",
+                           urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "",
+                           response?.status.rawValue ?? 999,
+                           response?.string ?? ""
+                    )
+                }
             }
         }
         

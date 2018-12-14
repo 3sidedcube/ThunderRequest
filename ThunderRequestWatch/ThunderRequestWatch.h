@@ -15,6 +15,3 @@ FOUNDATION_EXPORT double ThunderRequestWatchVersionNumber;
 FOUNDATION_EXPORT const unsigned char ThunderRequestWatchVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <ThunderRequestWatch/PublicHeader.h>
-
-#import "TSCRequestCredential.h"
-#import "TSCOAuth2Credential.h"
