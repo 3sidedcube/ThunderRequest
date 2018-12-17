@@ -130,4 +130,19 @@ class RequestBodyTests: XCTestCase {
         XCTAssertNotNil(urlEncodedData)
         XCTAssertTrue(["bool=true&hello=world", "hello=world&bool=true"].contains(String(data: urlEncodedData!, encoding: .utf8)!))
     }
+    
+    func testDataBodyCreatesDataCorrectly() {
+        
+        guard let fileURL = Bundle(for: RequestBodyTests.self).url(forResource: "350x150", withExtension: "png") else {
+            fatalError("Failed to get url for test png")
+        }
+        guard let data = try? Data(contentsOf: fileURL) else {
+            fatalError("Failed to get data from test png file")
+        }
+        
+        let payload = data.payload()
+        XCTAssertNotNil(payload)
+        XCTAssertEqual(data.contentType, "image/png")
+        XCTAssertEqual(data, payload)
+    }
 }

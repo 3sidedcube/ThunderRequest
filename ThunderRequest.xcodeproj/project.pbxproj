@@ -69,10 +69,6 @@
 		B1DB2C7721BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7521BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift */; };
 		B1DB2C7821BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7521BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift */; };
 		B1DB2C7921BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7521BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift */; };
-		B1DB2C7B21BFE1FF007FAB21 /* Data+Generic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7A21BFE1FF007FAB21 /* Data+Generic.swift */; };
-		B1DB2C7C21BFE1FF007FAB21 /* Data+Generic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7A21BFE1FF007FAB21 /* Data+Generic.swift */; };
-		B1DB2C7D21BFE1FF007FAB21 /* Data+Generic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7A21BFE1FF007FAB21 /* Data+Generic.swift */; };
-		B1DB2C7E21BFE1FF007FAB21 /* Data+Generic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C7A21BFE1FF007FAB21 /* Data+Generic.swift */; };
 		B1DB2C8121BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C8021BFEC18007FAB21 /* MultipartFormRequestBody.swift */; };
 		B1DB2C8221BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C8021BFEC18007FAB21 /* MultipartFormRequestBody.swift */; };
 		B1DB2C8321BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C8021BFEC18007FAB21 /* MultipartFormRequestBody.swift */; };
@@ -207,7 +203,6 @@
 		B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
 		B1DB2C7021BFD898007FAB21 /* Data+ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+ContentType.swift"; sourceTree = "<group>"; };
 		B1DB2C7521BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+URLEncodedString.swift"; sourceTree = "<group>"; };
-		B1DB2C7A21BFE1FF007FAB21 /* Data+Generic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Generic.swift"; sourceTree = "<group>"; };
 		B1DB2C8021BFEC18007FAB21 /* MultipartFormRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormRequestBody.swift; sourceTree = "<group>"; };
 		B1DB2C8721BFF322007FAB21 /* MultipartFormFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormFile.swift; sourceTree = "<group>"; };
 		B1DB2C8C21BFF33C007FAB21 /* Data+Mutate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Mutate.swift"; sourceTree = "<group>"; };
@@ -373,7 +368,6 @@
 				B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */,
 				B1DB2C7021BFD898007FAB21 /* Data+ContentType.swift */,
 				B1DB2C7521BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift */,
-				B1DB2C7A21BFE1FF007FAB21 /* Data+Generic.swift */,
 				B1DB2C8C21BFF33C007FAB21 /* Data+Mutate.swift */,
 				B1DB2CE321C12DEA007FAB21 /* URLSessionTask+Tag.swift */,
 				B1DB2CED21C15282007FAB21 /* URLSessionDelegate.swift */,
@@ -795,7 +789,6 @@
 				B1DB2C8321BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */,
 				B1DB2CC021C01601007FAB21 /* FormURLEncodedRequestBody.swift in Sources */,
 				B1DB2CFF21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */,
-				B1DB2C7D21BFE1FF007FAB21 /* Data+Generic.swift in Sources */,
 				B1DB2CA821BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */,
 				B1DB2CCA21C01EF2007FAB21 /* RequestController.swift in Sources */,
 				B11711F221C3B2E300800EEA /* CustomisableRecoverableError.swift in Sources */,
@@ -827,7 +820,6 @@
 				B1DB2CC921C01EF2007FAB21 /* RequestController.swift in Sources */,
 				B1DB2C8E21BFF33C007FAB21 /* Data+Mutate.swift in Sources */,
 				B1113ED7207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
-				B1DB2C7C21BFE1FF007FAB21 /* Data+Generic.swift in Sources */,
 				B1DB2C8921BFF322007FAB21 /* MultipartFormFile.swift in Sources */,
 				B1DB2C8221BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */,
 				B1DBEFF421BFC44400D22137 /* Request.swift in Sources */,
@@ -863,7 +855,6 @@
 				B1DB2C6F21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
 				B11711F921C3B3EF00800EEA /* ErrorRecoveryOption.swift in Sources */,
 				B1DB2CDC21C11AE8007FAB21 /* RequestResponse+Codable.swift in Sources */,
-				B1DB2C7E21BFE1FF007FAB21 /* Data+Generic.swift in Sources */,
 				B117122B21C3FB0400800EEA /* RequestCredential.swift in Sources */,
 				B1DB2C8421BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */,
 				B1DB2CBC21C013B0007FAB21 /* PropertyListRequestBody.swift in Sources */,
@@ -917,7 +908,6 @@
 				B117120121C3D55700800EEA /* Data+RequestBody.swift in Sources */,
 				B1113ED6207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
 				B1DB2CFD21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */,
-				B1DB2C7B21BFE1FF007FAB21 /* Data+Generic.swift in Sources */,
 				B1DB2CF321C15616007FAB21 /* RequestController+Callbacks.swift in Sources */,
 				B1DB2C9221BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */,
 				B1DB2C7621BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */,
