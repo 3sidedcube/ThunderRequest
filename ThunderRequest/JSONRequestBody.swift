@@ -28,6 +28,9 @@ public struct JSONRequestBody: RequestBody {
     }
     
     public func payload() -> Data? {
+        guard JSONSerialization.isValidJSONObject(jsonObject) else {
+            return nil
+        }
         return try? JSONSerialization.data(withJSONObject: jsonObject, options: [])
     }
 }

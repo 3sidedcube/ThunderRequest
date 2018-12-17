@@ -385,6 +385,7 @@ public class RequestController {
     ///
     /// - Parameters:
     ///   - path: The path to append to `sharedBaseURL`
+    ///   - inBackground: Whether to use the background session to download this file, this fails in some cases.
     ///   - on: The date to schedule the download on
     ///   - tag: A tag to apply to the download so it can be cancelled later\
     ///   - overrideURL: (Optional) an override for `sharedBaseURL`
@@ -395,6 +396,7 @@ public class RequestController {
     /// - Returns: The request object that will be run
     @discardableResult public func download(
         _ path: String?,
+        inBackground: Bool = false,
         on: Date? = nil,
         tag: Int = Int.random(in: 0...1000),
         overrideURL: URL? = nil,
@@ -443,30 +445,30 @@ public class RequestController {
                 return
             }
             
-            guard let self = self else { return }
+            guard let this = self else { return }
             
             if needsQueueing {
                 // If we're not authenticated but didn't get an error,
                 // then our request came inbetween calling re-authentication and getting a response
-                self.requestsQueuedForAuthentication.append((request, completion))
+                this.requestsQueuedForAuthentication.append((request, completion))
             }
             
             do {
                 
                 var urlRequest = try request.construct()
                 
-                if self.runSynchronously {
+                if this.runSynchronously {
                     
-                    let response = self.defaultSession.sendSynchronousDataTaskWith(request: &urlRequest)
-                    self.callCompletionHandlersFor(request: request, urlRequest: urlRequest, data: response.data, response: response.response, error: response.error, completion: completion)
+                    let response = this.defaultSession.sendSynchronousDataTaskWith(request: &urlRequest)
+                    this.callCompletionHandlersFor(request: request, urlRequest: urlRequest, data: response.data, response: response.response, error: response.error, completion: completion)
                     RequestController.hideApplicationActivityIndicator()
                     
                 } else {
                     
-                    let dataTask = self.defaultSession.dataTask(with: urlRequest, completionHandler: { [weak self] (data, response, error) in
+                    let dataTask = this.defaultSession.dataTask(with: urlRequest, completionHandler: { [weak this] (data, response, error) in
                         RequestController.hideApplicationActivityIndicator()
-                        guard let self = self else { return }
-                        self.callCompletionHandlersFor(request: request, urlRequest: urlRequest, data: data, response: response, error: error, completion: completion)
+                        guard let _this = this else { return }
+                        _this.callCompletionHandlersFor(request: request, urlRequest: urlRequest, data: data, response: response, error: error, completion: completion)
                     })
                     
                     dataTask.tag = request.tag
@@ -508,19 +510,19 @@ public class RequestController {
                 return
             }
             
-            guard let self = self else { return }
+            guard let this = self else { return }
             
             do {
                 
                 var urlRequest = try request.construct()
                 
-                if self.runSynchronously {
+                if this.runSynchronously {
                     
                     let response: (data: Data?, response: URLResponse?, error: Error?)
                     if let body = urlRequest.httpBody {
-                        response = self.defaultSession.sendSynchronousUploadTaskWith(request: &urlRequest, uploadData: body)
+                        response = this.defaultSession.sendSynchronousUploadTaskWith(request: &urlRequest, uploadData: body)
                     } else if let fileURL = fileURL {
-                        response = self.defaultSession.sendSynchronousUploadTaskWith(request: &urlRequest, fileURL: fileURL)
+                        response = this.defaultSession.sendSynchronousUploadTaskWith(request: &urlRequest, fileURL: fileURL)
                     } else {
                         completion?(nil, nil, UploadError.noFileOrDataProvided)
                         return
@@ -537,9 +539,9 @@ public class RequestController {
                     
                     let task: URLSessionUploadTask
                     if let body = urlRequest.httpBody {
-                        task = self.defaultSession.uploadTask(with: urlRequest.backgroundable ?? urlRequest, from: body)
+                        task = this.defaultSession.uploadTask(with: urlRequest, from: body)
                     } else if let fileURL = fileURL {
-                        task = self.backgroundSession.uploadTask(with: urlRequest.backgroundable ?? urlRequest, fromFile: fileURL)
+                        task = this.backgroundSession.uploadTask(with: urlRequest, fromFile: fileURL)
                     } else {
                         completion?(nil, nil, UploadError.noFileOrDataProvided)
                         return
@@ -549,7 +551,7 @@ public class RequestController {
                         task.earliestBeginDate = date
                     }
                     
-                    self.add(completionHandler: completion, progressHandler: progress, forTaskId: task.taskIdentifier)
+                    this.add(completionHandler: completion, progressHandler: progress, forTaskId: task.taskIdentifier)
                     
                     task.tag = request.tag
                     task.resume()
@@ -568,10 +570,11 @@ public class RequestController {
     ///
     /// - Parameters:
     ///   - request: The request to be downloaded.
+    ///   - inBackground: Whether this request should be scheduled on the background session
     ///   - date: When to make the request (defaults to current date).
     ///   - progress: A closure to be called with progress updates.
     ///   - completion: A closure to be called once the download has finished.
-    public func scheduleDownload(_ request: Request, on date: Date? = nil, progress: ProgressHandler?, completion: TransferCompletion?) {
+    public func scheduleDownload(_ request: Request, inBackground: Bool = false, on date: Date? = nil, progress: ProgressHandler?, completion: TransferCompletion?) {
         
         // Set activity indicator (Only if we're the first request)
         RequestController.showApplicationActivityIndicator()
@@ -589,15 +592,15 @@ public class RequestController {
                 return
             }
             
-            guard let self = self else { return }
+            guard let this = self else { return }
             
             do {
                 
                 var urlRequest = try request.construct()
                 
-                if self.runSynchronously {
+                if this.runSynchronously {
                     
-                    let response = self.backgroundSession.sendSynchronousDownloadTaskWith(request: &urlRequest)
+                    let response = this.backgroundSession.sendSynchronousDownloadTaskWith(request: &urlRequest)
                     
                     RequestController.hideApplicationActivityIndicator()
                     var returnResponse: RequestResponse?
@@ -608,14 +611,13 @@ public class RequestController {
                     
                 } else {
                     
-                    let backgroundableRequest = urlRequest.backgroundable ?? urlRequest
-                    let task = self.backgroundSession.downloadTask(with: backgroundableRequest)
+                    let task = (inBackground ? this.backgroundSession : this.defaultSession).downloadTask(with: urlRequest)
                     
                     if #available(iOS 11, watchOS 4.0, macOS 10.13, *) {
                         task.earliestBeginDate = date
                     }
                     
-                    self.add(completionHandler: completion, progressHandler: progress, forTaskId: task.taskIdentifier)
+                    this.add(completionHandler: completion, progressHandler: progress, forTaskId: task.taskIdentifier)
                     
                     task.tag = request.tag
                     task.resume()

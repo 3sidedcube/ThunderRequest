@@ -43,10 +43,15 @@
 		B117123321C40A0700800EEA /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117123121C40A0700800EEA /* Authenticator.swift */; };
 		B117123421C40A0700800EEA /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117123121C40A0700800EEA /* Authenticator.swift */; };
 		B117123521C40A0700800EEA /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117123121C40A0700800EEA /* Authenticator.swift */; };
+		B117123721C4627000800EEA /* DownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117123621C4627000800EEA /* DownloadTests.swift */; };
+		B117124021C51F5A00800EEA /* RequestBodyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117123F21C51F5A00800EEA /* RequestBodyTests.swift */; };
 		B1177EDD1BBAF18E00372D4D /* ThunderRequestMac.h in Headers */ = {isa = PBXBuildFile; fileRef = B1177EDC1BBAF18E00372D4D /* ThunderRequestMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1177EE31BBAF18E00372D4D /* ThunderRequestMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */; };
 		B1177EEA1BBAF18E00372D4D /* ThunderRequestMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B1177EE91BBAF18E00372D4D /* ThunderRequestMacTests.m */; };
 		B120EE41207B895800A4A7CA /* ThunderRequestWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = B120EE3F207B895800A4A7CA /* ThunderRequestWatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B150EE3B21C7A4E90041C027 /* MultipartFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150EE3A21C7A4E90041C027 /* MultipartFormTests.swift */; };
+		B150EE3D21C7A6C30041C027 /* 350x150.png in Resources */ = {isa = PBXBuildFile; fileRef = B150EE3C21C7A6C30041C027 /* 350x150.png */; };
+		B150EE4821C7E8AC0041C027 /* UploadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150EE4721C7E8AC0041C027 /* UploadTests.swift */; };
 		B15560F41CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15560F31CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift */; };
 		B1ADAD3F21C2761100012BFB /* URLRequest+Backgroundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */; };
 		B1ADAD4021C2761700012BFB /* URLRequest+Backgroundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */; };
@@ -100,10 +105,10 @@
 		B1DB2CB521C012C5007FAB21 /* JSONRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CB321C012C5007FAB21 /* JSONRequestBody.swift */; };
 		B1DB2CB621C012C5007FAB21 /* JSONRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CB321C012C5007FAB21 /* JSONRequestBody.swift */; };
 		B1DB2CB721C012C5007FAB21 /* JSONRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CB321C012C5007FAB21 /* JSONRequestBody.swift */; };
-		B1DB2CB921C013B0007FAB21 /* XMLPlistRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CB821C013B0007FAB21 /* XMLPlistRequestBody.swift */; };
-		B1DB2CBA21C013B0007FAB21 /* XMLPlistRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CB821C013B0007FAB21 /* XMLPlistRequestBody.swift */; };
-		B1DB2CBB21C013B0007FAB21 /* XMLPlistRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CB821C013B0007FAB21 /* XMLPlistRequestBody.swift */; };
-		B1DB2CBC21C013B0007FAB21 /* XMLPlistRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CB821C013B0007FAB21 /* XMLPlistRequestBody.swift */; };
+		B1DB2CB921C013B0007FAB21 /* PropertyListRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CB821C013B0007FAB21 /* PropertyListRequestBody.swift */; };
+		B1DB2CBA21C013B0007FAB21 /* PropertyListRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CB821C013B0007FAB21 /* PropertyListRequestBody.swift */; };
+		B1DB2CBB21C013B0007FAB21 /* PropertyListRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CB821C013B0007FAB21 /* PropertyListRequestBody.swift */; };
+		B1DB2CBC21C013B0007FAB21 /* PropertyListRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CB821C013B0007FAB21 /* PropertyListRequestBody.swift */; };
 		B1DB2CBE21C01601007FAB21 /* FormURLEncodedRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CBD21C01601007FAB21 /* FormURLEncodedRequestBody.swift */; };
 		B1DB2CBF21C01601007FAB21 /* FormURLEncodedRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CBD21C01601007FAB21 /* FormURLEncodedRequestBody.swift */; };
 		B1DB2CC021C01601007FAB21 /* FormURLEncodedRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CBD21C01601007FAB21 /* FormURLEncodedRequestBody.swift */; };
@@ -155,8 +160,8 @@
 		B1DBEFF821BFC65000D22137 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF721BFC65000D22137 /* HTTP.swift */; };
 		B1DBEFF921BFC65000D22137 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF721BFC65000D22137 /* HTTP.swift */; };
 		B1DBEFFA21BFC65000D22137 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF721BFC65000D22137 /* HTTP.swift */; };
-		B1EF2E9F1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9E1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift */; };
-		C2E5089219C835A300350F00 /* ThunderRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089119C835A300350F00 /* ThunderRequestTests.swift */; };
+		B1EF2E9F1BA70F7B0053B39A /* KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9E1BA70F7B0053B39A /* KeychainTests.swift */; };
+		C2E5089219C835A300350F00 /* ResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089119C835A300350F00 /* ResponseTests.swift */; };
 		C2E508A419C835D900350F00 /* ThunderRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089B19C835D900350F00 /* ThunderRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -183,6 +188,8 @@
 		B117122721C3FB0400800EEA /* RequestCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCredential.swift; sourceTree = "<group>"; };
 		B117122C21C404FC00800EEA /* OAuth2Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Credential.swift; sourceTree = "<group>"; };
 		B117123121C40A0700800EEA /* Authenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
+		B117123621C4627000800EEA /* DownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTests.swift; sourceTree = "<group>"; };
+		B117123F21C51F5A00800EEA /* RequestBodyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBodyTests.swift; sourceTree = "<group>"; };
 		B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequestMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1177EDB1BBAF18E00372D4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1177EDC1BBAF18E00372D4D /* ThunderRequestMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThunderRequestMac.h; sourceTree = "<group>"; };
@@ -192,6 +199,9 @@
 		B120EE3D207B895800A4A7CA /* ThunderRequestWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequestWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B120EE3F207B895800A4A7CA /* ThunderRequestWatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThunderRequestWatch.h; sourceTree = "<group>"; };
 		B120EE40207B895800A4A7CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B150EE3A21C7A4E90041C027 /* MultipartFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormTests.swift; sourceTree = "<group>"; };
+		B150EE3C21C7A6C30041C027 /* 350x150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 350x150.png; sourceTree = "<group>"; };
+		B150EE4721C7E8AC0041C027 /* UploadTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadTests.swift; sourceTree = "<group>"; };
 		B15560F31CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationLoadingIndicatorManager.swift; sourceTree = "<group>"; };
 		B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Backgroundable.swift"; sourceTree = "<group>"; };
 		B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
@@ -207,7 +217,7 @@
 		B1DB2CA021BFF3F4007FAB21 /* NSImage+MultipartFormElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+MultipartFormElement.swift"; sourceTree = "<group>"; };
 		B1DB2CA521BFFBFE007FAB21 /* ImageRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequestBody.swift; sourceTree = "<group>"; };
 		B1DB2CB321C012C5007FAB21 /* JSONRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRequestBody.swift; sourceTree = "<group>"; };
-		B1DB2CB821C013B0007FAB21 /* XMLPlistRequestBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLPlistRequestBody.swift; sourceTree = "<group>"; };
+		B1DB2CB821C013B0007FAB21 /* PropertyListRequestBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyListRequestBody.swift; sourceTree = "<group>"; };
 		B1DB2CBD21C01601007FAB21 /* FormURLEncodedRequestBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormURLEncodedRequestBody.swift; sourceTree = "<group>"; };
 		B1DB2CC721C01EF2007FAB21 /* RequestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestController.swift; sourceTree = "<group>"; };
 		B1DB2CCC21C02172007FAB21 /* RequestResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResponse.swift; sourceTree = "<group>"; };
@@ -221,12 +231,12 @@
 		B1DB2CFC21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+TaskIdentifier.swift"; sourceTree = "<group>"; };
 		B1DBEFF221BFC44400D22137 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		B1DBEFF721BFC65000D22137 /* HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
-		B1EF2E9E1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ThunderRequest-KeychainTests.swift"; sourceTree = "<group>"; };
+		B1EF2E9E1BA70F7B0053B39A /* KeychainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainTests.swift; sourceTree = "<group>"; };
 		C2E5088219C835A300350F00 /* ThunderRequest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2E5088619C835A300350F00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2E5088D19C835A300350F00 /* ThunderRequestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThunderRequestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2E5089019C835A300350F00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C2E5089119C835A300350F00 /* ThunderRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThunderRequestTests.swift; sourceTree = "<group>"; };
+		C2E5089119C835A300350F00 /* ResponseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseTests.swift; sourceTree = "<group>"; };
 		C2E5089B19C835D900350F00 /* ThunderRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThunderRequest.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -380,7 +390,7 @@
 				B1DB2CA521BFFBFE007FAB21 /* ImageRequestBody.swift */,
 				B1DB2CB321C012C5007FAB21 /* JSONRequestBody.swift */,
 				B1DB2C8521BFF2E5007FAB21 /* Multipart Form */,
-				B1DB2CB821C013B0007FAB21 /* XMLPlistRequestBody.swift */,
+				B1DB2CB821C013B0007FAB21 /* PropertyListRequestBody.swift */,
 				B117120021C3D55700800EEA /* Data+RequestBody.swift */,
 				B117120521C3D75B00800EEA /* EncodableRequestBody.swift */,
 			);
@@ -478,8 +488,13 @@
 		C2E5088E19C835A300350F00 /* ThunderRequestTests */ = {
 			isa = PBXGroup;
 			children = (
-				C2E5089119C835A300350F00 /* ThunderRequestTests.swift */,
-				B1EF2E9E1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift */,
+				B150EE3C21C7A6C30041C027 /* 350x150.png */,
+				B117123F21C51F5A00800EEA /* RequestBodyTests.swift */,
+				C2E5089119C835A300350F00 /* ResponseTests.swift */,
+				B150EE3A21C7A4E90041C027 /* MultipartFormTests.swift */,
+				B117123621C4627000800EEA /* DownloadTests.swift */,
+				B150EE4721C7E8AC0041C027 /* UploadTests.swift */,
+				B1EF2E9E1BA70F7B0053B39A /* KeychainTests.swift */,
 				C2E5088F19C835A300350F00 /* Supporting Files */,
 			);
 			path = ThunderRequestTests;
@@ -737,6 +752,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B150EE3D21C7A6C30041C027 /* 350x150.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -748,7 +764,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1DB2CB621C012C5007FAB21 /* JSONRequestBody.swift in Sources */,
-				B1DB2CBB21C013B0007FAB21 /* XMLPlistRequestBody.swift in Sources */,
+				B1DB2CBB21C013B0007FAB21 /* PropertyListRequestBody.swift in Sources */,
 				B117120821C3D75B00800EEA /* EncodableRequestBody.swift in Sources */,
 				B1DB2C8A21BFF322007FAB21 /* MultipartFormFile.swift in Sources */,
 				B1DB2C9E21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift in Sources */,
@@ -822,7 +838,7 @@
 				B117120721C3D75B00800EEA /* EncodableRequestBody.swift in Sources */,
 				B11711F121C3B2E300800EEA /* CustomisableRecoverableError.swift in Sources */,
 				B1DB2CF421C15616007FAB21 /* RequestController+Callbacks.swift in Sources */,
-				B1DB2CBA21C013B0007FAB21 /* XMLPlistRequestBody.swift in Sources */,
+				B1DB2CBA21C013B0007FAB21 /* PropertyListRequestBody.swift in Sources */,
 				B1DB2CA421BFF843007FAB21 /* NSImage+MultipartFormElement.swift in Sources */,
 				B117120221C3D55700800EEA /* Data+RequestBody.swift in Sources */,
 			);
@@ -850,7 +866,7 @@
 				B1DB2C7E21BFE1FF007FAB21 /* Data+Generic.swift in Sources */,
 				B117122B21C3FB0400800EEA /* RequestCredential.swift in Sources */,
 				B1DB2C8421BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */,
-				B1DB2CBC21C013B0007FAB21 /* XMLPlistRequestBody.swift in Sources */,
+				B1DB2CBC21C013B0007FAB21 /* PropertyListRequestBody.swift in Sources */,
 				B1DB2CEC21C15268007FAB21 /* RequestController+SessionDelegate.swift in Sources */,
 				B1DB2C9521BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */,
 				B1DB2C9F21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift in Sources */,
@@ -897,7 +913,7 @@
 				B1DB2CE421C12DEA007FAB21 /* URLSessionTask+Tag.swift in Sources */,
 				B1DB2C9C21BFF3E3007FAB21 /* UIImage+MultipartFormElement.swift in Sources */,
 				B1DB2CB421C012C5007FAB21 /* JSONRequestBody.swift in Sources */,
-				B1DB2CB921C013B0007FAB21 /* XMLPlistRequestBody.swift in Sources */,
+				B1DB2CB921C013B0007FAB21 /* PropertyListRequestBody.swift in Sources */,
 				B117120121C3D55700800EEA /* Data+RequestBody.swift in Sources */,
 				B1113ED6207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
 				B1DB2CFD21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */,
@@ -925,8 +941,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1EF2E9F1BA70F7B0053B39A /* ThunderRequest-KeychainTests.swift in Sources */,
-				C2E5089219C835A300350F00 /* ThunderRequestTests.swift in Sources */,
+				B1EF2E9F1BA70F7B0053B39A /* KeychainTests.swift in Sources */,
+				C2E5089219C835A300350F00 /* ResponseTests.swift in Sources */,
+				B150EE4821C7E8AC0041C027 /* UploadTests.swift in Sources */,
+				B117123721C4627000800EEA /* DownloadTests.swift in Sources */,
+				B117124021C51F5A00800EEA /* RequestBodyTests.swift in Sources */,
+				B150EE3B21C7A4E90041C027 /* MultipartFormTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

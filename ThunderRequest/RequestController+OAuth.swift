@@ -59,15 +59,15 @@ extension RequestController {
             // Call back to the initial OAuth check
             completion(error == nil, error, false)
             
-            guard let self = self else { return }
+            guard let this = self else { return }
             
             // Re-schedule any requests that were queued whilst we were refreshing the OAuth token
-            self.requestsQueuedForAuthentication.forEach({ (request, completion) in
-                self.schedule(request: request, completion: completion)
+            this.requestsQueuedForAuthentication.forEach({ (request, completion) in
+                this.schedule(request: request, completion: completion)
             })
             
-            self.requestsQueuedForAuthentication = []
-            self.reAuthenticating = false
+            this.requestsQueuedForAuthentication = []
+            this.reAuthenticating = false
         }
     }
 }

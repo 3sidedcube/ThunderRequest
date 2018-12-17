@@ -22,6 +22,22 @@ public struct MultipartFormFile: MultipartFormElement {
     
     public let transferEncoding: String?
     
+    public init?(image: UIImage, format: Image.Format = .jpeg, fileName: String, name: String? = nil) {
+        
+        guard let data = image.dataFor(format: format) else {
+            return nil
+        }
+        
+        self.init(
+            fileData: data,
+            contentType: format.contentType,
+            fileName: fileName,
+            disposition: nil,
+            name: name,
+            transferEncoding: nil
+        )
+    }
+    
     public init(fileData: Data, contentType: String, fileName: String, disposition: String? = nil, name: String? = nil, transferEncoding: String? = nil) {
         
         self.fileData = fileData
