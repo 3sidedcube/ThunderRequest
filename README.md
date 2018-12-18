@@ -12,14 +12,14 @@ Setting up your app to use Thunder Request is a simple and quick process.
 + Add ThunderRequest.framework to your Embedded Binaries.
 + Wherever you want to use ThunderRequest use `import ThunderRequest`.
 
-#OAuth 2.0 Support (And general authentication)
-OAuth 2.0 support is available via the `Authenticator` protocol which when set on `RequestController` will have it's delegate methods called to refresh the user's token when it either expires or a 403 is sent by the server.
+#Authentication Support
+Support for authentication protocols such as OAuth2 is available via the `Authenticator` protocol which when set on `RequestController` will have it's delegate methods called to refresh the user's token when it either expires or a 403 is sent by the server.
 
-When `authenticator` is set on `RequestController` any current OAuth2 credentials will be pulled from the user's keychain by the service identifier provided by `authIdentifier` on the protocol object.
+When `authenticator` is set on `RequestController` any current credentials will be pulled from the user's keychain by the service identifier provided by `authIdentifier` on the protocol object.
 
-To register an OAuth2 credential for the first time to the user's keychain, use the method `set(sharedRequestCredentials:savingToKeychain:)` after having set the delegate. This will store the credential to the keychain for later use by the request controller and also set the `sharedRequestCredential` property on the request controller.
+To register a credential for the first time to the user's keychain, use the method `set(sharedRequestCredentials:savingToKeychain:)` after having set the delegate. This will store the credential to the keychain for later use by the request controller and also set the `sharedRequestCredential` property on the request controller.
 
-If the request controller detects that the `OAuth2Credential` object is expired, or receives a 403 on a request it will call the method `reAuthenticate(credential:completion:)` to re-authenticate the user before then continuing to make the request (Or re-making) the request.
+If the request controller detects that the `RequestCredential` object is expired, or receives a 403 on a request it will call the method `reAuthenticate(credential:completion:)` to re-authenticate the user before then continuing to make the request (Or re-making) the request.
 
 #Examples
 
