@@ -52,11 +52,16 @@
 		B150EE3B21C7A4E90041C027 /* MultipartFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150EE3A21C7A4E90041C027 /* MultipartFormTests.swift */; };
 		B150EE3D21C7A6C30041C027 /* 350x150.png in Resources */ = {isa = PBXBuildFile; fileRef = B150EE3C21C7A6C30041C027 /* 350x150.png */; };
 		B150EE4821C7E8AC0041C027 /* UploadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150EE4721C7E8AC0041C027 /* UploadTests.swift */; };
+		B150EE4A21C8E74C0041C027 /* AuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150EE4921C8E74C0041C027 /* AuthTests.swift */; };
 		B15560F41CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15560F31CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift */; };
 		B1ADAD3F21C2761100012BFB /* URLRequest+Backgroundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */; };
 		B1ADAD4021C2761700012BFB /* URLRequest+Backgroundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */; };
 		B1ADAD4121C2761800012BFB /* URLRequest+Backgroundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */; };
 		B1ADAD4221C2761800012BFB /* URLRequest+Backgroundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */; };
+		B1D4866521C926FB00D40D54 /* CredentialStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D4866421C926FB00D40D54 /* CredentialStore.swift */; };
+		B1D4866621C926FB00D40D54 /* CredentialStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D4866421C926FB00D40D54 /* CredentialStore.swift */; };
+		B1D4866721C926FB00D40D54 /* CredentialStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D4866421C926FB00D40D54 /* CredentialStore.swift */; };
+		B1D4866821C926FB00D40D54 /* CredentialStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D4866421C926FB00D40D54 /* CredentialStore.swift */; };
 		B1DB2C6C21BFD2A4007FAB21 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */; };
 		B1DB2C6D21BFD2A4007FAB21 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */; };
 		B1DB2C6E21BFD2A4007FAB21 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */; };
@@ -198,8 +203,10 @@
 		B150EE3A21C7A4E90041C027 /* MultipartFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormTests.swift; sourceTree = "<group>"; };
 		B150EE3C21C7A6C30041C027 /* 350x150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 350x150.png; sourceTree = "<group>"; };
 		B150EE4721C7E8AC0041C027 /* UploadTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadTests.swift; sourceTree = "<group>"; };
+		B150EE4921C8E74C0041C027 /* AuthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTests.swift; sourceTree = "<group>"; };
 		B15560F31CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationLoadingIndicatorManager.swift; sourceTree = "<group>"; };
 		B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Backgroundable.swift"; sourceTree = "<group>"; };
+		B1D4866421C926FB00D40D54 /* CredentialStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialStore.swift; sourceTree = "<group>"; };
 		B1DB2C6B21BFD2A4007FAB21 /* String+MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
 		B1DB2C7021BFD898007FAB21 /* Data+ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+ContentType.swift"; sourceTree = "<group>"; };
 		B1DB2C7521BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+URLEncodedString.swift"; sourceTree = "<group>"; };
@@ -315,6 +322,7 @@
 				B117123121C40A0700800EEA /* Authenticator.swift */,
 				B117122C21C404FC00800EEA /* OAuth2Credential.swift */,
 				B117122721C3FB0400800EEA /* RequestCredential.swift */,
+				B1D4866421C926FB00D40D54 /* CredentialStore.swift */,
 			);
 			name = Authorization;
 			sourceTree = "<group>";
@@ -483,6 +491,7 @@
 			isa = PBXGroup;
 			children = (
 				B150EE3C21C7A6C30041C027 /* 350x150.png */,
+				B150EE4921C8E74C0041C027 /* AuthTests.swift */,
 				B117123F21C51F5A00800EEA /* RequestBodyTests.swift */,
 				C2E5089119C835A300350F00 /* ResponseTests.swift */,
 				B150EE3A21C7A4E90041C027 /* MultipartFormTests.swift */,
@@ -676,10 +685,13 @@
 					};
 					C2E5088119C835A300350F00 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 25H7BM6YWK;
 						LastSwiftMigration = 1000;
+						ProvisioningStyle = Automatic;
 					};
 					C2E5088C19C835A300350F00 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 25H7BM6YWK;
 						LastSwiftMigration = 1000;
 					};
 				};
@@ -757,6 +769,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1D4866721C926FB00D40D54 /* CredentialStore.swift in Sources */,
 				B1DB2CB621C012C5007FAB21 /* JSONRequestBody.swift in Sources */,
 				B1DB2CBB21C013B0007FAB21 /* PropertyListRequestBody.swift in Sources */,
 				B117120821C3D75B00800EEA /* EncodableRequestBody.swift in Sources */,
@@ -805,6 +818,7 @@
 				B1DB2C6D21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
 				B1DB2CDA21C11AE8007FAB21 /* RequestResponse+Codable.swift in Sources */,
 				B1DB2C9321BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */,
+				B1D4866621C926FB00D40D54 /* CredentialStore.swift in Sources */,
 				B1DB2CA721BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */,
 				B1DB2CFE21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */,
 				B1DB2C7721BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */,
@@ -876,6 +890,7 @@
 				B1DB2CC121C01601007FAB21 /* FormURLEncodedRequestBody.swift in Sources */,
 				B1DB2C7921BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */,
 				B1DB2C7421BFD898007FAB21 /* Data+ContentType.swift in Sources */,
+				B1D4866821C926FB00D40D54 /* CredentialStore.swift in Sources */,
 				B117123521C40A0700800EEA /* Authenticator.swift in Sources */,
 				B1DB2D0021C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */,
 				B117123021C404FC00800EEA /* OAuth2Credential.swift in Sources */,
@@ -893,6 +908,7 @@
 				B1DB2C9721BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
 				B1DB2CE921C15268007FAB21 /* RequestController+SessionDelegate.swift in Sources */,
 				B1DB2CC821C01EF2007FAB21 /* RequestController.swift in Sources */,
+				B1D4866521C926FB00D40D54 /* CredentialStore.swift in Sources */,
 				B1DB2CD921C11AE8007FAB21 /* RequestResponse+Codable.swift in Sources */,
 				B1DBEFF321BFC44400D22137 /* Request.swift in Sources */,
 				B1DB2CCD21C02172007FAB21 /* RequestResponse.swift in Sources */,
@@ -935,6 +951,7 @@
 				C2E5089219C835A300350F00 /* ResponseTests.swift in Sources */,
 				B150EE4821C7E8AC0041C027 /* UploadTests.swift in Sources */,
 				B117123721C4627000800EEA /* DownloadTests.swift in Sources */,
+				B150EE4A21C8E74C0041C027 /* AuthTests.swift in Sources */,
 				B117124021C51F5A00800EEA /* RequestBodyTests.swift in Sources */,
 				B150EE3B21C7A4E90041C027 /* MultipartFormTests.swift in Sources */,
 			);
@@ -1293,7 +1310,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 25H7BM6YWK;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1305,6 +1324,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.threesidedcube.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -1319,7 +1339,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 25H7BM6YWK;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1330,6 +1352,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.threesidedcube.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -1340,6 +1363,7 @@
 		C2E5089919C835A300350F00 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 25H7BM6YWK;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1362,6 +1386,7 @@
 		C2E5089A19C835A300350F00 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 25H7BM6YWK;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

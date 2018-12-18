@@ -24,18 +24,18 @@ extension RequestController {
             return
         }
         
-        // If we have an oAuth2 delegate and the request isn't the request to refresh the token
-        if sharedRequestCredentials as? OAuth2Credential == nil {
-            sharedRequestCredentials = OAuth2Credential.retrieve(withIdentifier: authenticator.authIdentifier)
+        // If we don't already have request credentials, then fetch them
+        if sharedRequestCredentials == nil {
+            sharedRequestCredentials = CredentialStore.retrieve(withIdentifier: authenticator.authIdentifier)
         }
         
-        // Make sure we have shared credentials, and they are oAuth2 credentials
-        guard let oAuth2Credentials = sharedRequestCredentials as? OAuth2Credential else {
+        // Make sure we have shared credentials
+        guard let credentials = sharedRequestCredentials else {
             completion(true, nil, false)
             return
         }
         
-        guard !oAuth2Credentials.hasExpired, !self.reAuthenticating else {
+        guard !credentials.hasExpired, !self.reAuthenticating else {
             // If we are re-authenticating then the token has expired, but this is not the
             // request that will refresh it, then this request can be queued by the user
             completion(!self.reAuthenticating, nil, self.reAuthenticating)
@@ -46,12 +46,12 @@ extension RequestController {
         // to make the authentication request, we don't end up in an infinite loop!
         self.reAuthenticating = true
         
-        authenticator.reAuthenticate(credential: oAuth2Credentials) { [weak self] (newCredential, error, saveToKeychain) in
+        authenticator.reAuthenticate(credential: credentials) { [weak self] (newCredential, error, saveToKeychain) in
             
             // If we don't have an error, then save the credentials to the keychain
-            if let credentials = newCredential, error == nil {
+            if let newCredentials = newCredential, error == nil {
                 if saveToKeychain {
-                    OAuth2Credential.store(credential: credentials, identifier: authenticator.authIdentifier)
+                    CredentialStore.store(credential: newCredentials, identifier: authenticator.authIdentifier, accessibility: authenticator.keychainAccessibility)
                 }
                 self?.sharedRequestCredentials = credentials
             }

@@ -8,8 +8,21 @@
 
 import Foundation
 
-@objc(TSCOauth2Credential)
-public class OAuth2Credential: RequestCredential {
+public class OAuth2Credential: NSObject, NSCoding, Credential {
+    
+    public var credential: URLCredential?
+    
+    public var username: String?
+    
+    public var password: String?
+    
+    public var authorizationToken: String?
+    
+    public var tokenType: String
+    
+    public var keychainData: Data {
+        return NSKeyedArchiver.archivedData(withRootObject:self)
+    }
     
     /// The date on which the authorization token expires
     public var expirationDate: Date
@@ -33,27 +46,47 @@ public class OAuth2Credential: RequestCredential {
         
         self.refreshToken = refreshToken
         self.expirationDate = expiryDate
-        super.init(authorizationToken: authorizationToken)
+        self.authorizationToken = authorizationToken
         self.tokenType = tokenType
+        super.init()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    @objc public func encode(with aCoder: NSCoder) {
+        aCoder.encode(username, forKey: "username")
+        aCoder.encode(password, forKey: "password")
+        aCoder.encode(authorizationToken, forKey: "authtoken")
+        aCoder.encode(credential, forKey: "credential")
+        aCoder.encode(tokenType, forKey: "tokentype")
+        aCoder.encode(expirationDate, forKey: "expiration")
+        aCoder.encode(refreshToken, forKey: "refreshtoken")
+    }
+    
+    @objc required public init?(coder aDecoder: NSCoder) {
         
-        guard let expirationDate = aDecoder.decodeObject(forKey: "TSCExpirationDate") as? Date else {
+        guard let expiry = aDecoder.decodeObject(forKey: "expiration") as? Date else {
             return nil
         }
-        guard let tokenType = aDecoder.decodeObject(forKey: "TSCTokenType") as? String else {
+        
+        tokenType = aDecoder.decodeObject(forKey: "tokentype") as? String ?? "Bearer"
+        username = aDecoder.decodeObject(forKey: "username") as? String
+        password = aDecoder.decodeObject(forKey: "password") as? String
+        authorizationToken = aDecoder.decodeObject(forKey: "authtoken") as? String
+        credential = aDecoder.decodeObject(forKey: "credential") as? URLCredential
+        refreshToken = aDecoder.decodeObject(forKey: "refreshtoken") as? String
+        expirationDate = expiry
+        super.init()
+    }
+    
+    public required init?(keychainData: Data) {
+        guard let credential = NSKeyedUnarchiver.unarchiveObject(with: keychainData) as? OAuth2Credential else {
             return nil
         }
-        
-        self.expirationDate = expirationDate
-        
-        super.init(coder: aDecoder)
-        
-        self.tokenType = tokenType
-        
-        authorizationToken
-         = aDecoder.decodeObject(forKey: "TSCAuthToken") as? String
-        refreshToken = aDecoder.decodeObject(forKey: "TSCRefreshToken") as? String
+        self.expirationDate = credential.expirationDate
+        self.authorizationToken = credential.authorizationToken
+        self.credential = credential.credential
+        self.username = credential.username
+        self.password = credential.password
+        self.tokenType = credential.tokenType
+        self.refreshToken = credential.refreshToken
     }
 }

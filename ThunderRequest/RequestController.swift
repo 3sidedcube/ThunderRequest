@@ -58,14 +58,13 @@ public class RequestController {
     public var sharedRequestHeaders: [String : String?] = [:]
     
     /// The shared request credentials to be used for authorization with any authentication challenge
-    public var sharedRequestCredentials: RequestCredential?
+    public var sharedRequestCredentials: AnyCredential?
     
     /// The authenticator object which will respond to unauthenticated responses e.t.c.
     public var authenticator: Authenticator? {
         didSet {
             guard let authenticator = authenticator else { return }
-            guard let credentials = RequestCredential.retrieve(withIdentifier: authenticator.authIdentifier) else { return }
-            sharedRequestCredentials = credentials
+            sharedRequestCredentials = CredentialStore.retrieve(withIdentifier: authenticator.authIdentifier, from: authenticator.dataStore)
         }
     }
     
@@ -111,8 +110,8 @@ public class RequestController {
             sharedBaseURL = URL(string: baseURL.absoluteString.appending("/")) ?? baseURL
         }
         
-        sessionDelegate = SessionDelegateProxy(delegate: self)        
-        sharedRequestCredentials = RequestCredential.retrieve(withIdentifier: "thundertable.com.threesidedcube-\(sharedBaseURL)")
+        sessionDelegate = SessionDelegateProxy(delegate: self)
+        sharedRequestCredentials = CredentialStore.retrieve(withIdentifier: "thundertable.com.threesidedcube-\(sharedBaseURL)")
         resetSessions()
     }
     
@@ -679,20 +678,22 @@ public class RequestController {
     /// - Parameters:
     ///   - sharedRequestCredentials: The request credential to set/save.
     ///   - savingToKeychain: Whether or not to save the credentials to the keychain.
+    ///   - accessibility: The accessibility of the credential in the keychain.
     ///
     /// - Note: If a `OAuth2Credential` object is stored to the keychain by this method
     /// it will be fetched from the keychain each time an `OAuth2Delegate` with the same
     /// service identifier is set on the request controller. If `OAuth2Delegate` is non-nil
     /// when this method is called it will be saved under the current delegate's service
     /// identifier. Otherwise it will be saved under a string appended by `sharedBaseURL`
-    public func set(sharedRequestCredentials: RequestCredential?, savingToKeychain: Bool) {
+    public func set(sharedRequestCredentials: AnyCredential?, savingToKeychain: Bool, accessibility: CredentialStore.Accessibility = .afterFirstUnlock) {
+        
         self.sharedRequestCredentials = sharedRequestCredentials
         if let credential = sharedRequestCredentials, let authToken = credential.authorizationToken {
             sharedRequestHeaders["Authorization"] = "\(credential.tokenType) \(authToken)"
         }
         
         guard savingToKeychain else { return }
-        RequestCredential.store(credential: sharedRequestCredentials, identifier: authenticator?.authIdentifier ?? "thundertable.com.threesidedcube-\(sharedBaseURL)")
+        CredentialStore.store(credential: sharedRequestCredentials, identifier: authenticator?.authIdentifier ?? "thundertable.com.threesidedcube-\(sharedBaseURL)", accessibility: accessibility)
     }
 }
 
