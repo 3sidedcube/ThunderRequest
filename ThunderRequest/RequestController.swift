@@ -24,7 +24,7 @@ public typealias ProgressHandler = (_ progress: Double, _ totalBytes: Int64, _ t
 /// 3. Use any of the GET/POST e.t.c. methods to perform requests
 ///
 /// IMPORTANT --- `RequestController` uses URLSession internally which hold a strong reference to their delegate. You must therefore call `invalidateAndCancel` when done with your `RequestController` object.
-public class RequestController {
+public final class RequestController {
     
     public enum UploadError: Error {
         case saveToDiskFailed
@@ -48,8 +48,8 @@ public class RequestController {
         return _requestLog as! OSLog
     }
     
-    /// The request controller for making OAuth2 re-authentication requests on
-    public var OAuth2RequestController: RequestController?
+    /// The request controller for making re-authentication requests on
+    public var authenticationRequestController: RequestController?
     
     /// The user is re-authenticating
     var reAuthenticating: Bool = false
@@ -58,13 +58,13 @@ public class RequestController {
     public var sharedRequestHeaders: [String : String?] = [:]
     
     /// The shared request credentials to be used for authorization with any authentication challenge
-    public var sharedRequestCredentials: AnyCredential?
+    public var sharedRequestCredentials: RequestCredential?
     
     /// The authenticator object which will respond to unauthenticated responses e.t.c.
     public var authenticator: Authenticator? {
         didSet {
             guard let authenticator = authenticator else { return }
-            sharedRequestCredentials = CredentialStore.retrieve(withIdentifier: authenticator.authIdentifier, from: authenticator.dataStore)
+            sharedRequestCredentials = CredentialStore.retrieve(withIdentifier: authenticator.authIdentifier, from: dataStore)
         }
     }
     
@@ -99,10 +99,11 @@ public class RequestController {
     
     ///MARK: - Initialization -
     
-    /// Initialises a request controller with a given base URL
-    ///
-    /// - Parameter baseURL: The base URL to use for all requests
-    public init(baseURL: URL) {
+    internal let dataStore: DataStore
+    
+    internal init(baseURL: URL, dataStore: DataStore) {
+        
+        self.dataStore = dataStore
         
         if baseURL.absoluteString.hasSuffix("/") {
             sharedBaseURL = baseURL
@@ -111,8 +112,15 @@ public class RequestController {
         }
         
         sessionDelegate = SessionDelegateProxy(delegate: self)
-        sharedRequestCredentials = CredentialStore.retrieve(withIdentifier: "thundertable.com.threesidedcube-\(sharedBaseURL)")
+        sharedRequestCredentials = CredentialStore.retrieve(withIdentifier: "thundertable.com.threesidedcube-\(sharedBaseURL)", from: dataStore)
         resetSessions()
+    }
+    
+    /// Initialises a request controller with a given base URL
+    ///
+    /// - Parameter baseURL: The base URL to use for all requests
+    public convenience init(baseURL: URL) {
+        self.init(baseURL: baseURL, dataStore: KeychainStore(serviceName: kTSCAuthServiceName))
     }
     
     /// Initialises a request controller with a given base address
@@ -685,7 +693,7 @@ public class RequestController {
     /// service identifier is set on the request controller. If `OAuth2Delegate` is non-nil
     /// when this method is called it will be saved under the current delegate's service
     /// identifier. Otherwise it will be saved under a string appended by `sharedBaseURL`
-    public func set(sharedRequestCredentials: AnyCredential?, savingToKeychain: Bool, accessibility: CredentialStore.Accessibility = .afterFirstUnlock) {
+    public func set(sharedRequestCredentials: RequestCredential?, savingToKeychain: Bool, accessibility: CredentialStore.Accessibility = .afterFirstUnlock) {
         
         self.sharedRequestCredentials = sharedRequestCredentials
         if let credential = sharedRequestCredentials, let authToken = credential.authorizationToken {

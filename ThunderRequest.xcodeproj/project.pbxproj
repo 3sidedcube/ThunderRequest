@@ -35,10 +35,6 @@
 		B117122921C3FB0400800EEA /* RequestCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117122721C3FB0400800EEA /* RequestCredential.swift */; };
 		B117122A21C3FB0400800EEA /* RequestCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117122721C3FB0400800EEA /* RequestCredential.swift */; };
 		B117122B21C3FB0400800EEA /* RequestCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117122721C3FB0400800EEA /* RequestCredential.swift */; };
-		B117122D21C404FC00800EEA /* OAuth2Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117122C21C404FC00800EEA /* OAuth2Credential.swift */; };
-		B117122E21C404FC00800EEA /* OAuth2Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117122C21C404FC00800EEA /* OAuth2Credential.swift */; };
-		B117122F21C404FC00800EEA /* OAuth2Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117122C21C404FC00800EEA /* OAuth2Credential.swift */; };
-		B117123021C404FC00800EEA /* OAuth2Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117122C21C404FC00800EEA /* OAuth2Credential.swift */; };
 		B117123221C40A0700800EEA /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117123121C40A0700800EEA /* Authenticator.swift */; };
 		B117123321C40A0700800EEA /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117123121C40A0700800EEA /* Authenticator.swift */; };
 		B117123421C40A0700800EEA /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117123121C40A0700800EEA /* Authenticator.swift */; };
@@ -126,10 +122,10 @@
 		B1DB2CDA21C11AE8007FAB21 /* RequestResponse+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CD821C11AE8007FAB21 /* RequestResponse+Codable.swift */; };
 		B1DB2CDB21C11AE8007FAB21 /* RequestResponse+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CD821C11AE8007FAB21 /* RequestResponse+Codable.swift */; };
 		B1DB2CDC21C11AE8007FAB21 /* RequestResponse+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CD821C11AE8007FAB21 /* RequestResponse+Codable.swift */; };
-		B1DB2CDF21C12B2A007FAB21 /* RequestController+OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CDE21C12B2A007FAB21 /* RequestController+OAuth.swift */; };
-		B1DB2CE021C12B2A007FAB21 /* RequestController+OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CDE21C12B2A007FAB21 /* RequestController+OAuth.swift */; };
-		B1DB2CE121C12B2A007FAB21 /* RequestController+OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CDE21C12B2A007FAB21 /* RequestController+OAuth.swift */; };
-		B1DB2CE221C12B2A007FAB21 /* RequestController+OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CDE21C12B2A007FAB21 /* RequestController+OAuth.swift */; };
+		B1DB2CDF21C12B2A007FAB21 /* RequestController+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CDE21C12B2A007FAB21 /* RequestController+Auth.swift */; };
+		B1DB2CE021C12B2A007FAB21 /* RequestController+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CDE21C12B2A007FAB21 /* RequestController+Auth.swift */; };
+		B1DB2CE121C12B2A007FAB21 /* RequestController+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CDE21C12B2A007FAB21 /* RequestController+Auth.swift */; };
+		B1DB2CE221C12B2A007FAB21 /* RequestController+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CDE21C12B2A007FAB21 /* RequestController+Auth.swift */; };
 		B1DB2CE421C12DEA007FAB21 /* URLSessionTask+Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CE321C12DEA007FAB21 /* URLSessionTask+Tag.swift */; };
 		B1DB2CE521C12DEA007FAB21 /* URLSessionTask+Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CE321C12DEA007FAB21 /* URLSessionTask+Tag.swift */; };
 		B1DB2CE621C12DEA007FAB21 /* URLSessionTask+Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DB2CE321C12DEA007FAB21 /* URLSessionTask+Tag.swift */; };
@@ -187,7 +183,6 @@
 		B117120021C3D55700800EEA /* Data+RequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+RequestBody.swift"; sourceTree = "<group>"; };
 		B117120521C3D75B00800EEA /* EncodableRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableRequestBody.swift; sourceTree = "<group>"; };
 		B117122721C3FB0400800EEA /* RequestCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCredential.swift; sourceTree = "<group>"; };
-		B117122C21C404FC00800EEA /* OAuth2Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Credential.swift; sourceTree = "<group>"; };
 		B117123121C40A0700800EEA /* Authenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
 		B117123621C4627000800EEA /* DownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTests.swift; sourceTree = "<group>"; };
 		B117123F21C51F5A00800EEA /* RequestBodyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBodyTests.swift; sourceTree = "<group>"; };
@@ -224,7 +219,7 @@
 		B1DB2CC721C01EF2007FAB21 /* RequestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestController.swift; sourceTree = "<group>"; };
 		B1DB2CCC21C02172007FAB21 /* RequestResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResponse.swift; sourceTree = "<group>"; };
 		B1DB2CD821C11AE8007FAB21 /* RequestResponse+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestResponse+Codable.swift"; sourceTree = "<group>"; };
-		B1DB2CDE21C12B2A007FAB21 /* RequestController+OAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestController+OAuth.swift"; sourceTree = "<group>"; };
+		B1DB2CDE21C12B2A007FAB21 /* RequestController+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestController+Auth.swift"; sourceTree = "<group>"; };
 		B1DB2CE321C12DEA007FAB21 /* URLSessionTask+Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionTask+Tag.swift"; sourceTree = "<group>"; };
 		B1DB2CE821C15268007FAB21 /* RequestController+SessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestController+SessionDelegate.swift"; sourceTree = "<group>"; };
 		B1DB2CED21C15282007FAB21 /* URLSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionDelegate.swift; sourceTree = "<group>"; };
@@ -320,7 +315,6 @@
 			isa = PBXGroup;
 			children = (
 				B117123121C40A0700800EEA /* Authenticator.swift */,
-				B117122C21C404FC00800EEA /* OAuth2Credential.swift */,
 				B117122721C3FB0400800EEA /* RequestCredential.swift */,
 				B1D4866421C926FB00D40D54 /* CredentialStore.swift */,
 			);
@@ -420,14 +414,6 @@
 			name = Elements;
 			sourceTree = "<group>";
 		};
-		B1DB2CDD21C12B1B007FAB21 /* OAuth */ = {
-			isa = PBXGroup;
-			children = (
-				B1DB2CDE21C12B2A007FAB21 /* RequestController+OAuth.swift */,
-			);
-			name = OAuth;
-			sourceTree = "<group>";
-		};
 		C2E5087819C835A300350F00 = {
 			isa = PBXGroup;
 			children = (
@@ -465,9 +451,9 @@
 				B1DBEFF721BFC65000D22137 /* HTTP.swift */,
 				B1DB2CD821C11AE8007FAB21 /* RequestResponse+Codable.swift */,
 				B1DBEFF221BFC44400D22137 /* Request.swift */,
-				B1DB2CDD21C12B1B007FAB21 /* OAuth */,
 				B1DB2C7F21BFEBF3007FAB21 /* Request Body Types */,
 				B1DB2C6A21BFD290007FAB21 /* Helpers */,
+				B1DB2CDE21C12B2A007FAB21 /* RequestController+Auth.swift */,
 				B1DB2CC721C01EF2007FAB21 /* RequestController.swift */,
 				B1DB2CF221C15616007FAB21 /* RequestController+Callbacks.swift */,
 				B1DB2CE821C15268007FAB21 /* RequestController+SessionDelegate.swift */,
@@ -781,7 +767,6 @@
 				B1DB2CCF21C02172007FAB21 /* RequestResponse.swift in Sources */,
 				B1113ED8207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
 				B1DB2C6E21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
-				B117122F21C404FC00800EEA /* OAuth2Credential.swift in Sources */,
 				B1DB2C7321BFD898007FAB21 /* Data+ContentType.swift in Sources */,
 				B1DB2CF021C15282007FAB21 /* URLSessionDelegate.swift in Sources */,
 				B1DB2C9921BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
@@ -790,7 +775,7 @@
 				B117123421C40A0700800EEA /* Authenticator.swift in Sources */,
 				B11711FF21C3BB3100800EEA /* UIAlertController+ErrorRecovery.swift in Sources */,
 				B1DBEFFA21BFC65000D22137 /* HTTP.swift in Sources */,
-				B1DB2CE121C12B2A007FAB21 /* RequestController+OAuth.swift in Sources */,
+				B1DB2CE121C12B2A007FAB21 /* RequestController+Auth.swift in Sources */,
 				B1DB2CF521C15616007FAB21 /* RequestController+Callbacks.swift in Sources */,
 				B1DB2CEB21C15268007FAB21 /* RequestController+SessionDelegate.swift in Sources */,
 				B1DB2C7821BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */,
@@ -823,7 +808,6 @@
 				B1DB2CFE21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */,
 				B1DB2C7721BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */,
 				B1DB2CCE21C02172007FAB21 /* RequestResponse.swift in Sources */,
-				B117122E21C404FC00800EEA /* OAuth2Credential.swift in Sources */,
 				B1DB2CB521C012C5007FAB21 /* JSONRequestBody.swift in Sources */,
 				B117122921C3FB0400800EEA /* RequestCredential.swift in Sources */,
 				B1DBEFF921BFC65000D22137 /* HTTP.swift in Sources */,
@@ -837,7 +821,7 @@
 				B1DB2C8921BFF322007FAB21 /* MultipartFormFile.swift in Sources */,
 				B1DB2C8221BFEC18007FAB21 /* MultipartFormRequestBody.swift in Sources */,
 				B1DBEFF421BFC44400D22137 /* Request.swift in Sources */,
-				B1DB2CE021C12B2A007FAB21 /* RequestController+OAuth.swift in Sources */,
+				B1DB2CE021C12B2A007FAB21 /* RequestController+Auth.swift in Sources */,
 				B1DB2CBF21C01601007FAB21 /* FormURLEncodedRequestBody.swift in Sources */,
 				B1DB2CE521C12DEA007FAB21 /* URLSessionTask+Tag.swift in Sources */,
 				B1DB2CEF21C15282007FAB21 /* URLSessionDelegate.swift in Sources */,
@@ -883,7 +867,7 @@
 				B117120421C3D55700800EEA /* Data+RequestBody.swift in Sources */,
 				B1DB2C8B21BFF322007FAB21 /* MultipartFormFile.swift in Sources */,
 				B1DB2C9A21BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
-				B1DB2CE221C12B2A007FAB21 /* RequestController+OAuth.swift in Sources */,
+				B1DB2CE221C12B2A007FAB21 /* RequestController+Auth.swift in Sources */,
 				B1DB2CCB21C01EF2007FAB21 /* RequestController.swift in Sources */,
 				B117120921C3D75B00800EEA /* EncodableRequestBody.swift in Sources */,
 				B1DB2CD021C02172007FAB21 /* RequestResponse.swift in Sources */,
@@ -893,7 +877,6 @@
 				B1D4866821C926FB00D40D54 /* CredentialStore.swift in Sources */,
 				B117123521C40A0700800EEA /* Authenticator.swift in Sources */,
 				B1DB2D0021C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */,
-				B117123021C404FC00800EEA /* OAuth2Credential.swift in Sources */,
 				B1DB2CA921BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */,
 				B1DB2CFB21C1692A007FAB21 /* URLSession+Synchronous.swift in Sources */,
 			);
@@ -928,11 +911,10 @@
 				B1DB2C9221BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */,
 				B1DB2C7621BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */,
 				B1DB2C7121BFD898007FAB21 /* Data+ContentType.swift in Sources */,
-				B117122D21C404FC00800EEA /* OAuth2Credential.swift in Sources */,
 				B11711F021C3B2E300800EEA /* CustomisableRecoverableError.swift in Sources */,
 				B11711F621C3B3EF00800EEA /* ErrorRecoveryOption.swift in Sources */,
 				B11711FB21C3BB2500800EEA /* UIAlertController+ErrorRecovery.swift in Sources */,
-				B1DB2CDF21C12B2A007FAB21 /* RequestController+OAuth.swift in Sources */,
+				B1DB2CDF21C12B2A007FAB21 /* RequestController+Auth.swift in Sources */,
 				B1DB2C6C21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
 				B1DB2CA621BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */,
 				B1DB2CF821C1692A007FAB21 /* URLSession+Synchronous.swift in Sources */,

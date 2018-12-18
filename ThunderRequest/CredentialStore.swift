@@ -132,13 +132,13 @@ public struct CredentialStore {
     ///   - identifier: The identifier to store the credential object under
     ///   - accessibility: The access rule for the credential
     /// - Returns: Whether the item was sucessfully stored
-    @discardableResult public static func store<T: Credential>(credential: T?, identifier: String, accessibility: Accessibility = .afterFirstUnlock, in store: DataStore = KeychainStore(serviceName: kTSCAuthServiceName)) -> Bool {
+    @discardableResult public static func store(credential: RequestCredential?, identifier: String, accessibility: Accessibility = .afterFirstUnlock, in store: DataStore = KeychainStore(serviceName: kTSCAuthServiceName)) -> Bool {
         
-        guard let credential: T = credential else {
+        guard let credential = credential else {
             return delete(withIdentifier: identifier)
         }
         
-        let existingCredential: T? = retrieve(withIdentifier: identifier)
+        let existingCredential = retrieve(withIdentifier: identifier)
         let exists = existingCredential != nil
         
         if exists {
@@ -153,13 +153,13 @@ public struct CredentialStore {
     /// - Parameter withIdentifier: The identifier to delete the credential object for
     /// - Returns: The retrieved credential
     /// - Throws: An error if retrieval fails
-    public static func retrieve<T: Credential>(withIdentifier identifier: String, from store: DataStore = KeychainStore(serviceName: kTSCAuthServiceName)) -> T? {
+    public static func retrieve(withIdentifier identifier: String, from store: DataStore = KeychainStore(serviceName: kTSCAuthServiceName)) -> RequestCredential? {
         
         guard let data = store.retrieveDataFor(identifier: identifier) else {
             return nil
         }
         
-        return T.init(keychainData: data)
+        return RequestCredential.init(keychainData: data)
     }
     
     /// Deletes an entry for a certain identifier from the keychain

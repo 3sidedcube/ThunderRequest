@@ -24,11 +24,7 @@ public protocol Authenticator {
     /// been saved to the keychain under `authIdentifier`
     ///
     /// - Parameter completion: The closure which must be called when the user has been authenticated
-    func authenticate<T: Credential>(completion: (_ credential: T?, _ error: Error?, _ saveToKeychain: Bool) -> Void)
-    
-    /// The data store which should be used to store and retrieve credential objects
-    /// Defaults to an instance of KeychainStore
-    var dataStore: DataStore { get }
+    func authenticate(completion: (_ credential: RequestCredential?, _ error: Error?, _ saveToKeychain: Bool) -> Void)
     
     /// This defines the service identifier for the auth flow, which the credentials object will
     /// be saved under in the user's keychain
@@ -42,11 +38,5 @@ public protocol Authenticator {
     /// - Parameters:
     ///   - credential: The credential which should be used in the refresh process
     ///   - completion: The completion block which should be called when the user's credential has been refreshed
-    func reAuthenticate<T: Credential>(credential: T?, completion: (_ credential: T?, _ error: Error?, _ saveToKeychain: Bool) -> Void)
-}
-
-extension Authenticator {
-    var dataStore: DataStore {
-        return KeychainStore(serviceName: kTSCAuthServiceName)
-    }
+    func reAuthenticate(credential: RequestCredential?, completion: (_ credential: RequestCredential?, _ error: Error?, _ saveToKeychain: Bool) -> Void)
 }

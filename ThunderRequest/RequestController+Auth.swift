@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias OAuthCheckCompletion = (_ authenticated: Bool, _ error: Error?, _ needsQueueing: Bool) -> Void
+typealias AuthCheckCompletion = (_ authenticated: Bool, _ error: Error?, _ needsQueueing: Bool) -> Void
 
 extension RequestController {
     
@@ -17,7 +17,7 @@ extension RequestController {
     /// - Parameters:
     ///   - request: The request to check authentication for
     ///   - completion: Closure callback with result
-    func checkAuthStatusFor(request: Request, completion: @escaping OAuthCheckCompletion) {
+    func checkAuthStatusFor(request: Request, completion: @escaping AuthCheckCompletion) {
         
         guard let authenticator = authenticator else {
             completion(true, nil, false)
@@ -26,7 +26,7 @@ extension RequestController {
         
         // If we don't already have request credentials, then fetch them
         if sharedRequestCredentials == nil {
-            sharedRequestCredentials = CredentialStore.retrieve(withIdentifier: authenticator.authIdentifier)
+            sharedRequestCredentials = CredentialStore.retrieve(withIdentifier: authenticator.authIdentifier, from: dataStore)
         }
         
         // Make sure we have shared credentials
@@ -46,12 +46,14 @@ extension RequestController {
         // to make the authentication request, we don't end up in an infinite loop!
         self.reAuthenticating = true
         
+        let _dataStore = self.dataStore
+        
         authenticator.reAuthenticate(credential: credentials) { [weak self] (newCredential, error, saveToKeychain) in
             
             // If we don't have an error, then save the credentials to the keychain
             if let newCredentials = newCredential, error == nil {
                 if saveToKeychain {
-                    CredentialStore.store(credential: newCredentials, identifier: authenticator.authIdentifier, accessibility: authenticator.keychainAccessibility)
+                    CredentialStore.store(credential: newCredentials, identifier: authenticator.authIdentifier, accessibility: authenticator.keychainAccessibility, in: _dataStore)
                 }
                 self?.sharedRequestCredentials = credentials
             }

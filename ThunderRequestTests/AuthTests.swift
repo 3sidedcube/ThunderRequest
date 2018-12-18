@@ -11,7 +11,7 @@ import XCTest
 
 class DummyAuthenticator: Authenticator {
     
-    func authenticate<T>(completion: (T?, Error?, Bool) -> Void) where T : Credential {
+    func authenticate(completion: (RequestCredential?, Error?, Bool) -> Void) {
         
     }
     
@@ -19,16 +19,14 @@ class DummyAuthenticator: Authenticator {
         return .always
     }
     
-    func reAuthenticate<T>(credential: T?, completion: (T?, Error?, Bool) -> Void) where T : Credential {
+    func reAuthenticate(credential: RequestCredential?, completion: (RequestCredential?, Error?, Bool) -> Void) {
         
     }
     
     var authIdentifier: String = "dummyauthenticator"
     
-    var dataStore: DataStore
-    
-    init(store: DataStore) {
-        self.dataStore = store
+    init() {
+        
     }
 }
 
@@ -69,16 +67,16 @@ class AuthTests: XCTestCase {
 
     func testFetchesAuthWhenAuthenticatorSet() {
         
-        let requestController = RequestController(baseURL: requestBaseURL)
-        
-        let credential = OAuth2Credential(authorizationToken: "token", refreshToken: "refresh", expiryDate: Date(timeIntervalSinceNow: 1600))
-        
         let store = KeychainMockStore()
+        
+        let requestController = RequestController(baseURL: requestBaseURL, dataStore: store)
+        
+        let credential = RequestCredential(authorizationToken: "token", refreshToken: "refresh", expiryDate: Date(timeIntervalSinceNow: 1600))
+        
         
         CredentialStore.store(credential: credential, identifier: "dummyauthenticator", accessibility: .always, in: store)
         
-        let authenticator = DummyAuthenticator(store: store)
-        
+        let authenticator = DummyAuthenticator()
         requestController.authenticator = authenticator
         
         XCTAssertNotNil(requestController.sharedRequestCredentials)
@@ -86,4 +84,18 @@ class AuthTests: XCTestCase {
         XCTAssertEqual(requestController.sharedRequestCredentials?.hasExpired, false)
     }
 
+    func testFetchesAuthOnInit() {
+        
+        let credential = RequestCredential(authorizationToken: "ABCDE")
+        
+        let store = KeychainMockStore()
+        
+        CredentialStore.store(credential: credential, identifier: "thundertable.com.threesidedcube-https://httpbin.org/", accessibility: .always, in: store)
+        
+        let requestController = RequestController(baseURL: requestBaseURL, dataStore: store)
+        
+        XCTAssertNotNil(requestController.sharedRequestCredentials)
+        XCTAssertEqual(requestController.sharedRequestCredentials?.authorizationToken, "ABCDE")
+        XCTAssertEqual(requestController.sharedRequestCredentials?.hasExpired, false)
+    }
 }
