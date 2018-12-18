@@ -23,6 +23,8 @@ If the request controller detects that the `OAuth2Credential` object is expired,
 
 #Examples
 
+All of the examples shown below are shown with all optional parameters excluded, for example the `request`, `download` and `upload` functions have multiple parameters (For things such as header overrides and base url overrides) as outlined in the generated docs.
+
 ### Initialization
 
 ```
@@ -172,6 +174,17 @@ let requestController = RequestController(baseURL: requestBaseURL)
 requestController.download("500", progress: nil) { (response, url, error) in
 	// Do something with the filePath that the file was downloaded to
 }
+```
+
+### Uploading
+Uploading is just as simple, and can be done using any of the `RequestBody` types listed above, as well as via a raw `Data` instance or from a file `URL`
+
+```
+requestController.uploadFile(fileURL, to: "post", progress: { (progress, totalBytes, uploadedBytes) in
+    // Do something with progress
+}) { (response, _, error) in
+    // Do something with response/error
+} 
 ```
 
 #Code level documentation
