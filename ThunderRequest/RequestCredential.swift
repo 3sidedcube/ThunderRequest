@@ -8,11 +8,11 @@
 
 import Foundation
 
-let kTSCAuthServiceName = "TSCAuthCredential"
+public let kTSCAuthServiceName = "TSCAuthCredential"
 
-/// A request credential is anything that can be used to authorize a HTTP request
-@objc (TSCRequestCredential)
-public class RequestCredential: NSObject, NSCoding {
+/// A class used to store authentication information and return the `URLCredential` object when required
+@objc(TSCRequestCredential)
+public final class RequestCredential: NSObject, NSCoding {
     
     /// Returns the url credential which can be used to authenticate a request
     public var credential: URLCredential?
@@ -29,16 +29,68 @@ public class RequestCredential: NSObject, NSCoding {
     /// The type of the token
     public var tokenType: String = "Bearer"
     
+    /// The date on which the authorization token expires
+    public var expirationDate: Date?
+    
+    /// The refresh token to be sent back to the authenticating endpoint for certain auth methods
+    public var refreshToken: String?
+    
+    /// Init method for re-constructing from data stored in the user's keychain
+    ///
+    /// - Parameter keychainData: The data which was retrieved from the keychain
+    init?(keychainData: Data) {
+        
+        guard let credential = NSKeyedUnarchiver.unarchiveObject(with: keychainData) as? RequestCredential else {
+            return nil
+        }
+        
+        self.authorizationToken = credential.authorizationToken
+        self.credential = credential.credential
+        self.username = credential.username
+        self.password = credential.password
+        self.tokenType = credential.tokenType
+    }
+    
+    /// Whether the credential has expired. Where expiryDate is missing this will return as false, as it is
+    /// assumed the credential doesn't have an expiry date in this case
+    public var hasExpired: Bool {
+        guard let expiry = expirationDate else {
+            return false
+        }
+        return Date() > expiry
+    }
+    
+    /// The data to store in the keychain
+    public var keychainData: Data {
+        return NSKeyedArchiver.archivedData(withRootObject:self)
+    }
+    
     /// Creates a new username/password based credential
     ///
     /// - Parameters:
     ///   - username: The username of the authorization object
     ///   - password: The password of the authorization object
-    init(username: String, password: String) {
+    public init(username: String, password: String) {
         super.init()
         credential = URLCredential(user: username, password: password, persistence: .none)
         self.username = username
         self.password = password
+    }
+    
+    /// Initialises a new OAuth2 credential with given parameters
+    ///
+    /// - Parameters:
+    ///   - authorizationToken: The authorizationToken to be sent by `RequestController` for authentication requests.
+    ///   - refreshToken: The refresh token to be sent back to the authenticating endpoint for certain authentification methods.
+    ///   - expiryDate: The date upon which the credential will expire for the user.
+    ///   - tokenType: The token type of the credential (Defaults to Bearer)
+    public init(authorizationToken: String, refreshToken: String?, expiryDate: Date, tokenType: String = "Bearer") {
+        
+        self.refreshToken = refreshToken
+        self.expirationDate = expiryDate
+        self.authorizationToken = authorizationToken
+        self.tokenType = tokenType
+        super.init()
     }
     
     /// Creates a new auth token based credential
@@ -55,6 +107,8 @@ public class RequestCredential: NSObject, NSCoding {
         aCoder.encode(authorizationToken, forKey: "authtoken")
         aCoder.encode(credential, forKey: "credential")
         aCoder.encode(tokenType, forKey: "tokentype")
+        aCoder.encode(expirationDate, forKey: "expiration")
+        aCoder.encode(refreshToken, forKey: "refreshtoken")
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -64,80 +118,7 @@ public class RequestCredential: NSObject, NSCoding {
         authorizationToken = aDecoder.decodeObject(forKey: "authtoken") as? String
         credential = aDecoder.decodeObject(forKey: "credential") as? URLCredential
         tokenType = aDecoder.decodeObject(forKey: "tokentype") as? String ?? "Bearer"
-    }
-}
-
-//MARK: - Keychain Access -
-extension RequestCredential {
-    
-    static func keychainDictionaryWith(identifier: String) -> [AnyHashable : Any] {
-        return [
-            kSecClass: kSecClassGenericPassword,
-            kSecAttrService: kTSCAuthServiceName,
-            kSecAttrAccount: identifier
-        ]
-    }
-    
-    /// Stores the credential in the keychain under a certian identifier
-    ///
-    /// - Parameters:
-    ///   - credential: The credentials object to store in the keychain
-    ///   - identifier: The identifier to store the credential object under
-    /// - Returns: Whether the item was sucessfully stored
-    @discardableResult public static func store(credential: RequestCredential?, identifier: String) -> Bool {
-        
-        guard let credential = credential else {
-            return delete(withIdentifier: identifier)
-        }
-        
-        var query = keychainDictionaryWith(identifier: identifier)
-        
-        let updateDictionary = [
-            kSecValueData: NSKeyedArchiver.archivedData(withRootObject: credential)
-        ]
-        
-        let exists = retrieve(withIdentifier: identifier) != nil
-        let status: OSStatus
-        
-        if exists {
-            status = SecItemUpdate(query as CFDictionary, updateDictionary as CFDictionary)
-        } else {
-            query[kSecValueData] = updateDictionary[kSecValueData]
-            status = SecItemAdd(query as CFDictionary, nil)
-        }
-        
-        return status == errSecSuccess
-    }
-    
-    /// Deletes an entry for a certain identifier from the keychain
-    ///
-    /// - Parameter withIdentifier: The identifier to delete the credential object for
-    /// - Returns: The retrieved credential
-    /// - Throws: An error if retrieval fails
-    public static func retrieve(withIdentifier identifier: String) -> RequestCredential? {
-        var query = keychainDictionaryWith(identifier: identifier)
-        query[kSecReturnData] = kCFBooleanTrue
-        query[kSecMatchLimit] = kSecMatchLimitOne
-        
-        var result: CFTypeRef?
-        let status = SecItemCopyMatching(query as CFDictionary, &result)
-        
-        guard status == errSecSuccess else {
-            return nil
-        }
-        guard let data = result as? Data else {
-            return nil
-        }
-        
-        return NSKeyedUnarchiver.unarchiveObject(with: data) as? RequestCredential
-    }
-    
-    /// Deletes an entry for a certain identifier from the keychain
-    ///
-    /// - Parameter withIdentifier: The identifier to delete the credential object for
-    /// - Returns: Whether the item was sucessfully deleted
-    @discardableResult public static func delete(withIdentifier identifier: String) -> Bool {
-        let result = SecItemDelete(keychainDictionaryWith(identifier: identifier) as CFDictionary)
-        return result == errSecSuccess
+        refreshToken = aDecoder.decodeObject(forKey: "refreshtoken") as? String
+        expirationDate = aDecoder.decodeObject(forKey: "expiration") as? Date
     }
 }

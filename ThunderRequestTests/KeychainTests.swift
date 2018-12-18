@@ -39,7 +39,7 @@ class ThunderRequest_KeychainTests: XCTestCase {
     
     func testInitialiseOAuth2Credential() {
         
-        let credential = OAuth2Credential(authorizationToken: "saDHSAHF", refreshToken: "DSAHJDSA", expiryDate: Date(timeIntervalSinceNow: 24))
+        let credential = RequestCredential(authorizationToken: "saDHSAHF", refreshToken: "DSAHJDSA", expiryDate: Date(timeIntervalSinceNow: 24))
         
         XCTAssertNotNil(credential.authorizationToken, "Authorization Token is nil")
         XCTAssertNotNil(credential.refreshToken, "Refresh Token is nil")

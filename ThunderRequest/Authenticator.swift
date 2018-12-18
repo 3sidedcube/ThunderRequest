@@ -8,8 +8,6 @@
 
 import Foundation
 
-public typealias AuthenticationCompletion = (_ credential: RequestCredential?, _ error: Error?, _ saveToKeychain: Bool) -> Void
-
 /// Authenticator is a protocol which is used by `RequestController` to generate and re-authenticate credential objects
 ///
 /// To perform the initial authentication call your own `authenticateWithCompletion` implementation
@@ -26,16 +24,19 @@ public protocol Authenticator {
     /// been saved to the keychain under `authIdentifier`
     ///
     /// - Parameter completion: The closure which must be called when the user has been authenticated
-    func authenticate(completion: AuthenticationCompletion)
+    func authenticate(completion: (_ credential: RequestCredential?, _ error: Error?, _ saveToKeychain: Bool) -> Void)
     
     /// This defines the service identifier for the auth flow, which the credentials object will
     /// be saved under in the user's keychain
     var authIdentifier: String { get }
+    
+    /// The accessibility level of the credential when stored in the user's keychain
+    var keychainAccessibility: CredentialStore.Accessibility { get }
     
     /// This method will be called if a request is made with an expired token, or if we recieve a 403 challenge from a particular request
     ///
     /// - Parameters:
     ///   - credential: The credential which should be used in the refresh process
     ///   - completion: The completion block which should be called when the user's credential has been refreshed
-    func reAuthenticate(credential: RequestCredential?, completion: AuthenticationCompletion)
+    func reAuthenticate(credential: RequestCredential?, completion: (_ credential: RequestCredential?, _ error: Error?, _ saveToKeychain: Bool) -> Void)
 }
