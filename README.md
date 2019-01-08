@@ -1,10 +1,10 @@
-#Thunder Request
+# Thunder Request
 
 [![Build Status](https://travis-ci.org/3sidedcube/iOS-ThunderRequest.svg)](https://travis-ci.org/3sidedcube/iOS-ThunderRequest)
 
 Thunder Request is a Framework used to simplify making http and https web requests.
 
-#Installation
+# Installation
 
 Setting up your app to use Thunder Request is a simple and quick process.
 
@@ -12,7 +12,7 @@ Setting up your app to use Thunder Request is a simple and quick process.
 + Add ThunderRequest.framework to your Embedded Binaries.
 + Wherever you want to use ThunderRequest use `import ThunderRequest`.
 
-#Authentication Support
+# Authentication Support
 Support for authentication protocols such as OAuth2 is available via the `Authenticator` protocol which when set on `RequestController` will have it's delegate methods called to refresh the user's token when it either expires or a 403 is sent by the server.
 
 When `authenticator` is set on `RequestController` any current credentials will be pulled from the user's keychain by the service identifier provided by `authIdentifier` on the protocol object.
@@ -21,7 +21,7 @@ To register a credential for the first time to the user's keychain, use the meth
 
 If the request controller detects that the `RequestCredential` object is expired, or receives a 403 on a request it will call the method `reAuthenticate(credential:completion:)` to re-authenticate the user before then continuing to make the request (Or re-making) the request.
 
-#Examples
+# Examples
 
 All of the examples shown below are shown with all optional parameters excluded, for example the `request`, `download` and `upload` functions have multiple parameters (For things such as header overrides and base url overrides) as outlined in the generated docs.
 
@@ -57,17 +57,6 @@ The body sent to the `request` function must conform to the `RequestBody` protoc
 
 #### JSONRequestBody
 Formats the request as JSON, and sets the request's `Content-Type` header to `application/json`.
-
-```
-let bodyJSON = [
-    "name": "Thunder Request",
-    "isAwesome": true
-]
-let body = JSONRequestBody(bodyJSON)
-```
-
-#### JSONRequestBody
-Formats the request as JSON, and sets the request's `Content-Type` header to `"application/json"`.
 
 ```
 let bodyJSON = [
@@ -187,8 +176,8 @@ requestController.uploadFile(fileURL, to: "post", progress: { (progress, totalBy
 } 
 ```
 
-#Code level documentation
+# Code level documentation
 Documentation is available for the entire library in AppleDoc format. This is available in the framework itself or in the [Hosted Version](http://3sidedcube.github.io/iOS-ThunderRequest/)
 
-#License
+# License
 See [LICENSE.md](LICENSE.md)
