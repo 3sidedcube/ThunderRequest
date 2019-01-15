@@ -8,6 +8,10 @@
 
 import Foundation
 
+#if os(macOS)
+public typealias UIImage = NSImage
+#endif
+
 public struct MultipartFormFile: MultipartFormElement {
     
     public let fileData: Data

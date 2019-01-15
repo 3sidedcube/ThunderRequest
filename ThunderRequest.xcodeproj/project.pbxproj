@@ -13,6 +13,7 @@
 		B1113ED7207E65FF00FB680A /* BackgroundSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1113ED5207E65FF00FB680A /* BackgroundSessionController.swift */; };
 		B1113ED8207E65FF00FB680A /* BackgroundSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1113ED5207E65FF00FB680A /* BackgroundSessionController.swift */; };
 		B1113ED9207E65FF00FB680A /* BackgroundSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1113ED5207E65FF00FB680A /* BackgroundSessionController.swift */; };
+		B115EF5321EBEBA400667FB7 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF721BFC65000D22137 /* HTTP.swift */; };
 		B11711F021C3B2E300800EEA /* CustomisableRecoverableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11711EF21C3B2E300800EEA /* CustomisableRecoverableError.swift */; };
 		B11711F121C3B2E300800EEA /* CustomisableRecoverableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11711EF21C3B2E300800EEA /* CustomisableRecoverableError.swift */; };
 		B11711F221C3B2E300800EEA /* CustomisableRecoverableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11711EF21C3B2E300800EEA /* CustomisableRecoverableError.swift */; };
@@ -873,6 +874,7 @@
 				B1DB2CD021C02172007FAB21 /* RequestResponse.swift in Sources */,
 				B1DB2CC121C01601007FAB21 /* FormURLEncodedRequestBody.swift in Sources */,
 				B1DB2C7921BFDCAA007FAB21 /* Dictionary+URLEncodedString.swift in Sources */,
+				B115EF5321EBEBA400667FB7 /* HTTP.swift in Sources */,
 				B1DB2C7421BFD898007FAB21 /* Data+ContentType.swift in Sources */,
 				B1D4866821C926FB00D40D54 /* CredentialStore.swift in Sources */,
 				B117123521C40A0700800EEA /* Authenticator.swift in Sources */,
