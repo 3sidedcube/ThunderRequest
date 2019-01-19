@@ -45,7 +45,8 @@ public struct KeychainStore: DataStore {
     
     public func update(data: Data, identifier: String, accessibility: CredentialStore.Accessibility) -> Bool {
         
-        let query = keychainQueryWith(identifier: identifier, accessibility: accessibility)
+        // Send nil here because if we send accessibility we get an -25300 status code (errSecItemNotFound)
+        let query = keychainQueryWith(identifier: identifier, accessibility: nil)
         
         let updateDictionary = [
             kSecValueData: data
