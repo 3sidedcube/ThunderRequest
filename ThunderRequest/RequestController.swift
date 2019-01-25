@@ -39,6 +39,9 @@ public final class RequestController {
     /// A custom queue to dispatch all request callbacks onto
     public var callbackQueue: DispatchQueue?
     
+    /// A custom logger to have log messages passed to it as well as os.log logging
+    public var logger: LogReceiver?
+    
     private var _requestLog: Any? = nil
     @available(macOS 10.12, *)
     var requestLog: OSLog {
@@ -723,5 +726,11 @@ extension RequestController {
         }
         ApplicationLoadingIndicatorManager.shared.hideActivityIndicator()
         #endif
+    }
+}
+
+extension RequestController {
+    func log(_ message: String, level: LogLevel) {
+        logger?.log(message, category: "RequestController", level: level)
     }
 }

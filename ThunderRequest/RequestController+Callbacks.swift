@@ -121,12 +121,39 @@ extension RequestController {
                            urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "",
                            error.localizedDescription
                     )
+                    
+                    log("""
+                        
+                        URL: \(urlRequest.url?.description ?? request.baseURL.description)
+                        Method: \(request.method.rawValue)
+                        Request Headers: \(urlRequest.allHTTPHeaderFields ?? [:])
+                        Body: \(urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "")
+                        
+                        Response Status: FAILURE
+                        Error Description: \(error.localizedDescription)
+                        
+                        """,
+                        level: .error
+                    )
                 }
                 
             } else {
                 
                 if #available(OSX 10.12, *) {
-
+                    log("Request: \(urlRequest.debugDescription)", level: .debug)
+                    log("""
+                         
+                        URL: \(urlRequest.url?.description ?? request.baseURL.description)
+                        Method: \(request.method.rawValue)
+                        Request Headers: \(urlRequest.allHTTPHeaderFields ?? [:])
+                        Body: \(urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "")
+                        
+                        Response Status: \(response?.status.rawValue ?? 999)
+                        Response Body: \(response?.string ?? "")
+                        
+                        """,
+                        level: .error
+                    )
                     os_log("Request: %@", log: requestLog, type: .debug, urlRequest.debugDescription)
                     os_log("""
                             
