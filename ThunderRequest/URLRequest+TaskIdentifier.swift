@@ -12,6 +12,8 @@ private var identifierKey: UInt8 = 0
 
 extension URLRequest {
     
+    /// This is an additional property which is used internally to hookup a `URLRequest` object
+    /// with it's session task in order to call completion blocks upon it finishing!
     var taskIdentifier: Int? {
         get {
             return (objc_getAssociatedObject(self, &identifierKey) as? NSNumber)?.intValue

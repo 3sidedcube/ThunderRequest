@@ -8,6 +8,15 @@
 
 import Foundation
 
+public struct Authentication {
+    
+    /// Representation of the token type for use in `Authorization` header!
+    public struct TokenType {
+        
+        static let bearer = "Bearer"
+    }
+}
+
 public let kTSCAuthServiceName = "TSCAuthCredential"
 
 /// A class used to store authentication information and return the `URLCredential` object when required
@@ -27,7 +36,7 @@ public final class RequestCredential: NSObject, NSCoding {
     public var authorizationToken: String?
     
     /// The type of the token
-    public var tokenType: String = "Bearer"
+    public var tokenType: String = Authentication.TokenType.bearer
     
     /// The date on which the authorization token expires
     public var expirationDate: Date?
@@ -117,7 +126,7 @@ public final class RequestCredential: NSObject, NSCoding {
         password = aDecoder.decodeObject(forKey: "password") as? String
         authorizationToken = aDecoder.decodeObject(forKey: "authtoken") as? String
         credential = aDecoder.decodeObject(forKey: "credential") as? URLCredential
-        tokenType = aDecoder.decodeObject(forKey: "tokentype") as? String ?? "Bearer"
+        tokenType = aDecoder.decodeObject(forKey: "tokentype") as? String ?? Authentication.TokenType.bearer
         refreshToken = aDecoder.decodeObject(forKey: "refreshtoken") as? String
         expirationDate = aDecoder.decodeObject(forKey: "expiration") as? Date
     }

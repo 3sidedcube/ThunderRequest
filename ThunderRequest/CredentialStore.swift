@@ -133,6 +133,7 @@ public struct CredentialStore {
     ///   - identifier: The identifier to store the credential object under
     ///   - accessibility: The access rule for the credential
     /// - Returns: Whether the item was sucessfully stored
+    /// - Important: Passing a nil credential here will delete it from the store
     @discardableResult public static func store(credential: RequestCredential?, identifier: String, accessibility: Accessibility = .afterFirstUnlock, in store: DataStore = KeychainStore(serviceName: kTSCAuthServiceName)) -> Bool {
         
         guard let credential = credential else {
@@ -149,9 +150,9 @@ public struct CredentialStore {
         }
     }
     
-    /// Deletes an entry for a certain identifier from the keychain
+    /// Retrieves an entry for a certain identifier from the keychain
     ///
-    /// - Parameter withIdentifier: The identifier to delete the credential object for
+    /// - Parameter withIdentifier: The identifier to retrieve the credential object for
     /// - Returns: The retrieved credential
     /// - Throws: An error if retrieval fails
     public static func retrieve(withIdentifier identifier: String, from store: DataStore = KeychainStore(serviceName: kTSCAuthServiceName)) -> RequestCredential? {

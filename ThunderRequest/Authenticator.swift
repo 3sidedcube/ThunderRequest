@@ -21,7 +21,7 @@ import Foundation
 public protocol Authenticator {
     
     /// This method will be called if a request is made without a `RequestCredential` object having
-    /// been saved to the keychain under `authIdentifier`
+    /// been saved to the keychain under the provided value from `self.authIdentifier`
     ///
     /// - Parameter completion: The closure which must be called when the user has been authenticated
     func authenticate(completion: (_ credential: RequestCredential?, _ error: Error?, _ saveToKeychain: Bool) -> Void)
@@ -33,7 +33,7 @@ public protocol Authenticator {
     /// The accessibility level of the credential when stored in the user's keychain
     var keychainAccessibility: CredentialStore.Accessibility { get }
     
-    /// This method will be called if a request is made with an expired token, or if we recieve a 403 challenge from a particular request
+    /// This method will be called if a request is made with an expired token, or if we receive a 403 challenge from a particular request
     ///
     /// - Parameters:
     ///   - credential: The credential which should be used in the refresh process

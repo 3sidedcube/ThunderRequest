@@ -12,6 +12,8 @@ private var tagKey: UInt8 = 0
 
 extension URLSessionTask {
     
+    /// This is an additional property on `URLSessionTask` which can be used to tag tasks.
+    /// This allows for the cancellation of particular requests using tagging.
     var tag: Int? {
         get {
             return (objc_getAssociatedObject(self, &tagKey) as? NSNumber)?.intValue
