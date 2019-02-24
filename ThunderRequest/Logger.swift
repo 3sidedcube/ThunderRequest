@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// <#Description#>
+/// An enum representing the logging level of a log
 ///
 /// - `default`: Use this level to capture information about things that might result a failure.
 /// - info: Use this level to capture information that may be helpful, but isn’t essential, for troubleshooting errors.
