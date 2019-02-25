@@ -557,7 +557,7 @@ public final class RequestController {
                         return
                     }
                     
-                    if #available(iOS 11, watchOS 4.0, macOS 10.13, *) {
+                    if #available(iOS 11, watchOS 4.0, macOS 10.13, tvOS 11.0, *) {
                         task.earliestBeginDate = date
                     }
                     
@@ -623,7 +623,7 @@ public final class RequestController {
                     
                     let task = (inBackground ? this.backgroundSession : this.defaultSession).downloadTask(with: urlRequest)
                     
-                    if #available(iOS 11, watchOS 4.0, macOS 10.13, *) {
+                    if #available(iOS 11, watchOS 4.0, macOS 10.13, tvOS 11.0, *) {
                         task.earliestBeginDate = date
                     }
                     
