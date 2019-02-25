@@ -49,17 +49,17 @@ public extension Image {
         var fileType: NSBitmapImageRep.FileType {
             switch self {
             case .jpeg:
-                return .JPEG
+                return .jpeg
             case .jpeg2000:
-                return .JPEG2000
+                return .jpeg2000
             case .png:
-                return .PNG
+                return .png
             case .gif:
-                return .GIF
+                return .gif
             case .bmp:
-                return .BMP
+                return .bmp
             case .tiff:
-                return .TIFF
+                return .tiff
             }
         }
         #endif

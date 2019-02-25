@@ -14,7 +14,7 @@ extension NSImage: MultipartFormElement {
         guard let bitmapRepresentation = representations.first(where: { $0 is NSBitmapImageRep }) as? NSBitmapImageRep else {
             return nil
         }
-        guard let jpegData = bitmapRepresentation.representation(using: .JPEG, properties: [:]) else {
+        guard let jpegData = bitmapRepresentation.representation(using: .jpeg, properties: [:]) else {
             return nil
         }
         return jpegData.multipartDataWith(boundary: boundary, key: key, contentType: "image/jpeg", fileExtension: "jpg")
