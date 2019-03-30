@@ -162,6 +162,7 @@
 		B1DBEFF821BFC65000D22137 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF721BFC65000D22137 /* HTTP.swift */; };
 		B1DBEFF921BFC65000D22137 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF721BFC65000D22137 /* HTTP.swift */; };
 		B1DBEFFA21BFC65000D22137 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DBEFF721BFC65000D22137 /* HTTP.swift */; };
+		B1E6F9B1224F74BB00F7BFC1 /* MD5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E6F9B0224F74BB00F7BFC1 /* MD5Tests.swift */; };
 		B1EF2E9F1BA70F7B0053B39A /* KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9E1BA70F7B0053B39A /* KeychainTests.swift */; };
 		C2E5089219C835A300350F00 /* ResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089119C835A300350F00 /* ResponseTests.swift */; };
 		C2E508A419C835D900350F00 /* ThunderRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E5089B19C835D900350F00 /* ThunderRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -234,6 +235,7 @@
 		B1DB2CFC21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+TaskIdentifier.swift"; sourceTree = "<group>"; };
 		B1DBEFF221BFC44400D22137 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		B1DBEFF721BFC65000D22137 /* HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
+		B1E6F9B0224F74BB00F7BFC1 /* MD5Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5Tests.swift; sourceTree = "<group>"; };
 		B1EF2E9E1BA70F7B0053B39A /* KeychainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainTests.swift; sourceTree = "<group>"; };
 		C2E5088219C835A300350F00 /* ThunderRequest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2E5088619C835A300350F00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -492,6 +494,7 @@
 				B150EE4721C7E8AC0041C027 /* UploadTests.swift */,
 				B1EF2E9E1BA70F7B0053B39A /* KeychainTests.swift */,
 				C2E5088F19C835A300350F00 /* Supporting Files */,
+				B1E6F9B0224F74BB00F7BFC1 /* MD5Tests.swift */,
 			);
 			path = ThunderRequestTests;
 			sourceTree = "<group>";
@@ -679,7 +682,7 @@
 					C2E5088119C835A300350F00 = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = 25H7BM6YWK;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					C2E5088C19C835A300350F00 = {
@@ -694,6 +697,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = C2E5087819C835A300350F00;
@@ -943,6 +947,7 @@
 			files = (
 				B1EF2E9F1BA70F7B0053B39A /* KeychainTests.swift in Sources */,
 				C2E5089219C835A300350F00 /* ResponseTests.swift in Sources */,
+				B1E6F9B1224F74BB00F7BFC1 /* MD5Tests.swift in Sources */,
 				B150EE4821C7E8AC0041C027 /* UploadTests.swift in Sources */,
 				B117123721C4627000800EEA /* DownloadTests.swift in Sources */,
 				B150EE4A21C8E74C0041C027 /* AuthTests.swift in Sources */,
@@ -1321,9 +1326,8 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1348,9 +1352,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

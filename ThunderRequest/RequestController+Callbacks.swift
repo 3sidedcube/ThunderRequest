@@ -16,7 +16,7 @@ public struct RequestNotificationKey {
 
 public extension HTTP {
     
-    public struct Error: CustomisableRecoverableError {
+    struct Error: CustomisableRecoverableError {
         
         public var description: String?
         

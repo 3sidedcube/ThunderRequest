@@ -9,7 +9,7 @@
 import Foundation
 import CommonCrypto
 
-extension String {
+public extension String {
     
     /// Returns the md5 data for the string
     var md5: Data? {
@@ -19,8 +19,22 @@ extension String {
         }
         var digestData = Data(count: Int(CC_MD5_DIGEST_LENGTH))
         
-        _ = digestData.withUnsafeMutableBytes {digestBytes in
-            messageData.withUnsafeBytes {messageBytes in
+        _ = digestData.withUnsafeMutableBytes { (digestBody: UnsafeMutableRawBufferPointer) in
+            
+            guard let baseAddress = digestBody.baseAddress, digestBody.count > 0 else {
+                return
+            }
+            
+            let digestBytes = baseAddress.assumingMemoryBound(to: UInt8.self)
+            
+            messageData.withUnsafeBytes { (messageBody: UnsafeRawBufferPointer) in
+                
+                guard let messageBaseAddress = messageBody.baseAddress, messageBody.count > 0 else {
+                    return
+                }
+                    
+                let messageBytes = messageBaseAddress.assumingMemoryBound(to: UInt8.self)
+            
                 CC_MD5(messageBytes, CC_LONG(messageData.count), digestBytes)
             }
         }
