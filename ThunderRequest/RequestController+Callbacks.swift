@@ -85,7 +85,7 @@ extension RequestController {
         }
         
         if let redirectResponse = redirectResponses[urlRequest.taskIdentifier] {
-            response?.redirectResponse = redirectResponse
+            response?.originalResponse = redirectResponse
         }
         
         var requestInfo: [AnyHashable : Any] = [:]

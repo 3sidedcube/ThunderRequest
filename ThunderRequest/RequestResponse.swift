@@ -24,9 +24,9 @@ public class RequestResponse {
     /// The `HTTPURLResponse` object returned from the request. Contains info such as the response code.
     public let httpResponse: HTTPURLResponse?
     
-    /// The redirect response
+    /// The original response of the request
     /// If the request was redirected, this represents the URLResponse for the original request
-    public var redirectResponse: HTTPURLResponse?
+    public var originalResponse: HTTPURLResponse?
     
     init(response: URLResponse, data: Data?) {
         
