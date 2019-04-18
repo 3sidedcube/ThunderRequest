@@ -8,8 +8,7 @@
 
 import Foundation
 
-/// A request body struct which can be used to represent the payload of a
-/// form url encoded request
+/// A request body struct which can be used to represent the payload of a form url encoded request
 public struct FormURLEncodedRequestBody: RequestBody {
     
     /// The payload object that should be sent with the request

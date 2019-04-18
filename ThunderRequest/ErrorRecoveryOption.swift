@@ -25,6 +25,7 @@ public struct ErrorRecoveryOption {
         case cancel
     }
     
+    /// A typealias for a callback when an error recovery option is chosen
     public typealias Handler = (_ option: ErrorRecoveryOption, _ callback: ((Bool) -> Void)?) -> Void
     
     /// The title to be used on the recovery option's button

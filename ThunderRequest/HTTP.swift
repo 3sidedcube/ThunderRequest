@@ -32,61 +32,6 @@ public extension RequestBody {
     }
 }
 
-
-
-///// An enum providing standard values for the `Content-Type` header.
-/////
-///// - json: JSON
-///// - formURLEncoded: Body is encoded into the request url
-///// - multipartFormData: Body is encoded as multi-part form data
-///// - image: Body is image data
-///// - XMLPlist: Body is an xml plist
-///// - urlArguments: Body is url arguments
-///// - custom: Body is a custom content type, must provide it's string value and a mutating function for the request
-//enum ContentType {
-//    
-//    case json
-//    case formURLEncoded
-//    case multipartFormData
-//    case image(String)
-//    case XMLPlist
-//    case urlArguments
-//    case custom(String)
-//    case video(String)
-//    case plainText
-//    
-//    func stringValue(body: Any?) -> String? {
-//        
-//        switch self {
-//        case .json:
-//            return "application/json"
-//        case .formURLEncoded:
-//            return "application/x-www-form-urlencoded"
-//        case .XMLPlist:
-//            return "text/x-xml-plist"
-//        case .urlArguments:
-//            return "text/x-url-arguments"
-//        case .image(let format):
-//            return "image/\(format)"
-//        case .video(let format):
-//            return "video/\(format)"
-//        case .custom(let value):
-//            return value
-//        case .plainText:
-//            return "text/plain"
-//        case .multipartFormData:
-//            guard let body = body else {
-//                return nil
-//            }
-//            return "multipart/form-data; boundary=\(multipartFormBoundary(body:body))"
-//        }
-//    }
-//    
-//    internal func multipartFormBoundary(body: Any) -> String {
-//        return String(describing: body).md5Hex ?? ""
-//    }
-//}
-
 public struct HTTP {
     /// Enum representing HTTP Methods
     ///
@@ -94,7 +39,7 @@ public struct HTTP {
     /// - DELETE: The DELETE method deletes the specified resource.
     /// - GET: The GET method requests a representation of the specified resource. Requests using GET should only retrieve data.
     /// - HEAD: The HEAD method asks for a response identical to that of a GET request, but without the response body.
-    /// - OPTIOSN: The OPTIONS method is used to describe the communication options for the target resource.
+    /// - OPTIONS: The OPTIONS method is used to describe the communication options for the target resource.
     /// - PATCH: The PATCH method is used to apply partial modifications to a resource.
     /// - POST: The POST method is used to submit an entity to the specified resource, often causing a change in state or side effects on the server.
     /// - PUT: The PUT method replaces all current representations of the target resource with the request payload.

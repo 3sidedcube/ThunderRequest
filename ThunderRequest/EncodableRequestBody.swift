@@ -30,6 +30,7 @@ public struct EncodableRequestBody<T: Encodable>: RequestBody {
         }
     }
     
+    /// The encoding type that should be used when converting to data for use with `URLSession`
     let encoding: Encoding
     
     /// The json object that should be sent with the request
