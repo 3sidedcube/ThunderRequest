@@ -13,7 +13,7 @@ public typealias RequestCompletion = (_ response: RequestResponse?, _ error: Err
 public typealias TransferCompletion = (_ response: RequestResponse?, _ fileLocation: URL?, _ error: Error?) -> Void
 public typealias ProgressHandler = (_ progress: Double, _ totalBytes: Int64, _ transferredBytes: Int64) -> Void
 
-/// An instance of `RequestController` lets you asynchronously perform HTTP requests with a closure being called upn completion.
+/// An instance of `RequestController` lets you asynchronously perform HTTP requests with a closure being called upon completion.
 ///
 /// The `RequestController` object should be retained if needed for use with multiple requests. Generally one `RequestController` should be initialised and shared per API/Base URL.
 ///
@@ -226,7 +226,7 @@ public final class RequestController {
         overrideURL: URL? = nil,
         queryItems: [URLQueryItem]? = nil,
         headers: [String: String?]? = nil,
-        completion: RequestCompletion?) -> Request {
+        completion: RequestCompletion? = nil) -> Request {
         
         let request = Request(
             baseURL: overrideURL ?? sharedBaseURL,
@@ -268,8 +268,8 @@ public final class RequestController {
         overrideURL: URL? = nil,
         queryItems: [URLQueryItem]? = nil,
         headers: [String: String?]? = nil,
-        progress: ProgressHandler?,
-        completion: TransferCompletion?
+        progress: ProgressHandler? = nil,
+        completion: TransferCompletion? = nil
     ) -> Request {
         
         let request = Request(
@@ -310,8 +310,8 @@ public final class RequestController {
         overrideURL: URL? = nil,
         queryItems: [URLQueryItem]? = nil,
         headers: [String: String?]? = nil,
-        progress: ProgressHandler?,
-        completion: TransferCompletion?
+        progress: ProgressHandler? = nil,
+        completion: TransferCompletion? = nil
     ) -> Request {
         
         let request = Request(
@@ -368,8 +368,8 @@ public final class RequestController {
         overrideURL: URL? = nil,
         queryItems: [URLQueryItem]? = nil,
         headers: [String: String?]? = nil,
-        progress: ProgressHandler?,
-        completion: TransferCompletion?) -> Request {
+        progress: ProgressHandler? = nil,
+        completion: TransferCompletion? = nil) -> Request {
         
         let request = Request(
             baseURL: overrideURL ?? sharedBaseURL,
@@ -412,8 +412,8 @@ public final class RequestController {
         overrideURL: URL? = nil,
         queryItems: [URLQueryItem]? = nil,
         headers: [String: String?]? = nil,
-        progress: ProgressHandler?,
-        completion: TransferCompletion?) -> Request {
+        progress: ProgressHandler? = nil,
+        completion: TransferCompletion? = nil) -> Request {
         
         let request = Request(
             baseURL: overrideURL ?? sharedBaseURL,
@@ -710,9 +710,11 @@ public final class RequestController {
 
 extension RequestController {
     
+    static let hideActivityIndicatorPlistKey = "TSCThunderRequestShouldHideActivityIndicator"
+    
     fileprivate static func showApplicationActivityIndicator() {
         #if os(iOS)
-        if let option = Bundle.main.object(forInfoDictionaryKey: "TSCThunderRequestShouldHideActivityIndicator") as? Bool, !option {
+        if let option = Bundle.main.object(forInfoDictionaryKey: RequestController.hideActivityIndicatorPlistKey) as? Bool, !option {
             return
         }
         ApplicationLoadingIndicatorManager.shared.showActivityIndicator()
@@ -721,7 +723,7 @@ extension RequestController {
     
     fileprivate static func hideApplicationActivityIndicator() {
         #if os(iOS)
-        if let option = Bundle.main.object(forInfoDictionaryKey: "TSCThunderRequestShouldHideActivityIndicator") as? Bool, !option {
+        if let option = Bundle.main.object(forInfoDictionaryKey: RequestController.hideActivityIndicatorPlistKey) as? Bool, !option {
             return
         }
         ApplicationLoadingIndicatorManager.shared.hideActivityIndicator()

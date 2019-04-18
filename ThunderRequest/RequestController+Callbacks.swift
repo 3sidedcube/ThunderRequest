@@ -14,30 +14,6 @@ public struct RequestNotificationKey {
     public static let response = "TSCRequestNotificationResponseKey"
 }
 
-public extension HTTP {
-    
-    public struct Error: CustomisableRecoverableError {
-        
-        public var description: String?
-        
-        public var code: Int
-        
-        public var domain: String?
-        
-        public var failureReason: String?
-        
-        public var recoverySuggestion: String?
-        
-        public var options: [ErrorRecoveryOption] = []
-        
-        init(statusCode: HTTP.StatusCode, domain: String) {
-            failureReason = statusCode.localizedDescription
-            self.code = statusCode.rawValue
-            self.domain = domain
-        }
-    }
-}
-
 extension RequestController {
     
     public static let ErrorDomain = "com.threesidedcube.ThunderRequest"
@@ -49,13 +25,17 @@ extension RequestController {
     func add(completionHandler: TransferCompletion?, progressHandler: ProgressHandler?, forTaskId taskId: Int) {
         
         if transferCompletionHandlers[taskId] != nil {
-//            os_log_error(request_controller_log, "Error: Got multiple handlers for a single task identifier.  This should not happen.\n");
+            if #available(OSX 10.12, *) {
+                os_log("Error: Got multiple handlers for a single task identifier. This should not happen.", log: requestLog, type: .error)
+            }
         }
         
         transferCompletionHandlers[taskId] = completionHandler
         
         if progressHandlers[taskId] != nil {
-//            os_log_error(request_controller_log, "Error: Got multiple progress handlers for a single task identifier.  This should not happen.\n");
+            if #available(OSX 10.12, *) {
+                os_log("Error: Got multiple progress handlers for a single task identifier.  This should not happen.", log: requestLog, type: .error)
+            }
         }
         
         progressHandlers[taskId] = progressHandler
@@ -99,84 +79,7 @@ extension RequestController {
         }
         
         defer {
-            
-            if let error = error {
-                if #available(OSX 10.12, *) {
-                    os_log("Request: %@", log: requestLog, type: .debug, urlRequest.debugDescription)
-                    os_log("""
-                        
-                        URL: %@
-                        Method:%@
-                        Request Headers:%@
-                        Body: %@
-
-                        Response Status: FAILURE
-                        Error Description: %@
-                        """,
-                           log: requestLog,
-                           type: .error,
-                           urlRequest.url?.description ?? request.baseURL.description,
-                           request.method.rawValue,
-                           urlRequest.allHTTPHeaderFields ?? "",
-                           urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "",
-                           error.localizedDescription
-                    )
-                    
-                    log("""
-                        
-                        URL: \(urlRequest.url?.description ?? request.baseURL.description)
-                        Method: \(request.method.rawValue)
-                        Request Headers: \(urlRequest.allHTTPHeaderFields ?? [:])
-                        Body: \(urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "")
-                        
-                        Response Status: FAILURE
-                        Error Description: \(error.localizedDescription)
-                        
-                        """,
-                        level: .error
-                    )
-                }
-                
-            } else {
-                
-                if #available(OSX 10.12, *) {
-                    log("Request: \(urlRequest.debugDescription)", level: .debug)
-                    log("""
-                         
-                        URL: \(urlRequest.url?.description ?? request.baseURL.description)
-                        Method: \(request.method.rawValue)
-                        Request Headers: \(urlRequest.allHTTPHeaderFields ?? [:])
-                        Body: \(urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "")
-                        
-                        Response Status: \(response?.status.rawValue ?? 999)
-                        Response Body: \(response?.string ?? "")
-                        
-                        """,
-                        level: .error
-                    )
-                    os_log("Request: %@", log: requestLog, type: .debug, urlRequest.debugDescription)
-                    os_log("""
-                            
-                            URL: %@
-                            Method: %@
-                            Request Headers: %@
-                            Body: %@
-
-                            Response Status: %li
-                            Response Body: %@
-
-                            """,
-                           log: requestLog,
-                           type: .error,
-                           urlRequest.url?.description ?? request.baseURL.description,
-                           request.method.rawValue,
-                           urlRequest.allHTTPHeaderFields ?? "",
-                           urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "",
-                           response?.status.rawValue ?? 999,
-                           response?.string ?? ""
-                    )
-                }
-            }
+            logResponse(error, request: request, urlRequest: urlRequest, response: response)
         }
         
         guard error != nil || response?.status.isConsideredError == true else {
@@ -201,6 +104,87 @@ extension RequestController {
         
         (callbackQueue ?? DispatchQueue.main).async {
             completion?(response, recoverableError)
+        }
+    }
+    
+    private func logResponse(_ error: Error?, request: Request, urlRequest: URLRequest, response: RequestResponse?) {
+        
+        if let error = error {
+            if #available(OSX 10.12, *) {
+                os_log("Request: %@", log: requestLog, type: .debug, urlRequest.debugDescription)
+                os_log("""
+                        
+                        URL: %@
+                        Method:%@
+                        Request Headers:%@
+                        Body: %@
+
+                        Response Status: FAILURE
+                        Error Description: %@
+                        """,
+                       log: requestLog,
+                       type: .error,
+                       urlRequest.url?.description ?? request.baseURL.description,
+                       request.method.rawValue,
+                       urlRequest.allHTTPHeaderFields ?? "",
+                       urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "",
+                       error.localizedDescription
+                )
+                
+                log("""
+                    
+                    URL: \(urlRequest.url?.description ?? request.baseURL.description)
+                    Method: \(request.method.rawValue)
+                    Request Headers: \(urlRequest.allHTTPHeaderFields ?? [:])
+                    Body: \(urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "")
+                    
+                    Response Status: FAILURE
+                    Error Description: \(error.localizedDescription)
+                    
+                    """,
+                    level: .error
+                )
+            }
+            
+        } else {
+            
+            if #available(OSX 10.12, *) {
+                log("Request: \(urlRequest.debugDescription)", level: .debug)
+                log("""
+                    
+                    URL: \(urlRequest.url?.description ?? request.baseURL.description)
+                    Method: \(request.method.rawValue)
+                    Request Headers: \(urlRequest.allHTTPHeaderFields ?? [:])
+                    Body: \(urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "")
+                    
+                    Response Status: \(response?.status.rawValue ?? 999)
+                    Response Body: \(response?.string ?? "")
+                    
+                    """,
+                    level: .error
+                )
+                os_log("Request: %@", log: requestLog, type: .debug, urlRequest.debugDescription)
+                os_log("""
+                            
+                            URL: %@
+                            Method: %@
+                            Request Headers: %@
+                            Body: %@
+
+                            Response Status: %li
+                            Response Body: %@
+
+                            """,
+                       log: requestLog,
+                       type: .error,
+                       urlRequest.url?.description ?? request.baseURL.description,
+                       request.method.rawValue,
+                       urlRequest.allHTTPHeaderFields ?? "",
+                       urlRequest.httpBody != nil ? String(data: urlRequest.httpBody!, encoding: .utf8) ?? "" : "",
+                       response?.status.rawValue ?? 999,
+                       response?.string ?? ""
+                )
+            }
         }
     }
 }

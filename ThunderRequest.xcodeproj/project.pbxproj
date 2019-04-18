@@ -48,9 +48,12 @@
 		B120EE41207B895800A4A7CA /* ThunderRequestWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = B120EE3F207B895800A4A7CA /* ThunderRequestWatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B150EE3B21C7A4E90041C027 /* MultipartFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150EE3A21C7A4E90041C027 /* MultipartFormTests.swift */; };
 		B150EE3D21C7A6C30041C027 /* 350x150.png in Resources */ = {isa = PBXBuildFile; fileRef = B150EE3C21C7A6C30041C027 /* 350x150.png */; };
-		B150EE4821C7E8AC0041C027 /* UploadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150EE4721C7E8AC0041C027 /* UploadTests.swift */; };
 		B150EE4A21C8E74C0041C027 /* AuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150EE4921C8E74C0041C027 /* AuthTests.swift */; };
 		B15560F41CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15560F31CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift */; };
+		B189C631226873D700A61F9A /* HTTP+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = B189C630226873D700A61F9A /* HTTP+Error.swift */; };
+		B189C632226873D700A61F9A /* HTTP+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = B189C630226873D700A61F9A /* HTTP+Error.swift */; };
+		B189C633226873D700A61F9A /* HTTP+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = B189C630226873D700A61F9A /* HTTP+Error.swift */; };
+		B189C634226873D700A61F9A /* HTTP+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = B189C630226873D700A61F9A /* HTTP+Error.swift */; };
 		B1A1B6B421F8CBF8008B5181 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A1B6B321F8CBF8008B5181 /* Logger.swift */; };
 		B1A1B6B521F8CBF8008B5181 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A1B6B321F8CBF8008B5181 /* Logger.swift */; };
 		B1A1B6B621F8CBF8008B5181 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A1B6B321F8CBF8008B5181 /* Logger.swift */; };
@@ -202,9 +205,9 @@
 		B120EE40207B895800A4A7CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B150EE3A21C7A4E90041C027 /* MultipartFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormTests.swift; sourceTree = "<group>"; };
 		B150EE3C21C7A6C30041C027 /* 350x150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 350x150.png; sourceTree = "<group>"; };
-		B150EE4721C7E8AC0041C027 /* UploadTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadTests.swift; sourceTree = "<group>"; };
 		B150EE4921C8E74C0041C027 /* AuthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTests.swift; sourceTree = "<group>"; };
 		B15560F31CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationLoadingIndicatorManager.swift; sourceTree = "<group>"; };
+		B189C630226873D700A61F9A /* HTTP+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTP+Error.swift"; sourceTree = "<group>"; };
 		B1A1B6B321F8CBF8008B5181 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Backgroundable.swift"; sourceTree = "<group>"; };
 		B1D4866421C926FB00D40D54 /* CredentialStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialStore.swift; sourceTree = "<group>"; };
@@ -456,6 +459,7 @@
 				B15560F31CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift */,
 				B1DB2CFC21C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift */,
 				B1DBEFF721BFC65000D22137 /* HTTP.swift */,
+				B189C630226873D700A61F9A /* HTTP+Error.swift */,
 				B1DB2CD821C11AE8007FAB21 /* RequestResponse+Codable.swift */,
 				B1DBEFF221BFC44400D22137 /* Request.swift */,
 				B1DB2C7F21BFEBF3007FAB21 /* Request Body Types */,
@@ -489,7 +493,6 @@
 				C2E5089119C835A300350F00 /* ResponseTests.swift */,
 				B150EE3A21C7A4E90041C027 /* MultipartFormTests.swift */,
 				B117123621C4627000800EEA /* DownloadTests.swift */,
-				B150EE4721C7E8AC0041C027 /* UploadTests.swift */,
 				B1EF2E9E1BA70F7B0053B39A /* KeychainTests.swift */,
 				C2E5088F19C835A300350F00 /* Supporting Files */,
 			);
@@ -775,6 +778,7 @@
 				B1113ED8207E65FF00FB680A /* BackgroundSessionController.swift in Sources */,
 				B1DB2C6E21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
 				B1DB2C7321BFD898007FAB21 /* Data+ContentType.swift in Sources */,
+				B189C633226873D700A61F9A /* HTTP+Error.swift in Sources */,
 				B1DB2CF021C15282007FAB21 /* URLSessionDelegate.swift in Sources */,
 				B1DB2C9921BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
 				B117122A21C3FB0400800EEA /* RequestCredential.swift in Sources */,
@@ -809,6 +813,7 @@
 				B1ADAD4021C2761700012BFB /* URLRequest+Backgroundable.swift in Sources */,
 				B1DB2C9821BFF3D4007FAB21 /* Data+MultipartFormElement.swift in Sources */,
 				B1DB2C6D21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
+				B189C632226873D700A61F9A /* HTTP+Error.swift in Sources */,
 				B1DB2CDA21C11AE8007FAB21 /* RequestResponse+Codable.swift in Sources */,
 				B1DB2C9321BFF352007FAB21 /* String+MultipartFormElement.swift in Sources */,
 				B1D4866621C926FB00D40D54 /* CredentialStore.swift in Sources */,
@@ -859,6 +864,7 @@
 				B1DB2CF121C15282007FAB21 /* URLSessionDelegate.swift in Sources */,
 				B1ADAD4221C2761800012BFB /* URLRequest+Backgroundable.swift in Sources */,
 				B1DB2CB721C012C5007FAB21 /* JSONRequestBody.swift in Sources */,
+				B189C634226873D700A61F9A /* HTTP+Error.swift in Sources */,
 				B1DB2C6F21BFD2A4007FAB21 /* String+MD5.swift in Sources */,
 				B11711F921C3B3EF00800EEA /* ErrorRecoveryOption.swift in Sources */,
 				B1DB2CDC21C11AE8007FAB21 /* RequestResponse+Codable.swift in Sources */,
@@ -905,6 +911,7 @@
 				B1D4866521C926FB00D40D54 /* CredentialStore.swift in Sources */,
 				B1DB2CD921C11AE8007FAB21 /* RequestResponse+Codable.swift in Sources */,
 				B1DBEFF321BFC44400D22137 /* Request.swift in Sources */,
+				B189C631226873D700A61F9A /* HTTP+Error.swift in Sources */,
 				B1DB2CCD21C02172007FAB21 /* RequestResponse.swift in Sources */,
 				B1DB2C8821BFF322007FAB21 /* MultipartFormFile.swift in Sources */,
 				B1DB2CBE21C01601007FAB21 /* FormURLEncodedRequestBody.swift in Sources */,
@@ -943,7 +950,6 @@
 			files = (
 				B1EF2E9F1BA70F7B0053B39A /* KeychainTests.swift in Sources */,
 				C2E5089219C835A300350F00 /* ResponseTests.swift in Sources */,
-				B150EE4821C7E8AC0041C027 /* UploadTests.swift in Sources */,
 				B117123721C4627000800EEA /* DownloadTests.swift in Sources */,
 				B150EE4A21C8E74C0041C027 /* AuthTests.swift in Sources */,
 				B117124021C51F5A00800EEA /* RequestBodyTests.swift in Sources */,

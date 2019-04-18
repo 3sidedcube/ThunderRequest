@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// A protocol that inherits from `RecoverableError` and
+/// A protocol that inherits from `RecoverableError`
 /// This can be used to allow the user to attempt to recover from an error.
 public protocol CustomisableRecoverableError: RecoverableError {
     

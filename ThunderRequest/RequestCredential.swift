@@ -110,24 +110,34 @@ public final class RequestCredential: NSObject, NSCoding {
         self.authorizationToken = authorizationToken
     }
     
+    private enum CodingKeys: String {
+        case username
+        case password
+        case authToken = "authtoken"
+        case credential
+        case tokenType = "tokentype"
+        case expiration
+        case refreshToken = "refreshtoken"
+    }
+    
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(username, forKey: "username")
-        aCoder.encode(password, forKey: "password")
-        aCoder.encode(authorizationToken, forKey: "authtoken")
-        aCoder.encode(credential, forKey: "credential")
-        aCoder.encode(tokenType, forKey: "tokentype")
-        aCoder.encode(expirationDate, forKey: "expiration")
-        aCoder.encode(refreshToken, forKey: "refreshtoken")
+        aCoder.encode(username, forKey: CodingKeys.username.rawValue)
+        aCoder.encode(password, forKey: CodingKeys.password.rawValue)
+        aCoder.encode(authorizationToken, forKey: CodingKeys.authToken.rawValue)
+        aCoder.encode(credential, forKey: CodingKeys.credential.rawValue)
+        aCoder.encode(tokenType, forKey: CodingKeys.tokenType.rawValue)
+        aCoder.encode(expirationDate, forKey: CodingKeys.expiration.rawValue)
+        aCoder.encode(refreshToken, forKey: CodingKeys.refreshToken.rawValue)
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init()
-        username = aDecoder.decodeObject(forKey: "username") as? String
-        password = aDecoder.decodeObject(forKey: "password") as? String
-        authorizationToken = aDecoder.decodeObject(forKey: "authtoken") as? String
-        credential = aDecoder.decodeObject(forKey: "credential") as? URLCredential
-        tokenType = aDecoder.decodeObject(forKey: "tokentype") as? String ?? Authentication.TokenType.bearer
-        refreshToken = aDecoder.decodeObject(forKey: "refreshtoken") as? String
-        expirationDate = aDecoder.decodeObject(forKey: "expiration") as? Date
+        username = aDecoder.decodeObject(forKey: CodingKeys.username.rawValue) as? String
+        password = aDecoder.decodeObject(forKey: CodingKeys.password.rawValue) as? String
+        authorizationToken = aDecoder.decodeObject(forKey: CodingKeys.authToken.rawValue) as? String
+        credential = aDecoder.decodeObject(forKey: CodingKeys.credential.rawValue) as? URLCredential
+        tokenType = aDecoder.decodeObject(forKey: CodingKeys.tokenType.rawValue) as? String ?? Authentication.TokenType.bearer
+        refreshToken = aDecoder.decodeObject(forKey: CodingKeys.refreshToken.rawValue) as? String
+        expirationDate = aDecoder.decodeObject(forKey: CodingKeys.expiration.rawValue) as? Date
     }
 }
