@@ -1,6 +1,6 @@
 # Thunder Request
 
-[![Build Status](https://travis-ci.org/3sidedcube/iOS-ThunderRequest.svg)](https://travis-ci.org/3sidedcube/iOS-ThunderRequest) [![Swift 4.2](http://img.shields.io/badge/swift-4.2-brightgreen.svg)](https://swift.org/blog/swift-4-2-released/) [![Apache 2](https://img.shields.io/badge/license-Apache%202-brightgreen.svg)](LICENSE.md)
+[![Build Status](https://travis-ci.org/3sidedcube/iOS-ThunderRequest.svg)](https://travis-ci.org/3sidedcube/iOS-ThunderRequest) [![Swift 5](http://img.shields.io/badge/swift-5-brightgreen.svg)](https://swift.org/blog/swift-5-released/) [![Apache 2](https://img.shields.io/badge/license-Apache%202-brightgreen.svg)](LICENSE.md)
 
 Thunder Request is a Framework used to simplify making http and https web requests.
 

@@ -17,7 +17,7 @@ public typealias Image = UIImage
 public extension Image {
     
     /// Image format (jpeg/png/gif e.t.c)
-    public enum Format {
+    enum Format {
         case jpeg
         case png
         #if os(macOS)
