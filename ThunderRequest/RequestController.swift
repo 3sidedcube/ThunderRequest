@@ -31,6 +31,19 @@ public final class RequestController {
         case noFileOrDataProvided
     }
     
+    /// A shared user agent which will be used for all instances of `RequestController`
+    public class var sharedUserAgent: String? {
+        get {
+            return UserDefaults.standard.string(forKey: "TSCUserAgent")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "TSCUserAgent")
+        }
+    }
+    
+    /// The user agent to use with this instance of `RequestController` overrides `RequestController.sharedUserAgent`
+    public var userAgent: String?
+    
     /// The shared Base URL for all requests routed through the controller
     ///
     /// This is most commonly set via the init(baseURL:) method
@@ -442,7 +455,7 @@ public final class RequestController {
         // Set activity indicator (Only if we're the first request)
         RequestController.showApplicationActivityIndicator()
         
-        if let userAgent = UserDefaults.standard.string(forKey: "TSCUserAgent"), !request.headers.keys.contains("User-Agent") {
+        if let userAgent = userAgent ?? RequestController.sharedUserAgent, !request.headers.keys.contains("User-Agent") {
             request.headers["User-Agent"] = userAgent
         }
         
