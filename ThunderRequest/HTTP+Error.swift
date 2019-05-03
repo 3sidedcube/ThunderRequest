@@ -32,3 +32,10 @@ public extension HTTP {
         }
     }
 }
+
+extension HTTP.Error: CustomNSError {
+    
+    public var errorCode: Int {
+        return code
+    }
+}
