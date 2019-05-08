@@ -77,7 +77,7 @@ public extension Image {
         #else
         switch format {
         case .jpeg:
-            return jpegData(compressionQuality: 2.0)
+            return jpegData(compressionQuality: 1.0)
         default:
             return pngData()
         }
