@@ -18,9 +18,9 @@ extension RequestController {
     
     public static let ErrorDomain = "com.threesidedcube.ThunderRequest"
     
-    static let DidReceiveResponseNotificationName = Notification.Name(rawValue: "TSCRequestDidReceiveResponse")
+    public static let DidReceiveResponseNotificationName = Notification.Name(rawValue: "TSCRequestDidReceiveResponse")
     
-    static let DidErrorNotificationName = Notification.Name("TSCRequestServerError")
+    public static let DidErrorNotificationName = Notification.Name("TSCRequestServerError")
     
     func add(completionHandler: TransferCompletion?, progressHandler: ProgressHandler?, forTaskId taskId: Int) {
         

@@ -75,13 +75,13 @@ class MultipartFormTests: XCTestCase {
         let imageMultiPartData = imagePart.multipartDataWith(boundary: "ABCDEFG", key: "image")
         
         XCTAssertNotNil(imageMultiPartData)
-        XCTAssertEqual(imageMultiPartData?.count, 1408)
+        XCTAssertEqual(imageMultiPartData?.count, 1409)
         
         guard let data = imageMultiPartData else { return }
-        XCTAssertEqual(String(data: data[0...143], encoding: .utf8), "--ABCDEFG\r\nContent-Disposition: form-data;name=\"hello\"; filename=\"fileface.png\"\r\nContent-Type: image/png\r\nContent-Transfer-Encoding: bubbles\r\n\r\n")
-        XCTAssertEqual(String(data: data[1397...1407], encoding: .utf8), "\r\n--ABCDEFG")
+        XCTAssertEqual(String(data: data[0...144], encoding: .utf8), "--ABCDEFG\r\nContent-Disposition: form-data; name=\"hello\"; filename=\"fileface.png\"\r\nContent-Type: image/png\r\nContent-Transfer-Encoding: bubbles\r\n\r\n")
+        XCTAssertEqual(String(data: data[1398...1408], encoding: .utf8), "\r\n--ABCDEFG")
         
-        let dataImage = UIImage(data: data[144...1407])
+        let dataImage = UIImage(data: data[145...1408])
         XCTAssertNotNil(dataImage)
         XCTAssertEqual(dataImage?.size, CGSize(width: 350, height: 150))
     }
@@ -103,13 +103,13 @@ class MultipartFormTests: XCTestCase {
         let imageMultiPartData = imagePart.multipartDataWith(boundary: "ABCDEFG", key: "image")
         
         XCTAssertNotNil(imageMultiPartData)
-        XCTAssertEqual(imageMultiPartData?.count, 1407)
+        XCTAssertEqual(imageMultiPartData?.count, 1408)
         
         guard let data = imageMultiPartData else { return }
-        XCTAssertEqual(String(data: data[0...142], encoding: .utf8), "--ABCDEFG\r\nContent-Disposition: form-data;name=\"image\"; filename=\"fileface.png\"\r\nContent-Type: image/png\r\nContent-Transfer-Encoding: binary\r\n\r\n")
-        XCTAssertEqual(String(data: data[1396...1406], encoding: .utf8), "\r\n--ABCDEFG")
+        XCTAssertEqual(String(data: data[0...143], encoding: .utf8), "--ABCDEFG\r\nContent-Disposition: form-data; name=\"image\"; filename=\"fileface.png\"\r\nContent-Type: image/png\r\nContent-Transfer-Encoding: binary\r\n\r\n")
+        XCTAssertEqual(String(data: data[1397...1407], encoding: .utf8), "\r\n--ABCDEFG")
         
-        let dataImage = UIImage(data: data[143...1406])
+        let dataImage = UIImage(data: data[144...1407])
         XCTAssertNotNil(dataImage)
         XCTAssertEqual(dataImage?.size, CGSize(width: 350, height: 150))
     }
@@ -129,13 +129,13 @@ class MultipartFormTests: XCTestCase {
         let imageMultiPartData = imageFile?.multipartDataWith(boundary: "ABCDEFG", key: "image")
         
         XCTAssertNotNil(imageMultiPartData)
-        XCTAssertEqual(imageMultiPartData?.count, 8200)
+        XCTAssertEqual(imageMultiPartData?.count, 8201)
         
         guard let data = imageMultiPartData else { return }
-        XCTAssertEqual(String(data: data[0...140], encoding: .utf8), "--ABCDEFG\r\nContent-Disposition: form-data;name=\"image\"; filename=\"image.jpg\"\r\nContent-Type: image/jpeg\r\nContent-Transfer-Encoding: binary\r\n\r\n")
-        XCTAssertEqual(String(data: data[8189...8199], encoding: .utf8), "\r\n--ABCDEFG")
+        XCTAssertEqual(String(data: data[0...141], encoding: .utf8), "--ABCDEFG\r\nContent-Disposition: form-data; name=\"image\"; filename=\"image.jpg\"\r\nContent-Type: image/jpeg\r\nContent-Transfer-Encoding: binary\r\n\r\n")
+        XCTAssertEqual(String(data: data[8190...8200], encoding: .utf8), "\r\n--ABCDEFG")
         
-        let dataImage = UIImage(data: data[141...8188])
+        let dataImage = UIImage(data: data[142...8189])
         XCTAssertNotNil(dataImage)
         XCTAssertEqual(dataImage?.size, CGSize(width: 350, height: 150))
     }
@@ -155,13 +155,13 @@ class MultipartFormTests: XCTestCase {
         let imageMultiPartData = imageFile?.multipartDataWith(boundary: "ABCDEFG", key: "image")
         
         XCTAssertNotNil(imageMultiPartData)
-        XCTAssertEqual(imageMultiPartData?.count, 1941)
+        XCTAssertEqual(imageMultiPartData?.count, 1942)
         
         guard let data = imageMultiPartData else { return }
-        XCTAssertEqual(String(data: data[0...139], encoding: .utf8), "--ABCDEFG\r\nContent-Disposition: form-data;name=\"image\"; filename=\"image.png\"\r\nContent-Type: image/png\r\nContent-Transfer-Encoding: binary\r\n\r\n")
-        XCTAssertEqual(String(data: data[1930...1940], encoding: .utf8), "\r\n--ABCDEFG")
+        XCTAssertEqual(String(data: data[0...140], encoding: .utf8), "--ABCDEFG\r\nContent-Disposition: form-data; name=\"image\"; filename=\"image.png\"\r\nContent-Type: image/png\r\nContent-Transfer-Encoding: binary\r\n\r\n")
+        XCTAssertEqual(String(data: data[1931...1941], encoding: .utf8), "\r\n--ABCDEFG")
         
-        let dataImage = UIImage(data: data[140...1931])
+        let dataImage = UIImage(data: data[141...1932])
         XCTAssertNotNil(dataImage)
         XCTAssertEqual(dataImage?.size, CGSize(width: 350, height: 150))
     }
@@ -189,7 +189,7 @@ class MultipartFormTests: XCTestCase {
         let payload = formBody.payload()
         
         XCTAssertNotNil(payload)
-        XCTAssertEqual(payload?.count, 10141)
+        XCTAssertEqual(payload?.count, 10143)
         XCTAssertEqual(formBody.contentType, "multipart/form-data; boundary=ABCDEFG")
     }
 }

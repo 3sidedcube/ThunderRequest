@@ -55,7 +55,7 @@ public struct MultipartFormFile: MultipartFormElement {
     public func multipartDataWith(boundary: String, key: String) -> Data? {
         
         var dataString = "--\(boundary)\r\nContent-Disposition: \(disposition ?? "form-data");"
-        dataString.append("name=\"\(name ?? key)\";")
+        dataString.append(" name=\"\(name ?? key)\";")
         dataString.append(" filename=\"\(fileName)\"\r\n")
         dataString.append("Content-Type: \(contentType)\r\n")
         dataString.append("Content-Transfer-Encoding: \(transferEncoding ?? "binary")\r\n\r\n")
