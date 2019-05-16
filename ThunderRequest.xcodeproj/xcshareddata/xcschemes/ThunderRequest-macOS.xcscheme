@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B1177EE11BBAF18E00372D4D"
+               BuildableName = "ThunderRequestMacTests.xctest"
+               BlueprintName = "ThunderRequestMacTests"
+               ReferencedContainer = "container:ThunderRequest.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B1177ED71BBAF18E00372D4D"
+            BuildableName = "ThunderRequest.framework"
+            BlueprintName = "ThunderRequest-macOS"
+            ReferencedContainer = "container:ThunderRequest.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
