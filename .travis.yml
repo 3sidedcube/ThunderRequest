@@ -1,6 +1,5 @@
 language: swift
 xcode_project: ThunderRequest.xcodeproj # path to your xcodeproj folder
-xcode_scheme: ThunderRequest
 osx_image: xcode10.2
 env:
   global:
@@ -9,9 +8,6 @@ env:
   - IOS_FRAMEWORK_SCHEME="ThunderRequest-iOS"
   - TVOS_FRAMEWORK_SCHEME="ThunderRequest-tvOS"
   - OSX_FRAMEWORK_SCHEME="ThunderRequest-macOS"
-  - IOS_SDK=iphonesimulator12.2
-  - TVOS_SDK=appletvsimulator12.2
-  - OSX_SDK=macosx10.14
   matrix:
     include:
       - xcode_scheme: "$IOS_FRAMEWORK_SCHEME"
