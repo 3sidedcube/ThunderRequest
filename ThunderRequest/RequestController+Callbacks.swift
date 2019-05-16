@@ -25,7 +25,7 @@ extension RequestController {
     func add(completionHandler: TransferCompletion?, progressHandler: ProgressHandler?, forTaskId taskId: Int) {
         
         if transferCompletionHandlers[taskId] != nil {
-            if #available(OSX 10.12, *) {
+            if #available(OSX 10.12, watchOSApplicationExtension 3.0, *) {
                 os_log("Error: Got multiple handlers for a single task identifier. This should not happen.", log: requestLog, type: .error)
             }
         }
@@ -33,7 +33,7 @@ extension RequestController {
         transferCompletionHandlers[taskId] = completionHandler
         
         if progressHandlers[taskId] != nil {
-            if #available(OSX 10.12, *) {
+            if #available(OSX 10.12, watchOSApplicationExtension 3.0, *) {
                 os_log("Error: Got multiple progress handlers for a single task identifier.  This should not happen.", log: requestLog, type: .error)
             }
         }
@@ -110,7 +110,7 @@ extension RequestController {
     private func logResponse(_ error: Error?, request: Request, urlRequest: URLRequest, response: RequestResponse?) {
         
         if let error = error {
-            if #available(OSX 10.12, *) {
+            if #available(OSX 10.12, watchOSApplicationExtension 3.0, *) {
                 os_log("Request: %@", log: requestLog, type: .debug, urlRequest.debugDescription)
                 os_log("""
                         
@@ -148,7 +148,7 @@ extension RequestController {
             
         } else {
             
-            if #available(OSX 10.12, *) {
+            if #available(OSX 10.12, watchOSApplicationExtension 3.0, *) {
                 log("Request: \(urlRequest.debugDescription)", level: .debug)
                 log("""
                     

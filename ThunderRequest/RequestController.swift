@@ -56,7 +56,7 @@ public final class RequestController {
     public var logger: LogReceiver?
     
     private var _requestLog: Any? = nil
-    @available(macOS 10.12, *)
+    @available(macOS 10.12, watchOSApplicationExtension 3.0, *)
     var requestLog: OSLog {
         if _requestLog == nil {
             _requestLog = OSLog(subsystem: "com.threesidedcube.ThunderRequest", category: "RequestController")

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B1177ED71BBAF18E00372D4D"
-               BuildableName = "ThunderRequestMac.framework"
-               BlueprintName = "ThunderRequestMac"
+               BlueprintIdentifier = "B120EE3C207B895800A4A7CA"
+               BuildableName = "ThunderRequest.framework"
+               BlueprintName = "ThunderRequest-watchOS"
                ReferencedContainer = "container:ThunderRequest.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B1177EE11BBAF18E00372D4D"
-               BuildableName = "ThunderRequestMacTests.xctest"
-               BlueprintName = "ThunderRequestMacTests"
-               ReferencedContainer = "container:ThunderRequest.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B1177ED71BBAF18E00372D4D"
-            BuildableName = "ThunderRequestMac.framework"
-            BlueprintName = "ThunderRequestMac"
-            ReferencedContainer = "container:ThunderRequest.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -64,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B1177ED71BBAF18E00372D4D"
-            BuildableName = "ThunderRequestMac.framework"
-            BlueprintName = "ThunderRequestMac"
+            BlueprintIdentifier = "B120EE3C207B895800A4A7CA"
+            BuildableName = "ThunderRequest.framework"
+            BlueprintName = "ThunderRequest-watchOS"
             ReferencedContainer = "container:ThunderRequest.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B1177ED71BBAF18E00372D4D"
-            BuildableName = "ThunderRequestMac.framework"
-            BlueprintName = "ThunderRequestMac"
+            BlueprintIdentifier = "B120EE3C207B895800A4A7CA"
+            BuildableName = "ThunderRequest.framework"
+            BlueprintName = "ThunderRequest-watchOS"
             ReferencedContainer = "container:ThunderRequest.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
