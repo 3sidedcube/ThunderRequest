@@ -43,7 +43,7 @@
 		B117123721C4627000800EEA /* DownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117123621C4627000800EEA /* DownloadTests.swift */; };
 		B117124021C51F5A00800EEA /* RequestBodyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117123F21C51F5A00800EEA /* RequestBodyTests.swift */; };
 		B1177EDD1BBAF18E00372D4D /* ThunderRequestMac.h in Headers */ = {isa = PBXBuildFile; fileRef = B1177EDC1BBAF18E00372D4D /* ThunderRequestMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B1177EE31BBAF18E00372D4D /* ThunderRequestMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */; };
+		B1177EE31BBAF18E00372D4D /* ThunderRequest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1177ED81BBAF18E00372D4D /* ThunderRequest.framework */; };
 		B1177EEA1BBAF18E00372D4D /* ThunderRequestMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B1177EE91BBAF18E00372D4D /* ThunderRequestMacTests.m */; };
 		B120EE41207B895800A4A7CA /* ThunderRequestWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = B120EE3F207B895800A4A7CA /* ThunderRequestWatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B150EE3B21C7A4E90041C027 /* MultipartFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150EE3A21C7A4E90041C027 /* MultipartFormTests.swift */; };
@@ -182,7 +182,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		49084FD11BD13DBD0012F636 /* ThunderRequestTV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequestTV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		49084FD11BD13DBD0012F636 /* ThunderRequest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49084FD31BD13DBD0012F636 /* ThunderRequestTV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThunderRequestTV.h; sourceTree = "<group>"; };
 		49084FD51BD13DBD0012F636 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1113ED5207E65FF00FB680A /* BackgroundSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundSessionController.swift; sourceTree = "<group>"; };
@@ -195,13 +195,13 @@
 		B117123121C40A0700800EEA /* Authenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
 		B117123621C4627000800EEA /* DownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTests.swift; sourceTree = "<group>"; };
 		B117123F21C51F5A00800EEA /* RequestBodyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBodyTests.swift; sourceTree = "<group>"; };
-		B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequestMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1177ED81BBAF18E00372D4D /* ThunderRequest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1177EDB1BBAF18E00372D4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1177EDC1BBAF18E00372D4D /* ThunderRequestMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThunderRequestMac.h; sourceTree = "<group>"; };
 		B1177EE21BBAF18E00372D4D /* ThunderRequestMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThunderRequestMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1177EE81BBAF18E00372D4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1177EE91BBAF18E00372D4D /* ThunderRequestMacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThunderRequestMacTests.m; sourceTree = "<group>"; };
-		B120EE3D207B895800A4A7CA /* ThunderRequestWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequestWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B120EE3D207B895800A4A7CA /* ThunderRequest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B120EE3F207B895800A4A7CA /* ThunderRequestWatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThunderRequestWatch.h; sourceTree = "<group>"; };
 		B120EE40207B895800A4A7CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B150EE3A21C7A4E90041C027 /* MultipartFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormTests.swift; sourceTree = "<group>"; };
@@ -267,7 +267,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1177EE31BBAF18E00372D4D /* ThunderRequestMac.framework in Frameworks */,
+				B1177EE31BBAF18E00372D4D /* ThunderRequest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,10 +445,10 @@
 			children = (
 				C2E5088219C835A300350F00 /* ThunderRequest.framework */,
 				C2E5088D19C835A300350F00 /* ThunderRequestTests.xctest */,
-				B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */,
+				B1177ED81BBAF18E00372D4D /* ThunderRequest.framework */,
 				B1177EE21BBAF18E00372D4D /* ThunderRequestMacTests.xctest */,
-				49084FD11BD13DBD0012F636 /* ThunderRequestTV.framework */,
-				B120EE3D207B895800A4A7CA /* ThunderRequestWatch.framework */,
+				49084FD11BD13DBD0012F636 /* ThunderRequest.framework */,
+				B120EE3D207B895800A4A7CA /* ThunderRequest.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -548,9 +548,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		49084FD01BD13DBD0012F636 /* ThunderRequestTV */ = {
+		49084FD01BD13DBD0012F636 /* ThunderRequest-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 49084FD81BD13DBD0012F636 /* Build configuration list for PBXNativeTarget "ThunderRequestTV" */;
+			buildConfigurationList = 49084FD81BD13DBD0012F636 /* Build configuration list for PBXNativeTarget "ThunderRequest-tvOS" */;
 			buildPhases = (
 				49084FCC1BD13DBD0012F636 /* Sources */,
 				49084FCD1BD13DBD0012F636 /* Frameworks */,
@@ -561,14 +561,14 @@
 			);
 			dependencies = (
 			);
-			name = ThunderRequestTV;
+			name = "ThunderRequest-tvOS";
 			productName = ThunderRequestTV;
-			productReference = 49084FD11BD13DBD0012F636 /* ThunderRequestTV.framework */;
+			productReference = 49084FD11BD13DBD0012F636 /* ThunderRequest.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		B1177ED71BBAF18E00372D4D /* ThunderRequestMac */ = {
+		B1177ED71BBAF18E00372D4D /* ThunderRequest-macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B1177EEF1BBAF18E00372D4D /* Build configuration list for PBXNativeTarget "ThunderRequestMac" */;
+			buildConfigurationList = B1177EEF1BBAF18E00372D4D /* Build configuration list for PBXNativeTarget "ThunderRequest-macOS" */;
 			buildPhases = (
 				B1177ED31BBAF18E00372D4D /* Sources */,
 				B1177ED41BBAF18E00372D4D /* Frameworks */,
@@ -579,9 +579,9 @@
 			);
 			dependencies = (
 			);
-			name = ThunderRequestMac;
+			name = "ThunderRequest-macOS";
 			productName = ThunderRequestMac;
-			productReference = B1177ED81BBAF18E00372D4D /* ThunderRequestMac.framework */;
+			productReference = B1177ED81BBAF18E00372D4D /* ThunderRequest.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		B1177EE11BBAF18E00372D4D /* ThunderRequestMacTests */ = {
@@ -602,9 +602,9 @@
 			productReference = B1177EE21BBAF18E00372D4D /* ThunderRequestMacTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		B120EE3C207B895800A4A7CA /* ThunderRequestWatch */ = {
+		B120EE3C207B895800A4A7CA /* ThunderRequest-watchOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B120EE44207B895800A4A7CA /* Build configuration list for PBXNativeTarget "ThunderRequestWatch" */;
+			buildConfigurationList = B120EE44207B895800A4A7CA /* Build configuration list for PBXNativeTarget "ThunderRequest-watchOS" */;
 			buildPhases = (
 				B120EE38207B895800A4A7CA /* Sources */,
 				B120EE39207B895800A4A7CA /* Frameworks */,
@@ -615,14 +615,14 @@
 			);
 			dependencies = (
 			);
-			name = ThunderRequestWatch;
+			name = "ThunderRequest-watchOS";
 			productName = ThunderRequestWatch;
-			productReference = B120EE3D207B895800A4A7CA /* ThunderRequestWatch.framework */;
+			productReference = B120EE3D207B895800A4A7CA /* ThunderRequest.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		C2E5088119C835A300350F00 /* ThunderRequest */ = {
+		C2E5088119C835A300350F00 /* ThunderRequest-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C2E5089519C835A300350F00 /* Build configuration list for PBXNativeTarget "ThunderRequest" */;
+			buildConfigurationList = C2E5089519C835A300350F00 /* Build configuration list for PBXNativeTarget "ThunderRequest-iOS" */;
 			buildPhases = (
 				C2E5087D19C835A300350F00 /* Sources */,
 				C2E5087E19C835A300350F00 /* Frameworks */,
@@ -633,7 +633,7 @@
 			);
 			dependencies = (
 			);
-			name = ThunderRequest;
+			name = "ThunderRequest-iOS";
 			productName = ThunderRequest;
 			productReference = C2E5088219C835A300350F00 /* ThunderRequest.framework */;
 			productType = "com.apple.product-type.framework";
@@ -708,12 +708,12 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C2E5088119C835A300350F00 /* ThunderRequest */,
+				C2E5088119C835A300350F00 /* ThunderRequest-iOS */,
 				C2E5088C19C835A300350F00 /* ThunderRequestTests */,
-				B1177ED71BBAF18E00372D4D /* ThunderRequestMac */,
+				B1177ED71BBAF18E00372D4D /* ThunderRequest-macOS */,
 				B1177EE11BBAF18E00372D4D /* ThunderRequestMacTests */,
-				49084FD01BD13DBD0012F636 /* ThunderRequestTV */,
-				B120EE3C207B895800A4A7CA /* ThunderRequestWatch */,
+				49084FD01BD13DBD0012F636 /* ThunderRequest-tvOS */,
+				B120EE3C207B895800A4A7CA /* ThunderRequest-watchOS */,
 			);
 		};
 /* End PBXProject section */
@@ -967,7 +967,7 @@
 /* Begin PBXTargetDependency section */
 		B1177EE51BBAF18E00372D4D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B1177ED71BBAF18E00372D4D /* ThunderRequestMac */;
+			target = B1177ED71BBAF18E00372D4D /* ThunderRequest-macOS */;
 			targetProxy = B1177EE41BBAF18E00372D4D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -989,7 +989,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.3sidedcube.ThunderRequestTV;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ThunderRequest;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1016,7 +1016,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.3sidedcube.ThunderRequestTV;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ThunderRequest;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
@@ -1047,7 +1047,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.threesidedcube.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ThunderRequest;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1074,7 +1074,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.threesidedcube.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ThunderRequest;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
@@ -1154,7 +1154,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.3sidedcube.ThunderRequestWatch;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = ThunderRequest;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1191,7 +1191,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.3sidedcube.ThunderRequestWatch;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = ThunderRequest;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
@@ -1328,7 +1328,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.threesidedcube.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ThunderRequest;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1355,7 +1355,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.threesidedcube.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ThunderRequest;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -1408,7 +1408,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		49084FD81BD13DBD0012F636 /* Build configuration list for PBXNativeTarget "ThunderRequestTV" */ = {
+		49084FD81BD13DBD0012F636 /* Build configuration list for PBXNativeTarget "ThunderRequest-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				49084FD61BD13DBD0012F636 /* Debug */,
@@ -1417,7 +1417,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B1177EEF1BBAF18E00372D4D /* Build configuration list for PBXNativeTarget "ThunderRequestMac" */ = {
+		B1177EEF1BBAF18E00372D4D /* Build configuration list for PBXNativeTarget "ThunderRequest-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B1177EEB1BBAF18E00372D4D /* Debug */,
@@ -1435,7 +1435,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B120EE44207B895800A4A7CA /* Build configuration list for PBXNativeTarget "ThunderRequestWatch" */ = {
+		B120EE44207B895800A4A7CA /* Build configuration list for PBXNativeTarget "ThunderRequest-watchOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B120EE42207B895800A4A7CA /* Debug */,
@@ -1453,7 +1453,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C2E5089519C835A300350F00 /* Build configuration list for PBXNativeTarget "ThunderRequest" */ = {
+		C2E5089519C835A300350F00 /* Build configuration list for PBXNativeTarget "ThunderRequest-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C2E5089619C835A300350F00 /* Debug */,

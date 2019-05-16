@@ -8,7 +8,12 @@
 
 import Foundation
 
+#if os(iOS) || os(watchOS) || os(tvOS)
+import UIKit
+#endif
+
 #if os(macOS)
+import AppKit
 public typealias UIImage = NSImage
 #endif
 

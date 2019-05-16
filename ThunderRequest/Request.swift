@@ -43,7 +43,7 @@ public class Request {
     public var tag: Int?
     
     private var _log: Any? = nil
-    @available(macOS 10.12, *)
+    @available(macOS 10.12, watchOSApplicationExtension 3.0, *)
     fileprivate var log: OSLog {
         if _log == nil {
             _log = OSLog(subsystem: "com.threesidedcube.ThunderRequest", category: "Request")
@@ -108,7 +108,7 @@ public class Request {
         }
         
         if method == .GET && request.httpBody != nil {
-            if #available(OSX 10.12, *) {
+            if #available(OSX 10.12, watchOSApplicationExtension 3.0, *) {
                 os_log("Invalid request to: %{public}@. Should not be sending a GET request with a non-nil body", log: log, type: .error, url.absoluteString)
             }
         }
