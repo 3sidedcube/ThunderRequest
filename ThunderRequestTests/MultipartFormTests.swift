@@ -10,6 +10,13 @@ import XCTest
 import Foundation
 @testable import ThunderRequest
 
+#if os(iOS) || os(tvOS)
+let expectedImageSize = CGSize(width: 350, height: 150)
+#elseif os(macOS)
+let expectedImageSize = CGSize(width: 262.5, height: 112.5)
+#endif
+
+
 class MultipartFormTests: XCTestCase {
 
     override func setUp() {
@@ -41,18 +48,29 @@ class MultipartFormTests: XCTestCase {
             fatalError("Couldn't create image from test image file")
         }
         
+        #if os(iOS) || os(tvOS)
+        let endStringRange = 8193...8203
+        let imageRange = 145...8192
+        let dataLength = 8204
+        #elseif os(macOS)
+        let endStringRange = 4655...4665
+        let imageRange = 145...4644
+        let dataLength = 4666
+        #endif
+        
         let imageMultiPartData = image.multipartDataWith(boundary: "ABCDEFG", key: "image")
         
         XCTAssertNotNil(imageMultiPartData)
-        XCTAssertEqual(imageMultiPartData?.count, 8204)
+        XCTAssertEqual(imageMultiPartData?.count, dataLength)
         
         guard let data = imageMultiPartData else { return }
         XCTAssertEqual(String(data: data[0...144], encoding: .utf8), "--ABCDEFG\r\nContent-Disposition: form-data; name=\"image\"; filename=\"filename.jpg\"\r\nContent-Type: image/jpeg\r\nContent-Transfer-Encoding: binary\r\n\r\n")
-        XCTAssertEqual(String(data: data[8193...8203], encoding: .utf8), "\r\n--ABCDEFG")
         
-        let dataImage = UIImage(data: data[145...8192])
+        XCTAssertEqual(String(data: data[endStringRange], encoding: .utf8), "\r\n--ABCDEFG")
+        
+        let dataImage = UIImage(data: data[imageRange])
         XCTAssertNotNil(dataImage)
-        XCTAssertEqual(dataImage?.size, CGSize(width: 350, height: 150))
+        XCTAssertEqual(dataImage?.size, expectedImageSize)
     }
     
     func testFileElementFormatsCorrectly() {
@@ -83,7 +101,7 @@ class MultipartFormTests: XCTestCase {
         
         let dataImage = UIImage(data: data[145...1408])
         XCTAssertNotNil(dataImage)
-        XCTAssertEqual(dataImage?.size, CGSize(width: 350, height: 150))
+        XCTAssertEqual(dataImage?.size, expectedImageSize)
     }
     
     func testFileElementWithDefaultsFormatsCorrectly() {
@@ -111,7 +129,7 @@ class MultipartFormTests: XCTestCase {
         
         let dataImage = UIImage(data: data[144...1407])
         XCTAssertNotNil(dataImage)
-        XCTAssertEqual(dataImage?.size, CGSize(width: 350, height: 150))
+        XCTAssertEqual(dataImage?.size, expectedImageSize)
     }
     
     func testJpegFileFormatsCorrectly() {
@@ -123,21 +141,31 @@ class MultipartFormTests: XCTestCase {
             fatalError("Couldn't create image from test image file")
         }
         
+        #if os(iOS) || os(tvOS)
+        let endStringRange = 8190...8200
+        let imageRange = 142...8189
+        let dataLength = 8201
+        #elseif os(macOS)
+        let endStringRange = 4652...4662
+        let imageRange = 142...4641
+        let dataLength = 4663
+        #endif
+        
         let imageFile = MultipartFormFile(image: image, format: .jpeg, fileName: "image.jpg", name: "image")
         XCTAssertNotNil(imageFile)
         
         let imageMultiPartData = imageFile?.multipartDataWith(boundary: "ABCDEFG", key: "image")
         
         XCTAssertNotNil(imageMultiPartData)
-        XCTAssertEqual(imageMultiPartData?.count, 8201)
+        XCTAssertEqual(imageMultiPartData?.count, dataLength)
         
         guard let data = imageMultiPartData else { return }
         XCTAssertEqual(String(data: data[0...141], encoding: .utf8), "--ABCDEFG\r\nContent-Disposition: form-data; name=\"image\"; filename=\"image.jpg\"\r\nContent-Type: image/jpeg\r\nContent-Transfer-Encoding: binary\r\n\r\n")
-        XCTAssertEqual(String(data: data[8190...8200], encoding: .utf8), "\r\n--ABCDEFG")
+        XCTAssertEqual(String(data: data[endStringRange], encoding: .utf8), "\r\n--ABCDEFG")
         
-        let dataImage = UIImage(data: data[142...8189])
+        let dataImage = UIImage(data: data[imageRange])
         XCTAssertNotNil(dataImage)
-        XCTAssertEqual(dataImage?.size, CGSize(width: 350, height: 150))
+        XCTAssertEqual(dataImage?.size, expectedImageSize)
     }
     
     func testPNGFileFormatsCorrectly() {
@@ -154,16 +182,26 @@ class MultipartFormTests: XCTestCase {
         
         let imageMultiPartData = imageFile?.multipartDataWith(boundary: "ABCDEFG", key: "image")
         
+        #if os(iOS) || os(tvOS)
+        let endStringRange = 1931...1941
+        let imageRange = 141...1932
+        let dataLength = 1942
+        #elseif os(macOS)
+        let endStringRange = 1952...1962
+        let imageRange = 141...1951
+        let dataLength = 1963
+        #endif
+        
         XCTAssertNotNil(imageMultiPartData)
-        XCTAssertEqual(imageMultiPartData?.count, 1942)
+        XCTAssertEqual(imageMultiPartData?.count, dataLength)
         
         guard let data = imageMultiPartData else { return }
         XCTAssertEqual(String(data: data[0...140], encoding: .utf8), "--ABCDEFG\r\nContent-Disposition: form-data; name=\"image\"; filename=\"image.png\"\r\nContent-Type: image/png\r\nContent-Transfer-Encoding: binary\r\n\r\n")
-        XCTAssertEqual(String(data: data[1931...1941], encoding: .utf8), "\r\n--ABCDEFG")
+        XCTAssertEqual(String(data: data[endStringRange], encoding: .utf8), "\r\n--ABCDEFG")
         
-        let dataImage = UIImage(data: data[141...1932])
+        let dataImage = UIImage(data: data[imageRange])
         XCTAssertNotNil(dataImage)
-        XCTAssertEqual(dataImage?.size, CGSize(width: 350, height: 150))
+        XCTAssertEqual(dataImage?.size, expectedImageSize)
     }
     
     func testWholeFormFormatsCorrectly() {
@@ -188,8 +226,14 @@ class MultipartFormTests: XCTestCase {
         
         let payload = formBody.payload()
         
+        #if os(iOS) || os(tvOS)
+        let dataLength = 10143
+        #elseif os(macOS)
+        let dataLength = 6626
+        #endif
+        
         XCTAssertNotNil(payload)
-        XCTAssertEqual(payload?.count, 10143)
+        XCTAssertEqual(payload?.count, dataLength)
         XCTAssertEqual(formBody.contentType, "multipart/form-data; boundary=ABCDEFG")
     }
 }
