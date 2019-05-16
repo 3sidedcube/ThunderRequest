@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C2E5088C19C835A300350F00"
-               BuildableName = "ThunderRequestTests.xctest"
-               BlueprintName = "ThunderRequestTests"
+               BlueprintIdentifier = "B190A828228DBA3A00E44821"
+               BuildableName = "ThunderRequestTests-tvOS.xctest"
+               BlueprintName = "ThunderRequestTests-tvOS"
                ReferencedContainer = "container:ThunderRequest.xcodeproj">
             </BuildableReference>
          </TestableReference>
