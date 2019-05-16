@@ -6,7 +6,9 @@
 //  Copyright © 2018 threesidedcube. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
+#endif
 import XCTest
 @testable import ThunderRequest
 

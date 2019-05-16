@@ -54,6 +54,23 @@
 		B189C632226873D700A61F9A /* HTTP+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = B189C630226873D700A61F9A /* HTTP+Error.swift */; };
 		B189C633226873D700A61F9A /* HTTP+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = B189C630226873D700A61F9A /* HTTP+Error.swift */; };
 		B189C634226873D700A61F9A /* HTTP+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = B189C630226873D700A61F9A /* HTTP+Error.swift */; };
+		B190A82E228DBA3A00E44821 /* ThunderRequest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49084FD11BD13DBD0012F636 /* ThunderRequest.framework */; };
+		B190A834228DBA6F00E44821 /* AuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150EE4921C8E74C0041C027 /* AuthTests.swift */; };
+		B190A835228DBA6F00E44821 /* AuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150EE4921C8E74C0041C027 /* AuthTests.swift */; };
+		B190A836228DBA7200E44821 /* RequestBodyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117123F21C51F5A00800EEA /* RequestBodyTests.swift */; };
+		B190A837228DBA7300E44821 /* RequestBodyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117123F21C51F5A00800EEA /* RequestBodyTests.swift */; };
+		B190A838228DBA7600E44821 /* ResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089119C835A300350F00 /* ResponseTests.swift */; };
+		B190A839228DBA7700E44821 /* ResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E5089119C835A300350F00 /* ResponseTests.swift */; };
+		B190A83A228DBA7900E44821 /* MultipartFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150EE3A21C7A4E90041C027 /* MultipartFormTests.swift */; };
+		B190A83B228DBA7A00E44821 /* MultipartFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150EE3A21C7A4E90041C027 /* MultipartFormTests.swift */; };
+		B190A83C228DBA7D00E44821 /* DownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117123621C4627000800EEA /* DownloadTests.swift */; };
+		B190A83D228DBA7E00E44821 /* DownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B117123621C4627000800EEA /* DownloadTests.swift */; };
+		B190A83E228DBA8000E44821 /* KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9E1BA70F7B0053B39A /* KeychainTests.swift */; };
+		B190A83F228DBA8100E44821 /* KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EF2E9E1BA70F7B0053B39A /* KeychainTests.swift */; };
+		B190A840228DBA8400E44821 /* MD5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E6F9B0224F74BB00F7BFC1 /* MD5Tests.swift */; };
+		B190A841228DBA8500E44821 /* MD5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E6F9B0224F74BB00F7BFC1 /* MD5Tests.swift */; };
+		B190A842228DBA9500E44821 /* 350x150.png in Resources */ = {isa = PBXBuildFile; fileRef = B150EE3C21C7A6C30041C027 /* 350x150.png */; };
+		B190A843228DBA9600E44821 /* 350x150.png in Resources */ = {isa = PBXBuildFile; fileRef = B150EE3C21C7A6C30041C027 /* 350x150.png */; };
 		B1A1B6B421F8CBF8008B5181 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A1B6B321F8CBF8008B5181 /* Logger.swift */; };
 		B1A1B6B521F8CBF8008B5181 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A1B6B321F8CBF8008B5181 /* Logger.swift */; };
 		B1A1B6B621F8CBF8008B5181 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A1B6B321F8CBF8008B5181 /* Logger.swift */; };
@@ -179,6 +196,13 @@
 			remoteGlobalIDString = B1177ED71BBAF18E00372D4D;
 			remoteInfo = ThunderRequestMac;
 		};
+		B190A82F228DBA3A00E44821 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C2E5087919C835A300350F00 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49084FD01BD13DBD0012F636;
+			remoteInfo = "ThunderRequest-tvOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -209,6 +233,8 @@
 		B150EE4921C8E74C0041C027 /* AuthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTests.swift; sourceTree = "<group>"; };
 		B15560F31CBE3FEB00834825 /* ApplicationLoadingIndicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationLoadingIndicatorManager.swift; sourceTree = "<group>"; };
 		B189C630226873D700A61F9A /* HTTP+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTP+Error.swift"; sourceTree = "<group>"; };
+		B190A829228DBA3A00E44821 /* ThunderRequestTests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ThunderRequestTests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B190A82D228DBA3A00E44821 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1A1B6B321F8CBF8008B5181 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B1ADAD3E21C2761100012BFB /* URLRequest+Backgroundable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Backgroundable.swift"; sourceTree = "<group>"; };
 		B1D4866421C926FB00D40D54 /* CredentialStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialStore.swift; sourceTree = "<group>"; };
@@ -275,6 +301,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B190A826228DBA3A00E44821 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B190A82E228DBA3A00E44821 /* ThunderRequest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +409,14 @@
 			path = ThunderRequestWatch;
 			sourceTree = "<group>";
 		};
+		B190A82A228DBA3A00E44821 /* ThunderRequestTests-tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				B190A82D228DBA3A00E44821 /* Info.plist */,
+			);
+			path = "ThunderRequestTests-tvOS";
+			sourceTree = "<group>";
+		};
 		B1DB2C6A21BFD290007FAB21 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -435,6 +477,7 @@
 				B1177EE61BBAF18E00372D4D /* ThunderRequestMacTests */,
 				49084FD21BD13DBD0012F636 /* ThunderRequestTV */,
 				B120EE3E207B895800A4A7CA /* ThunderRequestWatch */,
+				B190A82A228DBA3A00E44821 /* ThunderRequestTests-tvOS */,
 				C2E5088319C835A300350F00 /* Products */,
 				493394C720330C6F00F51E11 /* Frameworks */,
 			);
@@ -449,6 +492,7 @@
 				B1177EE21BBAF18E00372D4D /* ThunderRequestMacTests.xctest */,
 				49084FD11BD13DBD0012F636 /* ThunderRequest.framework */,
 				B120EE3D207B895800A4A7CA /* ThunderRequest.framework */,
+				B190A829228DBA3A00E44821 /* ThunderRequestTests-tvOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -620,6 +664,24 @@
 			productReference = B120EE3D207B895800A4A7CA /* ThunderRequest.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		B190A828228DBA3A00E44821 /* ThunderRequestTests-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B190A833228DBA3A00E44821 /* Build configuration list for PBXNativeTarget "ThunderRequestTests-tvOS" */;
+			buildPhases = (
+				B190A825228DBA3A00E44821 /* Sources */,
+				B190A826228DBA3A00E44821 /* Frameworks */,
+				B190A827228DBA3A00E44821 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B190A830228DBA3A00E44821 /* PBXTargetDependency */,
+			);
+			name = "ThunderRequestTests-tvOS";
+			productName = "ThunderRequestTests-tvOS";
+			productReference = B190A829228DBA3A00E44821 /* ThunderRequestTests-tvOS.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C2E5088119C835A300350F00 /* ThunderRequest-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C2E5089519C835A300350F00 /* Build configuration list for PBXNativeTarget "ThunderRequest-iOS" */;
@@ -661,7 +723,7 @@
 		C2E5087919C835A300350F00 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = threesidedcube;
 				TargetAttributes = {
@@ -680,6 +742,11 @@
 						CreatedOnToolsVersion = 9.3;
 						DevelopmentTeam = 25H7BM6YWK;
 						LastSwiftMigration = 0930;
+						ProvisioningStyle = Automatic;
+					};
+					B190A828228DBA3A00E44821 = {
+						CreatedOnToolsVersion = 10.2.1;
+						DevelopmentTeam = 5AAUAL6K5G;
 						ProvisioningStyle = Automatic;
 					};
 					C2E5088119C835A300350F00 = {
@@ -713,6 +780,7 @@
 				B1177ED71BBAF18E00372D4D /* ThunderRequest-macOS */,
 				B1177EE11BBAF18E00372D4D /* ThunderRequestMacTests */,
 				49084FD01BD13DBD0012F636 /* ThunderRequest-tvOS */,
+				B190A828228DBA3A00E44821 /* ThunderRequestTests-tvOS */,
 				B120EE3C207B895800A4A7CA /* ThunderRequest-watchOS */,
 			);
 		};
@@ -737,6 +805,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B190A842228DBA9500E44821 /* 350x150.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -744,6 +813,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B190A827228DBA3A00E44821 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B190A843228DBA9600E44821 /* 350x150.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -856,7 +933,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B190A838228DBA7600E44821 /* ResponseTests.swift in Sources */,
 				B1177EEA1BBAF18E00372D4D /* ThunderRequestMacTests.m in Sources */,
+				B190A840228DBA8400E44821 /* MD5Tests.swift in Sources */,
+				B190A834228DBA6F00E44821 /* AuthTests.swift in Sources */,
+				B190A836228DBA7200E44821 /* RequestBodyTests.swift in Sources */,
+				B190A83A228DBA7900E44821 /* MultipartFormTests.swift in Sources */,
+				B190A83E228DBA8000E44821 /* KeychainTests.swift in Sources */,
+				B190A83C228DBA7D00E44821 /* DownloadTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -900,6 +984,20 @@
 				B1DB2D0021C16ADB007FAB21 /* URLRequest+TaskIdentifier.swift in Sources */,
 				B1DB2CA921BFFBFE007FAB21 /* ImageRequestBody.swift in Sources */,
 				B1DB2CFB21C1692A007FAB21 /* URLSession+Synchronous.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B190A825228DBA3A00E44821 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B190A839228DBA7700E44821 /* ResponseTests.swift in Sources */,
+				B190A841228DBA8500E44821 /* MD5Tests.swift in Sources */,
+				B190A835228DBA6F00E44821 /* AuthTests.swift in Sources */,
+				B190A837228DBA7300E44821 /* RequestBodyTests.swift in Sources */,
+				B190A83B228DBA7A00E44821 /* MultipartFormTests.swift in Sources */,
+				B190A83F228DBA8100E44821 /* KeychainTests.swift in Sources */,
+				B190A83D228DBA7E00E44821 /* DownloadTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -969,6 +1067,11 @@
 			isa = PBXTargetDependency;
 			target = B1177ED71BBAF18E00372D4D /* ThunderRequest-macOS */;
 			targetProxy = B1177EE41BBAF18E00372D4D /* PBXContainerItemProxy */;
+		};
+		B190A830228DBA3A00E44821 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 49084FD01BD13DBD0012F636 /* ThunderRequest-tvOS */;
+			targetProxy = B190A82F228DBA3A00E44821 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1099,10 +1202,11 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = ThunderRequestMacTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.threesidedcube.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1121,10 +1225,11 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = ThunderRequestMacTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.threesidedcube.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1197,6 +1302,59 @@
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		B190A831228DBA3A00E44821 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 5AAUAL6K5G;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "ThunderRequestTests-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.threesidedcube.ThunderRequestTests-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 12.2;
+			};
+			name = Debug;
+		};
+		B190A832228DBA3A00E44821 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 5AAUAL6K5G;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "ThunderRequestTests-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.threesidedcube.ThunderRequestTests-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 12.2;
 			};
 			name = Release;
 		};
@@ -1440,6 +1598,15 @@
 			buildConfigurations = (
 				B120EE42207B895800A4A7CA /* Debug */,
 				B120EE43207B895800A4A7CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B190A833228DBA3A00E44821 /* Build configuration list for PBXNativeTarget "ThunderRequestTests-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B190A831228DBA3A00E44821 /* Debug */,
+				B190A832228DBA3A00E44821 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
