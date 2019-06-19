@@ -68,7 +68,12 @@ public class Request {
             throw RequestError.invalidBaseURL
         }
         
-        var allQueryItems = urlQueryItems
+        var allQueryItems = urlQueryItems ?? []
+        
+        // Make sure if base url is our full URL (incl. query items) we don't throw away it's query items!
+        if let baseURLQueryItems = urlComponents.queryItems {
+            allQueryItems.append(contentsOf: baseURLQueryItems)
+        }
         
         if let path = path, let pathComponents = URLComponents(string: path) {
             
@@ -76,10 +81,7 @@ public class Request {
             // and it already contains urlComponents, these are url encoded (i.e. ? => %3F) which breaks requests
             urlComponents.path = urlComponents.path.appending(pathComponents.path)
             if let pathQueryItems = pathComponents.queryItems, !pathQueryItems.isEmpty {
-                if allQueryItems == nil {
-                    allQueryItems = []
-                }
-                allQueryItems?.append(contentsOf: pathQueryItems)
+                allQueryItems.append(contentsOf: pathQueryItems)
             }
             
         } else if let path = path { // If we can't construct url components, just try
