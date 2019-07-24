@@ -24,6 +24,16 @@ class RequestConstructionTests: XCTestCase {
         }
     }
     
+    func testNilQueryItemsAndSpaceInPathDoesntAppendQuestionMark() {
+        let request = Request(baseURL: RequestConstructionTests.testURL, path: " ", method: .GET, queryItems: nil)
+        do {
+            let urlRequest = try request.construct()
+            XCTAssertEqual(urlRequest.url?.absoluteString, "https://www.google.co.uk/%20")
+        } catch let error {
+            XCTFail("Failed to construct request object \(error)")
+        }
+    }
+    
     func testEmptyQueryItemsAppendsQuestionMark() {
         
         let request = Request(baseURL: RequestConstructionTests.testURL, path: "home", method: .GET, queryItems: [])
@@ -78,6 +88,45 @@ class RequestConstructionTests: XCTestCase {
         do {
             let urlRequest = try request.construct()
             XCTAssertEqual(urlRequest.url?.absoluteString, "https://www.google.co.uk/search?term=pie")
+        } catch let error {
+            XCTFail("Failed to construct request object \(error)")
+        }
+    }
+    
+    func testUrlParametersArePulledFromQueryItemsWhenBaseURLProvided() {
+        
+        let url = URL(string: "https://www.google.co.uk/search")!
+        let request = Request(baseURL: url, path: "", method: .GET, queryItems: [URLQueryItem(name: "term", value: "pie")])
+        do {
+            let urlRequest = try request.construct()
+            XCTAssertEqual(urlRequest.url?.absoluteString, "https://www.google.co.uk/search?term=pie")
+        } catch let error {
+            XCTFail("Failed to construct request object \(error)")
+        }
+    }
+    
+    func testUrlParametersArePulledFromQueryItemsWhenPathProvided() {
+        
+        let url = URL(string: "https://www.google.co.uk/")!
+        let request = Request(baseURL: url, path: "search", method: .GET, queryItems: [URLQueryItem(name: "term", value: "pie")])
+        do {
+            let urlRequest = try request.construct()
+            XCTAssertEqual(urlRequest.url?.absoluteString, "https://www.google.co.uk/search?term=pie")
+        } catch let error {
+            XCTFail("Failed to construct request object \(error)")
+        }
+    }
+    
+    func testUrlParametersArePulledFromMultipleQueryItemsWhenPathProvided() {
+        
+        let url = URL(string: "https://www.google.co.uk/")!
+        let request = Request(baseURL: url, path: "search", method: .GET, queryItems: [
+            URLQueryItem(name: "term", value: "pie"),
+            URLQueryItem(name: "test", value: "2")
+        ])
+        do {
+            let urlRequest = try request.construct()
+            XCTAssertEqual(urlRequest.url?.absoluteString, "https://www.google.co.uk/search?term=pie&test=2")
         } catch let error {
             XCTFail("Failed to construct request object \(error)")
         }
