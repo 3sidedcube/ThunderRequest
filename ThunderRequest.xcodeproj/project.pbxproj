@@ -46,6 +46,9 @@
 		B1177EE31BBAF18E00372D4D /* ThunderRequest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1177ED81BBAF18E00372D4D /* ThunderRequest.framework */; };
 		B1177EEA1BBAF18E00372D4D /* ThunderRequestMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B1177EE91BBAF18E00372D4D /* ThunderRequestMacTests.m */; };
 		B120EE41207B895800A4A7CA /* ThunderRequestWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = B120EE3F207B895800A4A7CA /* ThunderRequestWatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B12F021F22E890DF006E853B /* RequestConstructionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12F021E22E890DF006E853B /* RequestConstructionTests.swift */; };
+		B12F022022E890DF006E853B /* RequestConstructionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12F021E22E890DF006E853B /* RequestConstructionTests.swift */; };
+		B12F022122E890DF006E853B /* RequestConstructionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12F021E22E890DF006E853B /* RequestConstructionTests.swift */; };
 		B150EE3B21C7A4E90041C027 /* MultipartFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150EE3A21C7A4E90041C027 /* MultipartFormTests.swift */; };
 		B150EE3D21C7A6C30041C027 /* 350x150.png in Resources */ = {isa = PBXBuildFile; fileRef = B150EE3C21C7A6C30041C027 /* 350x150.png */; };
 		B150EE4A21C8E74C0041C027 /* AuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150EE4921C8E74C0041C027 /* AuthTests.swift */; };
@@ -228,6 +231,7 @@
 		B120EE3D207B895800A4A7CA /* ThunderRequest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThunderRequest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B120EE3F207B895800A4A7CA /* ThunderRequestWatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThunderRequestWatch.h; sourceTree = "<group>"; };
 		B120EE40207B895800A4A7CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B12F021E22E890DF006E853B /* RequestConstructionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestConstructionTests.swift; sourceTree = "<group>"; };
 		B150EE3A21C7A4E90041C027 /* MultipartFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormTests.swift; sourceTree = "<group>"; };
 		B150EE3C21C7A6C30041C027 /* 350x150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 350x150.png; sourceTree = "<group>"; };
 		B150EE4921C8E74C0041C027 /* AuthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTests.swift; sourceTree = "<group>"; };
@@ -536,6 +540,7 @@
 				B150EE3C21C7A6C30041C027 /* 350x150.png */,
 				B150EE4921C8E74C0041C027 /* AuthTests.swift */,
 				B117123F21C51F5A00800EEA /* RequestBodyTests.swift */,
+				B12F021E22E890DF006E853B /* RequestConstructionTests.swift */,
 				C2E5089119C835A300350F00 /* ResponseTests.swift */,
 				B150EE3A21C7A4E90041C027 /* MultipartFormTests.swift */,
 				B117123621C4627000800EEA /* DownloadTests.swift */,
@@ -936,6 +941,7 @@
 				B190A838228DBA7600E44821 /* ResponseTests.swift in Sources */,
 				B1177EEA1BBAF18E00372D4D /* ThunderRequestMacTests.m in Sources */,
 				B190A840228DBA8400E44821 /* MD5Tests.swift in Sources */,
+				B12F022022E890DF006E853B /* RequestConstructionTests.swift in Sources */,
 				B190A834228DBA6F00E44821 /* AuthTests.swift in Sources */,
 				B190A836228DBA7200E44821 /* RequestBodyTests.swift in Sources */,
 				B190A83A228DBA7900E44821 /* MultipartFormTests.swift in Sources */,
@@ -991,6 +997,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B12F022122E890DF006E853B /* RequestConstructionTests.swift in Sources */,
 				B190A839228DBA7700E44821 /* ResponseTests.swift in Sources */,
 				B190A841228DBA8500E44821 /* MD5Tests.swift in Sources */,
 				B190A835228DBA6F00E44821 /* AuthTests.swift in Sources */,
@@ -1050,6 +1057,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B12F021F22E890DF006E853B /* RequestConstructionTests.swift in Sources */,
 				B1EF2E9F1BA70F7B0053B39A /* KeychainTests.swift in Sources */,
 				C2E5089219C835A300350F00 /* ResponseTests.swift in Sources */,
 				B1E6F9B1224F74BB00F7BFC1 /* MD5Tests.swift in Sources */,
