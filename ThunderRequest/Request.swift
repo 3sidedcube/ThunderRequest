@@ -71,7 +71,7 @@ public class Request {
         var allQueryItems = urlQueryItems
         
         // Make sure if base url is our full URL (incl. query items) we don't throw away it's query items!
-        if let baseURLQueryItems = urlComponents.queryItems {
+        if let baseURLQueryItems = urlComponents.queryItems, !baseURLQueryItems.isEmpty {
             if allQueryItems == nil {
                 allQueryItems = []
             }
