@@ -94,7 +94,7 @@ public class Request {
             urlComponents.path = urlComponents.path.appending(path)
         }
         
-        // If we don't have any querty items, set to nil, otherwise we get an extraneous /? on the end of requests
+        // Set the query items, if this is an empty array `?` will be appended, if it's nil, nothing will
         urlComponents.queryItems = allQueryItems
         
         guard let url = urlComponents.url else {
