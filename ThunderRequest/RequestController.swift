@@ -24,7 +24,7 @@ public typealias ProgressHandler = (_ progress: Double, _ totalBytes: Int64, _ t
 /// 3. Use any of the GET/POST e.t.c. methods to perform requests
 ///
 /// IMPORTANT --- `RequestController` uses URLSession internally which hold a strong reference to their delegate. You must therefore call `invalidateAndCancel` when done with your `RequestController` object.
-public final class RequestController {
+open class RequestController {
     
     public enum UploadError: Error {
         case saveToDiskFailed
@@ -230,7 +230,7 @@ public final class RequestController {
     ///   - headers: (Optional) a dictionary of override headers to be merged with `sharedRequestHeaders`
     ///   - completion: (Optional) A closure to be called once the request has completed
     /// - Returns: The request object that will be run
-    @discardableResult public func request(
+    @discardableResult open func request(
         _ path: String?,
         method: HTTP.Method,
         body: RequestBody? = nil,
