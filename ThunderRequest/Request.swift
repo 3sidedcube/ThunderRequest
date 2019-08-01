@@ -51,7 +51,7 @@ public class Request {
         return _log as! OSLog
     }
     
-    init(baseURL: URL, path: String?, method: HTTP.Method, queryItems: [URLQueryItem]?) {
+    public init(baseURL: URL, path: String?, method: HTTP.Method, queryItems: [URLQueryItem]?) {
         
         self.path = path
         self.method = method
