@@ -29,15 +29,15 @@ public struct ErrorRecoveryOption {
     public typealias Handler = (_ option: ErrorRecoveryOption, _ callback: ((Bool) -> Void)?) -> Void
     
     /// The title to be used on the recovery option's button
-    public var title: String
+    public let title: String
 
     /// A closure to be called when the user selects the recovery option.
     /// If none is supplied then the alert dialog will simply dismiss
     /// when this option is selected.
-    public var handler: Handler?
+    public let handler: Handler?
     
     /// The type/style that is applied to the recovery option
-    public var style: Style
+    public let style: Style
     
     /// Creates a new option
     ///
