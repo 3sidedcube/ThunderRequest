@@ -183,9 +183,18 @@ class MultipartFormTests: XCTestCase {
         let imageMultiPartData = imageFile?.multipartDataWith(boundary: "ABCDEFG", key: "image")
         
         #if os(iOS) || os(tvOS)
-        let endStringRange = 1931...1941
-        let imageRange = 141...1932
-        let dataLength = 1942
+        let endStringRange: ClosedRange<Int>
+        let imageRange: ClosedRange<Int>
+        let dataLength: Int
+        if #available(iOS 13.0, *) {
+            dataLength = 2022
+            imageRange = 141...2012
+            endStringRange = 2011...2021
+        } else {
+            dataLength = 1942
+            imageRange = 141...1932
+            endStringRange = 1931...1941
+        }
         #elseif os(macOS)
         let endStringRange = 1952...1962
         let imageRange = 141...1951
@@ -227,7 +236,12 @@ class MultipartFormTests: XCTestCase {
         let payload = formBody.payload()
         
         #if os(iOS) || os(tvOS)
-        let dataLength = 10143
+        let dataLength: Int
+        if #available(iOS 13.0, *) {
+            dataLength = 10223
+        } else {
+            dataLength = 10143
+        }
         #elseif os(macOS)
         let dataLength = 6626
         #endif

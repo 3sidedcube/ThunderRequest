@@ -100,7 +100,7 @@ class RequestBodyTests: XCTestCase {
         XCTAssertNotNil(plistData)
         XCTAssertEqual(plistData?.count, 58)
         XCTAssertEqual(plistBody.contentType, "application/x-plist")
-        XCTAssertEqual(Data(plistData![0...4]), Data(bytes: [
+        XCTAssertEqual(Data(plistData![0...4]), Data([
             98,
             112,
             108,
