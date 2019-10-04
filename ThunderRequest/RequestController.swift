@@ -117,7 +117,10 @@ open class RequestController {
     
     internal let dataStore: DataStore
     
-    internal init(baseURL: URL, dataStore: DataStore) {
+    /// Initialises a request controller with a given base url and data store for url/auth credentials
+    /// - Parameter baseURL: The base URL to use for all requests
+    /// - Parameter dataStore: The data store used to save/retrieve auth and url credentials
+    public init(baseURL: URL, dataStore: DataStore = KeychainStore(serviceName: kTSCAuthServiceName)) {
         
         self.dataStore = dataStore
         
@@ -130,13 +133,6 @@ open class RequestController {
         sessionDelegate = SessionDelegateProxy(delegate: self)
         sharedRequestCredentials = CredentialStore.retrieve(withIdentifier: "thundertable.com.threesidedcube-\(sharedBaseURL)", from: dataStore)
         resetSessions()
-    }
-    
-    /// Initialises a request controller with a given base URL
-    ///
-    /// - Parameter baseURL: The base URL to use for all requests
-    public convenience init(baseURL: URL) {
-        self.init(baseURL: baseURL, dataStore: KeychainStore(serviceName: kTSCAuthServiceName))
     }
     
     /// Initialises a request controller with a given base address
