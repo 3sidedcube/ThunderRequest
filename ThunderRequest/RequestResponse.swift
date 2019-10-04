@@ -28,7 +28,10 @@ public class RequestResponse {
     /// If the request was redirected, this represents the URLResponse for the original request
     public var originalResponse: HTTPURLResponse?
     
-    init(response: URLResponse, data: Data?) {
+    /// Initialises a new request response from a given `URLResponse` and `Data`
+    /// - Parameter response: The response to populate properties with
+    /// - Parameter data: The data that was returned with the response
+    public init(response: URLResponse, data: Data?) {
         
         httpResponse = response as? HTTPURLResponse
         self.data = data
