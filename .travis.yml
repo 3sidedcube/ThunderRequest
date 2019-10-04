@@ -8,7 +8,7 @@ env:
 matrix:
   include:
     - xcode_scheme: ThunderRequest-iOS
-      xcode_destination: platform=iOS Simulator,OS=13.0,name=iPhone XS Max
+      xcode_destination: platform=iOS Simulator,OS=13.0,name=iPhone 11 Pro Max
     - xcode_scheme: ThunderRequest-macOS
       xcode_destination: platform=macOS
     - xcode_scheme: ThunderRequest-tvOS
