@@ -108,6 +108,10 @@ public struct ErrorOverrides {
 /// A struct which attempts to convert any `Error` into a customisable representation
 public struct AnyCustomisableRecoverableError: CustomisableRecoverableError, CustomNSError, LocalizedError {
     
+    public var errorDescription: String? {
+        return originalError.localizedDescription
+    }
+    
     public var localizedDescription: String {
         return originalError.localizedDescription
     }
