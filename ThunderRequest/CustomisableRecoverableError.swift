@@ -106,7 +106,15 @@ public struct ErrorOverrides {
 }
 
 /// A struct which attempts to convert any `Error` into a customisable representation
-public struct AnyCustomisableRecoverableError: CustomisableRecoverableError, CustomNSError {
+public struct AnyCustomisableRecoverableError: CustomisableRecoverableError, CustomNSError, LocalizedError {
+    
+    public var errorDescription: String? {
+        return originalError.localizedDescription
+    }
+    
+    public var localizedDescription: String {
+        return originalError.localizedDescription
+    }
     
     public var description: String?
     
@@ -128,8 +136,11 @@ public struct AnyCustomisableRecoverableError: CustomisableRecoverableError, Cus
         return domain ?? "Unknown"
     }
     
+    private var originalError: Error
+    
     init(_ error: Error) {
         
+        originalError = error
         description = error.localizedDescription
         failureReason = (error as NSError).localizedFailureReason
         recoverySuggestion = (error as NSError).localizedRecoverySuggestion
