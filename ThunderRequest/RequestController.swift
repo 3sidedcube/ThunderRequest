@@ -433,7 +433,7 @@ open class RequestController {
         request.tag = tag
         
         setHeaders(headers, for: request)
-        scheduleDownload(request, on: on, progress: progress, completion: completion)
+        scheduleDownload(request, inBackground: inBackground, on: on, progress: progress, completion: completion)
         
         return request
     }
