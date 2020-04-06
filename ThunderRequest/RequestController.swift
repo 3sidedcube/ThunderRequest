@@ -624,7 +624,7 @@ open class RequestController {
                     RequestController.hideApplicationActivityIndicator()
                     var returnResponse: RequestResponse?
                     if let requestResponse = response.response {
-                        returnResponse = RequestResponse(response: requestResponse, data: nil)
+                        returnResponse = RequestResponse(response: requestResponse, data: nil, fileURL: response.downloadURL)
                     }
                     completion?(returnResponse, response.downloadURL, error)
                     
