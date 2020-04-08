@@ -49,7 +49,7 @@ extension RequestController {
         
         var requestResponse: RequestResponse?
         if let urlResponse = response {
-            requestResponse = RequestResponse(response: urlResponse, data: nil)
+            requestResponse = RequestResponse(response: urlResponse, data: nil, fileURL: fileURL)
         }
         
         transferCompletionHandlers[taskIdentifier]?(requestResponse, fileURL, error)

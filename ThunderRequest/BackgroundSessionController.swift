@@ -27,15 +27,21 @@ public class BackgroundRequestController: NSObject, URLSessionDelegate, URLSessi
     
     private var urlSession: URLSession?
     
+    private let readData: Bool
+    
     /// Creates a new request controller with a background session configuration identifier passed by the OS.
     ///
     /// - Parameters:
     ///   - identifier: The identifier to re-create the `URLSessionConfiguration` using.
     ///   - responseHandler: A closure called with the response to each background request.
-    ///   - finishHandler: A closure called when all background events have finished.
+    ///   - finishedHandler: A closure called when all background events have finished.
     ///   - queue: The operation queue to call back on.
-    public init(identifier: String, responseHandler: ResponseHandler?, finishedHandler: FinishHandler?, queue: OperationQueue? = nil) {
+    ///   - readDataAutomatically: Setting this to false allows you to stop the downloaded file's data being read from disk.
+    ///   Reading from disk can cause problems with large background downloads as the background Daemon has a ~40mb memory limit
+    ///   before being killed by the OS!
+    public init(identifier: String, responseHandler: ResponseHandler?, finishedHandler: FinishHandler?, readDataAutomatically: Bool = true, queue: OperationQueue? = nil) {
         
+        readData = readDataAutomatically
         self.responseHandler = responseHandler
         self.finishedHandler = finishedHandler
         sessionConfiguration = URLSessionConfiguration.background(withIdentifier: identifier)
@@ -56,7 +62,11 @@ public class BackgroundRequestController: NSObject, URLSessionDelegate, URLSessi
             responseHandler?(downloadTask, nil, nil)
             return
         }
-        let response = RequestResponse(response: taskResponse, data: try? Data(contentsOf: location))
+        var data: Data?
+        if readData {
+            data = try? Data(contentsOf: location)
+        }
+        let response = RequestResponse(response: taskResponse, data: data, fileURL: location)
         responseHandler?(downloadTask, response, nil)
     }
     
