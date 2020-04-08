@@ -113,6 +113,12 @@ open class RequestController {
     /// Similar to a default session, except that a seperate process handles all data transfers. Background sessions have some additional limitations.
     private var ephemeralSession: URLSession = URLSession(configuration: URLSessionConfiguration.ephemeral)
     
+    /// Returns the session identifier that was used to create the background session's `URLSessionConfiguration` object
+    /// this is useful for checking session identifiers when working with "Background Transfer Service"
+    public var backgroundSessionIdentifier: String? {
+        return backgroundSession.configuration.identifier
+    }
+    
     ///MARK: - Initialization -
     
     internal let dataStore: DataStore
