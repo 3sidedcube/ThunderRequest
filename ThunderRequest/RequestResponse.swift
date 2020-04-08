@@ -18,6 +18,10 @@ public class RequestResponse {
         return httpResponse?.allHeaderFields
     }
     
+    /// File url the response's data was saved to. This is only present for file downloads and is useful
+    /// to get around the `40mb` memory limit which the Apple background service imposes on background download daemon
+    public let fileURL: URL?
+    
     /// Raw data returned from the server
     public let data: Data?
     
@@ -31,10 +35,11 @@ public class RequestResponse {
     /// Initialises a new request response from a given `URLResponse` and `Data`
     /// - Parameter response: The response to populate properties with
     /// - Parameter data: The data that was returned with the response
-    public init(response: URLResponse, data: Data?) {
-        
+    /// - Parameter fileURL: The file url that the responses download was saved to (Only present for download tasks!)
+    public init(response: URLResponse, data: Data?, fileURL: URL? = nil) {
         httpResponse = response as? HTTPURLResponse
         self.data = data
+        self.fileURL = fileURL
     }
     
     /// The status of the HTTP request as an enum
