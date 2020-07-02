@@ -18,6 +18,11 @@ extension RequestController {
     
     public static let ErrorDomain = "com.threesidedcube.ThunderRequest"
     
+    /// `Notification` posted when the `Error` from a URL task
+    /// is `URLError.code == .notConnectedToInternet`
+    public static let DidErrorWithNotConnectedToInternetNotificationName =
+        Notification.Name(rawValue: "TSCDidErrorWithNotConnectedToInternet")
+    
     public static let DidReceiveResponseNotificationName = Notification.Name(rawValue: "TSCRequestDidReceiveResponse")
     
     public static let DidErrorNotificationName = Notification.Name("TSCRequestServerError")
@@ -73,6 +78,10 @@ extension RequestController {
         requestInfo[RequestNotificationKey.response] = response
         
         NotificationCenter.default.post(name: RequestController.DidReceiveResponseNotificationName, object: nil, userInfo: requestInfo)
+        
+        if let urlError = error as? URLError, urlError.code == .notConnectedToInternet {
+            NotificationCenter.default.post(name: RequestController.DidErrorWithNotConnectedToInternetNotificationName, object: nil, userInfo: requestInfo)
+        }
         
         if response?.status.isConsideredError == true {
             NotificationCenter.default.post(name: RequestController.DidErrorNotificationName, object: nil, userInfo: requestInfo)
