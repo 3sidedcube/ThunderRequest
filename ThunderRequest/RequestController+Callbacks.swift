@@ -12,16 +12,16 @@ import os.log
 public struct RequestNotificationKey {
     public static let request = "TSCRequestNotificationRequestKey"
     public static let response = "TSCRequestNotificationResponseKey"
+    public static let error = "TSCRequestNotificationErrorKey"
 }
 
 extension RequestController {
     
     public static let ErrorDomain = "com.threesidedcube.ThunderRequest"
     
-    /// `Notification` posted when the `Error` from a URL task
-    /// is `URLError.code == .notConnectedToInternet`
-    public static let DidErrorWithNotConnectedToInternetNotificationName =
-        Notification.Name(rawValue: "TSCDidErrorWithNotConnectedToInternet")
+    /// Name of `Notification` posted when the `Error` from a URL task is a `URLError`
+    public static let RequestDidURLErrorNotificationName =
+        Notification.Name(rawValue: "TSCRequestDidURLError")
     
     public static let DidReceiveResponseNotificationName = Notification.Name(rawValue: "TSCRequestDidReceiveResponse")
     
@@ -79,8 +79,10 @@ extension RequestController {
         
         NotificationCenter.default.post(name: RequestController.DidReceiveResponseNotificationName, object: nil, userInfo: requestInfo)
         
-        if let urlError = error as? URLError, urlError.code == .notConnectedToInternet {
-            NotificationCenter.default.post(name: RequestController.DidErrorWithNotConnectedToInternetNotificationName, object: nil, userInfo: requestInfo)
+        if let urlError = error as? URLError {
+            var userInfo = requestInfo
+            userInfo[RequestNotificationKey.error] = urlError
+            NotificationCenter.default.post(name: RequestController.RequestDidURLErrorNotificationName, object: nil, userInfo: userInfo)
         }
         
         if response?.status.isConsideredError == true {
