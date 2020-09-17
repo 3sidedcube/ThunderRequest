@@ -1,16 +1,26 @@
 # Thunder Request
 
-[![Build Status](https://travis-ci.org/3sidedcube/ThunderRequest.svg)](https://travis-ci.org/3sidedcube/ThunderRequest) [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Swift 5.2](http://img.shields.io/badge/swift-5.2-brightgreen.svg)](https://swift.org/blog/swift-5-2-released/) [![Apache 2](https://img.shields.io/badge/license-Apache%202-brightgreen.svg)](LICENSE.md)
+[![Build Status](https://travis-ci.org/3sidedcube/ThunderRequest.svg)](https://travis-ci.org/3sidedcube/ThunderRequest) [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Swift 5.3](http://img.shields.io/badge/swift-5.3-brightgreen.svg)](https://swift.org/blog/swift-5-3-released/) [![Apache 2](https://img.shields.io/badge/license-Apache%202-brightgreen.svg)](LICENSE.md)
 
 Thunder Request is a Framework used to simplify making http and https web requests.
 
 # Installation
 
-Setting up your app to use Thunder Request is a simple and quick process.
+Setting up your app to use ThunderBasics is a simple and quick process. You can choose between a manual installation, or use Carthage.
 
-+ Drag the project file into your project
-+ Add ThunderRequest.framework to your Embedded Binaries.
-+ Wherever you want to use ThunderRequest use `import ThunderRequest`.
+## Carthage
+
+- Add `github "3sidedcube/ThunderRequest" == 2.3.0` to your Cartfile.
+- Run `carthage update --platform ios` to fetch the framework.
+- Drag `ThunderRequest` into your project's _Linked Frameworks and Libraries_ section from the `Carthage/Build` folder.
+- Add the Build Phases script step as defined [here](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos).
+
+## Manual
+
+- Clone as a submodule, or download this repo
+- Import ThunderRequest.xcproject into your project
+- Add ThunderRequest.framework to your Embedded Binaries.
+- Wherever you want to use ThunderBasics use `import ThunderRequest` if you're using swift.
 
 # Authentication Support
 Support for authentication protocols such as OAuth2 is available via the `Authenticator` protocol which when set on `RequestController` will have it's delegate methods called to refresh the user's token when it either expires or a 403 is sent by the server.
