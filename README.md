@@ -1,6 +1,6 @@
 # Thunder Request
 
-[![Build Status](https://travis-ci.org/3sidedcube/ThunderRequest.svg)](https://travis-ci.org/3sidedcube/ThunderRequest) [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Swift 5.3](http://img.shields.io/badge/swift-5.3-brightgreen.svg)](https://swift.org/blog/swift-5-3-released/) [![Apache 2](https://img.shields.io/badge/license-Apache%202-brightgreen.svg)](LICENSE.md)
+[![Build Status](https://travis-ci.org/3sidedcube/ThunderRequest.svg)](https://travis-ci.org/3sidedcube/ThunderRequest) [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Swift 5.3.2](http://img.shields.io/badge/swift-5.3.2-brightgreen.svg)](https://swift.org/blog/swift-5-3-released/) [![Apache 2](https://img.shields.io/badge/license-Apache%202-brightgreen.svg)](LICENSE.md)
 
 Thunder Request is a Framework used to simplify making http and https web requests.
 
@@ -10,7 +10,7 @@ Setting up your app to use ThunderBasics is a simple and quick process. You can 
 
 ## Carthage
 
-- Add `github "3sidedcube/ThunderRequest" == 2.3.0` to your Cartfile.
+- Add `github "3sidedcube/ThunderRequest" == 2.3.1` to your Cartfile.
 - Run `carthage update --platform ios` to fetch the framework.
 - Drag `ThunderRequest` into your project's _Linked Frameworks and Libraries_ section from the `Carthage/Build` folder.
 - Add the Build Phases script step as defined [here](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos).
