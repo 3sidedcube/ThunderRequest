@@ -48,8 +48,10 @@ public final class RequestCredential: NSObject, NSCoding {
     ///
     /// - Parameter keychainData: The data which was retrieved from the keychain
     init?(keychainData: Data) {
-        
-        guard let credential = NSKeyedUnarchiver.unarchiveObject(with: keychainData) as? RequestCredential else {
+        guard let credential = try? NSKeyedUnarchiver.unarchivedObject(
+            ofClass: RequestCredential.self,
+            from: keychainData
+        ) else {
             return nil
         }
         
@@ -70,8 +72,11 @@ public final class RequestCredential: NSObject, NSCoding {
     }
     
     /// The data to store in the keychain
-    public var keychainData: Data {
-        return NSKeyedArchiver.archivedData(withRootObject:self)
+    public func keychainData() throws -> Data {
+        return try NSKeyedArchiver.archivedData(
+            withRootObject: self,
+            requiringSecureCoding: false
+        )
     }
     
     /// Creates a new username/password based credential
