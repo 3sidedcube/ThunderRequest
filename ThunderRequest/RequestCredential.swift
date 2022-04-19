@@ -52,8 +52,9 @@ public final class RequestCredential: NSObject, NSSecureCoding {
     ///
     /// - Parameter keychainData: The data which was retrieved from the keychain
     init(keychainData: Data) throws {
+        // Root object RequestCredential and other encoded types
         let requestCredential = try NSKeyedUnarchiver.unarchivedObject(
-            ofClasses: [RequestCredential.self, NSString.self],
+            ofClasses: [RequestCredential.self, NSString.self, NSDate.self],
             from: keychainData
         )
 
