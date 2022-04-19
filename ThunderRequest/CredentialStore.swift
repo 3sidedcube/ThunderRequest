@@ -184,7 +184,7 @@ public struct CredentialStore {
             return nil
         }
         
-        return RequestCredential.init(keychainData: data)
+        return try? RequestCredential(keychainData: data)
     }
     
     /// Deletes an entry for a certain identifier from the keychain
