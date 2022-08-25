@@ -16,7 +16,7 @@ class DummyAuthenticator: Authenticator {
     }
     
     var keychainAccessibility: CredentialStore.Accessibility {
-        return .always
+        return .afterFirstUnlock
     }
     
     func reAuthenticate(credential: RequestCredential?, completion: (RequestCredential?, Error?, Bool) -> Void) {
@@ -74,7 +74,12 @@ class AuthTests: XCTestCase {
         let credential = RequestCredential(authorizationToken: "token", refreshToken: "refresh", expiryDate: Date(timeIntervalSinceNow: 1600))
         
         
-        CredentialStore.store(credential: credential, identifier: "dummyauthenticator", accessibility: .always, in: store)
+        CredentialStore.store(
+            credential: credential,
+            identifier: "dummyauthenticator",
+            accessibility: .afterFirstUnlock,
+            in: store
+        )
         
         let authenticator = DummyAuthenticator()
         requestController.authenticator = authenticator
@@ -90,7 +95,12 @@ class AuthTests: XCTestCase {
         
         let store = KeychainMockStore()
         
-        CredentialStore.store(credential: credential, identifier: "thundertable.com.threesidedcube-https://httpbin.org/", accessibility: .always, in: store)
+        CredentialStore.store(
+            credential: credential,
+            identifier: "thundertable.com.threesidedcube-https://httpbin.org/",
+            accessibility: .afterFirstUnlock,
+            in: store
+        )
         
         let requestController = RequestController(baseURL: requestBaseURL, dataStore: store)
         

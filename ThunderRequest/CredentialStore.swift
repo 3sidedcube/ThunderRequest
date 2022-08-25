@@ -126,27 +126,20 @@ public struct CredentialStore {
     /// - afterFirstUnlockThisDeviceOnly: The data in the keychain item cannot be accessed after a restart until the device has been unlocked once by the user. Does not migrate to new devices.
     /// - alwaysThisDeviceOnly: The data in the keychain item can always be accessed regardless of whether the device is locked. Does not migrate to new devices.
     public enum Accessibility {
-        
         case afterFirstUnlock
-        case always
         case whenUnlocked
         case whenPasscodeSetThisDeviceOnly
         case whenUnlockedThisDeviceOnly
         case afterFirstUnlockThisDeviceOnly
-        case alwaysThisDeviceOnly
         
         var cfString: CFString {
             switch self {
             case .afterFirstUnlock:
                 return kSecAttrAccessibleAfterFirstUnlock
-            case .always:
-                return kSecAttrAccessibleAlways
             case .whenUnlocked:
                 return kSecAttrAccessibleWhenUnlocked
             case .afterFirstUnlockThisDeviceOnly:
                 return kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
-            case .alwaysThisDeviceOnly:
-                return kSecAttrAccessibleAlwaysThisDeviceOnly
             case .whenPasscodeSetThisDeviceOnly:
                 return kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly
             case .whenUnlockedThisDeviceOnly:
@@ -172,10 +165,12 @@ public struct CredentialStore {
         let existingCredential = retrieve(withIdentifier: identifier)
         let exists = existingCredential != nil
         
+        guard let data = try? credential.keychainData() else { return false }
+        
         if exists {
-            return store.update(data: credential.keychainData, identifier: identifier, accessibility: accessibility)
+            return store.update(data: data, identifier: identifier, accessibility: accessibility)
         } else {
-            return store.add(data: credential.keychainData, identifier: identifier, accessibility: accessibility)
+            return store.add(data: data, identifier: identifier, accessibility: accessibility)
         }
     }
     
@@ -189,7 +184,7 @@ public struct CredentialStore {
             return nil
         }
         
-        return RequestCredential.init(keychainData: data)
+        return try? RequestCredential(keychainData: data)
     }
     
     /// Deletes an entry for a certain identifier from the keychain
