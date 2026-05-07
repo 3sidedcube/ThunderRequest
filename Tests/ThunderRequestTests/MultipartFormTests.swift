@@ -41,7 +41,7 @@ class MultipartFormTests: XCTestCase {
     
     func testImageFormatsCorrectly() {
         
-        guard let imageURL = Bundle(for: MultipartFormTests.self).url(forResource: "350x150", withExtension: "png") else {
+        guard let imageURL = Bundle.module.url(forResource: "350x150", withExtension: "png") else {
             fatalError("Couldn't find test image file")
         }
         guard let image = UIImage(contentsOfFile: imageURL.path) else {
@@ -75,7 +75,7 @@ class MultipartFormTests: XCTestCase {
     
     func testFileElementFormatsCorrectly() {
         
-        guard let imageURL = Bundle(for: MultipartFormTests.self).url(forResource: "350x150", withExtension: "png") else {
+        guard let imageURL = Bundle.module.url(forResource: "350x150", withExtension: "png") else {
             fatalError("Couldn't find test image file")
         }
         guard let fileData = try? Data(contentsOf: imageURL) else {
@@ -106,7 +106,7 @@ class MultipartFormTests: XCTestCase {
     
     func testFileElementWithDefaultsFormatsCorrectly() {
         
-        guard let imageURL = Bundle(for: MultipartFormTests.self).url(forResource: "350x150", withExtension: "png") else {
+        guard let imageURL = Bundle.module.url(forResource: "350x150", withExtension: "png") else {
             fatalError("Couldn't find test image file")
         }
         guard let fileData = try? Data(contentsOf: imageURL) else {
@@ -134,7 +134,7 @@ class MultipartFormTests: XCTestCase {
     
     func testJpegFileFormatsCorrectly() {
         
-        guard let imageURL = Bundle(for: MultipartFormTests.self).url(forResource: "350x150", withExtension: "png") else {
+        guard let imageURL = Bundle.module.url(forResource: "350x150", withExtension: "png") else {
             fatalError("Couldn't find test image file")
         }
         guard let image = UIImage(contentsOfFile: imageURL.path) else {
@@ -170,7 +170,7 @@ class MultipartFormTests: XCTestCase {
     
     func testPNGFileFormatsCorrectly() {
         
-        guard let imageURL = Bundle(for: MultipartFormTests.self).url(forResource: "350x150", withExtension: "png") else {
+        guard let imageURL = Bundle.module.url(forResource: "350x150", withExtension: "png") else {
             fatalError("Couldn't find test image file")
         }
         guard let image = UIImage(contentsOfFile: imageURL.path) else {
@@ -215,7 +215,7 @@ class MultipartFormTests: XCTestCase {
     
     func testWholeFormFormatsCorrectly() {
         
-        guard let imageURL = Bundle(for: MultipartFormTests.self).url(forResource: "350x150", withExtension: "png") else {
+        guard let imageURL = Bundle.module.url(forResource: "350x150", withExtension: "png") else {
             fatalError("Couldn't find test image file")
         }
         guard let image = UIImage(contentsOfFile: imageURL.path) else {
