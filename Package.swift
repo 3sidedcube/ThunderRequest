@@ -4,11 +4,12 @@ import PackageDescription
 let package = Package(
     name: "ThunderRequest",
     platforms: [
-        .iOS(.v16)
+        .iOS("18.0")
     ],
     products: [
         .library(
             name: "ThunderRequest",
+            type: .dynamic,
             targets: ["ThunderRequest"]
         )
     ],
