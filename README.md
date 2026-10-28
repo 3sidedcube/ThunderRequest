@@ -1,26 +1,18 @@
 # Thunder Request
 
-[![Build Status](https://travis-ci.org/3sidedcube/ThunderRequest.svg)](https://travis-ci.org/3sidedcube/ThunderRequest) [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Swift 5.5](http://img.shields.io/badge/swift-5.5-brightgreen.svg)](https://swift.org/blog/swift-5-5-released/) [![Apache 2](https://img.shields.io/badge/license-Apache%202-brightgreen.svg)](LICENSE.md)
+[![Build Status](https://travis-ci.org/3sidedcube/ThunderRequest.svg)](https://travis-ci.org/3sidedcube/ThunderRequest) [![Swift 5.5](http://img.shields.io/badge/swift-5.5-brightgreen.svg)](https://swift.org/blog/swift-5-5-released/) [![Apache 2](https://img.shields.io/badge/license-Apache%202-brightgreen.svg)](LICENSE.md)
 
 Thunder Request is a Framework used to simplify making http and https web requests.
 
 # Installation
 
-Setting up your app to use ThunderBasics is a simple and quick process. You can choose between a manual installation, or use Carthage.
+Add the package with Swift Package Manager, either in Xcode (File › Add Package Dependencies…) or in a `Package.swift`:
 
-## Carthage
+```swift
+.package(url: "https://github.com/3sidedcube/ThunderRequest.git", branch: "feature/spm-v27")
+```
 
-- Add `github "3sidedcube/ThunderRequest" == 3.0.0` to your Cartfile.
-- Run `carthage update --platform ios --use-xcframeworks` to fetch the framework.
-- Drag `ThunderRequest` into your project's _Frameworks and Libraries_ section from the `Carthage/Build` folder (Embed).
-- Add the Build Phases script step as defined [here](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos).
-
-## Manual
-
-- Clone as a submodule, or download this repo
-- Import ThunderRequest.xcproject into your project
-- Add ThunderRequest.framework to your Embedded Binaries.
-- Wherever you want to use ThunderBasics use `import ThunderRequest` if you're using swift.
+`ThunderRequest` is a dynamic library product. Add it to your app target with **Embed & Sign**; other targets that use it (frameworks, app extensions, test bundles) link it without embedding, so the app loads a single copy.
 
 # Authentication Support
 Support for authentication protocols such as OAuth2 is available via the `Authenticator` protocol which when set on `RequestController` will have it's delegate methods called to refresh the user's token when it either expires or a 403 is sent by the server.
