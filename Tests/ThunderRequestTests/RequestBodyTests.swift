@@ -133,7 +133,7 @@ class RequestBodyTests: XCTestCase {
     
     func testDataBodyCreatesDataCorrectly() {
         
-        guard let fileURL = Bundle(for: RequestBodyTests.self).url(forResource: "350x150", withExtension: "png") else {
+        guard let fileURL = Bundle.module.url(forResource: "350x150", withExtension: "png") else {
             fatalError("Failed to get url for test png")
         }
         guard let data = try? Data(contentsOf: fileURL) else {

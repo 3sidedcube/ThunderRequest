@@ -320,7 +320,7 @@ class ResponseTests: XCTestCase {
     
     func testMultipartRequestReturnsCorrectResponse() {
         
-        guard let imageURL = Bundle(for: MultipartFormTests.self).url(forResource: "350x150", withExtension: "png") else {
+        guard let imageURL = Bundle.module.url(forResource: "350x150", withExtension: "png") else {
             fatalError("Couldn't find test image file")
         }
         guard let image = UIImage(contentsOfFile: imageURL.path) else {
