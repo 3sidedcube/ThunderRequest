@@ -9,7 +9,7 @@ Thunder Request is a Framework used to simplify making http and https web reques
 Add the package with Swift Package Manager, either in Xcode (File › Add Package Dependencies…) or in a `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/3sidedcube/ThunderRequest.git", branch: "feature/spm-v27")
+.package(url: "https://github.com/3sidedcube/ThunderRequest.git", from: "27.1.0")
 ```
 
 `ThunderRequest` is a dynamic library product. Add it to your app target with **Embed & Sign**; other targets that use it (frameworks, app extensions, test bundles) link it without embedding, so the app loads a single copy.
